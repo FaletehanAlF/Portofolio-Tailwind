@@ -1,4 +1,4 @@
-<h1 align="center">💻 Portfolio — Faletehan Al Farabi</h1>
+<h1 align="center">💻 Portofolio — Faletehan Al Farabi</h1>
 
 <p align="center">
   <strong>Software Engineering Student | Web Development | UI/UX</strong>
