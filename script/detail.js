@@ -148,24 +148,31 @@
       return;
     }
 
-    grid.innerHTML = others.map(p => `
-      <a href="?project=${encodeURIComponent(p.slug)}"
-        class="card overflow-hidden group flex flex-col">
-        <div class="h-36 sm:h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(p.image)}" alt="${escapeHtml(pick(p.name))}"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-        </div>
-        <div class="p-4 flex items-center justify-between gap-3 flex-1">
-          <div class="min-w-0">
-            <h3 class="text-sm font-bold mb-0.5 truncate" style="color:var(--color-text);">${escapeHtml(pick(p.name))}</h3>
-            <span class="text-xs font-semibold">${escapeHtml(pick(p.category))}</span>
+const techIconsHtml = (p.tech || []).slice(0, 3).map(t =>
+          `<img src="${escapeHtml(t.icon)}" alt="${escapeHtml(t.name)}" title="${escapeHtml(t.name)}" class="w-4 h-4 rounded-full object-contain" loading="lazy" />`
+        ).join('');
+      grid.innerHTML = others.map(p => `
+        <a href="?project=${encodeURIComponent(p.slug)}"
+          class="card overflow-hidden group flex flex-col">
+          <div class="h-36 sm:h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
+            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(pick(p.name))}"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
           </div>
-          <span class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-1"
-            style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
-            <i data-feather="arrow-right" class="w-4 h-4" style="color:var(--color-accent);"></i>
-          </span>
-        </div>
-      </a>`).join('');
+          <div class="p-4 flex flex-col gap-2 flex-1">
+            <div class="min-w-0">
+              <h3 class="text-sm font-bold mb-0.5 truncate" style="color:var(--color-text);">${escapeHtml(pick(p.name))}</h3>
+              <span class="text-xs font-semibold">${escapeHtml(pick(p.category))}</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              ${techIconsHtml}
+              ${(p.tech || []).length > 3 ? `<span class="text-xs font-semibold" style="color:var(--color-text-muted);">+${p.tech.length - 3}</span>` : ''}
+            </div>
+            <span class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-1 mt-auto"
+              style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
+              <i data-feather="arrow-right" class="w-4 h-4" style="color:var(--color-accent);"></i>
+            </span>
+          </div>
+        </a>`).join('');
 
     section.classList.remove('hidden');
   }
@@ -232,7 +239,7 @@
     const setInfo = (id, val) => { const el = $(id); if (el) el.textContent = val; };
     setInfo('d-info-category', category || '—');
     setInfo('d-info-year', p.year || '—');
-    setInfo('d-info-stack', (p.tech && p.tech.length ? `${p.tech.length} Tech` : '—'));
+    setInfo('d-info-stack', (p.tech && p.tech.length ? p.tech.map(t => t.name).join(', ') : '—'));
     setInfo('d-info-status', isSoon ? t('comingSoonPlain') : t('completedPlain'));
     const infoStatus = $('d-info-status');
     if (infoStatus) infoStatus.style.color = isSoon ? 'var(--color-text-muted)' : '#16a34a';

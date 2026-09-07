@@ -786,8 +786,8 @@ const ProjectsSection = (() => {
     const grid = document.getElementById('projects-grid');
     if (!grid || !data) return;
     // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
-    grid.innerHTML = chunk(data, 6).map(page =>
-      `<div class="pager-page"><div class="pager-grid">${page.map(card).join('')}</div></div>`
+    grid.innerHTML = chunk(data, 6).map((page, i) =>
+      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid">${page.map(card).join('')}</div></div>`
     ).join('');
     const count = document.getElementById('projects-count');
     if (count) count.textContent = data.length;
@@ -796,9 +796,13 @@ const ProjectsSection = (() => {
   }
 
   async function init() {
-    const json = await DataService.projects();
-    data = json.projects || [];
-    render();
+    try {
+      const json = await DataService.projects();
+      data = json.projects || [];
+      render();
+    } catch (err) {
+      console.error('[Projects] Failed to load:', err);
+    }
   }
 
   return { init, render };
@@ -837,8 +841,8 @@ const CertificatesSection = (() => {
     const grid = document.getElementById('certificates-grid');
     if (!grid || !data) return;
     // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
-    grid.innerHTML = chunk(data, 6).map(page =>
-      `<div class="pager-page"><div class="pager-grid">${page.map(card).join('')}</div></div>`
+    grid.innerHTML = chunk(data, 6).map((page, i) =>
+      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid">${page.map(card).join('')}</div></div>`
     ).join('');
     const count = document.getElementById('certs-count');
     if (count) count.textContent = data.length;
@@ -847,9 +851,13 @@ const CertificatesSection = (() => {
   }
 
   async function init() {
-    const json = await DataService.certificates();
-    data = json.certificates || [];
-    render();
+    try {
+      const json = await DataService.certificates();
+      data = json.certificates || [];
+      render();
+    } catch (err) {
+      console.error('[Certificates] Failed to load:', err);
+    }
   }
 
   return { init, render };
@@ -890,6 +898,23 @@ const ShowcaseSlider = (() => {
     const idx = clampPage(key, current[key] || 0);
     current[key] = idx;
     track.style.transform = `translateX(-${idx * 100}%)`;
+
+    // Mark active page for staggered card animations
+    const pages = track.querySelectorAll(':scope > .pager-page');
+    pages.forEach((p, i) => {
+      const wasActive = p.classList.contains('page-active');
+      p.classList.toggle('page-active', i === idx);
+      // Re-trigger card animations when becoming active
+      if (i === idx && !wasActive) {
+        p.querySelectorAll('.card').forEach(card => {
+          card.style.transition = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px) scale(0.97)';
+          void card.offsetHeight;
+          card.style.transition = '';
+        });
+      }
+    });
 
     const dotsWrap = document.getElementById(cfg.dots);
     if (dotsWrap) {
@@ -1029,22 +1054,28 @@ const TechStackSection = (() => {
   }
 
   async function init() {
-    const json = await DataService.techstack();
-    const slider = document.getElementById('logo-slider');
-    const grid = document.getElementById('techstack-grid');
+    try {
+      const json = await DataService.techstack();
+      const slider = document.getElementById('logo-slider');
+      const grid = document.getElementById('techstack-grid');
 
-    if (slider && json.marquee) slider.innerHTML = json.marquee.map(marqueeItem).join('');
-    if (grid && json.grid) {
-      // 12 item per halaman, geser halus seperti project & certificate
-      const pages = [];
-      for (let i = 0; i < json.grid.length; i += 12) pages.push(json.grid.slice(i, i + 12));
-      grid.innerHTML = pages.map(page =>
-        `<div class="pager-page"><div class="pager-grid pager-grid-tech">${page.map(gridItem).join('')}</div></div>`
-      ).join('');
-      const count = document.getElementById('techstack-count');
-      if (count) count.textContent = json.grid.length;
-      observeFadeUp(grid);
-      if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('techstack');
+      if (slider && json && json.marquee) {
+        slider.innerHTML = json.marquee.map(marqueeItem).join('');
+      }
+      if (grid && json && json.grid) {
+        // 12 item per halaman, geser halus seperti project & certificate
+        const pages = [];
+        for (let i = 0; i < json.grid.length; i += 12) pages.push(json.grid.slice(i, i + 12));
+        grid.innerHTML = pages.map((page, i) =>
+          `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid pager-grid-tech">${page.map(gridItem).join('')}</div></div>`
+        ).join('');
+        const count = document.getElementById('techstack-count');
+        if (count) count.textContent = json.grid.length;
+        observeFadeUp(grid);
+        if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('techstack');
+      }
+    } catch (err) {
+      console.error('[TechStack] Failed to initialize:', err);
     }
   }
 
@@ -1053,15 +1084,13 @@ const TechStackSection = (() => {
 
 /* Load all JSON-driven sections, then start sliders */
 async function loadData() {
-  try {
-    await Promise.all([
-      TechStackSection.init(),
-      ProjectsSection.init(),
-      CertificatesSection.init(),
-    ]);
-  } catch (err) {
-    console.error('[Portfolio] Failed to load API data:', err);
-  }
+  // Load each section independently — one failure must not block the others
+  const results = await Promise.allSettled([
+    TechStackSection.init().catch(e => { console.error('[TechStack] Load failed:', e); }),
+    ProjectsSection.init().catch(e => { console.error('[Projects] Load failed:', e); }),
+    CertificatesSection.init().catch(e => { console.error('[Certificates] Load failed:', e); }),
+  ]);
+
   initMarquee();
   initLogoSlider();
   if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refreshAll();

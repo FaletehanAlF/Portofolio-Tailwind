@@ -235,8 +235,8 @@
 
     // Chunk into pages of 6
     const pages = chunk(items, 6);
-    track.innerHTML = pages.map(pageItems =>
-      `<div class="pager-page"><div class="pager-grid">${pageItems.map(cardFn).join('')}</div></div>`
+    track.innerHTML = pages.map((pageItems, i) =>
+      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid">${pageItems.map(cardFn).join('')}</div></div>`
     ).join('');
 
     if (countEl) countEl.textContent = `${items.length} ${t('items')}`;
@@ -282,11 +282,29 @@
     const nextBtn = $('archive-next');
     if (!track) return;
 
-    const totalPages = track.querySelectorAll(':scope > .pager-page').length;
+    const pages = track.querySelectorAll(':scope > .pager-page');
+    const totalPages = pages.length;
     const idx = Math.max(0, Math.min(totalPages - 1, State.currentPage));
     State.currentPage = idx;
 
     track.style.transform = `translateX(-${idx * 100}%)`;
+
+    // Mark active page for staggered card animations
+    pages.forEach((p, i) => {
+      const wasActive = p.classList.contains('page-active');
+      p.classList.toggle('page-active', i === idx);
+      // Re-trigger card animations when becoming active
+      if (i === idx && !wasActive) {
+        p.querySelectorAll('.card').forEach(card => {
+          card.style.transition = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px) scale(0.97)';
+          // Force reflow then animate
+          void card.offsetHeight;
+          card.style.transition = '';
+        });
+      }
+    });
 
     // Update dots active state
     const dotsEl = $('archive-dots');

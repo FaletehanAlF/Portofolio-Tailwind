@@ -316,17 +316,24 @@
   }
 
   .tab-panel {
-    display: none;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
     transform: translateY(8px);
     transition:
       opacity 0.3s ease,
-      transform 0.3s ease;
+      transform 0.3s ease,
+      max-height 0.35s ease,
+      visibility 0.28s ease;
   }
 
   .tab-panel.active {
-    display: block;
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    max-height: 3200px;
     transform: translateY(0);
   }
 
@@ -734,6 +741,26 @@
     transform: scale(0.92);
   }
 
+  /* ===== Slider dots entrance animation ===== */
+  #archive-dots, #projects-dots, #certs-dots, #techstack-dots {
+    animation: dotsFadeIn 0.4s ease;
+  }
+
+  @keyframes dotsFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Card glow on hover (accent color) ===== */
+  .pager-page.page-active .card:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* ===== Smooth page counter transition ===== */
+  #archive-count, #projects-count, #certs-count {
+    transition: opacity 0.2s ease;
+  }
+
   .pager-grid {
     display: grid;
     gap: 1.25rem;
@@ -894,6 +921,43 @@
     }
   }
 
+  @layer components {
+  /* Performance: content-visibility for off-screen sections */
+  .performance {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Subtle pulse animation */
+  @keyframes subtle-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Glow effect */
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+  }
+
+  /* Section entrance */
+  .section-entrance {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .section-entrance.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Filter chip */
   .filter-chip {
     font-size: 0.78rem;
     font-weight: 600;
@@ -922,6 +986,20 @@
     .capsule-nav .capsule-bar {
       padding-left: 0.75rem;
       padding-right: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-entrance {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .card-lift {
+      transition: none;
+    }
+    .glow-accent {
+      box-shadow: none;
     }
   }
 }
