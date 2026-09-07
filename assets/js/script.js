@@ -43,6 +43,8 @@ const translations = {
     'portfolio.tab_projects': 'Projects',
     'portfolio.tab_certs': 'Certificates',
     'portfolio.tab_tech': 'Tech Stack',
+    'portfolio.see_all': 'See All',
+    'portfolio.items': 'items',
 
     'btn.detail': 'Project Detail',
     'btn.github': 'GitHub',

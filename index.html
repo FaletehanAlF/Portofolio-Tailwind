@@ -71,48 +71,60 @@
   <div id="cursor-ring" aria-hidden="true"></div>
 
   <!-- ============================================================
-     NAVBAR
+     NAVBAR — floating capsule
 ============================================================ -->
-  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between relative">
+  <header id="navbar" class="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
+    <div class="capsule-nav max-w-5xl mx-auto" id="capsule-nav">
+      <div class="capsule-bar h-14 sm:h-16 flex items-center justify-between gap-2 px-3 sm:px-5">
 
-      <!-- Logo -->
-      <a href="#home" class="flex items-center gap-2 group" aria-label="Home">
-        <span class="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-black"
-          style="background-color: var(--color-accent);">F</span>
-        <span class="text-sm font-700 tracking-tight" style="color:var(--color-text); font-weight:700;">Faletehan
-          Portofolio Website</span>
-      </a>
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-2 group min-w-0" aria-label="Home">
+          <span class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-black flex-shrink-0"
+            style="background-color: var(--color-accent);">F</span>
+          <span class="text-sm font-bold tracking-tight truncate" style="color:var(--color-text);">
+            <span class="hidden xs:inline sm:inline">Faletehan Portofolio</span>
+            <span class="sm:hidden">Faletehan</span>
+          </span>
+        </a>
 
-      <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-1" aria-label="Main Navigation">
-        <a href="#home" class="nav-link" data-i18n="nav.home">Home</a>
-        <a href="#about" class="nav-link" data-i18n="nav.about">About Me</a>
-        <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a>
-        <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
-      </nav>
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center gap-1 p-1 rounded-full"
+          style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);"
+          aria-label="Main Navigation">
+          <a href="#home" class="nav-link" data-i18n="nav.home">Home</a>
+          <a href="#about" class="nav-link" data-i18n="nav.about">About Me</a>
+          <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a>
+          <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+        </nav>
 
-      <!-- Controls -->
-      <div class="flex items-center gap-2">
-        <!-- Lang Toggle -->
-        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">EN</button>
-        <!-- Theme Toggle -->
-        <button class="toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
-          <i data-feather="sun" class="w-4 h-4 block" id="theme-icon-light"></i>
-          <i data-feather="moon" class="w-4 h-4 hidden" id="theme-icon-dark"></i>
-        </button>
-        <!-- Hamburger -->
-        <button class="toggle-btn md:hidden" id="hamburger" aria-label="Open Menu" aria-expanded="false">
-          <i data-feather="menu" class="w-4 h-4" id="hamburger-icon"></i>
-        </button>
+        <!-- Controls -->
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <!-- Lang Toggle -->
+          <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">EN</button>
+          <!-- Theme Toggle -->
+          <button class="toggle-btn !rounded-full" id="theme-toggle" aria-label="Toggle Theme">
+            <i data-feather="sun" class="w-4 h-4 block" id="theme-icon-light"></i>
+            <i data-feather="moon" class="w-4 h-4 hidden" id="theme-icon-dark"></i>
+          </button>
+          <!-- Hamburger -->
+          <button class="toggle-btn !rounded-full md:hidden" id="hamburger" aria-label="Open Menu"
+            aria-expanded="false" aria-controls="mobile-menu">
+            <i data-feather="menu" class="w-4 h-4" id="hamburger-icon"></i>
+          </button>
+        </div>
       </div>
 
-      <!-- Mobile Menu -->
-      <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
-        <a href="#home" class="nav-link" data-i18n="nav.home">Home</a>
-        <a href="#about" class="nav-link" data-i18n="nav.about">About Me</a>
-        <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a>
-        <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+      <!-- Mobile Menu (in-flow, no absolute bug) -->
+      <div class="mobile-menu md:hidden" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+        <div class="mobile-menu-inner">
+          <div class="px-3 pb-3 pt-1 flex flex-col gap-1"
+            style="border-top:1px solid var(--color-border); margin-top:0.25rem; padding-top:0.75rem;">
+            <a href="#home" class="nav-link" data-i18n="nav.home">Home <span aria-hidden="true">→</span></a>
+            <a href="#about" class="nav-link" data-i18n="nav.about">About Me <span aria-hidden="true">→</span></a>
+            <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio <span aria-hidden="true">→</span></a>
+            <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -121,7 +133,7 @@
   <!-- ============================================================
      HERO SECTION
 ============================================================ -->
-  <section id="home" class="min-h-screen flex items-center pt-14 overflow-hidden">
+  <section id="home" class="min-h-screen flex items-center pt-28 sm:pt-32 overflow-hidden">
     <div class="max-w-6xl mx-auto px-5 w-full py-20">
       <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8">
 
@@ -361,20 +373,72 @@
       </div>
 
       <!-- Tabs -->
-      <div class="flex justify-center gap-2 mb-10 fade-up">
+      <div class="flex justify-center gap-2 mb-8 fade-up flex-wrap px-2">
         <button class="tab-btn active" data-tab="projects" data-i18n="portfolio.tab_projects">Projects</button>
         <button class="tab-btn" data-tab="certificates" data-i18n="portfolio.tab_certs">Certificates</button>
         <button class="tab-btn" data-tab="techstack" data-i18n="portfolio.tab_tech">Tech Stack</button>
       </div>
 
-      <!-- ---- PROJECTS TAB (rendered from /api/project.json) ---- -->
+      <!-- ---- PROJECTS TAB : smooth slider + see all ---- -->
       <div class="tab-panel active" id="tab-projects">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="projects-grid"></div>
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
+            <span id="projects-count">6</span>
+            <span data-i18n="portfolio.items">items</span>
+          </p>
+          <div class="flex items-center gap-2">
+            <button class="slider-btn" id="projects-prev" aria-label="Previous projects">
+              <i data-feather="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button class="slider-btn" id="projects-next" aria-label="Next projects">
+              <i data-feather="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="showcase-viewport" id="projects-viewport" tabindex="0"
+          aria-label="Projects slider. Use arrow buttons or swipe to navigate.">
+          <div class="showcase-track" id="projects-grid"></div>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 mt-5">
+          <div class="flex items-center gap-1.5 flex-wrap" id="projects-dots" aria-hidden="true"></div>
+          <a href="view/projects.html" class="see-all-link">
+            <span data-i18n="portfolio.see_all">See All</span>
+            <i data-feather="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
       </div>
 
-      <!-- ---- CERTIFICATES TAB (rendered from /api/certificate.json) ---- -->
+      <!-- ---- CERTIFICATES TAB : smooth slider + see all ---- -->
       <div class="tab-panel" id="tab-certificates">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="certificates-grid"></div>
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
+            <span id="certs-count">6</span>
+            <span data-i18n="portfolio.items">items</span>
+          </p>
+          <div class="flex items-center gap-2">
+            <button class="slider-btn" id="certs-prev" aria-label="Previous certificates">
+              <i data-feather="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button class="slider-btn" id="certs-next" aria-label="Next certificates">
+              <i data-feather="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="showcase-viewport" id="certs-viewport" tabindex="0"
+          aria-label="Certificates slider. Use arrow buttons or swipe to navigate.">
+          <div class="showcase-track" id="certificates-grid"></div>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 mt-5">
+          <div class="flex items-center gap-1.5 flex-wrap" id="certs-dots" aria-hidden="true"></div>
+          <a href="view/certificates.html" class="see-all-link">
+            <span data-i18n="portfolio.see_all">See All</span>
+            <i data-feather="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
       </div>
 
       <!-- ---- TECH STACK TAB (rendered from /api/techstack.json) ---- -->
