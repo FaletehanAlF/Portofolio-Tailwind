@@ -294,7 +294,7 @@ grid.innerHTML = others.map(p => {
     if (shareBtn) shareBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(location.href);
-        shareBtn.style.borderColor = 'var(--color-accent)';
+        shareBtn.style.borderColor = '#2563eb';
         shareBtn.setAttribute('title', t('copied'));
         setTimeout(() => { shareBtn.style.borderColor = ''; shareBtn.setAttribute('title', t('copyLink')); }, 1500);
       } catch { /* clipboard unavailable */ }
@@ -315,6 +315,9 @@ grid.innerHTML = others.map(p => {
     State.active = State.projects.find(p => p.slug === slug) || null;
 
     $('d-loading').classList.add('hidden');
+    $('d-notfound').classList.add('hidden');
+    $('d-content').classList.add('hidden');
+    $('d-related').classList.add('hidden');
 
     if (!State.active) {
       showNotFound();
@@ -323,6 +326,7 @@ grid.innerHTML = others.map(p => {
 
     render();
     $('d-content').classList.remove('hidden');
+    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
 
   if (document.readyState === 'loading') {
