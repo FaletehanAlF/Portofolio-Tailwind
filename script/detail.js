@@ -148,10 +148,11 @@
       return;
     }
 
-const techIconsHtml = (p.tech || []).slice(0, 3).map(t =>
+grid.innerHTML = others.map(p => {
+        const techIconsHtml = (p.tech || []).slice(0, 3).map(t =>
           `<img src="${escapeHtml(t.icon)}" alt="${escapeHtml(t.name)}" title="${escapeHtml(t.name)}" class="w-4 h-4 rounded-full object-contain" loading="lazy" />`
         ).join('');
-      grid.innerHTML = others.map(p => `
+        return `
         <a href="?project=${encodeURIComponent(p.slug)}"
           class="card overflow-hidden group flex flex-col">
           <div class="h-36 sm:h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
@@ -172,7 +173,8 @@ const techIconsHtml = (p.tech || []).slice(0, 3).map(t =>
               <i data-feather="arrow-right" class="w-4 h-4" style="color:var(--color-accent);"></i>
             </span>
           </div>
-        </a>`).join('');
+        </a>`;
+      }).join('');
 
     section.classList.remove('hidden');
   }

@@ -683,6 +683,9 @@
     align-items: stretch;
     transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.21, 1);
     will-change: transform;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
   }
 
   .pager-page {
@@ -691,6 +694,9 @@
     max-width: 100%;
     min-width: 0;
     padding: 0.25rem 0.125rem 0.5rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
   }
 
   /* ===== Staggered card entrance animation ===== */
@@ -765,11 +771,17 @@
     display: grid;
     gap: 1.25rem;
     grid-template-columns: minmax(0, 1fr);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
   }
 
   .pager-grid-tech {
     gap: 0.75rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+    contain: layout style;
   }
 
   @media (min-width: 640px) {
@@ -921,7 +933,38 @@
     }
   }
 
-  @layer components {
+  /* Filter chip */
+  .filter-chip {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.45rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .filter-chip:hover {
+    color: var(--color-text);
+    background-color: var(--color-bg-secondary);
+  }
+
+  .filter-chip.active {
+    color: #fff;
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  @media (max-width: 380px) {
+    .capsule-nav .capsule-bar {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+  }
+
   /* Performance: content-visibility for off-screen sections */
   .performance {
     content-visibility: auto;
@@ -955,38 +998,6 @@
   .section-entrance.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /* Filter chip */
-  .filter-chip {
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 0.45rem 1rem;
-    border-radius: 9999px;
-    border: 1px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-
-  .filter-chip:hover {
-    color: var(--color-text);
-    background-color: var(--color-bg-secondary);
-  }
-
-  .filter-chip.active {
-    color: #fff;
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-
-  @media (max-width: 380px) {
-    .capsule-nav .capsule-bar {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

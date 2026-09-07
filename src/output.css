@@ -1486,14 +1486,19 @@
     border-color: var(--color-border);
   }
   .tab-panel {
-    display: none;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
     transform: translateY(8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.35s ease, visibility 0.28s ease;
   }
   .tab-panel.active {
-    display: block;
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    max-height: 3200px;
     transform: translateY(0);
   }
   .tech-badge {
@@ -1772,6 +1777,9 @@
     align-items: stretch;
     transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.21, 1);
     will-change: transform;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
   }
   .pager-page {
     flex: 0 0 100%;
@@ -1779,6 +1787,9 @@
     max-width: 100%;
     min-width: 0;
     padding: 0.25rem 0.125rem 0.5rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
   }
   .pager-page .card {
     opacity: 0;
@@ -1849,10 +1860,16 @@
     display: grid;
     gap: 1.25rem;
     grid-template-columns: minmax(0, 1fr);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
   }
   .pager-grid-tech {
     gap: 0.75rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+    contain: layout style;
   }
   @media (min-width: 640px) {
     .pager-grid {
