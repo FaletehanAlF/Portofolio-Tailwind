@@ -154,7 +154,7 @@ grid.innerHTML = others.map(p => {
         ).join('');
         return `
         <a href="?project=${encodeURIComponent(p.slug)}"
-          class="card overflow-hidden group flex flex-col">
+          class="card overflow-hidden group flex flex-col performance">
           <div class="h-36 sm:h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
             <img src="${escapeHtml(p.image)}" alt="${escapeHtml(pick(p.name))}"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />

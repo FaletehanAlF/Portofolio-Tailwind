@@ -787,7 +787,7 @@ const ProjectsSection = (() => {
     if (!grid || !data) return;
     // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
     grid.innerHTML = chunk(data, 6).map((page, i) =>
-      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid">${page.map(card).join('')}</div></div>`
+      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid performance">${page.map(card).join('')}</div></div>`
     ).join('');
     const count = document.getElementById('projects-count');
     if (count) count.textContent = data.length;
@@ -842,7 +842,7 @@ const CertificatesSection = (() => {
     if (!grid || !data) return;
     // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
     grid.innerHTML = chunk(data, 6).map((page, i) =>
-      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid">${page.map(card).join('')}</div></div>`
+      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid performance">${page.map(card).join('')}</div></div>`
     ).join('');
     const count = document.getElementById('certs-count');
     if (count) count.textContent = data.length;
@@ -1067,7 +1067,7 @@ const TechStackSection = (() => {
         const pages = [];
         for (let i = 0; i < json.grid.length; i += 12) pages.push(json.grid.slice(i, i + 12));
         grid.innerHTML = pages.map((page, i) =>
-          `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid pager-grid-tech">${page.map(gridItem).join('')}</div></div>`
+          `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid pager-grid-tech performance">${page.map(gridItem).join('')}</div></div>`
         ).join('');
         const count = document.getElementById('techstack-count');
         if (count) count.textContent = json.grid.length;

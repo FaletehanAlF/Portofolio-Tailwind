@@ -2019,6 +2019,47 @@
       padding-right: 0.75rem;
     }
   }
+  .performance {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+    contain: layout style;
+  }
+  .card-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  @keyframes subtle-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+  }
+  .section-entrance {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .section-entrance.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .section-entrance {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .card-lift {
+      transition: none;
+    }
+    .glow-accent {
+      box-shadow: none;
+    }
+  }
 }
 @property --tw-translate-x {
   syntax: "*";

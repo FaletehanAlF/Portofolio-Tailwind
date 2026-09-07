@@ -236,7 +236,7 @@ return `
     // Chunk into pages of 6
     const pages = chunk(items, 6);
     track.innerHTML = pages.map((pageItems, i) =>
-      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid">${pageItems.map(cardFn).join('')}</div></div>`
+      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid performance">${pageItems.map(cardFn).join('')}</div></div>`
     ).join('');
 
     if (countEl) countEl.textContent = `${items.length} ${t('items')}`;
