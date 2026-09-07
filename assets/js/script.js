@@ -45,6 +45,16 @@ const translations = {
     'portfolio.tab_tech': 'Tech Stack',
     'portfolio.see_all': 'See All',
     'portfolio.items': 'items',
+    'portfolio.prev': 'Previous slide',
+    'portfolio.next': 'Next slide',
+    'portfolio.slider_projects': 'Projects slider. Use arrow buttons or swipe to navigate.',
+    'portfolio.slider_certs': 'Certificates slider. Use arrow buttons or swipe to navigate.',
+    'portfolio.slider_tech': 'Tech stack slider. Use arrow buttons or swipe to navigate.',
+
+    'theme.to_dark': 'Switch to dark mode',
+    'theme.to_light': 'Switch to light mode',
+    'theme.sun': 'Sun (light mode)',
+    'theme.moon': 'Moon (dark mode)',
 
     'btn.detail': 'Project Detail',
     'btn.github': 'GitHub',
@@ -105,6 +115,16 @@ const translations = {
     'portfolio.tab_tech': 'Tech Stack',
     'portfolio.see_all': 'Lihat Semua',
     'portfolio.items': 'item',
+    'portfolio.prev': 'Slide sebelumnya',
+    'portfolio.next': 'Slide berikutnya',
+    'portfolio.slider_projects': 'Slider proyek. Gunakan tombol panah atau geser untuk navigasi.',
+    'portfolio.slider_certs': 'Slider sertifikat. Gunakan tombol panah atau geser untuk navigasi.',
+    'portfolio.slider_tech': 'Slider tech stack. Gunakan tombol panah atau geser untuk navigasi.',
+
+    'theme.to_dark': 'Ganti ke mode gelap',
+    'theme.to_light': 'Ganti ke mode terang',
+    'theme.sun': 'Matahari (mode terang)',
+    'theme.moon': 'Bulan (mode gelap)',
 
     'btn.detail': 'Detail Proyek',
     'btn.github': 'GitHub',
@@ -184,13 +204,17 @@ function escapeHtml(value) {
 ================================================================ */
 const ThemeSwitcher = (() => {
   const root = document.documentElement;
-  const iconLight = document.getElementById('theme-icon-light');
-  const iconDark = document.getElementById('theme-icon-dark');
 
+  // Matahari (sun) untuk mode terang, bulan (moon) untuk mode gelap.
+  // Hanya satu ikon yang tampil sesuai tema aktif.
   function apply(theme) {
     root.setAttribute('data-theme', theme);
     State.theme = theme;
     localStorage.setItem('theme', theme);
+
+    const iconLight = document.getElementById('theme-icon-light'); // matahari
+    const iconDark = document.getElementById('theme-icon-dark'); // bulan
+    const btn = document.getElementById('theme-toggle');
 
     // Update GitHub logo invert for dark mode
     const githubLogos = document.querySelectorAll('.invert-dark');
@@ -198,12 +222,24 @@ const ThemeSwitcher = (() => {
       el.style.filter = theme === 'dark' ? 'invert(1)' : 'none';
     });
 
-    if (theme === 'dark') {
-      iconLight && iconLight.classList.add('hidden');
-      iconDark && iconDark.classList.remove('hidden');
-    } else {
-      iconLight && iconLight.classList.remove('hidden');
-      iconDark && iconDark.classList.add('hidden');
+    const isDark = theme === 'dark';
+    if (iconLight) {
+      iconLight.classList.toggle('hidden', isDark);
+      iconLight.setAttribute('aria-hidden', isDark ? 'true' : 'false');
+    }
+    if (iconDark) {
+      iconDark.classList.toggle('hidden', !isDark);
+      iconDark.setAttribute('aria-hidden', !isDark ? 'true' : 'false');
+    }
+    if (btn) {
+      let label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+      try {
+        if (typeof LangSwitcher !== 'undefined' && LangSwitcher.t) {
+          label = LangSwitcher.t(isDark ? 'theme.to_light' : 'theme.to_dark');
+        }
+      } catch { /* fallback ke label default */ }
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
     }
   }
 
@@ -236,6 +272,12 @@ const LangSwitcher = (() => {
       el.textContent = val;
     });
 
+    // Aria-labels (tombol slider, dsb.)
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+      const key = el.getAttribute('data-i18n-aria');
+      el.setAttribute('aria-label', t(key));
+    });
+
     // Re-render API-driven sections (projects & certificates)
     if (typeof ProjectsSection !== 'undefined') ProjectsSection.render();
     if (typeof CertificatesSection !== 'undefined') CertificatesSection.render();
@@ -258,6 +300,11 @@ const LangSwitcher = (() => {
 
     // Update html lang attribute
     document.documentElement.lang = State.lang;
+
+    // Samakan label tombol tema (matahari/bulan) dengan bahasa aktif
+    if (typeof ThemeSwitcher !== 'undefined' && ThemeSwitcher.apply) {
+      ThemeSwitcher.apply(State.theme);
+    }
 
     // Keep modal content synced when language changes
     if (typeof CertModal !== 'undefined' && CertModal.updateActiveModal) {
@@ -707,7 +754,7 @@ const ProjectsSection = (() => {
     const github = placeholder ? '#' : escapeHtml(p.github);
 
     return `
-      <article class="card overflow-hidden fade-up showcase-card flex flex-col">
+      <article class="card overflow-hidden fade-up flex flex-col">
         <div class="relative h-44 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
           <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,.28), transparent 55%);"></div>
@@ -724,10 +771,19 @@ const ProjectsSection = (() => {
       </article>`;
   }
 
+  function chunk(arr, size) {
+    const out = [];
+    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+  }
+
   function render() {
     const grid = document.getElementById('projects-grid');
     if (!grid || !data) return;
-    grid.innerHTML = data.map(card).join('');
+    // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
+    grid.innerHTML = chunk(data, 6).map(page =>
+      `<div class="pager-page"><div class="pager-grid">${page.map(card).join('')}</div></div>`
+    ).join('');
     const count = document.getElementById('projects-count');
     if (count) count.textContent = data.length;
     observeFadeUp(grid);
@@ -754,7 +810,7 @@ const CertificatesSection = (() => {
     const issuer = escapeHtml(pick(c.issuer));
 
     return `
-      <article class="card overflow-hidden cursor-pointer cert-card fade-up showcase-card flex flex-col" role="button" tabindex="0"
+      <article class="card overflow-hidden cursor-pointer cert-card fade-up flex flex-col" role="button" tabindex="0"
         data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
         <div class="h-52 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
@@ -766,10 +822,19 @@ const CertificatesSection = (() => {
       </article>`;
   }
 
+  function chunk(arr, size) {
+    const out = [];
+    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+  }
+
   function render() {
     const grid = document.getElementById('certificates-grid');
     if (!grid || !data) return;
-    grid.innerHTML = data.map(card).join('');
+    // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
+    grid.innerHTML = chunk(data, 6).map(page =>
+      `<div class="pager-page"><div class="pager-grid">${page.map(card).join('')}</div></div>`
+    ).join('');
     const count = document.getElementById('certs-count');
     if (count) count.textContent = data.length;
     observeFadeUp(grid);
@@ -786,97 +851,104 @@ const CertificatesSection = (() => {
 })();
 
 /* ================================================================
-   15e. SHOWCASE SLIDER — smooth snap slider with buttons + dots
+   15e. SHOWCASE PAGER — grid 3+3 per halaman, geser halus (transform),
+   scroll vertikal tidak terhalang, See All tetap di kanan bawah
    ================================================================ */
 const ShowcaseSlider = (() => {
   const registries = {
-    projects: { viewport: 'projects-viewport', prev: 'projects-prev', next: 'projects-next', dots: 'projects-dots' },
-    certs: { viewport: 'certs-viewport', prev: 'certs-prev', next: 'certs-next', dots: 'certs-dots' },
+    projects: { viewport: 'projects-viewport', track: 'projects-grid', prev: 'projects-prev', next: 'projects-next', dots: 'projects-dots' },
+    certs: { viewport: 'certs-viewport', track: 'certificates-grid', prev: 'certs-prev', next: 'certs-next', dots: 'certs-dots' },
+    techstack: { viewport: 'techstack-viewport', track: 'techstack-grid', prev: 'techstack-prev', next: 'techstack-next', dots: 'techstack-dots' },
   };
+  const current = { projects: 0, certs: 0, techstack: 0 };
 
-  function stepFor(viewport) {
-    const card = viewport.querySelector('.showcase-card');
-    if (card) {
-      const gap = 20; // matches .showcase-track gap (1.25rem)
-      return card.getBoundingClientRect().width + gap;
-    }
-    return viewport.clientWidth * 0.85;
+  function trackOf(key) {
+    const cfg = registries[key];
+    return cfg ? document.getElementById(cfg.track) : null;
   }
 
-  function pagesCount(viewport) {
-    const track = viewport.querySelector('.showcase-track');
+  function pagesCount(key) {
+    const track = trackOf(key);
     if (!track) return 1;
-    const total = track.scrollWidth;
-    const view = viewport.clientWidth;
-    if (total <= view + 8) return 1;
-    // Estimate pages by scrollable distance / step, min 2
-    const step = stepFor(viewport);
-    return Math.max(2, Math.ceil((total - view) / step) + 1);
+    return Math.max(1, track.querySelectorAll(':scope > .pager-page').length);
   }
 
-  function activePage(viewport) {
-    const max = viewport.scrollWidth - viewport.clientWidth;
-    if (max <= 8) return 0;
-    const pages = pagesCount(viewport);
-    const ratio = viewport.scrollLeft / max;
-    return Math.min(pages - 1, Math.round(ratio * (pages - 1)));
+  function clampPage(key, i) {
+    const n = pagesCount(key);
+    return Math.max(0, Math.min(n - 1, i));
+  }
+
+  function paint(key) {
+    const cfg = registries[key];
+    const track = trackOf(key);
+    if (!cfg || !track) return;
+    const idx = clampPage(key, current[key] || 0);
+    current[key] = idx;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+
+    const dotsWrap = document.getElementById(cfg.dots);
+    if (dotsWrap) {
+      const dots = dotsWrap.querySelectorAll('.slider-dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    const prev = document.getElementById(cfg.prev);
+    const next = document.getElementById(cfg.next);
+    const n = pagesCount(key);
+    if (prev) {
+      prev.disabled = idx <= 0;
+      prev.style.display = n > 1 ? '' : 'none';
+    }
+    if (next) {
+      next.disabled = idx >= n - 1;
+      next.style.display = n > 1 ? '' : 'none';
+    }
   }
 
   function renderDots(key) {
     const cfg = registries[key];
-    const viewport = document.getElementById(cfg.viewport);
-    const dotsWrap = document.getElementById(cfg.dots);
-    if (!viewport || !dotsWrap) return;
-    const pages = pagesCount(viewport);
-    const active = activePage(viewport);
-    dotsWrap.innerHTML = Array.from({ length: pages }, (_, i) =>
-      `<button class="slider-dot${i === active ? ' active' : ''}" data-page="${i}" aria-label="Go to slide ${i + 1}"></button>`
+    const dotsWrap = cfg ? document.getElementById(cfg.dots) : null;
+    if (!dotsWrap) return;
+    const n = pagesCount(key);
+    if (n <= 1) {
+      dotsWrap.innerHTML = '';
+      return;
+    }
+    dotsWrap.innerHTML = Array.from({ length: n }, (_, i) =>
+      `<button type="button" class="slider-dot${i === (current[key] || 0) ? ' active' : ''}" data-page="${i}" aria-label="Go to slide ${i + 1}"></button>`
     ).join('');
     dotsWrap.querySelectorAll('.slider-dot').forEach(btn => {
       btn.addEventListener('click', () => goTo(key, parseInt(btn.dataset.page, 10)));
     });
   }
 
-  function updateButtons(key) {
-    const cfg = registries[key];
-    const viewport = document.getElementById(cfg.viewport);
-    const prev = document.getElementById(cfg.prev);
-    const next = document.getElementById(cfg.next);
-    if (!viewport) return;
-    const max = viewport.scrollWidth - viewport.clientWidth - 8;
-    if (prev) prev.disabled = viewport.scrollLeft <= 8;
-    if (next) next.disabled = viewport.scrollLeft >= max;
-    // hide controls if nothing to scroll
-    const need = max > 8;
-    if (prev) prev.style.display = need ? '' : 'none';
-    if (next) next.style.display = need ? '' : 'none';
-  }
-
-  function goTo(key, page) {
-    const cfg = registries[key];
-    const viewport = document.getElementById(cfg.viewport);
-    if (!viewport) return;
-    const max = viewport.scrollWidth - viewport.clientWidth;
-    const pages = pagesCount(viewport);
-    const p = Math.max(0, Math.min(pages - 1, page));
-    const target = pages <= 1 ? 0 : (max * p) / (pages - 1);
-    viewport.scrollTo({ left: target, behavior: 'smooth' });
+  function goTo(key, i) {
+    if (!registries[key]) return;
+    current[key] = clampPage(key, i);
+    paint(key);
   }
 
   function step(key, dir) {
-    const cfg = registries[key];
-    const viewport = document.getElementById(cfg.viewport);
-    if (!viewport) return;
-    viewport.scrollBy({ left: dir * stepFor(viewport), behavior: 'smooth' });
+    if (!registries[key]) return;
+    goTo(key, (current[key] || 0) + dir);
   }
 
   function refresh(key) {
-    renderDots(key);
-    updateButtons(key);
+    if (key) {
+      current[key] = clampPage(key, current[key] || 0);
+      renderDots(key);
+      paint(key);
+      return;
+    }
+    refreshAll();
   }
 
   function refreshAll() {
-    Object.keys(registries).forEach(refresh);
+    Object.keys(registries).forEach(key => {
+      current[key] = clampPage(key, current[key] || 0);
+      renderDots(key);
+      paint(key);
+    });
   }
 
   function bind(key) {
@@ -888,50 +960,41 @@ const ShowcaseSlider = (() => {
     prev && prev.addEventListener('click', () => step(key, -1));
     next && next.addEventListener('click', () => step(key, 1));
 
-    let raf = null;
-    viewport.addEventListener('scroll', () => {
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        renderDots(key);
-        updateButtons(key);
-      });
-    }, { passive: true });
-
-    // Keyboard: arrows when viewport focused
+    // Keyboard: panah saat viewport fokus
     viewport.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') { e.preventDefault(); step(key, 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); step(key, -1); }
     });
 
-    // Drag-to-scroll (desktop mouse)
-    let isDown = false, startX = 0, startScroll = 0, moved = false;
-    viewport.addEventListener('pointerdown', e => {
-      if (e.pointerType !== 'mouse') return;
-      isDown = true; moved = false;
-      startX = e.clientX; startScroll = viewport.scrollLeft;
-    });
-    window.addEventListener('pointermove', e => {
-      if (!isDown) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 6) moved = true;
-      if (moved) viewport.scrollLeft = startScroll - dx;
-    });
-    window.addEventListener('pointerup', () => { isDown = false; });
-    // Prevent click-after-drag opening cert modal accidentally
-    viewport.addEventListener('click', e => {
-      if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
-    }, true);
+    // Swipe horizontal (sentuh): hanya geser halaman jika niat horizontal
+    // dominan, kalau tidak biarkan scroll vertikal halaman berjalan.
+    let sx = 0, sy = 0, tracking = false;
+    viewport.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      tracking = true;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive: true });
+    viewport.addEventListener('touchend', e => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+        step(key, dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
   }
 
   function init() {
     Object.keys(registries).forEach(bind);
-    window.addEventListener('resize', () => refreshAll());
-    // initial state after fonts/images settle
-    setTimeout(refreshAll, 300);
-    setTimeout(refreshAll, 1200);
+    window.addEventListener('resize', () => {
+      Object.keys(registries).forEach(paint);
+    });
+    setTimeout(refreshAll, 100);
   }
 
-  return { init, refresh, refreshAll };
+  return { init, refresh, refreshAll, goTo };
 })();
 
 /* ================================================================
@@ -966,7 +1029,18 @@ const TechStackSection = (() => {
     const grid = document.getElementById('techstack-grid');
 
     if (slider && json.marquee) slider.innerHTML = json.marquee.map(marqueeItem).join('');
-    if (grid && json.grid) grid.innerHTML = json.grid.map(gridItem).join('');
+    if (grid && json.grid) {
+      // 12 item per halaman, geser halus seperti project & certificate
+      const pages = [];
+      for (let i = 0; i < json.grid.length; i += 12) pages.push(json.grid.slice(i, i + 12));
+      grid.innerHTML = pages.map(page =>
+        `<div class="pager-page"><div class="pager-grid pager-grid-tech">${page.map(gridItem).join('')}</div></div>`
+      ).join('');
+      const count = document.getElementById('techstack-count');
+      if (count) count.textContent = json.grid.length;
+      observeFadeUp(grid);
+      if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('techstack');
+    }
   }
 
   return { init };
