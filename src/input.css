@@ -691,8 +691,6 @@
     max-width: 100%;
     min-width: 0;
     padding: 0.25rem 0.125rem 0.5rem;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
     contain: layout style;
   }
 
@@ -768,16 +766,12 @@
     display: grid;
     gap: 1.25rem;
     grid-template-columns: minmax(0, 1fr);
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
     contain: layout style;
   }
 
   .pager-grid-tech {
     gap: 0.75rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    content-visibility: auto;
-    contain-intrinsic-size: auto 400px;
     contain: layout style;
   }
 
@@ -962,11 +956,9 @@
     }
   }
 
-  /* Performance: content-visibility for off-screen sections */
+  /* Performance: contain for rendering optimization */
   .performance {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
-    contain: layout style;
+    contain: layout style paint;
   }
 
   /* Card hover lift */
