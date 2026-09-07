@@ -12,11 +12,22 @@
   const strings = {
     en: {
       back: 'Back to Portfolio',
+      home: 'Home',
+      portfolio: 'Portfolio',
       tech: 'Technologies Used',
       demo: 'Live Demo',
       github: 'GitHub',
       other: 'Other Projects',
+      explore: 'Keep Exploring',
+      seeAll: 'See All',
+      allProjects: 'All Projects',
+      hireMe: 'Hire Me',
       info: 'Project Info',
+      category: 'Category',
+      year: 'Year',
+      stack: 'Stack',
+      status: 'Status',
+      copyLink: 'Copy link',
       completed: '● Completed',
       completedPlain: 'Completed',
       comingSoon: '○ Coming Soon',
@@ -25,14 +36,27 @@
       nfTitle: 'Project Not Found',
       nfDesc: "The project you are looking for doesn't exist or has been moved.",
       loadFail: 'Failed to load project data. Please try again later.',
+      toDark: 'Switch to dark mode',
+      toLight: 'Switch to light mode',
     },
     id: {
       back: 'Kembali ke Portofolio',
+      home: 'Beranda',
+      portfolio: 'Portofolio',
       tech: 'Teknologi yang Digunakan',
       demo: 'Demo Langsung',
       github: 'GitHub',
       other: 'Proyek Lainnya',
+      explore: 'Jelajahi Lagi',
+      seeAll: 'Lihat Semua',
+      allProjects: 'Semua Proyek',
+      hireMe: 'Rekrut Saya',
       info: 'Info Proyek',
+      category: 'Kategori',
+      year: 'Tahun',
+      stack: 'Teknologi',
+      status: 'Status',
+      copyLink: 'Salin tautan',
       completed: '● Selesai',
       completedPlain: 'Selesai',
       comingSoon: '○ Segera Hadir',
@@ -41,6 +65,8 @@
       nfTitle: 'Proyek Tidak Ditemukan',
       nfDesc: 'Proyek yang Anda cari tidak ada atau telah dipindahkan.',
       loadFail: 'Gagal memuat data proyek. Silakan coba lagi nanti.',
+      toDark: 'Ganti ke mode gelap',
+      toLight: 'Ganti ke mode terang',
     },
   };
 
@@ -67,15 +93,30 @@
   }
 
   /* ================================================================
-     2. THEME SWITCHER
+     2. THEME SWITCHER — matahari (sun) utk terang, bulan (moon) utk gelap
      ================================================================ */
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
     localStorage.setItem('theme', theme);
 
-    $('theme-icon-light').classList.toggle('hidden', theme === 'dark');
-    $('theme-icon-dark').classList.toggle('hidden', theme !== 'dark');
+    const isDark = theme === 'dark';
+    const sun = $('theme-icon-light'); // matahari
+    const moon = $('theme-icon-dark'); // bulan
+    if (sun) {
+      sun.classList.toggle('hidden', isDark);
+      sun.setAttribute('aria-hidden', isDark ? 'true' : 'false');
+    }
+    if (moon) {
+      moon.classList.toggle('hidden', !isDark);
+      moon.setAttribute('aria-hidden', !isDark ? 'true' : 'false');
+    }
+    const btn = $('theme-toggle');
+    if (btn) {
+      const label = isDark ? t('toLight') : t('toDark');
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
   }
 
   /* ================================================================
@@ -135,14 +176,36 @@
     if (langBtn) langBtn.textContent = State.lang === 'en' ? 'ID' : 'EN';
     const set = (id, val) => { const el = $(id); if (el) el.textContent = val; };
     set('back-label', t('back'));
+    set('d-crumb-home', t('home'));
+    set('d-crumb-portfolio', t('portfolio'));
     set('d-nf-back', t('back'));
+    set('d-nf-all', t('allProjects'));
     set('d-tech-label', t('tech'));
     set('d-other-label', t('other'));
+    set('d-explore-label', t('explore'));
+    set('d-seeall-label', t('seeAll'));
     set('d-demo-label', t('demo'));
     set('d-github-label', t('github'));
     set('d-nf-title', t('nfTitle'));
     set('d-nf-desc', t('nfDesc'));
     set('d-info-title', t('info'));
+    set('d-lbl-category', t('category'));
+    set('d-lbl-year', t('year'));
+    set('d-lbl-stack', t('stack'));
+    set('d-lbl-status', t('status'));
+    set('d-all-label', t('allProjects'));
+    set('d-hire-label', t('hireMe'));
+    const share = $('d-share');
+    if (share) {
+      share.setAttribute('aria-label', t('copyLink'));
+      share.setAttribute('title', t('copyLink'));
+    }
+    const themeBtn = $('theme-toggle');
+    if (themeBtn) {
+      const label = State.theme === 'dark' ? t('toLight') : t('toDark');
+      themeBtn.setAttribute('aria-label', label);
+      themeBtn.setAttribute('title', label);
+    }
   }
 
   function render() {
