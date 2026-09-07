@@ -1,0 +1,70 @@
+{
+  "certificates": [
+    {
+      "image": "/assets/image/Cert.png",
+      "name": {
+        "en": "Development of the Sneakerzone E-Commerce Website",
+        "id": "Pembuatan Web E-Commerce Sneakerzone"
+      },
+      "issuer": {
+        "en": "SMK Taruna Bhakti",
+        "id": "SMK Taruna Bhakti"
+      }
+    },
+    {
+      "image": "/assets/image/MemulaiPemrogramandenganHaskell.jpg",
+      "name": {
+        "en": "Getting Started with Haskell Programming",
+        "id": "Memulai Pemrograman Dengan Haskell"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "/assets/image/Belajar Prinspip Pemrograman Solid.jpg",
+      "name": {
+        "en": "Learning SOLID Programming Principles",
+        "id": "Belajar Prinspip Pemrograman Solid"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "/assets/image/Memulai Pemrograman Dengan Bahasa C.jpg",
+      "name": {
+        "en": "Getting Started with Programming in C",
+        "id": "Memulai Pemrograman Dengan Bahasa C"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "/assets/image/Memulai Pemrograman Dengan Java.jpg",
+      "name": {
+        "en": "Getting Started with Java Programming",
+        "id": "Memulai Pemrograman Dengan Java"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "/assets/image/Faletehan_Al_Farabi_UIUX_Certificate_Page.png",
+      "name": {
+        "en": "Learning UI/UX Fundamentals",
+        "id": "Belajar Fundamental UI/UX"
+      },
+      "issuer": {
+        "en": "My Skill",
+        "id": "My Skill"
+      }
+    }
+  ]
+}

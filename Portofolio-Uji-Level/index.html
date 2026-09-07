@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faletehan · Portfolio</title>
+  <meta name="description" content="Portfolio of Faletehan Al Farabi, a UI/UX Designer and Front-End Developer crafting premium digital products.">
+
+  <!-- Base fonts (EN/ID) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="font-link" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="./asset/css/style.css">
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#home" class="logo" data-i18n="nav.logo">My portfolio<span>.</span></a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#home" class="nav-link active" data-link data-i18n="nav.home">Home</a>
+        <a href="#about" class="nav-link" data-link data-i18n="nav.about">About</a>
+        <a href="#portfolio" class="nav-link" data-link data-i18n="nav.portfolio">Portfolio</a>
+        <a href="#contact" class="nav-link" data-link data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <!-- Desktop settings -->
+      <div class="nav-settings" id="navSettings">
+        <button class="settings-toggle" id="settingsToggle" aria-label="Open settings" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+        <div class="settings-dropdown" id="settingsDropdown" role="menu">
+          <div class="settings-dropdown-inner">
+            <div class="settings-section">
+              <p class="settings-label" data-i18n="settings.theme">Theme</p>
+              <div class="theme-options">
+                <button class="theme-option" data-theme="light" role="menuitem">
+                  <span class="theme-icon">☀️</span>
+                  <span data-i18n="settings.light">Light</span>
+                </button>
+                <button class="theme-option" data-theme="dark" role="menuitem">
+                  <span class="theme-icon">🌙</span>
+                  <span data-i18n="settings.dark">Dark</span>
+                </button>
+              </div>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="settings-section">
+              <p class="settings-label" data-i18n="settings.language">Language</p>
+              <div class="lang-options">
+                <button class="lang-option" data-lang="id" role="menuitem">
+                  <img src="https://flagcdn.com/w40/id.png" alt="Indonesia" class="lang-flag">
+                  <span>Indonesia</span>
+                </button>
+                <button class="lang-option" data-lang="en" role="menuitem">
+                  <img src="https://flagcdn.com/w40/us.png" alt="English" class="lang-flag">
+                  <span>English</span>
+                </button>
+                <button class="lang-option" data-lang="zh" role="menuitem">
+                  <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="lang-flag">
+                  <span>中文</span>
+                </button>
+                <button class="lang-option" data-lang="ja" role="menuitem">
+                  <img src="https://flagcdn.com/w40/jp.png" alt="日本語" class="lang-flag">
+                  <span>日本語</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+    <div class="mobile-nav-links">
+      <a href="#home" data-link data-i18n="nav.home">Home</a>
+      <a href="#about" data-link data-i18n="nav.about">About</a>
+      <a href="#portfolio" data-link data-i18n="nav.portfolio">Portfolio</a>
+      <a href="#contact" data-link data-i18n="nav.contact">Contact</a>
+    </div>
+    <div class="mobile-divider"></div>
+    <div class="mobile-section">
+      <p class="mobile-section-label" data-i18n="settings.theme">Theme</p>
+      <div class="mobile-theme-options">
+        <button class="theme-option" data-theme="light">
+          <span class="theme-icon">☀️</span>
+          <span data-i18n="settings.light">Light</span>
+        </button>
+        <button class="theme-option" data-theme="dark">
+          <span class="theme-icon">🌙</span>
+          <span data-i18n="settings.dark">Dark</span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-divider"></div>
+    <div class="mobile-section">
+      <p class="mobile-section-label" data-i18n="settings.language">Language</p>
+      <div class="mobile-lang-options">
+        <button class="lang-option" data-lang="id">
+          <img src="https://flagcdn.com/w40/id.png" alt="Indonesia" class="lang-flag">
+          <span>Indonesia</span>
+        </button>
+        <button class="lang-option" data-lang="en">
+          <img src="https://flagcdn.com/w40/us.png" alt="English" class="lang-flag">
+          <span>English</span>
+        </button>
+        <button class="lang-option" data-lang="zh">
+          <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="lang-flag">
+          <span>中文</span>
+        </button>
+        <button class="lang-option" data-lang="ja">
+          <img src="https://flagcdn.com/w40/jp.png" alt="日本語" class="lang-flag">
+          <span>日本語</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="grid-overlay"></div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-text" data-reveal>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span data-i18n="hero.available">Available For Projects</span>
+          </div>
+          <h1 class="hero-title">
+            <span data-i18n="hero.title1">UI/UX Designer &amp;</span><br>
+            <span class="text-gradient" data-i18n="hero.title2">Front-End Developer</span>
+          </h1>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
+            I design clean, intentional interfaces and build them with precise,
+            performant front-end code — turning ideas into products people enjoy using.
+          </p>
+          <div class="hero-cta">
+            <a href="#portfolio" class="btn btn-primary btn-magnetic">
+              <span data-i18n="hero.cta.projects">View Projects</span>
+              <i data-feather="arrow-up-right"></i>
+            </a>
+            <a href="assets/CV-Farabi.pdf" download class="btn btn-ghost btn-magnetic">
+              <i data-feather="download"></i>
+              <span data-i18n="hero.cta.cv">Download CV</span>
+            </a>
+          </div>
+          <div class="hero-socials">
+            <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i data-feather="github"></i></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+            <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-feather="dribbble"></i></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i data-feather="twitter"></i></a>
+          </div>
+        </div>
+        <div class="hero-visual" data-reveal data-reveal-delay="1">
+          <div class="image-glow" aria-hidden="true"></div>
+          <div class="tilted-card" id="tiltedCard">
+            <div class="tilted-card-inner">
+              <img src="./asset/image/Profile.png" alt="Profile photo of Faletehan Al Farabi" class="tilted-card-img">
+              <div class="tilted-overlay">
+                <h3>Faletehan Al Farabi</h3>
+                <p data-i18n="hero.overlay.role">UI/UX Designer &amp; Front-End Developer</p>
+              </div>
+            </div>
+          </div>
+          <div class="float-card card-1" data-parallax="0.6">
+            <i data-feather="layout"></i>
+            <span data-i18n="hero.float.uiux">UI/UX Design</span>
+          </div>
+          <div class="float-card card-2" data-parallax="0.9">
+            <i data-feather="code"></i>
+            <span data-i18n="hero.float.frontend">Front-End Development</span>
+          </div>
+          <div class="float-card card-3" data-parallax="0.4">
+            <i data-feather="figma"></i>
+            <span data-i18n="hero.float.figma">Figma &amp; Prototyping</span>
+          </div>
+        </div>
+      </div>
+      <a href="#about" class="scroll-cue" aria-label="Scroll down">
+        <i data-feather="chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <section class="marquee-section" aria-hidden="true">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span data-i18n="marquee.uiux">UI/UX DESIGNER</span><span class="dot">·</span>
+          <span data-i18n="marquee.frontend">FRONT-END DEVELOPER</span><span class="dot">·</span>
+          <span>FIGMA</span><span class="dot">·</span>
+          <span>HTML</span><span class="dot">·</span>
+          <span>CSS</span><span class="dot">·</span>
+          <span>JAVASCRIPT</span><span class="dot">·</span>
+        </div>
+        <div class="marquee-track" aria-hidden="true">
+          <span data-i18n="marquee.uiux">UI/UX DESIGNER</span><span class="dot">·</span>
+          <span data-i18n="marquee.frontend">FRONT-END DEVELOPER</span><span class="dot">·</span>
+          <span>FIGMA</span><span class="dot">·</span>
+          <span>HTML</span><span class="dot">·</span>
+          <span>CSS</span><span class="dot">·</span>
+          <span>JAVASCRIPT</span><span class="dot">·</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow" data-i18n="about.eyebrow">About</span>
+          <h2 data-i18n="about.heading">Designing with intent, building with precision.</h2>
+        </div>
+        <div class="about-grid">
+          <p class="about-lead" data-reveal data-i18n="about.lead">
+            I'm Farabi — a designer and developer who believes the best products feel obvious in hindsight.
+            Over the past several years I've worked across startups and agencies, taking ideas from a blank
+            Figma canvas to production-ready interfaces, without losing the original intent along the way.
+          </p>
+          <div class="stats-row" data-reveal>
+            <div class="stat">
+              <span class="stat-num" data-count="5">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label" data-i18n="about.stat.years">Years Experience</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="40">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label" data-i18n="about.stat.projects">Projects Shipped</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="98">0</span><span class="stat-suffix">%</span>
+              <span class="stat-label" data-i18n="about.stat.satisfaction">Client Satisfaction</span>
+            </div>
+          </div>
+        </div>
+        <div class="skills-grid" data-reveal>
+          <div class="skill-card border-glow">
+            <i data-feather="layout"></i>
+            <h3 data-i18n="about.skill.design.title">Product Design</h3>
+            <p data-i18n="about.skill.design.desc">Wireframes, design systems, and interfaces built around real user flows.</p>
+          </div>
+          <div class="skill-card border-glow">
+            <i data-feather="figma"></i>
+            <h3 data-i18n="about.skill.proto.title">Prototyping</h3>
+            <p data-i18n="about.skill.proto.desc">High-fidelity Figma prototypes that communicate motion and intent.</p>
+          </div>
+          <div class="skill-card border-glow">
+            <i data-feather="code"></i>
+            <h3 data-i18n="about.skill.eng.title">Front-End Engineering</h3>
+            <p data-i18n="about.skill.eng.desc">Pixel-accurate, accessible, performant HTML, CSS, and JavaScript.</p>
+          </div>
+          <div class="skill-card border-glow">
+            <i data-feather="zap"></i>
+            <h3 data-i18n="about.skill.motion.title">Motion &amp; Interaction</h3>
+            <p data-i18n="about.skill.motion.desc">Subtle, purposeful animation that supports usability over spectacle.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECH SLIDER ============ -->
+    <section class="tech-slider" aria-label="Technologies I work with">
+      <div class="slider-track">
+        <div class="logo-group">
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452228/html-5.svg" alt="HTML5" loading="lazy"><span>HTML</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452185/css-3.svg" alt="CSS3" loading="lazy"><span>CSS</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/303206/javascript-logo.svg" alt="JavaScript" loading="lazy"><span>JS</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/493719/react-javascript-js-framework-facebook.svg" alt="React" loading="lazy"><span>React</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/374118/tailwind.svg" alt="Tailwind CSS" loading="lazy"><span>Tailwind</span></div>
+          <div class="logo-item logo-item--invert"><img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" loading="lazy"><span>GitHub</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452202/figma.svg" alt="Figma" loading="lazy"><span>Figma</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452210/git.svg" alt="Git" loading="lazy"><span>Git</span></div>
+        </div>
+        <div class="logo-group" aria-hidden="true">
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452228/html-5.svg" alt="" loading="lazy"><span>HTML</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452185/css-3.svg" alt="" loading="lazy"><span>CSS</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/303206/javascript-logo.svg" alt="" loading="lazy"><span>JS</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/493719/react-javascript-js-framework-facebook.svg" alt="" loading="lazy"><span>React</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/374118/tailwind.svg" alt="" loading="lazy"><span>Tailwind</span></div>
+          <div class="logo-item logo-item--invert"><img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="" loading="lazy"><span>GitHub</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452202/figma.svg" alt="" loading="lazy"><span>Figma</span></div>
+          <div class="logo-item"><img src="https://www.svgrepo.com/show/452210/git.svg" alt="" loading="lazy"><span>Git</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PORTFOLIO ============ -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow" data-i18n="portfolio.eyebrow">Portfolio</span>
+          <h2 data-i18n="portfolio.heading">What I've Built</h2>
+        </div>
+        <div class="pf-tabnav" id="pfTabnav" role="tablist" aria-label="Portfolio sections" data-reveal>
+          <button class="pf-tab is-active" type="button" role="tab" id="pfTabBtn0" aria-selected="true" aria-controls="pfSlide0" data-slide="0">
+            <i data-feather="grid"></i>
+            <span data-i18n="portfolio.tab.projects">Projects</span>
+          </button>
+          <button class="pf-tab" type="button" role="tab" id="pfTabBtn1" aria-selected="false" aria-controls="pfSlide1" data-slide="1">
+            <i data-feather="award"></i>
+            <span data-i18n="portfolio.tab.certs">Certificates</span>
+          </button>
+          <button class="pf-tab" type="button" role="tab" id="pfTabBtn2" aria-selected="false" aria-controls="pfSlide2" data-slide="2">
+            <i data-feather="zap"></i>
+            <span data-i18n="portfolio.tab.skills">My Skill</span>
+          </button>
+          <span class="pf-tab__pill" id="pfTabPill" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="pf-wrapper" id="pfWrapper">
+        <div class="pf-track" id="pfTrack">
+
+          <!-- SLIDE 0: PROJECTS -->
+          <div class="pf-slide" id="pfSlide0" role="tabpanel" aria-labelledby="pfTabBtn0">
+            <div class="container">
+              <div class="proj-grid">
+                <article class="proj-card">
+                  <div class="proj-card__img"><img src="./asset/image/Sneakerzone.png" alt="SneakerZone E-Commerce" loading="lazy"></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title" data-i18n="project.sneaker.title">SneakerZone E-Commerce</h3>
+                    <p class="proj-card__desc" data-i18n="project.sneaker.desc">Full-stack sneaker marketplace with cart, order tracking, and multiple payment gateways.</p>
+                    <div class="proj-card__actions">
+                      <a class="btn-sm btn-sm--primary" href="#" data-i18n="project.btn.demo">Live Demo</a>
+                      <a class="btn-sm btn-sm--outline" href="#" data-i18n="project.btn.details">Details</a>
+                    </div>
+                  </div>
+                </article>
+                <article class="proj-card">
+                  <div class="proj-card__img"><img src="./asset/image/Smartcanteen.png" alt="Smartcanteen E-Commerce" loading="lazy"></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title" data-i18n="project.canteen.title">Smartcanteen E-Commerce</h3>
+                    <p class="proj-card__desc" data-i18n="project.canteen.desc">SmartCanteen is a modern e-commerce web application designed to simplify food ordering in a digital canteen environment.</p>
+                    <div class="proj-card__actions">
+                      <a class="btn-sm btn-sm--primary" href="#" data-i18n="project.btn.demo">Live Demo</a>
+                      <a class="btn-sm btn-sm--outline" href="#" data-i18n="project.btn.details">Details</a>
+                    </div>
+                  </div>
+                </article>
+                <article class="proj-card">
+                  <div class="proj-card__img"><img src="./asset/image/Portofolio-Uji-Level.png" alt="Portfolio Website" loading="lazy"></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title" data-i18n="project.portfolio.title">Portfolio Website</h3>
+                    <p class="proj-card__desc" data-i18n="project.portfolio.desc">Premium personal portfolio with glassmorphism, smooth animations, and dark mode support.</p>
+                    <div class="proj-card__actions">
+                      <a class="btn-sm btn-sm--primary" href="#" data-i18n="project.btn.demo">Live Demo</a>
+                      <a class="btn-sm btn-sm--outline" href="#" data-i18n="project.btn.details">Details</a>
+                    </div>
+                  </div>
+                </article>
+                <article class="proj-card">
+                  <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80" alt="Inventory Management" loading="lazy"></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title" data-i18n="project.inventory.title">Inventory Management</h3>
+                    <p class="proj-card__desc" data-i18n="project.inventory.desc">Stock control system with barcode scanning, low-stock alerts, and supplier management.</p>
+                    <div class="proj-card__actions">
+                      <a class="btn-sm btn-sm--primary" href="#" data-i18n="project.btn.demo">Live Demo</a>
+                      <a class="btn-sm btn-sm--outline" href="#" data-i18n="project.btn.details">Details</a>
+                    </div>
+                  </div>
+                </article>
+                <article class="proj-card">
+                  <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80" alt="School Management System" loading="lazy"></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title" data-i18n="project.school.title">School Management System</h3>
+                    <p class="proj-card__desc" data-i18n="project.school.desc">End-to-end school ERP covering attendance, grades, timetables, and parent portals.</p>
+                    <div class="proj-card__actions">
+                      <a class="btn-sm btn-sm--primary" href="#" data-i18n="project.btn.demo">Live Demo</a>
+                      <a class="btn-sm btn-sm--outline" href="#" data-i18n="project.btn.details">Details</a>
+                    </div>
+                  </div>
+                </article>
+                <article class="proj-card">
+                  <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=900&q=80" alt="AI Chat Application" loading="lazy"></div>
+                  <div class="proj-card__body">
+                    <h3 class="proj-card__title" data-i18n="project.ai.title">AI Chat Application</h3>
+                    <p class="proj-card__desc" data-i18n="project.ai.desc">Conversational AI interface with context memory, streaming responses, and markdown rendering.</p>
+                    <div class="proj-card__actions">
+                      <a class="btn-sm btn-sm--primary" href="#" data-i18n="project.btn.demo">Live Demo</a>
+                      <a class="btn-sm btn-sm--outline" href="#" data-i18n="project.btn.details">Details</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 1: CERTIFICATES -->
+          <div class="pf-slide" id="pfSlide1" role="tabpanel" aria-labelledby="pfTabBtn1">
+            <div class="container">
+              <div class="certs-grid">
+                <article class="cert-card" data-cert-index="0">
+                  <button class="cert-card__btn" type="button">
+                    <div class="cert-card__img"><img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy"></div>
+                    <div class="cert-card__body">
+                      <h3 class="cert-card__title" data-i18n="cert.frontend.title">Front-End Development</h3>
+                      <p class="cert-card__issuer" data-i18n="cert.frontend.issuer">freeCodeCamp · Jan 2024</p>
+                    </div>
+                  </button>
+                </article>
+                <article class="cert-card" data-cert-index="1">
+                  <button class="cert-card__btn" type="button">
+                    <div class="cert-card__img"><img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy"></div>
+                    <div class="cert-card__body">
+                      <h3 class="cert-card__title" data-i18n="cert.responsive.title">Responsive Web Design</h3>
+                      <p class="cert-card__issuer" data-i18n="cert.responsive.issuer">freeCodeCamp · Mar 2024</p>
+                    </div>
+                  </button>
+                </article>
+                <article class="cert-card" data-cert-index="2">
+                  <button class="cert-card__btn" type="button">
+                    <div class="cert-card__img"><img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy"></div>
+                    <div class="cert-card__body">
+                      <h3 class="cert-card__title" data-i18n="cert.js.title">JavaScript Algorithms</h3>
+                      <p class="cert-card__issuer" data-i18n="cert.js.issuer">freeCodeCamp · May 2024</p>
+                    </div>
+                  </button>
+                </article>
+                <article class="cert-card" data-cert-index="3">
+                  <button class="cert-card__btn" type="button">
+                    <div class="cert-card__img"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy"></div>
+                    <div class="cert-card__body">
+                      <h3 class="cert-card__title" data-i18n="cert.uiux.title">UI/UX Design</h3>
+                      <p class="cert-card__issuer" data-i18n="cert.uiux.issuer">Google · Aug 2024</p>
+                    </div>
+                  </button>
+                </article>
+                <article class="cert-card" data-cert-index="4">
+                  <button class="cert-card__btn" type="button">
+                    <div class="cert-card__img"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy"></div>
+                    <div class="cert-card__body">
+                      <h3 class="cert-card__title" data-i18n="cert.ai.title">AI Fundamentals</h3>
+                      <p class="cert-card__issuer" data-i18n="cert.ai.issuer">Google · Oct 2024</p>
+                    </div>
+                  </button>
+                </article>
+                <article class="cert-card" data-cert-index="5">
+                  <button class="cert-card__btn" type="button">
+                    <div class="cert-card__img"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy"></div>
+                    <div class="cert-card__body">
+                      <h3 class="cert-card__title" data-i18n="cert.react.title">React Development</h3>
+                      <p class="cert-card__issuer" data-i18n="cert.react.issuer">Meta · Dec 2024</p>
+                    </div>
+                  </button>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: MY SKILL -->
+          <div class="pf-slide" id="pfSlide2" role="tabpanel" aria-labelledby="pfTabBtn2">
+            <div class="container">
+              <div class="skills-logo-grid">
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452228/html-5.svg" alt="HTML5" loading="lazy"><span>HTML</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452185/css-3.svg" alt="CSS3" loading="lazy"><span>CSS</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/303206/javascript-logo.svg" alt="JavaScript" loading="lazy"><span>JavaScript</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452091/python.svg" alt="Python" loading="lazy"><span>Python</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/493719/react-javascript-js-framework-facebook.svg" alt="React" loading="lazy"><span>React</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/374118/tailwind.svg" alt="Tailwind CSS" loading="lazy"><span>Tailwind CSS</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/353985/laravel.svg" alt="Laravel" loading="lazy"><span>Laravel</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452210/git.svg" alt="Git" loading="lazy"><span>Git</span></div>
+                <div class="skill-logo skill-logo--invert"><img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" loading="lazy"><span>GitHub</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452202/figma.svg" alt="Figma" loading="lazy"><span>Figma</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/349474/php.svg" alt="PHP" loading="lazy"><span>PHP</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/303251/mysql-logo.svg" alt="MySQL" loading="lazy"><span>MySQL</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452130/vue.svg" alt="Vue.js" loading="lazy"><span>Vue.js</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452075/node-js.svg" alt="Node.js" loading="lazy"><span>Node.js</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/452156/angular.svg" alt="Angular" loading="lazy"><span>Angular</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/342062/next-js.svg" alt="Next.js" loading="lazy"><span>Next.js</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/439022/typescript.svg" alt="TypeScript" loading="lazy"><span>TypeScript</span></div>
+                <div class="skill-logo"><img src="https://www.svgrepo.com/show/354512/vercel.svg" alt="Vercel" loading="lazy"><span>Vercel</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Certificate Modal -->
+      <div class="cert-modal" id="certModal" role="dialog" aria-modal="true" aria-label="Certificate detail" tabindex="-1">
+        <div class="cert-modal__backdrop" id="certModalBackdrop"></div>
+        <div class="cert-modal__box">
+          <button class="cert-modal__close" id="certModalClose" type="button" aria-label="Close modal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="cert-modal__img-wrap">
+            <img src="" alt="" id="certModalImg" class="cert-modal__img">
+          </div>
+          <div class="cert-modal__meta">
+            <div>
+              <h3 class="cert-modal__title" id="certModalTitle"></h3>
+              <p class="cert-modal__issuer" id="certModalIssuer"></p>
+            </div>
+            <div class="cert-modal__nav">
+              <button class="cert-modal__nav-btn" id="certModalPrev" type="button" aria-label="Previous certificate">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <span class="cert-modal__counter" id="certModalCounter">1 / 6</span>
+              <button class="cert-modal__nav-btn" id="certModalNext" type="button" aria-label="Next certificate">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-text" data-reveal>
+          <span class="eyebrow" data-i18n="contact.eyebrow">Contact</span>
+          <h2 data-i18n="contact.heading">Let's build something good together.</h2>
+          <p data-i18n="contact.subtext">Have a project in mind, or just want to say hello? My inbox is open.</p>
+          <div class="contact-details">
+            <a href="mailto:hello@farabi.design" class="contact-detail">
+              <i data-feather="mail"></i>
+              <span>hello@farabi.design</span>
+            </a>
+            <span class="contact-detail">
+              <i data-feather="map-pin"></i>
+              <span data-i18n="contact.location">Available worldwide, remote-first</span>
+            </span>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" data-reveal data-reveal-delay="1" novalidate>
+          <div class="form-row">
+            <label for="name" data-i18n="contact.form.name">Name</label>
+            <input type="text" id="name" name="name" data-i18n-placeholder="contact.form.name.placeholder" placeholder="Your name" required autocomplete="name">
+          </div>
+          <div class="form-row">
+            <label for="email" data-i18n="contact.form.email">Email</label>
+            <input type="email" id="email" name="email" data-i18n-placeholder="contact.form.email.placeholder" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <div class="form-row">
+            <label for="message" data-i18n="contact.form.message">Message</label>
+            <textarea id="message" name="message" rows="4" data-i18n-placeholder="contact.form.message.placeholder" placeholder="Tell me about your project" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-magnetic btn-full">
+            <span data-i18n="contact.form.send">Send Message</span>
+            <i data-feather="send"></i>
+          </button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#home" class="logo">Faletehan Al Farabi<span>.</span></a>
+      <p>&copy; <span id="year"></span> Faletehan Al Farabi. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      <div class="footer-socials">
+        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i data-feather="github"></i></a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+        <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-feather="dribbble"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i data-feather="arrow-up"></i>
+  </button>
+
+  <script src="./asset/js/script.js"></script>
+</body>
+</html>

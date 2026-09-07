@@ -15,7 +15,6 @@ const translations = {
     'nav.portfolio': 'Portfolio',
     'nav.contact': 'Contact',
 
-    'hero.available': 'Available for work',
     'hero.greeting': "Hi, My Name is  ",
     'hero.role': 'Fullstack Web Developer & UI/UX Designer',
     'hero.desc': "I am a Software Engineering student passionate about web development and UI/UX design. I enjoy building modern, responsive, and user-friendly websites while continuously learning new technologies and improving my skills through real projects.",
@@ -45,33 +44,7 @@ const translations = {
     'portfolio.tab_certs': 'Certificates',
     'portfolio.tab_tech': 'Tech Stack',
 
-    'p1.name': 'E-Commerce Platform',
-    'p1.desc': 'Sneaker e-commerce platform with a modern design and responsive shopping experience.',
-    'p2.name': 'Task Management System',
-    'p2.desc': 'A task management application that helps users organize, create, edit, and track daily tasks efficiently.',
-    'p3.name': 'SmartCanteen Web Platform',
-    'p3.desc': 'A web-based canteen platform featuring a responsive landing page, user login, and registration system designed to provide a simple and modern user experience.',
-    'p4.name': 'Personal Portfolio Website',
-    'p4.desc': 'A responsive portfolio website showcasing personal projects, Download CV, technical skills, and contact information through a modern and user-friendly interface.',
-    'p5.name': 'New Project Coming Soon',
-    'p5.desc': 'A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.',
-    'p6.name': 'New Project Coming Soon',
-    'p6.desc': 'A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.',
-
-    'c1.name': 'Development of the Sneakerzone E-Commerce Website',
-    'c1.issuer': 'SMK Taruna Bhakti',
-    'c2.name': 'Getting Started with Haskell Programming',
-    'c2.issuer': 'Dicoding Indonesia',
-    'c3.name': 'Learning SOLID Programming Principles',
-    'c3.issuer': 'Dicoding Indonesia',
-    'c4.name': 'Getting Started with Programming in C',
-    'c4.issuer': 'Dicoding Indonesia',
-    'c5.name': 'Getting Started with Java Programming',
-    'c5.issuer': 'Dicoding Indonesia',
-    'c6.name': 'Learning UI/UX Fundamentals',
-    'c6.issuer': 'My Skill',
-
-    'btn.live': 'Live Demo',
+    'btn.detail': 'Project Detail',
     'btn.github': 'GitHub',
 
     'contact.label': 'Contact',
@@ -100,7 +73,6 @@ const translations = {
     'nav.portfolio': 'Portofolio',
     'nav.contact': 'Kontak',
 
-    'hero.available': 'Tersedia untuk pekerjaan',
     'hero.greeting': 'Halo, Nama Saya ',
     'hero.role': 'Fullstack Web Developer & UI/UX Designer',
     'hero.desc': 'Saya adalah siswa Rekayasa Perangkat Lunak (RPL) yang memiliki minat besar pada pengembangan web dan desain UI/UX. Saya senang membangun website modern, responsif, dan mudah digunakan, serta terus belajar teknologi baru melalui berbagai proyek dan latihan.',
@@ -130,33 +102,7 @@ const translations = {
     'portfolio.tab_certs': 'Sertifikat',
     'portfolio.tab_tech': 'Tech Stack',
 
-    'p1.name': 'Platform E-Commerce',
-    'p1.desc': 'Platform e-commerce sepatu dengan desain modern dan pengalaman belanja yang responsif.',
-    'p2.name': 'Sistem Manajemen Tugas',
-    'p2.desc': 'Aplikasi manajemen tugas yang membantu pengguna mengatur, menambah, mengedit, dan menyelesaikan tugas harian secara efisien.',
-    'p3.name': 'Platform Web SmartCanteen',
-    'p3.desc': 'Platform kantin berbasis web yang dilengkapi landing page responsif, sistem login, dan registrasi pengguna dengan tampilan modern dan mudah digunakan.',
-    'p4.name': 'Website Portofolio Pribadi',
-    'p4.desc': 'Website portofolio responsif yang menampilkan proyek, unduh CV, keterampilan teknis, dan informasi kontak dengan antarmuka yang modern dan mudah digunakan.',
-    'p5.name': 'Proyek Baru Segera Hadir',
-    'p5.desc': 'Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini.',
-    'p6.name': 'Proyek Baru Segera Hadir',
-    'p6.desc': 'Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini.',
-
-    'c1.name': 'Pembuatan Web E-Commerce Sneakerzone',
-    'c1.issuer': 'SMK Taruna Bhakti',
-    'c2.name': 'Memulai Pemrograman Dengan Haskell',
-    'c2.issuer': 'Dicoding Indonesia',
-    'c3.name': 'Belajar Prinspip Pemrograman Solid',
-    'c3.issuer': 'Dicoding Indonesia',
-    'c4.name': 'Memulai Pemrograman Dengan Bahasa C',
-    'c4.issuer': 'Dicoding Indonesia',
-    'c5.name': 'Memulai Pemrograman Dengan Java',
-    'c5.issuer': 'Dicoding Indonesia',
-    'c6.name': 'Belajar Fundamental UI/UX',
-    'c6.issuer': 'My Skill',
-
-    'btn.live': 'Demo Langsung',
+    'btn.detail': 'Detail Proyek',
     'btn.github': 'GitHub',
 
     'contact.label': 'Kontak',
@@ -192,6 +138,44 @@ const State = {
 };
 
 /* ================================================================
+    2b. DATA SERVICE (JSON API)
+   ================================================================ */
+const DataService = (() => {
+  const cache = {};
+
+  async function getJSON(path) {
+    if (!cache[path]) {
+      const res = await fetch(path);
+      if (!res.ok) throw new Error(`Failed to load ${path} (${res.status})`);
+      cache[path] = await res.json();
+    }
+    return cache[path];
+  }
+
+  return {
+    projects: () => getJSON('api/project.json'),
+    certificates: () => getJSON('api/certificate.json'),
+    techstack: () => getJSON('api/techstack.json'),
+  };
+})();
+
+/* Pick localized field: { en: "...", id: "..." } */
+function pick(obj) {
+  if (!obj) return '';
+  return obj[State.lang] || obj.en || '';
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[c]));
+}
+
+/* ================================================================
    3. THEME SWITCHER
 ================================================================ */
 const ThemeSwitcher = (() => {
@@ -205,7 +189,7 @@ const ThemeSwitcher = (() => {
     localStorage.setItem('theme', theme);
 
     // Update GitHub logo invert for dark mode
-    const githubLogos = document.querySelectorAll('#github-logo, #github-tab');
+    const githubLogos = document.querySelectorAll('.invert-dark');
     githubLogos.forEach(el => {
       el.style.filter = theme === 'dark' ? 'invert(1)' : 'none';
     });
@@ -248,21 +232,9 @@ const LangSwitcher = (() => {
       el.textContent = val;
     });
 
-    // Update certificate card details
-    document.querySelectorAll('.cert-card').forEach(card => {
-      const nameKey = card.getAttribute('data-cert-name-key');
-      const issuerKey = card.getAttribute('data-cert-issuer-key');
-      const titleEl = card.querySelector('h3');
-      const issuerEl = card.querySelector('p');
-
-      if (titleEl && nameKey) {
-        titleEl.textContent = t(nameKey);
-      }
-
-      if (issuerEl && issuerKey) {
-        issuerEl.textContent = t(issuerKey);
-      }
-    });
+    // Re-render API-driven sections (projects & certificates)
+    if (typeof ProjectsSection !== 'undefined') ProjectsSection.render();
+    if (typeof CertificatesSection !== 'undefined') CertificatesSection.render();
 
     // Placeholder attributes
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -568,23 +540,32 @@ const CounterAnim = (() => {
 
 /* ================================================================
    11. FADE-UP ON SCROLL
-================================================================ */
-function initFadeUp() {
-  const els = document.querySelectorAll('.fade-up');
-  if (!els.length) return;
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
+   ================================================================ */
+const fadeObserver = ('IntersectionObserver' in window)
+  ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-        }, 80 * (Array.from(els).indexOf(entry.target) % 4));
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 })
+  : null;
 
-  els.forEach(el => observer.observe(el));
+function observeFadeUp(scope = document) {
+  if (!scope) return;
+  scope.querySelectorAll('.fade-up:not(.visible)').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 80}ms`;
+    if (fadeObserver) {
+      fadeObserver.observe(el);
+    } else {
+      el.classList.add('visible');
+    }
+  });
+}
+
+function initFadeUp() {
+  observeFadeUp(document);
 }
 
 /* ================================================================
@@ -687,8 +668,152 @@ const PortfolioTabs = (() => {
 })();
 
 /* ================================================================
+   15b. PROJECTS SECTION (from /api/project.json)
+   ================================================================ */
+const ProjectsSection = (() => {
+  let data = null;
+
+  function techIcons(project) {
+    return (project.tech || []).map(t => `
+      <img src="${escapeHtml(t.icon)}" alt="${escapeHtml(t.name)}" title="${escapeHtml(t.name)}"
+        class="tech-icon" loading="lazy" />`).join('');
+  }
+
+  function card(p) {
+    const name = escapeHtml(pick(p.name));
+    const desc = escapeHtml(pick(p.short_desc));
+    const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
+    const placeholder = !p.demo || p.demo === '#';
+    const github = placeholder ? '#' : escapeHtml(p.github);
+
+    return `
+      <article class="card overflow-hidden fade-up">
+        <div class="relative h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
+          <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-5">
+          <h3 class="text-sm font-bold mb-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
+          <p class="text-xs mb-3 leading-relaxed" style="color:var(--color-text-muted);">${desc}</p>
+          <div class="flex flex-wrap items-center gap-1.5 mb-4">${techIcons(p)}</div>
+          <div class="flex gap-2">
+            <a href="${detailUrl}" class="btn-primary text-xs px-3 py-1.5">${LangSwitcher.t('btn.detail')}</a>
+            <a href="${github}" class="btn-secondary text-xs px-3 py-1.5"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${LangSwitcher.t('btn.github')}</a>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  function render() {
+    const grid = document.getElementById('projects-grid');
+    if (!grid || !data) return;
+    grid.innerHTML = data.map(card).join('');
+    observeFadeUp(grid);
+  }
+
+  async function init() {
+    const json = await DataService.projects();
+    data = json.projects || [];
+    render();
+  }
+
+  return { init, render };
+})();
+
+/* ================================================================
+   15c. CERTIFICATES SECTION (from /api/certificate.json)
+   ================================================================ */
+const CertificatesSection = (() => {
+  let data = null;
+
+  function card(c) {
+    const name = escapeHtml(pick(c.name));
+    const issuer = escapeHtml(pick(c.issuer));
+
+    return `
+      <article class="card overflow-hidden cursor-pointer cert-card fade-up" role="button" tabindex="0"
+        data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
+        <div class="h-60 overflow-hidden" style="background-color:var(--color-bg-secondary);">
+          <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="p-4">
+          <h3 class="text-sm font-bold mb-0.5" style="font-weight:700; color:var(--color-text);">${name}</h3>
+          <p class="text-xs" style="color:var(--color-accent); font-weight:600;">${issuer}</p>
+        </div>
+      </article>`;
+  }
+
+  function render() {
+    const grid = document.getElementById('certificates-grid');
+    if (!grid || !data) return;
+    grid.innerHTML = data.map(card).join('');
+    observeFadeUp(grid);
+  }
+
+  async function init() {
+    const json = await DataService.certificates();
+    data = json.certificates || [];
+    render();
+  }
+
+  return { init, render };
+})();
+
+/* ================================================================
+   15d. TECH STACK SECTION (from /api/techstack.json)
+   ================================================================ */
+const TechStackSection = (() => {
+  function imgProps(item) {
+    const cls = item.invert_dark ? 'w-10 h-10 invert-dark' : 'w-10 h-10';
+    const filter = item.invert_dark && State.theme === 'dark' ? ' style="filter:invert(1);"' : '';
+    return `class="${cls}"${filter}`;
+  }
+
+  function marqueeItem(s) {
+    return `
+      <div class="logo-item" title="${escapeHtml(s.name)}">
+        <img src="${escapeHtml(s.icon)}" alt="${escapeHtml(s.name)}" ${imgProps(s)} loading="lazy" />
+        <span class="text-xs font-semibold" style="color:var(--color-text-muted);">${escapeHtml(s.label || s.name)}</span>
+      </div>`;
+  }
+
+  function gridItem(s) {
+    return `
+      <div class="card p-4 flex flex-col items-center gap-2">
+        <img src="${escapeHtml(s.icon)}" alt="${escapeHtml(s.name)}" ${imgProps(s)} loading="lazy" />
+        <span class="text-xs font-semibold text-center" style="color:var(--color-text-muted);">${escapeHtml(s.label || s.name)}</span>
+      </div>`;
+  }
+
+  async function init() {
+    const json = await DataService.techstack();
+    const slider = document.getElementById('logo-slider');
+    const grid = document.getElementById('techstack-grid');
+
+    if (slider && json.marquee) slider.innerHTML = json.marquee.map(marqueeItem).join('');
+    if (grid && json.grid) grid.innerHTML = json.grid.map(gridItem).join('');
+  }
+
+  return { init };
+})();
+
+/* Load all JSON-driven sections, then start sliders */
+async function loadData() {
+  try {
+    await Promise.all([
+      TechStackSection.init(),
+      ProjectsSection.init(),
+      CertificatesSection.init(),
+    ]);
+  } catch (err) {
+    console.error('[Portfolio] Failed to load API data:', err);
+  }
+  initMarquee();
+  initLogoSlider();
+}
+
+/* ================================================================
    16. CERTIFICATE MODAL
-================================================================ */
+   ================================================================ */
 const CertModal = (() => {
   const modal = document.getElementById('cert-modal');
   const imgEl = document.getElementById('modal-cert-img');
@@ -697,23 +822,22 @@ const CertModal = (() => {
   const closeBtn = document.getElementById('modal-close');
   let activeCard = null;
 
-  function resolveText(value, fallback = '') {
-    if (!value) return fallback;
-    if (value.startsWith('c') && value.includes('.')) {
-      return LangSwitcher.t(value);
-    }
-    return value;
+  function openFromCard(cardEl) {
+    open(
+      cardEl.getAttribute('data-cert-img'),
+      cardEl.getAttribute('data-cert-name'),
+      cardEl.getAttribute('data-cert-issuer'),
+      cardEl
+    );
   }
 
   function open(img, name, issuer, cardEl) {
     if (!modal) return;
-    const resolvedName = resolveText(name);
-    const resolvedIssuer = resolveText(issuer);
 
-    imgEl.src = img;
-    imgEl.alt = resolvedName || 'Certificate';
-    nameEl.textContent = resolvedName;
-    issuerEl.textContent = resolvedIssuer;
+    imgEl.src = img || '';
+    imgEl.alt = name || 'Certificate';
+    nameEl.textContent = name || '';
+    issuerEl.textContent = issuer || '';
     activeCard = cardEl || null;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -728,22 +852,27 @@ const CertModal = (() => {
 
   function updateActiveModal() {
     if (!modal || !modal.classList.contains('open') || !activeCard) return;
-    const img = activeCard.getAttribute('data-cert-img');
-    const name = activeCard.getAttribute('data-cert-name-key') || activeCard.getAttribute('data-cert-name');
-    const issuer = activeCard.getAttribute('data-cert-issuer-key') || activeCard.getAttribute('data-cert-issuer');
-    open(img, name, issuer, activeCard);
+    // Cards are re-rendered on language change; refresh from live attributes
+    openFromCard(activeCard);
   }
 
   function init() {
-    // Card clicks
-    document.querySelectorAll('.cert-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const img = card.getAttribute('data-cert-img');
-        const name = card.getAttribute('data-cert-name-key') || card.getAttribute('data-cert-name');
-        const issuer = card.getAttribute('data-cert-issuer-key') || card.getAttribute('data-cert-issuer');
-        open(img, name, issuer, card);
+    // Event delegation: cert cards are rendered dynamically from JSON
+    const panel = document.getElementById('tab-certificates');
+    if (panel) {
+      panel.addEventListener('click', e => {
+        const card = e.target.closest('.cert-card');
+        if (card) openFromCard(card);
       });
-    });
+      panel.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const card = e.target.closest('.cert-card');
+        if (card) {
+          e.preventDefault();
+          openFromCard(card);
+        }
+      });
+    }
 
     // Close button
     closeBtn && closeBtn.addEventListener('click', close);
@@ -895,18 +1024,16 @@ function initCursor() {
   }
   loopRing();
 
-  // Scale ring on interactive elements
-  document.querySelectorAll('a, button, .cert-card, .card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      ring.style.width = '50px';
-      ring.style.height = '50px';
-      ring.style.opacity = '0.2';
-    });
-    el.addEventListener('mouseleave', () => {
-      ring.style.width = '32px';
-      ring.style.height = '32px';
+  // Gentle highlight on interactive elements (no size change = no pulsing)
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, .cert-card, .card')) {
+      ring.style.opacity = '0.75';
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, .cert-card, .card')) {
       ring.style.opacity = '0.4';
-    });
+    }
   });
 }
 
@@ -939,13 +1066,14 @@ function init() {
   TypewriterAnim.init();
   CounterAnim.init();
   initFadeUp();
-  initMarquee();
-  initLogoSlider();
   initTiltCard();
   PortfolioTabs.init();
   CertModal.init();
   ContactForm.init();
   initCursor();
+
+  // Fetch & render projects, certificates, and tech stack from /api/*.json
+  loadData();
 }
 
 // Wait for DOM + Feather

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project detail – Faletehan Portfolio" />
+  <title>Project Detail | Faletehan</title>
+  <link rel="stylesheet" href="../src/output.css" />
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js" defer></script>
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    img {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+     NAVBAR
+============================================================ -->
+  <header class="nav-glass fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
+
+      <!-- Back -->
+      <a href="../index.html#portfolio" class="flex items-center gap-2 text-sm font-semibold group"
+        style="color:var(--color-text);">
+        <span
+          class="w-7 h-7 rounded-lg flex items-center justify-center transition-transform group-hover:-translate-x-0.5"
+          style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
+          <i data-feather="arrow-left" class="w-4 h-4" style="color:var(--color-accent);"></i>
+        </span>
+        <span id="back-label">Back to Portfolio</span>
+      </a>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-2">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">EN</button>
+        <button class="toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+          <i data-feather="sun" class="w-4 h-4 block" id="theme-icon-light"></i>
+          <i data-feather="moon" class="w-4 h-4 hidden" id="theme-icon-dark"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================
+     PROJECT DETAIL
+============================================================ -->
+  <main class="min-h-screen pt-24 pb-16">
+    <div class="max-w-5xl mx-auto px-5">
+
+      <!-- Loading -->
+      <p id="d-loading" class="text-sm text-center py-20" style="color:var(--color-text-muted);">Loading project…</p>
+
+      <!-- Not Found -->
+      <div id="d-notfound" class="hidden card p-10 sm:p-16 text-center fade-up visible">
+        <div
+          class="w-14 h-14 rounded-2xl mx-auto mb-5 flex items-center justify-center"
+          style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
+          <i data-feather="alert-circle" class="w-6 h-6" style="color:var(--color-accent);"></i>
+        </div>
+        <h1 class="section-heading mb-3" id="d-nf-title">Project Not Found</h1>
+        <p class="text-sm mb-8" style="color:var(--color-text-muted);" id="d-nf-desc">
+          The project you are looking for doesn't exist or has been moved.</p>
+        <a href="../index.html#portfolio" class="btn-primary mx-auto">
+          <i data-feather="arrow-left" class="w-4 h-4"></i>
+          <span id="d-nf-back">Back to Portfolio</span>
+        </a>
+      </div>
+
+      <!-- Content -->
+      <article id="d-content" class="hidden">
+
+        <!-- Cover -->
+        <div class="card overflow-hidden mb-8">
+          <img id="d-image" src="" alt="" class="detail-cover" />
+        </div>
+
+        <!-- Meta -->
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="tech-badge" id="d-category"></span>
+          <span class="tech-badge" id="d-year"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="section-heading mb-4" id="d-title"></h1>
+
+        <!-- Description -->
+        <p class="text-base leading-relaxed mb-10 max-w-3xl" style="color:var(--color-text-muted);" id="d-desc"></p>
+
+        <!-- Tech Stack -->
+        <p class="section-label mb-3" id="d-tech-label">Technologies Used</p>
+        <div class="flex flex-wrap items-center gap-2.5 mb-12" id="d-tech"></div>
+
+        <!-- Links -->
+        <div class="flex flex-wrap gap-3" id="d-links">
+          <a id="d-demo" href="#" target="_blank" rel="noopener" class="btn-primary">
+            <i data-feather="external-link" class="w-4 h-4"></i>
+            <span id="d-demo-label">Live Demo</span>
+          </a>
+          <a id="d-github" href="#" target="_blank" rel="noopener" class="btn-secondary">
+            <i data-feather="github" class="w-4 h-4"></i>
+            <span id="d-github-label">GitHub</span>
+          </a>
+        </div>
+
+      </article>
+
+      <!-- Other Projects -->
+      <section id="d-related" class="hidden mt-20">
+        <p class="section-label mb-5" id="d-other-label">Other Projects</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5" id="d-related-grid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+     FOOTER
+============================================================ -->
+  <footer style="background-color:var(--color-bg-secondary); border-top:1px solid var(--color-border);">
+    <div class="max-w-6xl mx-auto px-5 py-6 text-center">
+      <p class="text-xs" style="color:var(--color-text-muted);">© 2026 Faletehan. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../script/detail.js"></script>
+</body>
+
+</html>

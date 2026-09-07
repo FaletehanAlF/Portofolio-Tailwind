@@ -1,0 +1,164 @@
+{
+  "projects": [
+    {
+      "slug": "sneakerzone",
+      "name": {
+        "en": "E-Commerce Platform",
+        "id": "Platform E-Commerce"
+      },
+      "short_desc": {
+        "en": "Sneaker e-commerce platform with a modern design and responsive shopping experience.",
+        "id": "Platform e-commerce sepatu dengan desain modern dan pengalaman belanja yang responsif."
+      },
+      "long_desc": {
+        "en": "SneakerZone is a full-featured sneaker e-commerce website that provides a modern and responsive shopping experience. It includes a product catalog with filtering, a shopping cart, a smooth checkout flow, and product detail pages. The project focuses on clean UI design, fast loading times, and mobile-first responsiveness, and is deployed on Vercel.",
+        "id": "SneakerZone adalah website e-commerce sepatu lengkap yang menghadirkan pengalaman belanja modern dan responsif. Fitur yang tersedia meliputi katalog produk dengan filter, keranjang belanja, alur checkout yang mudah, serta halaman detail produk. Proyek ini berfokus pada desain UI yang bersih, kecepatan loading, dan tampilan mobile-first, serta telah di-deploy di Vercel."
+      },
+      "image": "/assets/image/SneakerZone.png",
+      "demo": "https://sneakerzone-dszt.vercel.app/",
+      "github": "https://github.com/FaletehanAlF/Sneakerzone.git",
+      "category": {
+        "en": "Web Development",
+        "id": "Pengembangan Web"
+      },
+      "year": "2024",
+      "tech": [
+        { "name": "HTML", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { "name": "JavaScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+        { "name": "Tailwind CSS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" }
+      ]
+    },
+    {
+      "slug": "task-management",
+      "name": {
+        "en": "Task Management System",
+        "id": "Sistem Manajemen Tugas"
+      },
+      "short_desc": {
+        "en": "A task management application that helps users organize, create, edit, and track daily tasks efficiently.",
+        "id": "Aplikasi manajemen tugas yang membantu pengguna mengatur, menambah, mengedit, dan menyelesaikan tugas harian secara efisien."
+      },
+      "long_desc": {
+        "en": "A task management application built with TypeScript that helps users organize their daily activities. Users can create, edit, complete, and delete tasks, with data persisted locally so nothing is lost between sessions. The interface is clean and responsive, making it easy to stay productive on any device.",
+        "id": "Aplikasi manajemen tugas yang dibangun dengan TypeScript untuk membantu pengguna mengatur aktivitas harian. Pengguna dapat membuat, mengedit, menyelesaikan, dan menghapus tugas, dengan data yang tersimpan secara lokal agar tidak hilang di sesi berikutnya. Antarmukanya bersih dan responsif sehingga nyaman digunakan di perangkat apa pun."
+      },
+      "image": "/assets/image/To-do-list.png",
+      "demo": "https://to-do-list-typescript-theta.vercel.app/",
+      "github": "https://github.com/FaletehanAlF/To-do-list-Typescript.git",
+      "category": {
+        "en": "Web Application",
+        "id": "Aplikasi Web"
+      },
+      "year": "2024",
+      "tech": [
+        { "name": "HTML", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { "name": "TypeScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+        { "name": "CSS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" }
+      ]
+    },
+    {
+      "slug": "smartcanteen",
+      "name": {
+        "en": "SmartCanteen Web Platform",
+        "id": "Platform Web SmartCanteen"
+      },
+      "short_desc": {
+        "en": "A web-based canteen platform featuring a responsive landing page, user login, and registration system designed to provide a simple and modern user experience.",
+        "id": "Platform kantin berbasis web yang dilengkapi landing page responsif, sistem login, dan registrasi pengguna dengan tampilan modern dan mudah digunakan."
+      },
+      "long_desc": {
+        "en": "SmartCanteen is a web-based canteen platform designed to digitalize the school canteen experience. It features a responsive landing page, a user registration and login system, and an intuitive ordering flow. The project emphasizes simple navigation and a modern look so students can order food quickly and conveniently.",
+        "id": "SmartCanteen adalah platform kantin berbasis web yang dirancang untuk memdigitalkan pengalaman kantin sekolah. Dilengkapi landing page yang responsif, sistem registrasi dan login pengguna, serta alur pemesanan yang intuitif. Proyek ini menekankan navigasi sederhana dan tampilan modern agar siswa dapat memesan makanan dengan cepat dan praktis."
+      },
+      "image": "/assets/image/Smartcanteen.png",
+      "demo": "https://smartcanteenid.vercel.app/",
+      "github": "https://github.com/FaletehanAlF/smartcanteen.git",
+      "category": {
+        "en": "Web Development",
+        "id": "Pengembangan Web"
+      },
+      "year": "2025",
+      "tech": [
+        { "name": "HTML", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { "name": "Tailwind CSS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+        { "name": "JavaScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+      ]
+    },
+    {
+      "slug": "personal-portfolio",
+      "name": {
+        "en": "Personal Portfolio Website",
+        "id": "Website Portofolio Pribadi"
+      },
+      "short_desc": {
+        "en": "A responsive portfolio website showcasing personal projects, Download CV, technical skills, and contact information through a modern and user-friendly interface.",
+        "id": "Website portofolio responsif yang menampilkan proyek, unduh CV, keterampilan teknis, dan informasi kontak dengan antarmuka yang modern dan mudah digunakan."
+      },
+      "long_desc": {
+        "en": "A personal portfolio website built to showcase projects, technical skills, certificates, and contact information in one place. It features light/dark themes, bilingual content (EN/ID), smooth animations, and a fully responsive layout. The site is built with HTML, CSS, and vanilla JavaScript for maximum performance without heavy frameworks.",
+        "id": "Website portofolio pribadi yang dibuat untuk menampilkan proyek, keterampilan teknis, sertifikat, dan informasi kontak dalam satu tempat. Dilengkapi tema terang/gelap, konten dua bahasa (EN/ID), animasi halus, dan tata letak yang sepenuhnya responsif. Website ini dibangun dengan HTML, CSS, dan JavaScript vanilla demi performa maksimal tanpa framework berat."
+      },
+      "image": "/assets/image/Personal Portofolio.png",
+      "demo": "https://portfolio-uji-level-falen.vercel.app/",
+      "github": "https://github.com/FaletehanAlF/portfolio-uji-level.git",
+      "category": {
+        "en": "Web Design & Development",
+        "id": "Desain & Pengembangan Web"
+      },
+      "year": "2025",
+      "tech": [
+        { "name": "HTML", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { "name": "JavaScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+        { "name": "CSS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" }
+      ]
+    },
+    {
+      "slug": "coming-soon-1",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-2",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    }
+  ]
+}
