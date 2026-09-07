@@ -1047,7 +1047,7 @@ const TechStackSection = (() => {
 
   function gridItem(s) {
     return `
-      <div class="card p-4 flex flex-col items-center gap-2">
+      <div class="card p-4 flex flex-col items-center gap-2 fade-up">
         <img src="${escapeHtml(s.icon)}" alt="${escapeHtml(s.name)}" ${imgProps(s)} loading="lazy" />
         <span class="text-xs font-semibold text-center" style="color:var(--color-text-muted);">${escapeHtml(s.label || s.name)}</span>
       </div>`;

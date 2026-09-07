@@ -127,9 +127,9 @@
     const detailUrl = `detail.html?project=${encodeURIComponent(p.slug)}`;
     const placeholder = !p.demo || p.demo === '#';
     const github = placeholder ? '#' : escapeHtml(p.github);
-    return `
-      <article class="card overflow-hidden flex flex-col">
-        <div class="relative h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
+return `
+        <article class="card overflow-hidden fade-up flex flex-col">
+          <div class="relative h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
           <span class="absolute top-3 left-3 tech-badge" style="background:rgba(255,255,255,.94); color:#0f172a; border-color:transparent;">${cat}</span>
           ${p.year ? `<span class="absolute top-3 right-3 tech-badge" style="background:rgba(0,0,0,.55); color:#fff; border-color:transparent;">${escapeHtml(p.year)}</span>` : ''}
@@ -168,9 +168,9 @@
   function certCard(c) {
     const name = escapeHtml(pick(c.name));
     const issuer = escapeHtml(pick(c.issuer));
-    return `
-      <article class="card overflow-hidden cursor-pointer cert-card flex flex-col" role="button" tabindex="0"
-        data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
+return `
+        <article class="card overflow-hidden cursor-pointer cert-card flex flex-col fade-up" role="button" tabindex="0"
+          data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
         <div class="h-56 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
         </div>
