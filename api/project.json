@@ -18,8 +18,8 @@
       "demo": "https://sneakerzone-dszt.vercel.app/",
       "github": "https://github.com/FaletehanAlF/Sneakerzone.git",
       "category": {
-        "en": "Web Development",
-        "id": "Pengembangan Web"
+        "en": "App Application Web Development",
+        "id": "Aplikasi Web Development"
       },
       "year": "2024",
       "tech": [
@@ -46,8 +46,8 @@
       "demo": "https://to-do-list-typescript-theta.vercel.app/",
       "github": "https://github.com/FaletehanAlF/To-do-list-Typescript.git",
       "category": {
-        "en": "Web Application",
-        "id": "Aplikasi Web"
+        "en": "App Application Web Development",
+        "id": "Aplikasi Web Development"
       },
       "year": "2024",
       "tech": [
@@ -74,8 +74,8 @@
       "demo": "https://smartcanteenid.vercel.app/",
       "github": "https://github.com/FaletehanAlF/smartcanteen.git",
       "category": {
-        "en": "Web Development",
-        "id": "Pengembangan Web"
+        "en": "App Application Web Development",
+        "id": "Aplikasi Web Development"
       },
       "year": "2025",
       "tech": [
@@ -102,8 +102,8 @@
       "demo": "https://portfolio-uji-level-falen.vercel.app/",
       "github": "https://github.com/FaletehanAlF/portfolio-uji-level.git",
       "category": {
-        "en": "Web Design & Development",
-        "id": "Desain & Pengembangan Web"
+        "en": "UI/UX Design",
+        "id": "UI/UX Design"
       },
       "year": "2025",
       "tech": [
@@ -138,6 +138,150 @@
     },
     {
       "slug": "coming-soon-2",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-3",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-4",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-5",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-6",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-7",
+      "name": {
+        "en": "New Project Coming Soon",
+        "id": "Proyek Baru Segera Hadir"
+      },
+      "short_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "long_desc": {
+        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
+        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+      },
+      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
+      "demo": "#",
+      "github": "#",
+      "category": {
+        "en": "Coming Soon",
+        "id": "Segera Hadir"
+      },
+      "year": "2026",
+      "tech": []
+    },
+    {
+      "slug": "coming-soon-8",
       "name": {
         "en": "New Project Coming Soon",
         "id": "Proyek Baru Segera Hadir"

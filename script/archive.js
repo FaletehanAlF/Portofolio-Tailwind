@@ -309,10 +309,9 @@
       State.lang = State.lang === 'en' ? 'id' : 'en';
       localStorage.setItem('lang', State.lang);
       State.projectFilter = t('all');
-      State.certFilter = t('all');
       applyStatic();
       if (page === 'projects') { renderProjectFilters(); renderProjects(); }
-      else { renderCertFilters(); renderCerts(); }
+      else { renderCerts(); }
     });
 
     const search = $('archive-search');
@@ -343,7 +342,9 @@
         if (loading) loading.classList.add('hidden');
         const grid = $('archive-grid');
         if (grid) grid.classList.remove('hidden');
-        renderCertFilters();
+        // Hide category filters for certificates
+        const filtersWrap = $('archive-filters');
+        if (filtersWrap) filtersWrap.classList.add('hidden');
         renderCerts();
       }
     } catch (err) {
