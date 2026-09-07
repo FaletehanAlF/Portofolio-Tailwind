@@ -18,6 +18,20 @@
       detail: 'Project Detail',
       github: 'GitHub',
       back: 'Back',
+      home: 'Home',
+      projects: 'Projects',
+      certificates: 'Certificates',
+      backShowcase: 'Back to Showcase',
+      toDark: 'Switch to dark mode',
+      toLight: 'Switch to light mode',
+      projectsEyebrow: 'Portfolio',
+      projectsTitle: 'All Projects',
+      projectsSub: 'Complete collection of my work — from experiments to production apps. Data loaded live from API.',
+      projectsOther: 'See Certificates',
+      certsEyebrow: 'Achievements',
+      certsTitle: 'All Certificates',
+      certsSub: 'Verified courses & awards. Click any card to preview. Data loaded live from API.',
+      certsOther: 'See Projects',
     },
     id: {
       searchProjects: 'Cari proyek...',
@@ -28,6 +42,20 @@
       detail: 'Detail Proyek',
       github: 'GitHub',
       back: 'Kembali',
+      home: 'Beranda',
+      projects: 'Proyek',
+      certificates: 'Sertifikat',
+      backShowcase: 'Kembali ke Showcase',
+      toDark: 'Ganti ke mode gelap',
+      toLight: 'Ganti ke mode terang',
+      projectsEyebrow: 'Portofolio',
+      projectsTitle: 'Semua Proyek',
+      projectsSub: 'Koleksi lengkap karya saya — dari eksperimen hingga aplikasi produksi. Data dimuat langsung dari API.',
+      projectsOther: 'Lihat Sertifikat',
+      certsEyebrow: 'Pencapaian',
+      certsTitle: 'Semua Sertifikat',
+      certsSub: 'Kursus & penghargaan terverifikasi. Klik kartu untuk pratinjau. Data dimuat langsung dari API.',
+      certsOther: 'Lihat Proyek',
     },
   };
 
@@ -51,14 +79,28 @@
     }[c]));
   }
 
-  /* ---------- theme ---------- */
+  /* ---------- theme : matahari (sun) / bulan (moon) ---------- */
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
     localStorage.setItem('theme', theme);
-    const l = $('theme-icon-light'), d = $('theme-icon-dark');
-    if (l) l.classList.toggle('hidden', theme === 'dark');
-    if (d) d.classList.toggle('hidden', theme !== 'dark');
+    const isDark = theme === 'dark';
+    const sun = $('theme-icon-light'); // matahari
+    const moon = $('theme-icon-dark'); // bulan
+    if (sun) {
+      sun.classList.toggle('hidden', isDark);
+      sun.setAttribute('aria-hidden', isDark ? 'true' : 'false');
+    }
+    if (moon) {
+      moon.classList.toggle('hidden', !isDark);
+      moon.setAttribute('aria-hidden', !isDark ? 'true' : 'false');
+    }
+    const btn = $('theme-toggle');
+    if (btn) {
+      const label = isDark ? t('toLight') : t('toDark');
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
   }
 
   /* ---------- projects ---------- */
@@ -238,15 +280,21 @@
 
   /* ---------- static i18n ---------- */
   function applyStatic() {
+    const isProjects = page === 'projects';
     document.querySelectorAll('[data-i18n-archive]').forEach((el) => {
       const key = el.getAttribute('data-i18n-archive');
-      if (strings[State.lang][key]) el.textContent = t(key);
+      if (key === 'eyebrow') el.textContent = isProjects ? t('projectsEyebrow') : t('certsEyebrow');
+      else if (key === 'title') el.textContent = isProjects ? t('projectsTitle') : t('certsTitle');
+      else if (key === 'subtitle') el.textContent = isProjects ? t('projectsSub') : t('certsSub');
+      else if (key === 'seeOther') el.textContent = isProjects ? t('projectsOther') : t('certsOther');
+      else if (strings[State.lang][key]) el.textContent = t(key);
     });
     const search = $('archive-search');
-    if (search) search.placeholder = page === 'projects' ? t('searchProjects') : t('searchCerts');
+    if (search) search.placeholder = isProjects ? t('searchProjects') : t('searchCerts');
     document.documentElement.lang = State.lang;
     const langBtn = $('lang-toggle');
     if (langBtn) langBtn.textContent = State.lang === 'en' ? 'ID' : 'EN';
+    applyTheme(State.theme); // samakan label matahari/bulan dengan bahasa
   }
 
   async function init() {

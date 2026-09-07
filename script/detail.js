@@ -286,7 +286,8 @@
       try {
         await navigator.clipboard.writeText(location.href);
         shareBtn.style.borderColor = 'var(--color-accent)';
-        setTimeout(() => { shareBtn.style.borderColor = ''; }, 1200);
+        shareBtn.setAttribute('title', t('copied'));
+        setTimeout(() => { shareBtn.style.borderColor = ''; shareBtn.setAttribute('title', t('copyLink')); }, 1500);
       } catch { /* clipboard unavailable */ }
     });
 
