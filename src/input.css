@@ -674,7 +674,7 @@
   .pager-track {
     display: flex;
     align-items: stretch;
-    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.21, 1);
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.21, 1);
     will-change: transform;
   }
 
@@ -684,6 +684,54 @@
     max-width: 100%;
     min-width: 0;
     padding: 0.25rem 0.125rem 0.5rem;
+  }
+
+  /* ===== Staggered card entrance animation ===== */
+  .pager-page .card {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  .pager-page.page-active .card {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Stagger delay for each card (up to 6 cards) */
+  .pager-page.page-active .card:nth-child(1) { transition-delay: 0.05s; }
+  .pager-page.page-active .card:nth-child(2) { transition-delay: 0.12s; }
+  .pager-page.page-active .card:nth-child(3) { transition-delay: 0.19s; }
+  .pager-page.page-active .card:nth-child(4) { transition-delay: 0.26s; }
+  .pager-page.page-active .card:nth-child(5) { transition-delay: 0.33s; }
+  .pager-page.page-active .card:nth-child(6) { transition-delay: 0.40s; }
+
+  /* Card hover lift effect */
+  .pager-page .card {
+    transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.3s ease;
+  }
+
+  .pager-page.page-active .card:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.18);
+  }
+
+  [data-theme="dark"] .pager-page.page-active .card:hover {
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ===== Page dot transition ===== */
+  .slider-dot {
+    transition: background-color 0.3s ease, width 0.35s cubic-bezier(0.22, 0.61, 0.21, 1), transform 0.3s ease;
+  }
+
+  .slider-dot.active {
+    transform: scale(1.15);
+  }
+
+  /* ===== Slider button pulse on click ===== */
+  .slider-btn:active:not(:disabled) {
+    transform: scale(0.92);
   }
 
   .pager-grid {
