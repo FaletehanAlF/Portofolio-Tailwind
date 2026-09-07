@@ -87,10 +87,8 @@
           </span>
         </a>
 
-        <!-- Desktop Nav Links -->
-        <nav class="hidden md:flex items-center gap-1 p-1 rounded-full"
-          style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);"
-          aria-label="Main Navigation">
+        <!-- Desktop Nav Links (single capsule: tanpa pill ganda, teks berjarak) -->
+        <nav class="hidden md:flex items-center gap-2" aria-label="Main Navigation">
           <a href="#home" class="nav-link" data-i18n="nav.home">Home</a>
           <a href="#about" class="nav-link" data-i18n="nav.about">About Me</a>
           <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a>
@@ -379,7 +377,7 @@
         <button class="tab-btn" data-tab="techstack" data-i18n="portfolio.tab_tech">Tech Stack</button>
       </div>
 
-      <!-- ---- PROJECTS TAB : smooth slider + see all ---- -->
+      <!-- ---- PROJECTS TAB : grid 3+3 paged slider + see all kanan bawah ---- -->
       <div class="tab-panel active" id="tab-projects">
         <div class="flex items-center justify-between gap-3 mb-4">
           <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
@@ -387,18 +385,18 @@
             <span data-i18n="portfolio.items">items</span>
           </p>
           <div class="flex items-center gap-2">
-            <button class="slider-btn" id="projects-prev" aria-label="Previous projects">
+            <button class="slider-btn" id="projects-prev" data-i18n-aria="portfolio.prev" aria-label="Previous projects">
               <i data-feather="chevron-left" class="w-4 h-4"></i>
             </button>
-            <button class="slider-btn" id="projects-next" aria-label="Next projects">
+            <button class="slider-btn" id="projects-next" data-i18n-aria="portfolio.next" aria-label="Next projects">
               <i data-feather="chevron-right" class="w-4 h-4"></i>
             </button>
           </div>
         </div>
 
-        <div class="showcase-viewport" id="projects-viewport" tabindex="0"
-          aria-label="Projects slider. Use arrow buttons or swipe to navigate.">
-          <div class="showcase-track" id="projects-grid"></div>
+        <div class="pager-viewport" id="projects-viewport" tabindex="0" data-pager="projects"
+          data-i18n-aria="portfolio.slider_projects" aria-label="Projects slider. Use arrow buttons or swipe to navigate.">
+          <div class="pager-track" id="projects-grid"></div>
         </div>
 
         <div class="flex items-center justify-between gap-3 mt-5">
@@ -410,7 +408,7 @@
         </div>
       </div>
 
-      <!-- ---- CERTIFICATES TAB : smooth slider + see all ---- -->
+      <!-- ---- CERTIFICATES TAB : grid 3+3 paged slider + see all kanan bawah ---- -->
       <div class="tab-panel" id="tab-certificates">
         <div class="flex items-center justify-between gap-3 mb-4">
           <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
@@ -418,18 +416,18 @@
             <span data-i18n="portfolio.items">items</span>
           </p>
           <div class="flex items-center gap-2">
-            <button class="slider-btn" id="certs-prev" aria-label="Previous certificates">
+            <button class="slider-btn" id="certs-prev" data-i18n-aria="portfolio.prev" aria-label="Previous certificates">
               <i data-feather="chevron-left" class="w-4 h-4"></i>
             </button>
-            <button class="slider-btn" id="certs-next" aria-label="Next certificates">
+            <button class="slider-btn" id="certs-next" data-i18n-aria="portfolio.next" aria-label="Next certificates">
               <i data-feather="chevron-right" class="w-4 h-4"></i>
             </button>
           </div>
         </div>
 
-        <div class="showcase-viewport" id="certs-viewport" tabindex="0"
-          aria-label="Certificates slider. Use arrow buttons or swipe to navigate.">
-          <div class="showcase-track" id="certificates-grid"></div>
+        <div class="pager-viewport" id="certs-viewport" tabindex="0" data-pager="certs"
+          data-i18n-aria="portfolio.slider_certs" aria-label="Certificates slider. Use arrow buttons or swipe to navigate.">
+          <div class="pager-track" id="certificates-grid"></div>
         </div>
 
         <div class="flex items-center justify-between gap-3 mt-5">
@@ -441,9 +439,31 @@
         </div>
       </div>
 
-      <!-- ---- TECH STACK TAB (rendered from /api/techstack.json) ---- -->
+      <!-- ---- TECH STACK TAB : paged slider halus ---- -->
       <div class="tab-panel" id="tab-techstack">
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3" id="techstack-grid"></div>
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
+            <span id="techstack-count">0</span>
+            <span data-i18n="portfolio.items">items</span>
+          </p>
+          <div class="flex items-center gap-2">
+            <button class="slider-btn" id="techstack-prev" data-i18n-aria="portfolio.prev" aria-label="Previous tech stack">
+              <i data-feather="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button class="slider-btn" id="techstack-next" data-i18n-aria="portfolio.next" aria-label="Next tech stack">
+              <i data-feather="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pager-viewport" id="techstack-viewport" tabindex="0" data-pager="techstack"
+          data-i18n-aria="portfolio.slider_tech" aria-label="Tech stack slider. Use arrow buttons or swipe to navigate.">
+          <div class="pager-track" id="techstack-grid"></div>
+        </div>
+
+        <div class="flex items-center justify-start gap-3 mt-5">
+          <div class="flex items-center gap-1.5 flex-wrap" id="techstack-dots" aria-hidden="true"></div>
+        </div>
       </div>
 
     </div>

@@ -659,53 +659,71 @@
     transition: transform 0.08s linear;
   }
 
-  /* ===== Showcase slider (smooth, snap, responsive) ===== */
-  .showcase-viewport {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-padding-left: 0.25rem;
-    scroll-padding-right: 0.25rem;
+  /* ===== Paged showcase slider (grid 3+3, geser halus, scroll vertikal los) ===== */
+  .pager-viewport {
+    overflow: hidden;
+    border-radius: 1rem;
+    touch-action: pan-y;
   }
 
-  .showcase-viewport::-webkit-scrollbar {
-    display: none;
+  .pager-viewport:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
 
-  .showcase-track {
+  .pager-track {
     display: flex;
-    gap: 1.25rem;
-    width: max-content;
-    max-width: none;
-    padding: 0.25rem 0.25rem 0.5rem;
+    align-items: stretch;
+    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.21, 1);
+    will-change: transform;
   }
 
-  .showcase-card {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    flex: 0 0 min(84vw, 340px);
-    width: min(84vw, 340px);
+  .pager-page {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
+    padding: 0.25rem 0.125rem 0.5rem;
+  }
+
+  .pager-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pager-grid-tech {
+    gap: 0.75rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   @media (min-width: 640px) {
-    .showcase-card {
-      flex-basis: calc(50% - 0.625rem);
-      width: calc(50% - 0.625rem);
+    .pager-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .showcase-track {
-      width: 100%;
-      max-width: 100%;
+    .pager-grid-tech {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .pager-grid-tech {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
   }
 
   @media (min-width: 1024px) {
-    .showcase-card {
-      flex-basis: calc(33.333% - 0.84rem);
-      width: calc(33.333% - 0.84rem);
+    .pager-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .pager-grid-tech {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pager-track {
+      transition: none;
     }
   }
 
