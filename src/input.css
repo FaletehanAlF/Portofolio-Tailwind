@@ -683,9 +683,6 @@
     align-items: stretch;
     transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.21, 1);
     will-change: transform;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
-    contain: layout style;
   }
 
   .pager-page {

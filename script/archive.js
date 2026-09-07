@@ -302,6 +302,8 @@ return `
           // Force reflow then animate
           void card.offsetHeight;
           card.style.transition = '';
+          card.style.opacity = '';
+          card.style.transform = '';
         });
       }
     });
