@@ -40,7 +40,6 @@
     --color-rose-800: oklch(45.5% 0.188 13.697);
     --color-rose-900: oklch(41% 0.159 10.272);
     --color-rose-950: oklch(27.1% 0.105 12.094);
-    --color-slate-800: oklch(27.9% 0.041 260.031);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-700: oklch(37.3% 0.034 259.733);
@@ -562,6 +561,9 @@
   .justify-center {
     justify-content: center;
   }
+  .justify-start {
+    justify-content: flex-start;
+  }
   .gap-1 {
     gap: calc(var(--spacing) * 1);
   }
@@ -627,9 +629,6 @@
   }
   .p-0\.5 {
     padding: calc(var(--spacing) * 0.5);
-  }
-  .p-1 {
-    padding: calc(var(--spacing) * 1);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
@@ -993,11 +992,6 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-  .sm\:grid-cols-4 {
-    @media (width >= 40rem) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
   .sm\:flex-row {
     @media (width >= 40rem) {
       flex-direction: row;
@@ -1109,11 +1103,6 @@
       display: none;
     }
   }
-  .md\:grid-cols-6 {
-    @media (width >= 48rem) {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
-  }
   .md\:flex-row {
     @media (width >= 48rem) {
       flex-direction: row;
@@ -1152,11 +1141,6 @@
   .lg\:grid-cols-3 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-  .lg\:grid-cols-8 {
-    @media (width >= 64rem) {
-      grid-template-columns: repeat(8, minmax(0, 1fr));
     }
   }
   .lg\:grid-cols-\[minmax\(0\,1fr\)_320px\] {
@@ -1793,47 +1777,61 @@
     will-change: transform;
     transition: transform 0.08s linear;
   }
-  .showcase-viewport {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-padding-left: 0.25rem;
-    scroll-padding-right: 0.25rem;
+  .pager-viewport {
+    overflow: hidden;
+    border-radius: 1rem;
+    touch-action: pan-y;
   }
-  .showcase-viewport::-webkit-scrollbar {
-    display: none;
+  .pager-viewport:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
-  .showcase-track {
+  .pager-track {
     display: flex;
-    gap: 1.25rem;
-    width: max-content;
-    max-width: none;
-    padding: 0.25rem 0.25rem 0.5rem;
+    align-items: stretch;
+    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.21, 1);
+    will-change: transform;
   }
-  .showcase-card {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    flex: 0 0 min(84vw, 340px);
-    width: min(84vw, 340px);
+  .pager-page {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
+    padding: 0.25rem 0.125rem 0.5rem;
+  }
+  .pager-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pager-grid-tech {
+    gap: 0.75rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   @media (min-width: 640px) {
-    .showcase-card {
-      flex-basis: calc(50% - 0.625rem);
-      width: calc(50% - 0.625rem);
+    .pager-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .showcase-track {
-      width: 100%;
-      max-width: 100%;
+    .pager-grid-tech {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 768px) {
+    .pager-grid-tech {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
   }
   @media (min-width: 1024px) {
-    .showcase-card {
-      flex-basis: calc(33.333% - 0.84rem);
-      width: calc(33.333% - 0.84rem);
+    .pager-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .pager-grid-tech {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pager-track {
+      transition: none;
     }
   }
   .slider-btn {

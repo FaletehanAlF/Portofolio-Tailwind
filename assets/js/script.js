@@ -265,11 +265,16 @@ const LangSwitcher = (() => {
   }
 
   function applyTranslations() {
-    // Text nodes
+    // Text nodes (pertahankan ikon panah di menu mobile agar tidak hilang)
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       const val = t(key);
+      const tail = el.querySelector(':scope > span[aria-hidden]');
       el.textContent = val;
+      if (tail) {
+        el.appendChild(document.createTextNode(' '));
+        el.appendChild(tail);
+      }
     });
 
     // Aria-labels (tombol slider, dsb.)
