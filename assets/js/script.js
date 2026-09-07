@@ -103,6 +103,8 @@ const translations = {
     'portfolio.tab_projects': 'Proyek',
     'portfolio.tab_certs': 'Sertifikat',
     'portfolio.tab_tech': 'Tech Stack',
+    'portfolio.see_all': 'Lihat Semua',
+    'portfolio.items': 'item',
 
     'btn.detail': 'Detail Proyek',
     'btn.github': 'GitHub',
@@ -312,39 +314,54 @@ const Navbar = (() => {
 })();
 
 /* ================================================================
-   6. HAMBURGER MENU
+   6. HAMBURGER MENU (capsule-safe, no absolute bug)
 ================================================================ */
 const HamburgerMenu = (() => {
   let open = false;
 
-  function toggle() {
-    open = !open;
+  function toggle(force) {
+    open = typeof force === 'boolean' ? force : !open;
     const menu = document.getElementById('mobile-menu');
     const btn = document.getElementById('hamburger');
-    const icon = document.getElementById('hamburger-icon');
+    const capsule = document.getElementById('capsule-nav');
 
     if (menu) menu.classList.toggle('open', open);
+    if (capsule) capsule.classList.toggle('menu-open', open);
     if (btn) btn.setAttribute('aria-expanded', open);
 
-    if (icon) {
-      icon.setAttribute('data-feather', open ? 'x' : 'menu');
+    const icon = document.getElementById('hamburger-icon');
+    if (icon && typeof feather !== 'undefined') {
+      // feather replaces <i> with <svg>; re-query wrapper approach:
+      const svg = btn ? btn.querySelector('svg') : null;
+      // Simplest: swap innerHTML icon then re-replace
+      btn.innerHTML = `<i data-feather="${open ? 'x' : 'menu'}" class="w-4 h-4" id="hamburger-icon"></i>`;
       feather.replace({ 'stroke-width': 2 });
     }
   }
 
   function init() {
     const btn = document.getElementById('hamburger');
-    btn && btn.addEventListener('click', toggle);
+    btn && btn.addEventListener('click', () => toggle());
 
     // Close on nav link click
     document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        if (open) toggle();
+        if (open) toggle(false);
       });
+    });
+
+    // Auto-close when resizing to desktop (prevent stuck open pill)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && open) toggle(false);
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && open) toggle(false);
     });
   }
 
-  return { init };
+  return { init, toggle };
 })();
 
 /* ================================================================
@@ -358,7 +375,8 @@ function initSmoothScroll() {
       const target = document.querySelector(href);
       if (!target) return;
       e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - 56;
+      // Offset for floating capsule navbar (taller than old bar)
+      const top = target.getBoundingClientRect().top + window.scrollY - 96;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
@@ -670,7 +688,7 @@ const PortfolioTabs = (() => {
 })();
 
 /* ================================================================
-   15b. PROJECTS SECTION (from /api/project.json)
+   15b. PROJECTS SECTION (from /api/project.json) — slider cards
    ================================================================ */
 const ProjectsSection = (() => {
   let data = null;
@@ -689,17 +707,18 @@ const ProjectsSection = (() => {
     const github = placeholder ? '#' : escapeHtml(p.github);
 
     return `
-      <article class="card overflow-hidden fade-up">
-        <div class="relative h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
+      <article class="card overflow-hidden fade-up showcase-card flex flex-col">
+        <div class="relative h-44 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,.28), transparent 55%);"></div>
         </div>
-        <div class="p-5">
-          <h3 class="text-sm font-bold mb-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
-          <p class="text-xs mb-3 leading-relaxed" style="color:var(--color-text-muted);">${desc}</p>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-sm font-bold mb-1 line-clamp-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
+          <p class="text-xs mb-3 leading-relaxed line-clamp-2" style="color:var(--color-text-muted); min-height:2rem;">${desc}</p>
           <div class="flex flex-wrap items-center gap-1.5 mb-4">${techIcons(p)}</div>
-          <div class="flex gap-2">
-            <a href="${detailUrl}" class="btn-primary text-xs px-3 py-1.5">${LangSwitcher.t('btn.detail')}</a>
-            <a href="${github}" class="btn-secondary text-xs px-3 py-1.5"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${LangSwitcher.t('btn.github')}</a>
+          <div class="flex gap-2 mt-auto">
+            <a href="${detailUrl}" class="btn-primary !text-xs !px-3 !py-2 flex-1 justify-center">${LangSwitcher.t('btn.detail')}</a>
+            <a href="${github}" class="btn-secondary !text-xs !px-3 !py-2"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${LangSwitcher.t('btn.github')}</a>
           </div>
         </div>
       </article>`;
@@ -709,7 +728,10 @@ const ProjectsSection = (() => {
     const grid = document.getElementById('projects-grid');
     if (!grid || !data) return;
     grid.innerHTML = data.map(card).join('');
+    const count = document.getElementById('projects-count');
+    if (count) count.textContent = data.length;
     observeFadeUp(grid);
+    if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('projects');
   }
 
   async function init() {
@@ -722,7 +744,7 @@ const ProjectsSection = (() => {
 })();
 
 /* ================================================================
-   15c. CERTIFICATES SECTION (from /api/certificate.json)
+   15c. CERTIFICATES SECTION (from /api/certificate.json) — slider cards
    ================================================================ */
 const CertificatesSection = (() => {
   let data = null;
@@ -732,14 +754,14 @@ const CertificatesSection = (() => {
     const issuer = escapeHtml(pick(c.issuer));
 
     return `
-      <article class="card overflow-hidden cursor-pointer cert-card fade-up" role="button" tabindex="0"
+      <article class="card overflow-hidden cursor-pointer cert-card fade-up showcase-card flex flex-col" role="button" tabindex="0"
         data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
-        <div class="h-60 overflow-hidden" style="background-color:var(--color-bg-secondary);">
+        <div class="h-52 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
         </div>
-        <div class="p-4">
-          <h3 class="text-sm font-bold mb-0.5" style="font-weight:700; color:var(--color-text);">${name}</h3>
-          <p class="text-xs" style="color:var(--color-accent); font-weight:600;">${issuer}</p>
+        <div class="p-4 flex-1">
+          <h3 class="text-sm font-bold mb-0.5 line-clamp-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
+          <p class="text-xs line-clamp-1" style="color:var(--color-accent); font-weight:600;">${issuer}</p>
         </div>
       </article>`;
   }
@@ -748,7 +770,10 @@ const CertificatesSection = (() => {
     const grid = document.getElementById('certificates-grid');
     if (!grid || !data) return;
     grid.innerHTML = data.map(card).join('');
+    const count = document.getElementById('certs-count');
+    if (count) count.textContent = data.length;
     observeFadeUp(grid);
+    if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('certs');
   }
 
   async function init() {
@@ -758,6 +783,155 @@ const CertificatesSection = (() => {
   }
 
   return { init, render };
+})();
+
+/* ================================================================
+   15e. SHOWCASE SLIDER — smooth snap slider with buttons + dots
+   ================================================================ */
+const ShowcaseSlider = (() => {
+  const registries = {
+    projects: { viewport: 'projects-viewport', prev: 'projects-prev', next: 'projects-next', dots: 'projects-dots' },
+    certs: { viewport: 'certs-viewport', prev: 'certs-prev', next: 'certs-next', dots: 'certs-dots' },
+  };
+
+  function stepFor(viewport) {
+    const card = viewport.querySelector('.showcase-card');
+    if (card) {
+      const gap = 20; // matches .showcase-track gap (1.25rem)
+      return card.getBoundingClientRect().width + gap;
+    }
+    return viewport.clientWidth * 0.85;
+  }
+
+  function pagesCount(viewport) {
+    const track = viewport.querySelector('.showcase-track');
+    if (!track) return 1;
+    const total = track.scrollWidth;
+    const view = viewport.clientWidth;
+    if (total <= view + 8) return 1;
+    // Estimate pages by scrollable distance / step, min 2
+    const step = stepFor(viewport);
+    return Math.max(2, Math.ceil((total - view) / step) + 1);
+  }
+
+  function activePage(viewport) {
+    const max = viewport.scrollWidth - viewport.clientWidth;
+    if (max <= 8) return 0;
+    const pages = pagesCount(viewport);
+    const ratio = viewport.scrollLeft / max;
+    return Math.min(pages - 1, Math.round(ratio * (pages - 1)));
+  }
+
+  function renderDots(key) {
+    const cfg = registries[key];
+    const viewport = document.getElementById(cfg.viewport);
+    const dotsWrap = document.getElementById(cfg.dots);
+    if (!viewport || !dotsWrap) return;
+    const pages = pagesCount(viewport);
+    const active = activePage(viewport);
+    dotsWrap.innerHTML = Array.from({ length: pages }, (_, i) =>
+      `<button class="slider-dot${i === active ? ' active' : ''}" data-page="${i}" aria-label="Go to slide ${i + 1}"></button>`
+    ).join('');
+    dotsWrap.querySelectorAll('.slider-dot').forEach(btn => {
+      btn.addEventListener('click', () => goTo(key, parseInt(btn.dataset.page, 10)));
+    });
+  }
+
+  function updateButtons(key) {
+    const cfg = registries[key];
+    const viewport = document.getElementById(cfg.viewport);
+    const prev = document.getElementById(cfg.prev);
+    const next = document.getElementById(cfg.next);
+    if (!viewport) return;
+    const max = viewport.scrollWidth - viewport.clientWidth - 8;
+    if (prev) prev.disabled = viewport.scrollLeft <= 8;
+    if (next) next.disabled = viewport.scrollLeft >= max;
+    // hide controls if nothing to scroll
+    const need = max > 8;
+    if (prev) prev.style.display = need ? '' : 'none';
+    if (next) next.style.display = need ? '' : 'none';
+  }
+
+  function goTo(key, page) {
+    const cfg = registries[key];
+    const viewport = document.getElementById(cfg.viewport);
+    if (!viewport) return;
+    const max = viewport.scrollWidth - viewport.clientWidth;
+    const pages = pagesCount(viewport);
+    const p = Math.max(0, Math.min(pages - 1, page));
+    const target = pages <= 1 ? 0 : (max * p) / (pages - 1);
+    viewport.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  function step(key, dir) {
+    const cfg = registries[key];
+    const viewport = document.getElementById(cfg.viewport);
+    if (!viewport) return;
+    viewport.scrollBy({ left: dir * stepFor(viewport), behavior: 'smooth' });
+  }
+
+  function refresh(key) {
+    renderDots(key);
+    updateButtons(key);
+  }
+
+  function refreshAll() {
+    Object.keys(registries).forEach(refresh);
+  }
+
+  function bind(key) {
+    const cfg = registries[key];
+    const viewport = document.getElementById(cfg.viewport);
+    const prev = document.getElementById(cfg.prev);
+    const next = document.getElementById(cfg.next);
+    if (!viewport) return;
+    prev && prev.addEventListener('click', () => step(key, -1));
+    next && next.addEventListener('click', () => step(key, 1));
+
+    let raf = null;
+    viewport.addEventListener('scroll', () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        renderDots(key);
+        updateButtons(key);
+      });
+    }, { passive: true });
+
+    // Keyboard: arrows when viewport focused
+    viewport.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(key, 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(key, -1); }
+    });
+
+    // Drag-to-scroll (desktop mouse)
+    let isDown = false, startX = 0, startScroll = 0, moved = false;
+    viewport.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      isDown = true; moved = false;
+      startX = e.clientX; startScroll = viewport.scrollLeft;
+    });
+    window.addEventListener('pointermove', e => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 6) moved = true;
+      if (moved) viewport.scrollLeft = startScroll - dx;
+    });
+    window.addEventListener('pointerup', () => { isDown = false; });
+    // Prevent click-after-drag opening cert modal accidentally
+    viewport.addEventListener('click', e => {
+      if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+    }, true);
+  }
+
+  function init() {
+    Object.keys(registries).forEach(bind);
+    window.addEventListener('resize', () => refreshAll());
+    // initial state after fonts/images settle
+    setTimeout(refreshAll, 300);
+    setTimeout(refreshAll, 1200);
+  }
+
+  return { init, refresh, refreshAll };
 })();
 
 /* ================================================================
@@ -811,6 +985,8 @@ async function loadData() {
   }
   initMarquee();
   initLogoSlider();
+  if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refreshAll();
+  if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
 }
 
 /* ================================================================
@@ -1070,6 +1246,7 @@ function init() {
   initFadeUp();
   initTiltCard();
   PortfolioTabs.init();
+  if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.init();
   CertModal.init();
   ContactForm.init();
   initCursor();

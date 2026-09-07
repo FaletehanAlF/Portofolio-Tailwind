@@ -16,6 +16,12 @@
       demo: 'Live Demo',
       github: 'GitHub',
       other: 'Other Projects',
+      info: 'Project Info',
+      completed: '● Completed',
+      completedPlain: 'Completed',
+      comingSoon: '○ Coming Soon',
+      comingSoonPlain: 'Coming Soon',
+      copied: 'Link copied!',
       nfTitle: 'Project Not Found',
       nfDesc: "The project you are looking for doesn't exist or has been moved.",
       loadFail: 'Failed to load project data. Please try again later.',
@@ -26,6 +32,12 @@
       demo: 'Demo Langsung',
       github: 'GitHub',
       other: 'Proyek Lainnya',
+      info: 'Info Proyek',
+      completed: '● Selesai',
+      completedPlain: 'Selesai',
+      comingSoon: '○ Segera Hadir',
+      comingSoonPlain: 'Segera Hadir',
+      copied: 'Tautan disalin!',
       nfTitle: 'Proyek Tidak Ditemukan',
       nfDesc: 'Proyek yang Anda cari tidak ada atau telah dipindahkan.',
       loadFail: 'Gagal memuat data proyek. Silakan coba lagi nanti.',
@@ -71,9 +83,18 @@
      ================================================================ */
   function renderTech(project) {
     const wrap = $('d-tech');
-    wrap.innerHTML = (project.tech || []).map(item => `
-      <img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" title="${escapeHtml(item.name)}"
-        class="tech-icon tech-icon-lg" loading="lazy" />`).join('');
+    const list = project.tech || [];
+    if (!list.length) {
+      wrap.innerHTML = `<span class="text-xs" style="color:var(--color-text-muted);">—</span>`;
+      return;
+    }
+    wrap.innerHTML = list.map(item => `
+      <span class="inline-flex items-center gap-2 text-xs font-semibold pl-1.5 pr-3 py-1.5 rounded-full"
+        style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border); color:var(--color-text);">
+        <img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" title="${escapeHtml(item.name)}"
+          class="w-6 h-6 rounded-full object-contain p-0.5" style="background:var(--color-card); border:1px solid var(--color-border);" loading="lazy" />
+        ${escapeHtml(item.name)}
+      </span>`).join('');
   }
 
   function renderRelated() {
@@ -88,18 +109,20 @@
 
     grid.innerHTML = others.map(p => `
       <a href="?project=${encodeURIComponent(p.slug)}"
-        class="card overflow-hidden fade-up visible group">
-        <div class="h-32 overflow-hidden" style="background-color:var(--color-bg-secondary);">
+        class="card overflow-hidden group flex flex-col">
+        <div class="h-36 sm:h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(p.image)}" alt="${escapeHtml(pick(p.name))}"
-            class="w-full h-full object-cover" loading="lazy" />
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         </div>
-        <div class="p-4 flex items-center justify-between gap-3">
-          <div>
-            <h3 class="text-sm font-bold mb-0.5" style="color:var(--color-text);">${escapeHtml(pick(p.name))}</h3>
-            <span class="text-xs" style="color:var(--color-accent); font-weight:600;">${escapeHtml(pick(p.category))}</span>
+        <div class="p-4 flex items-center justify-between gap-3 flex-1">
+          <div class="min-w-0">
+            <h3 class="text-sm font-bold mb-0.5 truncate" style="color:var(--color-text);">${escapeHtml(pick(p.name))}</h3>
+            <span class="text-xs font-semibold">${escapeHtml(pick(p.category))}</span>
           </div>
-          <i data-feather="arrow-right" class="w-4 h-4 flex-shrink-0 transition-transform group-hover:translate-x-1"
-            style="color:var(--color-accent);"></i>
+          <span class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-1"
+            style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
+            <i data-feather="arrow-right" class="w-4 h-4" style="color:var(--color-accent);"></i>
+          </span>
         </div>
       </a>`).join('');
 
@@ -108,15 +131,18 @@
 
   function renderStaticLabels() {
     document.documentElement.lang = State.lang;
-    $('lang-toggle').textContent = State.lang === 'en' ? 'ID' : 'EN';
-    $('back-label').textContent = t('back');
-    $('d-nf-back').textContent = t('back');
-    $('d-tech-label').textContent = t('tech');
-    $('d-other-label').textContent = t('other');
-    $('d-demo-label').textContent = t('demo');
-    $('d-github-label').textContent = t('github');
-    $('d-nf-title').textContent = t('nfTitle');
-    $('d-nf-desc').textContent = t('nfDesc');
+    const langBtn = $('lang-toggle');
+    if (langBtn) langBtn.textContent = State.lang === 'en' ? 'ID' : 'EN';
+    const set = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+    set('back-label', t('back'));
+    set('d-nf-back', t('back'));
+    set('d-tech-label', t('tech'));
+    set('d-other-label', t('other'));
+    set('d-demo-label', t('demo'));
+    set('d-github-label', t('github'));
+    set('d-nf-title', t('nfTitle'));
+    set('d-nf-desc', t('nfDesc'));
+    set('d-info-title', t('info'));
   }
 
   function render() {
@@ -124,13 +150,29 @@
     if (!p) return;
 
     const name = pick(p.name);
+    const category = pick(p.category);
+    const isSoon = !p.demo || p.demo === '#';
     document.title = `${name} | Faletehan`;
     $('d-image').src = p.image || '';
     $('d-image').alt = name;
-    $('d-category').textContent = pick(p.category);
+    $('d-category').textContent = category;
     $('d-year').textContent = p.year || '';
     $('d-title').textContent = name;
     $('d-desc').textContent = pick(p.long_desc) || pick(p.short_desc);
+    const crumb = $('d-breadcrumb-name');
+    if (crumb) crumb.textContent = name;
+    const statusEl = $('d-status');
+    if (statusEl) {
+      statusEl.textContent = isSoon ? t('comingSoon') : t('completed');
+      statusEl.style.background = isSoon ? 'rgba(100,116,139,.92)' : 'rgba(37,99,235,.92)';
+    }
+    const setInfo = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+    setInfo('d-info-category', category || '—');
+    setInfo('d-info-year', p.year || '—');
+    setInfo('d-info-stack', (p.tech && p.tech.length ? `${p.tech.length} Tech` : '—'));
+    setInfo('d-info-status', isSoon ? t('comingSoonPlain') : t('completedPlain'));
+    const infoStatus = $('d-info-status');
+    if (infoStatus) infoStatus.style.color = isSoon ? 'var(--color-text-muted)' : '#16a34a';
     renderTech(p);
 
     // Links – hide when not available ("#")
@@ -142,6 +184,9 @@
     $('d-github').classList.toggle('hidden', !hasGithub);
 
     renderStaticLabels();
+    // re-apply status after labels (language dependent)
+    if (statusEl) statusEl.textContent = isSoon ? t('comingSoon') : t('completed');
+    setInfo('d-info-status', isSoon ? t('comingSoonPlain') : t('completedPlain'));
     renderRelated();
 
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
@@ -171,6 +216,15 @@
       State.lang = State.lang === 'en' ? 'id' : 'en';
       localStorage.setItem('lang', State.lang);
       render();
+    });
+
+    const shareBtn = $('d-share');
+    if (shareBtn) shareBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        shareBtn.style.borderColor = 'var(--color-accent)';
+        setTimeout(() => { shareBtn.style.borderColor = ''; }, 1200);
+      } catch { /* clipboard unavailable */ }
     });
 
     try {
