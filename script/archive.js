@@ -2,6 +2,7 @@
  * Portfolio – archive.js
  * Shared logic for view/projects.html & view/certificates.html
  * Data source: ../api/project.json & ../api/certificate.json
+ * Uses pager-viewport slider: 6 cards per page (3 top + 3 bottom), swipe/slide to navigate
  */
 'use strict';
 
@@ -65,8 +66,8 @@
     projects: [],
     certs: [],
     projectFilter: 'All',
-    certFilter: 'All',
     query: '',
+    currentPage: 0,
   };
 
   const t = (k) => (strings[State.lang] && strings[State.lang][k]) || strings.en[k] || k;
@@ -79,14 +80,14 @@
     }[c]));
   }
 
-  /* ---------- theme : matahari (sun) / bulan (moon) ---------- */
+  /* ---------- theme ---------- */
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
     localStorage.setItem('theme', theme);
     const isDark = theme === 'dark';
-    const sun = $('theme-icon-light'); // matahari
-    const moon = $('theme-icon-dark'); // bulan
+    const sun = $('theme-icon-light');
+    const moon = $('theme-icon-dark');
     if (sun) {
       sun.classList.toggle('hidden', isDark);
       sun.setAttribute('aria-hidden', isDark ? 'true' : 'false');
@@ -103,7 +104,7 @@
     }
   }
 
-  /* ---------- projects ---------- */
+  /* ---------- project categories ---------- */
   function projectCategories() {
     const set = new Map();
     State.projects.forEach((p) => {
@@ -156,41 +157,14 @@
     wrap.querySelectorAll('[data-filter]').forEach((btn) => {
       btn.addEventListener('click', () => {
         State.projectFilter = btn.dataset.filter;
+        State.currentPage = 0;
         renderProjectFilters();
-        renderProjects();
+        renderProjectSlider();
       });
     });
   }
 
-  function renderProjects() {
-    const grid = $('archive-grid');
-    const count = $('archive-count');
-    const empty = $('archive-empty');
-    if (!grid) return;
-    const q = State.query.trim().toLowerCase();
-    const allLabel = t('all');
-    const list = State.projects.filter((p) => {
-      const matchCat = State.projectFilter === allLabel || pick(p.category) === State.projectFilter;
-      if (!matchCat) return false;
-      if (!q) return true;
-      return `${pick(p.name)} ${pick(p.short_desc)} ${pick(p.category)} ${p.year || ''}`.toLowerCase().includes(q);
-    });
-    grid.innerHTML = list.map(projectCard).join('');
-    if (count) count.textContent = `${list.length} ${t('items')}`;
-    if (empty) empty.classList.toggle('hidden', list.length > 0);
-    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
-  }
-
   /* ---------- certificates ---------- */
-  function certIssuers() {
-    const set = new Map();
-    State.certs.forEach((c) => {
-      const label = pick(c.issuer) || 'Other';
-      if (!set.has(label)) set.set(label, label);
-    });
-    return [t('all'), ...[...set.values()].sort()];
-  }
-
   function certCard(c) {
     const name = escapeHtml(pick(c.name));
     const issuer = escapeHtml(pick(c.issuer));
@@ -207,75 +181,204 @@
       </article>`;
   }
 
-  function renderCertFilters() {
-    const wrap = $('archive-filters');
-    if (!wrap) return;
-    const issuers = certIssuers();
-    if (!issuers.includes(State.certFilter)) State.certFilter = t('all');
-    wrap.innerHTML = issuers.map((c) => `
-      <button class="filter-chip${c === State.certFilter ? ' active' : ''}" data-filter="${escapeHtml(c)}">${escapeHtml(c)}</button>
-    `).join('');
-    wrap.querySelectorAll('[data-filter]').forEach((btn) => {
+  /* ---------- chunk helper ---------- */
+  function chunk(arr, size) {
+    const out = [];
+    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+  }
+
+  /* ---------- pager/slider system ---------- */
+  function getFilteredProjects() {
+    const q = State.query.trim().toLowerCase();
+    const allLabel = t('all');
+    return State.projects.filter((p) => {
+      const matchCat = State.projectFilter === allLabel || pick(p.category) === State.projectFilter;
+      if (!matchCat) return false;
+      if (!q) return true;
+      return `${pick(p.name)} ${pick(p.short_desc)} ${pick(p.category)} ${p.year || ''}`.toLowerCase().includes(q);
+    });
+  }
+
+  function getFilteredCerts() {
+    const q = State.query.trim().toLowerCase();
+    return State.certs.filter((c) => {
+      if (!q) return true;
+      return `${pick(c.name)} ${pick(c.issuer)}`.toLowerCase().includes(q);
+    });
+  }
+
+  function renderSlider(items, cardFn) {
+    const track = $('archive-track');
+    const viewport = $('archive-viewport');
+    const countEl = $('archive-count');
+    const emptyEl = $('archive-empty');
+    const loadingEl = $('archive-loading');
+    const dotsEl = $('archive-dots');
+    if (!track) return;
+
+    // Hide loading, show track
+    if (loadingEl) loadingEl.classList.add('hidden');
+    if (viewport) viewport.style.display = '';
+
+    if (items.length === 0) {
+      track.innerHTML = '';
+      if (viewport) viewport.style.display = 'none';
+      if (emptyEl) emptyEl.classList.remove('hidden');
+      if (countEl) countEl.textContent = `0 ${t('items')}`;
+      if (dotsEl) dotsEl.innerHTML = '';
+      State.currentPage = 0;
+      return;
+    }
+
+    if (emptyEl) emptyEl.classList.add('hidden');
+
+    // Chunk into pages of 6
+    const pages = chunk(items, 6);
+    track.innerHTML = pages.map(pageItems =>
+      `<div class="pager-page"><div class="pager-grid">${pageItems.map(cardFn).join('')}</div></div>`
+    ).join('');
+
+    if (countEl) countEl.textContent = `${items.length} ${t('items')}`;
+
+    // Clamp current page
+    State.currentPage = Math.max(0, Math.min(pages.length - 1, State.currentPage));
+
+    // Render dots
+    renderArchiveDots(pages.length);
+
+    // Paint slider position
+    paintArchiveSlider();
+
+    // Init feather icons on new cards
+    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+
+    // Init cert modal on new cards
+    if (page === 'certificates') initCertModalEvents();
+  }
+
+  function renderArchiveDots(total) {
+    const dotsEl = $('archive-dots');
+    if (!dotsEl) return;
+    if (total <= 1) {
+      dotsEl.innerHTML = '';
+      return;
+    }
+    dotsEl.innerHTML = Array.from({ length: total }, (_, i) =>
+      `<button type="button" class="slider-dot${i === State.currentPage ? ' active' : ''}" data-page="${i}" aria-label="Go to slide ${i + 1}"></button>`
+    ).join('');
+    dotsEl.querySelectorAll('.slider-dot').forEach(btn => {
       btn.addEventListener('click', () => {
-        State.certFilter = btn.dataset.filter;
-        renderCertFilters();
-        renderCerts();
+        State.currentPage = parseInt(btn.dataset.page, 10);
+        paintArchiveSlider();
+        renderArchiveDots(total);
       });
     });
   }
 
-  function renderCerts() {
-    const grid = $('archive-grid');
-    const count = $('archive-count');
-    const empty = $('archive-empty');
-    if (!grid) return;
-    const q = State.query.trim().toLowerCase();
-    const allLabel = t('all');
-    const list = State.certs.filter((c) => {
-      const match = State.certFilter === allLabel || pick(c.issuer) === State.certFilter;
-      if (!match) return false;
-      if (!q) return true;
-      return `${pick(c.name)} ${pick(c.issuer)}`.toLowerCase().includes(q);
-    });
-    grid.innerHTML = list.map(certCard).join('');
-    if (count) count.textContent = `${list.length} ${t('items')}`;
-    if (empty) empty.classList.toggle('hidden', list.length > 0);
-    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+  function paintArchiveSlider() {
+    const track = $('archive-track');
+    const prevBtn = $('archive-prev');
+    const nextBtn = $('archive-next');
+    if (!track) return;
+
+    const totalPages = track.querySelectorAll(':scope > .pager-page').length;
+    const idx = Math.max(0, Math.min(totalPages - 1, State.currentPage));
+    State.currentPage = idx;
+
+    track.style.transform = `translateX(-${idx * 100}%)`;
+
+    // Update dots active state
+    const dotsEl = $('archive-dots');
+    if (dotsEl) {
+      dotsEl.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    // Show/hide prev/next buttons
+    if (prevBtn) {
+      prevBtn.disabled = idx <= 0;
+      prevBtn.style.display = totalPages > 1 ? '' : 'none';
+    }
+    if (nextBtn) {
+      nextBtn.disabled = idx >= totalPages - 1;
+      nextBtn.style.display = totalPages > 1 ? '' : 'none';
+    }
+  }
+
+  function archiveStep(dir) {
+    const track = $('archive-track');
+    if (!track) return;
+    const totalPages = track.querySelectorAll(':scope > .pager-page').length;
+    State.currentPage = Math.max(0, Math.min(totalPages - 1, State.currentPage + dir));
+    paintArchiveSlider();
+    renderArchiveDots(totalPages);
+  }
+
+  function renderProjectSlider() {
+    const items = getFilteredProjects();
+    renderSlider(items, projectCard);
+  }
+
+  function renderCertSlider() {
+    const items = getFilteredCerts();
+    renderSlider(items, certCard);
   }
 
   /* ---------- cert modal ---------- */
-  function initModal() {
+  function initCertModalEvents() {
+    const track = $('archive-track');
+    if (!track) return;
+    // Remove old listeners by cloning
+    track.removeEventListener('click', handleCertClick);
+    track.addEventListener('click', handleCertClick);
+    track.removeEventListener('keydown', handleCertKey);
+    track.addEventListener('keydown', handleCertKey);
+  }
+
+  function handleCertClick(e) {
+    const card = e.target.closest('.cert-card');
+    if (!card) return;
+    openCertModal(card);
+  }
+
+  function handleCertKey(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.cert-card');
+    if (card) {
+      e.preventDefault();
+      openCertModal(card);
+    }
+  }
+
+  function openCertModal(card) {
     const modal = $('cert-modal');
     if (!modal) return;
     const imgEl = $('modal-cert-img');
     const nameEl = $('modal-cert-name');
     const issuerEl = $('modal-cert-issuer');
+
+    if (imgEl) { imgEl.src = card.dataset.certImg || ''; imgEl.alt = card.dataset.certName || 'Certificate'; }
+    if (nameEl) nameEl.textContent = card.dataset.certName || '';
+    if (issuerEl) issuerEl.textContent = card.dataset.certIssuer || '';
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function initModal() {
+    const modal = $('cert-modal');
+    if (!modal) return;
     const closeBtn = $('modal-close');
 
-    function open(img, name, issuer) {
-      if (imgEl) { imgEl.src = img || ''; imgEl.alt = name || 'Certificate'; }
-      if (nameEl) nameEl.textContent = name || '';
-      if (issuerEl) issuerEl.textContent = issuer || '';
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
     function close() {
       modal.classList.remove('open');
       document.body.style.overflow = '';
     }
-    document.addEventListener('click', (e) => {
-      const card = e.target.closest && e.target.closest('.cert-card');
-      if (card) open(card.dataset.certImg, card.dataset.certName, card.dataset.certIssuer);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        const card = e.target.closest && e.target.closest('.cert-card');
-        if (card) { e.preventDefault(); open(card.dataset.certImg, card.dataset.certName, card.dataset.certIssuer); }
-      }
-      if (e.key === 'Escape' && modal.classList.contains('open')) close();
-    });
+
     if (closeBtn) closeBtn.addEventListener('click', close);
     modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) close();
+    });
   }
 
   /* ---------- static i18n ---------- */
@@ -294,58 +397,91 @@
     document.documentElement.lang = State.lang;
     const langBtn = $('lang-toggle');
     if (langBtn) langBtn.textContent = State.lang === 'en' ? 'ID' : 'EN';
-    applyTheme(State.theme); // samakan label matahari/bulan dengan bahasa
+    applyTheme(State.theme);
   }
 
+  /* ---------- init ---------- */
   async function init() {
     applyTheme(State.theme);
     applyStatic();
     initModal();
 
+    // Theme toggle
     const themeBtn = $('theme-toggle');
     if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(State.theme === 'light' ? 'dark' : 'light'));
+
+    // Language toggle
     const langBtn = $('lang-toggle');
     if (langBtn) langBtn.addEventListener('click', () => {
       State.lang = State.lang === 'en' ? 'id' : 'en';
       localStorage.setItem('lang', State.lang);
       State.projectFilter = t('all');
+      State.currentPage = 0;
       applyStatic();
-      if (page === 'projects') { renderProjectFilters(); renderProjects(); }
-      else { renderCerts(); }
+      if (page === 'projects') { renderProjectFilters(); renderProjectSlider(); }
+      else { renderCertSlider(); }
     });
 
+    // Search
     const search = $('archive-search');
     if (search) search.addEventListener('input', () => {
       State.query = search.value;
-      if (page === 'projects') renderProjects();
-      else renderCerts();
+      State.currentPage = 0;
+      if (page === 'projects') renderProjectSlider();
+      else renderCertSlider();
     });
 
+    // Slider prev/next buttons
+    const prevBtn = $('archive-prev');
+    const nextBtn = $('archive-next');
+    if (prevBtn) prevBtn.addEventListener('click', () => archiveStep(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => archiveStep(1));
+
+    // Keyboard navigation on viewport
+    const viewport = $('archive-viewport');
+    if (viewport) {
+      viewport.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); archiveStep(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); archiveStep(-1); }
+      });
+
+      // Touch swipe
+      let sx = 0, sy = 0, tracking = false;
+      viewport.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        tracking = true;
+        sx = e.touches[0].clientX;
+        sy = e.touches[0].clientY;
+      }, { passive: true });
+      viewport.addEventListener('touchend', e => {
+        if (!tracking) return;
+        tracking = false;
+        const dx = e.changedTouches[0].clientX - sx;
+        const dy = e.changedTouches[0].clientY - sy;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+          archiveStep(dx < 0 ? 1 : -1);
+        }
+      }, { passive: true });
+    }
+
+    // Load data
     try {
       if (page === 'projects') {
         const res = await fetch('../api/project.json');
         if (!res.ok) throw new Error(res.status);
         const json = await res.json();
         State.projects = json.projects || [];
-        const loading = $('archive-loading');
-        if (loading) loading.classList.add('hidden');
-        const grid = $('archive-grid');
-        if (grid) grid.classList.remove('hidden');
         renderProjectFilters();
-        renderProjects();
+        renderProjectSlider();
       } else {
         const res = await fetch('../api/certificate.json');
         if (!res.ok) throw new Error(res.status);
         const json = await res.json();
         State.certs = json.certificates || [];
-        const loading = $('archive-loading');
-        if (loading) loading.classList.add('hidden');
-        const grid = $('archive-grid');
-        if (grid) grid.classList.remove('hidden');
         // Hide category filters for certificates
         const filtersWrap = $('archive-filters');
         if (filtersWrap) filtersWrap.classList.add('hidden');
-        renderCerts();
+        renderCertSlider();
       }
     } catch (err) {
       console.error('[Archive] Failed to load API:', err);

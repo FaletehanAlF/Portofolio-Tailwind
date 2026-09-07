@@ -56,19 +56,31 @@
         </p>
       </div>
 
-      <!-- Toolbar: search + count -->
+      <!-- Toolbar: search -->
       <div class="flex flex-col sm:flex-row gap-3 sm:items-center mb-4">
         <div class="relative flex-1">
           <i data-feather="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" style="color:var(--color-text-muted);"></i>
           <input id="archive-search" type="search" class="form-input !pl-10 !rounded-full" placeholder="Search projects..." autocomplete="off" />
         </div>
-        <p class="text-xs font-semibold text-center sm:text-right flex-shrink-0 px-1" style="color:var(--color-text-muted);">
-          <span id="archive-count">0 items</span>
-        </p>
       </div>
 
       <!-- Filters -->
       <div id="archive-filters" class="flex gap-2 overflow-x-auto pb-2 mb-6 sm:flex-wrap" style="scrollbar-width:none;"></div>
+
+      <!-- Slider controls -->
+      <div class="flex items-center justify-between gap-3 mb-4">
+        <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
+          <span id="archive-count">0 items</span>
+        </p>
+        <div class="flex items-center gap-2">
+          <button class="slider-btn" id="archive-prev" aria-label="Previous">
+            <i data-feather="chevron-left" class="w-4 h-4"></i>
+          </button>
+          <button class="slider-btn" id="archive-next" aria-label="Next">
+            <i data-feather="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
 
       <!-- Loading -->
       <div id="archive-loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -77,8 +89,13 @@
         <div class="skeleton h-80 hidden lg:block"></div>
       </div>
 
-      <!-- Grid (from ../api/project.json) -->
-      <div id="archive-grid" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"></div>
+      <!-- Pager slider (from ../api/project.json) -->
+      <div class="pager-viewport" id="archive-viewport" tabindex="0">
+        <div class="pager-track" id="archive-track"></div>
+      </div>
+
+      <!-- Dots -->
+      <div class="flex items-center justify-center gap-1.5 mt-5" id="archive-dots"></div>
 
       <!-- Empty -->
       <div id="archive-empty" class="hidden card p-10 text-center mt-2">
