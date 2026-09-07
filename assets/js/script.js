@@ -904,7 +904,7 @@ const ShowcaseSlider = (() => {
     pages.forEach((p, i) => {
       const wasActive = p.classList.contains('page-active');
       p.classList.toggle('page-active', i === idx);
-      // Re-trigger card animations when becoming active
+      // Re-trigger card entrance animation when becoming active
       if (i === idx && !wasActive) {
         p.querySelectorAll('.card').forEach(card => {
           card.style.transition = 'none';
@@ -912,6 +912,8 @@ const ShowcaseSlider = (() => {
           card.style.transform = 'translateY(20px) scale(0.97)';
           void card.offsetHeight;
           card.style.transition = '';
+          card.style.opacity = '';
+          card.style.transform = '';
         });
       }
     });
