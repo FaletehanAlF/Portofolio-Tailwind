@@ -158,6 +158,18 @@
     border-color: var(--color-accent);
   }
 
+  .btn-secondary:disabled,
+  .btn-secondary[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  #d-share:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
   /* Cards */
   .card,
   .cert-card {
@@ -666,7 +678,7 @@
     transition: transform 0.08s linear;
   }
 
-  /* ===== Paged showcase slider (grid 3+3, geser halus, scroll vertikal los) ===== */
+  /* ===== Paged slider — now ONLY for Tech Stack & Archive (Projects/Certs homepage are static grids) ===== */
   .pager-viewport {
     overflow: hidden;
     border-radius: 1rem;
@@ -694,7 +706,7 @@
     contain: layout style;
   }
 
-  /* ===== Staggered card entrance animation ===== */
+  /* TechStack / Archive paged animation */
   .pager-page .card {
     opacity: 0;
     transform: translateY(20px) scale(0.97);
@@ -706,7 +718,6 @@
     transform: translateY(0) scale(1);
   }
 
-  /* Stagger delay for each card (up to 6 cards) */
   .pager-page.page-active .card:nth-child(1) { transition-delay: 0.05s; }
   .pager-page.page-active .card:nth-child(2) { transition-delay: 0.12s; }
   .pager-page.page-active .card:nth-child(3) { transition-delay: 0.19s; }
@@ -714,7 +725,6 @@
   .pager-page.page-active .card:nth-child(5) { transition-delay: 0.33s; }
   .pager-page.page-active .card:nth-child(6) { transition-delay: 0.40s; }
 
-  /* Card hover lift effect */
   .pager-page .card {
     transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.3s ease;
   }
@@ -727,6 +737,35 @@
   [data-theme="dark"] .pager-page.page-active .card:hover {
     box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
   }
+
+  /* Static showcase grids (homepage Projects & Certs — no slider) */
+  #projects-grid .card,
+  #certificates-grid .card {
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  }
+  #projects-grid .card:hover,
+  #certificates-grid .card:hover {
+    transform: translateY(-4px) scale(1.012);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.16);
+    border-color: var(--color-accent);
+  }
+  [data-theme="dark"] #projects-grid .card:hover,
+  [data-theme="dark"] #certificates-grid .card:hover {
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+  }
+  /* Staggered entrance for static preview (via fade-up, plus subtle delay) */
+  #projects-grid .card:nth-child(1) { transition-delay: 0.04s; }
+  #projects-grid .card:nth-child(2) { transition-delay: 0.09s; }
+  #projects-grid .card:nth-child(3) { transition-delay: 0.14s; }
+  #projects-grid .card:nth-child(4) { transition-delay: 0.19s; }
+  #projects-grid .card:nth-child(5) { transition-delay: 0.24s; }
+  #projects-grid .card:nth-child(6) { transition-delay: 0.29s; }
+  #certificates-grid .card:nth-child(1) { transition-delay: 0.04s; }
+  #certificates-grid .card:nth-child(2) { transition-delay: 0.09s; }
+  #certificates-grid .card:nth-child(3) { transition-delay: 0.14s; }
+  #certificates-grid .card:nth-child(4) { transition-delay: 0.19s; }
+  #certificates-grid .card:nth-child(5) { transition-delay: 0.24s; }
+  #certificates-grid .card:nth-child(6) { transition-delay: 0.29s; }
 
   /* ===== Page dot transition ===== */
   .slider-dot {

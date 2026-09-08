@@ -375,30 +375,19 @@
         <button class="tab-btn" data-tab="techstack" data-i18n="portfolio.tab_tech">Tech Stack</button>
       </div>
 
-      <!-- ---- PROJECTS TAB : grid 3+3 paged slider + see all kanan bawah ---- -->
+      <!-- ---- PROJECTS TAB : static 6 preview + See All (no slider) ---- -->
       <div class="tab-panel active" id="tab-projects">
         <div class="flex items-center justify-between gap-3 mb-4">
           <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
             <span id="projects-count">6</span>
             <span data-i18n="portfolio.items">items</span>
           </p>
-          <div class="flex items-center gap-2">
-            <button class="slider-btn" id="projects-prev" data-i18n-aria="portfolio.prev" aria-label="Previous projects">
-              <i data-feather="chevron-left" class="w-4 h-4"></i>
-            </button>
-            <button class="slider-btn" id="projects-next" data-i18n-aria="portfolio.next" aria-label="Next projects">
-              <i data-feather="chevron-right" class="w-4 h-4"></i>
-            </button>
-          </div>
+          <p class="text-xs font-medium hidden sm:block" style="color:var(--color-text-muted);" data-i18n="portfolio.preview_note">Showing latest 6</p>
         </div>
 
-        <div class="pager-viewport" id="projects-viewport" tabindex="0" data-pager="projects"
-          data-i18n-aria="portfolio.slider_projects" aria-label="Projects slider. Use arrow buttons or swipe to navigate.">
-          <div class="pager-track" id="projects-grid"></div>
-        </div>
+        <div id="projects-grid" class="pager-grid performance"></div>
 
-        <div class="flex items-center justify-between gap-3 mt-5">
-          <div class="flex items-center gap-1.5 flex-wrap" id="projects-dots" aria-hidden="true"></div>
+        <div class="flex justify-end mt-5">
           <a href="view/projects.html" class="see-all-link">
             <span data-i18n="portfolio.see_all">See All</span>
             <i data-feather="arrow-right" class="w-4 h-4"></i>
@@ -406,30 +395,19 @@
         </div>
       </div>
 
-      <!-- ---- CERTIFICATES TAB : grid 3+3 paged slider + see all kanan bawah ---- -->
+      <!-- ---- CERTIFICATES TAB : static 6 preview + See All (no slider) ---- -->
       <div class="tab-panel" id="tab-certificates">
         <div class="flex items-center justify-between gap-3 mb-4">
           <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
             <span id="certs-count">6</span>
             <span data-i18n="portfolio.items">items</span>
           </p>
-          <div class="flex items-center gap-2">
-            <button class="slider-btn" id="certs-prev" data-i18n-aria="portfolio.prev" aria-label="Previous certificates">
-              <i data-feather="chevron-left" class="w-4 h-4"></i>
-            </button>
-            <button class="slider-btn" id="certs-next" data-i18n-aria="portfolio.next" aria-label="Next certificates">
-              <i data-feather="chevron-right" class="w-4 h-4"></i>
-            </button>
-          </div>
+          <p class="text-xs font-medium hidden sm:block" style="color:var(--color-text-muted);" data-i18n="portfolio.preview_note">Showing latest 6</p>
         </div>
 
-        <div class="pager-viewport" id="certs-viewport" tabindex="0" data-pager="certs"
-          data-i18n-aria="portfolio.slider_certs" aria-label="Certificates slider. Use arrow buttons or swipe to navigate.">
-          <div class="pager-track" id="certificates-grid"></div>
-        </div>
+        <div id="certificates-grid" class="pager-grid performance"></div>
 
-        <div class="flex items-center justify-between gap-3 mt-5">
-          <div class="flex items-center gap-1.5 flex-wrap" id="certs-dots" aria-hidden="true"></div>
+        <div class="flex justify-end mt-5">
           <a href="view/certificates.html" class="see-all-link">
             <span data-i18n="portfolio.see_all">See All</span>
             <i data-feather="arrow-right" class="w-4 h-4"></i>

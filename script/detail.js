@@ -27,7 +27,10 @@
       year: 'Year',
       stack: 'Stack',
       status: 'Status',
-      copyLink: 'Copy link',
+      copyLink: 'Copy Live Demo link',
+      copyDemo: 'Copy Live Demo link',
+      copiedDemo: 'Live Demo link copied!',
+      noDemo: 'Demo not available yet',
       completed: '● Completed',
       completedPlain: 'Completed',
       comingSoon: '○ Coming Soon',
@@ -56,7 +59,10 @@
       year: 'Tahun',
       stack: 'Teknologi',
       status: 'Status',
-      copyLink: 'Salin tautan',
+      copyLink: 'Salin tautan Demo',
+      copyDemo: 'Salin tautan Demo',
+      copiedDemo: 'Tautan Demo disalin!',
+      noDemo: 'Demo belum tersedia',
       completed: '● Selesai',
       completedPlain: 'Selesai',
       comingSoon: '○ Segera Hadir',
@@ -179,6 +185,26 @@ grid.innerHTML = others.map(p => {
     section.classList.remove('hidden');
   }
 
+  function updateShareButton() {
+    const p = State.active;
+    const share = $('d-share');
+    if (!share || !p) return;
+    const hasDemo = p.demo && p.demo !== '#';
+    if (hasDemo) {
+      share.disabled = false;
+      share.style.opacity = '';
+      share.style.cursor = '';
+      share.setAttribute('aria-label', t('copyDemo'));
+      share.setAttribute('title', t('copyDemo'));
+    } else {
+      share.disabled = true;
+      share.style.opacity = '0.45';
+      share.style.cursor = 'not-allowed';
+      share.setAttribute('aria-label', t('noDemo'));
+      share.setAttribute('title', t('noDemo'));
+    }
+  }
+
   function renderStaticLabels() {
     document.documentElement.lang = State.lang;
     const langBtn = $('lang-toggle');
@@ -204,11 +230,7 @@ grid.innerHTML = others.map(p => {
     set('d-lbl-status', t('status'));
     set('d-all-label', t('allProjects'));
     set('d-hire-label', t('hireMe'));
-    const share = $('d-share');
-    if (share) {
-      share.setAttribute('aria-label', t('copyLink'));
-      share.setAttribute('title', t('copyLink'));
-    }
+    updateShareButton();
     const themeBtn = $('theme-toggle');
     if (themeBtn) {
       const label = State.theme === 'dark' ? t('toLight') : t('toDark');
@@ -256,6 +278,7 @@ grid.innerHTML = others.map(p => {
     $('d-github').classList.toggle('hidden', !hasGithub);
 
     renderStaticLabels();
+    updateShareButton();
     // re-apply status after labels (language dependent)
     if (statusEl) statusEl.textContent = isSoon ? t('comingSoon') : t('completed');
     setInfo('d-info-status', isSoon ? t('comingSoonPlain') : t('completedPlain'));
@@ -290,14 +313,73 @@ grid.innerHTML = others.map(p => {
       render();
     });
 
+    function ensureToast() {
+      let toast = document.getElementById('copy-toast');
+      if (toast) return toast;
+      toast = document.createElement('div');
+      toast.id = 'copy-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(12px);background:var(--color-text);color:var(--color-bg);font-size:0.82rem;font-weight:600;padding:0.6rem 1rem;border-radius:9999px;box-shadow:0 10px 28px rgba(0,0,0,0.18);opacity:0;pointer-events:none;transition:opacity 0.22s ease, transform 0.22s ease;z-index:99999;white-space:nowrap;';
+      document.body.appendChild(toast);
+      return toast;
+    }
+    function showToast(msg, isError) {
+      const toast = ensureToast();
+      toast.textContent = msg;
+      toast.style.background = isError ? '#dc2626' : 'var(--color-text)';
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(12px)';
+      }, 1800);
+    }
+    async function copyText(text) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch {}
+      // fallback
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        return ok;
+      } catch { return false; }
+    }
+
     const shareBtn = $('d-share');
     if (shareBtn) shareBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(location.href);
+      const p = State.active;
+      const hasDemo = p && p.demo && p.demo !== '#';
+      if (!hasDemo) {
+        showToast(t('noDemo'), true);
+        return;
+      }
+      const ok = await copyText(p.demo);
+      if (ok) {
+        const prevBorder = shareBtn.style.borderColor;
         shareBtn.style.borderColor = '#2563eb';
-        shareBtn.setAttribute('title', t('copied'));
-        setTimeout(() => { shareBtn.style.borderColor = ''; shareBtn.setAttribute('title', t('copyLink')); }, 1500);
-      } catch { /* clipboard unavailable */ }
+        showToast(t('copiedDemo'));
+        shareBtn.setAttribute('title', t('copiedDemo'));
+        setTimeout(() => {
+          shareBtn.style.borderColor = prevBorder || '';
+          shareBtn.setAttribute('title', t('copyDemo'));
+          updateShareButton();
+        }, 1500);
+      } else {
+        showToast(t('loadFail'), true);
+      }
     });
 
     try {

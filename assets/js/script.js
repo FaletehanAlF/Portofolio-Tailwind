@@ -45,6 +45,7 @@ const translations = {
     'portfolio.tab_tech': 'Tech Stack',
     'portfolio.see_all': 'See All',
     'portfolio.items': 'items',
+    'portfolio.preview_note': 'Showing latest 6',
     'portfolio.prev': 'Previous slide',
     'portfolio.next': 'Next slide',
     'portfolio.slider_projects': 'Projects slider. Use arrow buttons or swipe to navigate.',
@@ -115,6 +116,7 @@ const translations = {
     'portfolio.tab_tech': 'Tech Stack',
     'portfolio.see_all': 'Lihat Semua',
     'portfolio.items': 'item',
+    'portfolio.preview_note': 'Menampilkan 6 terbaru',
     'portfolio.prev': 'Slide sebelumnya',
     'portfolio.next': 'Slide berikutnya',
     'portfolio.slider_projects': 'Slider proyek. Gunakan tombol panah atau geser untuk navigasi.',
@@ -776,23 +778,21 @@ const ProjectsSection = (() => {
       </article>`;
   }
 
-  function chunk(arr, size) {
-    const out = [];
-    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-    return out;
-  }
-
+  // Showcase now: static 6 preview only — easy to extend via api/project.json
+  // Just add new object at TOP of projects array; homepage auto shows first 6, See All shows all.
   function render() {
     const grid = document.getElementById('projects-grid');
     if (!grid || !data) return;
-    // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
-    grid.innerHTML = chunk(data, 6).map((page, i) =>
-      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid performance">${page.map(card).join('')}</div></div>`
-    ).join('');
+    const preview = data.slice(0, 6);
+    if (!preview.length) {
+      grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No projects yet.</p>`;
+    } else {
+      grid.innerHTML = preview.map(card).join('');
+    }
     const count = document.getElementById('projects-count');
     if (count) count.textContent = data.length;
     observeFadeUp(grid);
-    if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('projects');
+    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
 
   async function init() {
@@ -805,11 +805,11 @@ const ProjectsSection = (() => {
     }
   }
 
-  return { init, render };
+  return { init, render, getData: () => data };
 })();
 
 /* ================================================================
-   15c. CERTIFICATES SECTION (from /api/certificate.json) — slider cards
+   15c. CERTIFICATES SECTION (from /api/certificate.json) — static 6
    ================================================================ */
 const CertificatesSection = (() => {
   let data = null;
@@ -831,23 +831,20 @@ const CertificatesSection = (() => {
       </article>`;
   }
 
-  function chunk(arr, size) {
-    const out = [];
-    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-    return out;
-  }
-
+  // Showcase now: static 6 preview only — add new items to api/certificate.json, homepage auto shows first 6
   function render() {
     const grid = document.getElementById('certificates-grid');
     if (!grid || !data) return;
-    // 6 kartu per halaman = 3 di atas + 3 di bawah (grid responsif)
-    grid.innerHTML = chunk(data, 6).map((page, i) =>
-      `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid performance">${page.map(card).join('')}</div></div>`
-    ).join('');
+    const preview = data.slice(0, 6);
+    if (!preview.length) {
+      grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No certificates yet.</p>`;
+    } else {
+      grid.innerHTML = preview.map(card).join('');
+    }
     const count = document.getElementById('certs-count');
     if (count) count.textContent = data.length;
     observeFadeUp(grid);
-    if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('certs');
+    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
 
   async function init() {
@@ -864,16 +861,14 @@ const CertificatesSection = (() => {
 })();
 
 /* ================================================================
-   15e. SHOWCASE PAGER — grid 3+3 per halaman, geser halus (transform),
-   scroll vertikal tidak terhalang, See All tetap di kanan bawah
+   15e. SHOWCASE PAGER — now ONLY for Tech Stack (Projects & Certs are static 6)
+   scroll vertikal tidak terhalang, See All di kanan bawah untuk Projects/Certs
    ================================================================ */
 const ShowcaseSlider = (() => {
   const registries = {
-    projects: { viewport: 'projects-viewport', track: 'projects-grid', prev: 'projects-prev', next: 'projects-next', dots: 'projects-dots' },
-    certs: { viewport: 'certs-viewport', track: 'certificates-grid', prev: 'certs-prev', next: 'certs-next', dots: 'certs-dots' },
     techstack: { viewport: 'techstack-viewport', track: 'techstack-grid', prev: 'techstack-prev', next: 'techstack-next', dots: 'techstack-dots' },
   };
-  const current = { projects: 0, certs: 0, techstack: 0 };
+  const current = { techstack: 0 };
 
   function trackOf(key) {
     const cfg = registries[key];
