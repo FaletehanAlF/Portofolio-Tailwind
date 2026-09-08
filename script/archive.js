@@ -472,15 +472,16 @@ return `
     if (prevBtn) prevBtn.addEventListener('click', () => archiveStep(-1));
     if (nextBtn) nextBtn.addEventListener('click', () => archiveStep(1));
 
-    // Keyboard navigation on viewport
+    // Viewport interactions — keyboard + touch + mouse drag + two-finger wheel
     const viewport = $('archive-viewport');
     if (viewport) {
+      viewport.style.cursor = 'grab';
       viewport.addEventListener('keydown', e => {
         if (e.key === 'ArrowRight') { e.preventDefault(); archiveStep(1); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); archiveStep(-1); }
       });
 
-      // Touch swipe
+      // Touch swipe (single finger)
       let sx = 0, sy = 0, tracking = false;
       viewport.addEventListener('touchstart', e => {
         if (e.touches.length !== 1) return;
@@ -497,6 +498,48 @@ return `
           archiveStep(dx < 0 ? 1 : -1);
         }
       }, { passive: true });
+
+      // Two-finger trackpad swipe via wheel (deltaX)
+      let wheelLock = false;
+      viewport.addEventListener('wheel', e => {
+        const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        const delta = horizontal ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+        if (Math.abs(delta) < 18) return;
+        if (horizontal || e.shiftKey) {
+          e.preventDefault();
+          if (wheelLock) return;
+          wheelLock = true;
+          archiveStep(delta > 0 ? 1 : -1);
+          setTimeout(() => { wheelLock = false; }, 380);
+        }
+      }, { passive: false });
+
+      // Mouse drag (click + drag)
+      let isDragging = false, startX = 0, didDrag = false;
+      viewport.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        didDrag = false;
+        startX = e.clientX;
+        viewport.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+      viewport.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        if (Math.abs(e.clientX - startX) > 8) didDrag = true;
+      });
+      viewport.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.style.cursor = 'grab';
+        const dx = e.clientX - startX;
+        if (didDrag && Math.abs(dx) > 50) archiveStep(dx < 0 ? 1 : -1);
+        didDrag = false;
+      });
+      viewport.addEventListener('mouseleave', () => {
+        isDragging = false;
+        viewport.style.cursor = 'grab';
+      });
     }
 
     // Load data
