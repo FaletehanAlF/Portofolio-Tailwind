@@ -160,8 +160,6 @@ return `
     const legacyWrap = $('archive-filters');
     if (page !== 'projects') {
       if (select) select.classList.add('hidden');
-      const label = document.querySelector('label[for="archive-filter-select"]');
-      if (label) label.classList.add('hidden');
       if (legacyWrap) legacyWrap.classList.add('hidden');
       return;
     }
@@ -171,18 +169,13 @@ return `
     select.innerHTML = cats.map((c) => `
       <option value="${escapeHtml(c)}"${c === State.projectFilter ? ' selected' : ''}>${escapeHtml(c)}</option>
     `).join('');
+    select.classList.remove('hidden');
     select.onchange = () => {
       State.projectFilter = select.value;
       State.currentPage = 0;
       smoothPageTransition();
       renderProjectSlider();
     };
-    select.classList.remove('hidden');
-    const label = document.querySelector('label[for="archive-filter-select"]');
-    if (label) {
-      label.textContent = t('filterLabel');
-      label.classList.remove('hidden');
-    }
     if (legacyWrap) legacyWrap.classList.add('hidden');
   }
 
