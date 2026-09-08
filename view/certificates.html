@@ -57,14 +57,14 @@
         </p>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-3 sm:items-center mb-4">
-        <div class="relative flex-1">
+      <div class="flex justify-center mb-6">
+        <div class="relative w-full sm:max-w-sm">
           <i data-feather="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" style="color:var(--color-text-muted);"></i>
-          <input id="archive-search" type="search" class="form-input !pl-10 !rounded-full" placeholder="Search certificates..." autocomplete="off" />
+          <input id="archive-search" type="search" class="form-input !pl-10 !rounded-full w-full" placeholder="Search certificates..." autocomplete="off" />
         </div>
       </div>
-
-      <div id="archive-filters" class="hidden flex gap-2 overflow-x-auto pb-2 mb-6 sm:flex-wrap" style="scrollbar-width:none;"></div>
+      <div id="archive-filters" class="hidden"></div>
+      <select id="archive-filter-select" class="hidden"></select>
 
       <!-- Slider controls -->
       <div class="flex items-center justify-between gap-3 mb-4">

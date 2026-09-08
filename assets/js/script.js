@@ -1273,56 +1273,8 @@ const ContactForm = (() => {
 })();
 
 /* ================================================================
-   18. CUSTOM CURSOR (desktop only)
-================================================================ */
-function initCursor() {
-  if (window.matchMedia('(pointer: coarse)').matches) {
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    if (dot) dot.style.display = 'none';
-    if (ring) ring.style.display = 'none';
-    return;
-  }
-
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  if (!dot || !ring) return;
-
-  let mx = 0, my = 0;
-  let rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top = my + 'px';
-  });
-
-  function loopRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(loopRing);
-  }
-  loopRing();
-
-  // Gentle highlight on interactive elements (no size change = no pulsing)
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest('a, button, .cert-card, .card')) {
-      ring.style.opacity = '0.75';
-    }
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest('a, button, .cert-card, .card')) {
-      ring.style.opacity = '0.4';
-    }
-  });
-}
-
-/* ================================================================
    19. FEATHER ICONS REPLACE
-================================================================ */
+   ================================================================ */
 function initFeather() {
   if (typeof feather !== 'undefined') {
     feather.replace({ 'stroke-width': 1.75 });
@@ -1354,7 +1306,6 @@ function init() {
   if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.init();
   CertModal.init();
   ContactForm.init();
-  initCursor();
 
   // Fetch & render projects, certificates, and tech stack from /api/*.json
   loadData();

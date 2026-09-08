@@ -14,6 +14,7 @@
       searchProjects: 'Search projects...',
       searchCerts: 'Search certificates...',
       all: 'All',
+      filterLabel: 'Category',
       empty: 'Nothing found. Try another keyword.',
       items: 'items',
       detail: 'Project Detail',
@@ -38,6 +39,7 @@
       searchProjects: 'Cari proyek...',
       searchCerts: 'Cari sertifikat...',
       all: 'Semua',
+      filterLabel: 'Kategori',
       empty: 'Tidak ditemukan. Coba kata kunci lain.',
       items: 'item',
       detail: 'Detail Proyek',
@@ -146,22 +148,42 @@ return `
       </article>`;
   }
 
+  function smoothPageTransition() {
+    const viewport = $('archive-viewport');
+    if (viewport) {
+      viewport.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
   function renderProjectFilters() {
-    const wrap = $('archive-filters');
-    if (!wrap) return;
+    const select = $('archive-filter-select');
+    const legacyWrap = $('archive-filters');
+    if (page !== 'projects') {
+      if (select) select.classList.add('hidden');
+      const label = document.querySelector('label[for="archive-filter-select"]');
+      if (label) label.classList.add('hidden');
+      if (legacyWrap) legacyWrap.classList.add('hidden');
+      return;
+    }
+    if (!select) return;
     const cats = projectCategories();
     if (!cats.includes(State.projectFilter)) State.projectFilter = t('all');
-    wrap.innerHTML = cats.map((c) => `
-      <button class="filter-chip${c === State.projectFilter ? ' active' : ''}" data-filter="${escapeHtml(c)}">${escapeHtml(c)}</button>
+    select.innerHTML = cats.map((c) => `
+      <option value="${escapeHtml(c)}"${c === State.projectFilter ? ' selected' : ''}>${escapeHtml(c)}</option>
     `).join('');
-    wrap.querySelectorAll('[data-filter]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        State.projectFilter = btn.dataset.filter;
-        State.currentPage = 0;
-        renderProjectFilters();
-        renderProjectSlider();
-      });
-    });
+    select.onchange = () => {
+      State.projectFilter = select.value;
+      State.currentPage = 0;
+      smoothPageTransition();
+      renderProjectSlider();
+    };
+    select.classList.remove('hidden');
+    const label = document.querySelector('label[for="archive-filter-select"]');
+    if (label) {
+      label.textContent = t('filterLabel');
+      label.classList.remove('hidden');
+    }
+    if (legacyWrap) legacyWrap.classList.add('hidden');
   }
 
   /* ---------- certificates ---------- */

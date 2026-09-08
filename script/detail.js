@@ -144,8 +144,18 @@
       </span>`).join('');
   }
 
+  function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   function renderRelated() {
-    const others = State.projects.filter(p => p.slug !== State.active.slug).slice(0, 3);
+    const candidates = State.projects.filter(p => p.slug !== State.active.slug);
+    const others = shuffleArray(candidates).slice(0, 3);
     const section = $('d-related');
     const grid = $('d-related-grid');
 

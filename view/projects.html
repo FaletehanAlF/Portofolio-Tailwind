@@ -56,16 +56,19 @@
         </p>
       </div>
 
-      <!-- Toolbar: search -->
-      <div class="flex flex-col sm:flex-row gap-3 sm:items-center mb-4">
-        <div class="relative flex-1">
+      <!-- Toolbar: search + category — centered, rapih -->
+      <div class="flex flex-col sm:flex-row gap-3 sm:items-center justify-center mb-6 max-w-2xl mx-auto">
+        <div class="relative w-full sm:max-w-[320px] sm:flex-1">
           <i data-feather="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" style="color:var(--color-text-muted);"></i>
-          <input id="archive-search" type="search" class="form-input !pl-10 !rounded-full" placeholder="Search projects..." autocomplete="off" />
+          <input id="archive-search" type="search" class="form-input !pl-10 !rounded-full w-full" placeholder="Search projects..." autocomplete="off" />
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto sm:flex-none justify-center">
+          <label for="archive-filter-select" class="text-xs font-semibold whitespace-nowrap" style="color:var(--color-text-muted);" data-i18n-archive="filterLabel">Category</label>
+          <select id="archive-filter-select" class="form-input !py-2.5 !rounded-full !text-sm w-full sm:w-48 cursor-pointer"></select>
         </div>
       </div>
-
-      <!-- Filters -->
-      <div id="archive-filters" class="flex gap-2 overflow-x-auto pb-2 mb-6 sm:flex-wrap" style="scrollbar-width:none;"></div>
+      <!-- Legacy chip container hidden, kept for compat -->
+      <div id="archive-filters" class="hidden"></div>
 
       <!-- Slider controls -->
       <div class="flex items-center justify-between gap-3 mb-4">
