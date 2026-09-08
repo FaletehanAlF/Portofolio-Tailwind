@@ -65,6 +65,72 @@
         "en": "My Skill",
         "id": "My Skill"
       }
+    },
+    {
+      "image": "https://via.placeholder.com/800x600/f8fafc/64748b?text=Certificate+7",
+      "name": {
+        "en": "Advanced JavaScript (ES6+)",
+        "id": "JavaScript Lanjutan (ES6+)"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "https://via.placeholder.com/800x600/f1f5f9/475569?text=Certificate+8",
+      "name": {
+        "en": "React Fundamentals",
+        "id": "Dasar-Dasar React"
+      },
+      "issuer": {
+        "en": "MySkill",
+        "id": "MySkill"
+      }
+    },
+    {
+      "image": "https://via.placeholder.com/800x600/eff6ff/2563eb?text=Certificate+9",
+      "name": {
+        "en": "Database Design with MySQL",
+        "id": "Desain Database dengan MySQL"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "https://via.placeholder.com/800x600/f0fdf4/16a34a?text=Certificate+10",
+      "name": {
+        "en": "Laravel Backend Development",
+        "id": "Pengembangan Backend Laravel"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
+    },
+    {
+      "image": "https://via.placeholder.com/800x600/fefce8/ca8a04?text=Certificate+11",
+      "name": {
+        "en": "Figma UI/UX Advanced",
+        "id": "UI/UX Figma Lanjutan"
+      },
+      "issuer": {
+        "en": "MySkill",
+        "id": "MySkill"
+      }
+    },
+    {
+      "image": "https://via.placeholder.com/800x600/fdf2f8/ec4899?text=Certificate+12",
+      "name": {
+        "en": "Git & GitHub Collaboration",
+        "id": "Kolaborasi Git & GitHub"
+      },
+      "issuer": {
+        "en": "Dicoding Indonesia",
+        "id": "Dicoding Indonesia"
+      }
     }
   ]
 }

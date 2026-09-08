@@ -725,7 +725,7 @@
   .pager-page.page-active .card:hover {
     border-color: var(--color-accent);
     box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.18);
-    transform: translateY(-6px);
+    transform: scale(1.015);
     z-index: 2;
     transition-delay: 0s;
   }
@@ -756,7 +756,7 @@
   #certificates-grid .card:hover {
     border-color: var(--color-accent);
     box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.18);
-    transform: translateY(-6px);
+    transform: scale(1.015);
     z-index: 2;
     transition-delay: 0s !important;
   }
