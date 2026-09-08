@@ -13,6 +13,7 @@ const translations = {
     'nav.home': 'Home',
     'nav.about': 'About Me',
     'nav.portfolio': 'Portfolio',
+    'nav.education': 'Education',
     'nav.contact': 'Contact',
 
     'hero.greeting': "Hi, My Name is  ",
@@ -84,6 +85,7 @@ const translations = {
     'nav.home': 'Beranda',
     'nav.about': 'Tentang Saya',
     'nav.portfolio': 'Portofolio',
+    'nav.education': 'Pendidikan',
     'nav.contact': 'Kontak',
 
     'hero.greeting': 'Halo, Nama Saya ',

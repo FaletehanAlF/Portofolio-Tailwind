@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Education — Faletehan Portfolio. HRD-friendly academic journey with verified credentials." />
+  <title>Education | Faletehan</title>
+  <link rel="stylesheet" href="../src/output.css" />
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    img { display: block; }
+    .edu-logo { object-fit: contain; background: var(--color-bg); }
+  </style>
+</head>
+<body data-page="education">
+
+  <!-- NAVBAR capsule -->
+  <header class="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
+    <div class="capsule-nav max-w-5xl mx-auto">
+      <div class="capsule-bar h-14 sm:h-16 flex items-center justify-between gap-2 px-3 sm:px-5">
+        <a href="../index.html#home" class="flex items-center gap-2 group min-w-0" aria-label="Back">
+          <span class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:-translate-x-0.5"
+            style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
+            <i data-feather="chevron-left" class="w-4 h-4" style="color:var(--color-accent);"></i>
+          </span>
+          <span class="text-sm font-bold truncate hidden sm:inline" style="color:var(--color-text);">Education</span>
+          <span class="text-sm font-bold truncate sm:hidden" style="color:var(--color-text);">Edu</span>
+        </a>
+        <nav class="hidden md:flex items-center justify-center gap-2 flex-1" aria-label="Archive Navigation">
+          <a href="../index.html#home" class="nav-link" data-i18n-edu="home">Home</a>
+          <a href="projects.html" class="nav-link" data-i18n-edu="projects">Projects</a>
+          <a href="certificates.html" class="nav-link" data-i18n-edu="certificates">Certificates</a>
+          <a href="education.html" class="nav-link active" data-i18n-edu="education">Education</a>
+        </nav>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">EN</button>
+          <button class="toggle-btn !rounded-full" id="theme-toggle" aria-label="Toggle Theme">
+            <i data-feather="sun" class="w-4 h-4 block" id="theme-icon-light"></i>
+            <i data-feather="moon" class="w-4 h-4 hidden" id="theme-icon-dark"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="min-h-screen pt-28 sm:pt-32 pb-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-5">
+
+      <!-- Hero -->
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <p class="section-label" data-i18n-edu="eyebrow">Academic Journey</p>
+        <h1 class="font-extrabold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-edu="title">Education</h1>
+        <p class="text-sm sm:text-base leading-relaxed" style="color:var(--color-text-muted);" data-i18n-edu="subtitle">
+          HRD-friendly overview — verified schools, period, GPA and how each stage prepared me for a junior full-stack role.
+        </p>
+      </div>
+
+      <!-- Stats HRD -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-10">
+        <div class="card p-4 sm:p-5 text-center">
+          <div class="text-[11px] font-bold tracking-widest uppercase mb-1" style="color:var(--color-text-muted);" data-i18n-edu="statYears">Years</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">2023—26</div>
+          <div class="text-xs mt-1" style="color:var(--color-text-muted);" data-i18n-edu="statYearsSub">SMKFocus</div>
+        </div>
+        <div class="card p-4 sm:p-5 text-center">
+          <div class="text-[11px] font-bold tracking-widest uppercase mb-1" style="color:var(--color-text-muted);" data-i18n-edu="statGpa">GPA</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-accent);">8.0<span class="text-sm">/10</span></div>
+          <div class="text-xs mt-1" style="color:var(--color-text-muted);" data-i18n-edu="statGpaSub">Productive</div>
+        </div>
+        <div class="card p-4 sm:p-5 text-center">
+          <div class="text-[11px] font-bold tracking-widest uppercase mb-1" style="color:var(--color-text-muted);" data-i18n-edu="statCert">Certs</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">5+</div>
+          <div class="text-xs mt-1" style="color:var(--color-text-muted);" data-i18n-edu="statCertSub">Verified</div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="edu-loading" class="grid gap-5">
+        <div class="skeleton h-40"></div>
+        <div class="skeleton h-40"></div>
+        <div class="skeleton h-40"></div>
+      </div>
+
+      <!-- Timeline -->
+      <div id="edu-timeline" class="hidden relative">
+        <!-- vertical line -->
+        <div class="hidden sm:block absolute top-4 bottom-4 w-px" style="left:30px; background:var(--color-border);" aria-hidden="true"></div>
+        <div id="edu-list" class="flex flex-col gap-5 sm:gap-6 sm:pl-12"></div>
+      </div>
+
+      <div id="edu-empty" class="hidden card p-10 text-center mt-6">
+        <p class="text-sm" style="color:var(--color-text-muted);" data-i18n-edu="empty">No education data.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mt-10">
+        <a href="projects.html" class="btn-primary justify-center"><i data-feather="grid" class="w-4 h-4"></i> <span data-i18n-edu="ctaProjects">View Projects</span></a>
+        <a href="../index.html#contact" class="btn-secondary justify-center"><i data-feather="mail" class="w-4 h-4"></i> <span data-i18n-edu="ctaContact">Contact Me</span></a>
+      </div>
+
+      <div class="flex justify-center mt-6">
+        <a href="../index.html#about" class="see-all-link"><i data-feather="arrow-left" class="w-4 h-4"></i> <span data-i18n-edu="backShowcase">Back to Portfolio</span></a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer style="background-color:var(--color-bg-secondary); border-top:1px solid var(--color-border);">
+    <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <p class="text-xs" style="color:var(--color-text-muted);">© 2026 Faletehan. All rights reserved.</p>
+      <div class="flex items-center gap-4 text-xs font-medium" style="color:var(--color-text-muted);">
+        <a href="../index.html#home" class="hover:underline">Home</a>
+        <a href="projects.html" class="hover:underline">Projects</a>
+        <a href="education.html" class="hover:underline">Education</a>
+        <a href="certificates.html" class="hover:underline">Certificates</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script/education.js"></script>
+</body>
+</html>
