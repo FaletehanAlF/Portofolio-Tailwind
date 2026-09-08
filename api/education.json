@@ -30,66 +30,6 @@
       ],
       "courses": ["HTML", "CSS", "JavaScript", "Tailwind CSS", "Laravel", "PHP", "MySQL", "Figma", "Git & GitHub"],
       "accredited": true
-    },
-    {
-      "logo": "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/dicoding-header-logo.png",
-      "institution": {
-        "en": "Dicoding Academy",
-        "id": "Dicoding Academy"
-      },
-      "degree": {
-        "en": "Certified Online Courses — Programming & SOLID",
-        "id": "Kelas Online Bersertifikat — Pemrograman & SOLID"
-      },
-      "period": {
-        "en": "2024 — 2025",
-        "id": "2024 — 2025"
-      },
-      "status": {
-        "en": "4 Verified Certificates",
-        "id": "4 Sertifikat Terverifikasi"
-      },
-      "location": "Online • Indonesia",
-      "description": {
-        "en": "Completed structured courses on Haskell, C, Java, and SOLID principles. Each course includes hands-on projects, code review, and final exam — demonstrating self-learning ability and commitment beyond formal school.",
-        "id": "Menyelesaikan kelas terstruktur Haskell, C, Java, dan Prinsip SOLID. Setiap kelas meliputi proyek praktik, review kode, dan ujian akhir — bukti kemampuan belajar mandiri dan komitmen di luar sekolah formal."
-      },
-      "highlights": [
-        { "en": "Memulai Pemrograman dengan Haskell / C / Java", "id": "Memulai Pemrograman dengan Haskell / C / Java" },
-        { "en": "Belajar Prinsip SOLID — clean code & architecture", "id": "Belajar Prinsip SOLID — clean code & architecture" }
-      ],
-      "courses": ["Haskell", "C", "Java", "SOLID", "Clean Code"],
-      "accredited": true
-    },
-    {
-      "logo": "https://img.icons8.com/fluency/96/e-learning.png",
-      "institution": {
-        "en": "MySkill",
-        "id": "MySkill"
-      },
-      "degree": {
-        "en": "UI/UX Design Fundamentals",
-        "id": "Kelas Fundamental UI/UX Design"
-      },
-      "period": {
-        "en": "2024",
-        "id": "2024"
-      },
-      "status": {
-        "en": "Certificate of Completion",
-        "id": "Sertifikat Penyelesaian"
-      },
-      "location": "Online",
-      "description": {
-        "en": "Learned UI/UX fundamentals: user research, wireframing, prototyping in Figma, and usability testing. Applied directly to portfolio and school projects to deliver user-friendly, accessible interfaces that HRD and users appreciate.",
-        "id": "Mempelajari fundamental UI/UX: riset pengguna, wireframing, prototyping di Figma, dan usability testing. Diterapkan langsung pada portfolio dan proyek sekolah untuk menghasilkan antarmuka yang ramah pengguna dan aksesibel."
-      },
-      "highlights": [
-        { "en": "Figma prototyping & design system", "id": "Prototyping Figma & design system" },
-        { "en": "User-centered design applied to real projects", "id": "Desain berpusat pada pengguna di proyek nyata" }
-      ],
-      "courses": ["Figma", "Wireframing", "Prototyping", "User Research"],
-      "accredited": true
     }
   ]
 }

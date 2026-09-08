@@ -996,6 +996,29 @@
     overflow: visible;
   }
 
+  /* Education timeline — vertical line dot already via inline style */
+
+  /* AOS — reveal on scroll, smooth one-by-one (education + all pages) */
+  .edu-reveal {
+    opacity: 0;
+    transform: translateX(18px);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.22, 0.61, 0.21, 1);
+    will-change: opacity, transform;
+  }
+  .edu-reveal.in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.36s ease, transform 0.36s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Card hover lift */
   .card-lift {
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;

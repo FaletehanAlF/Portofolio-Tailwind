@@ -97,7 +97,7 @@
     const courses = (item.courses || []).map((c) => `<span class="tech-badge">${esc(c)}</span>`).join('');
 
     return `
-      <article class="card p-5 sm:p-6 flex gap-4 sm:gap-5 relative overflow-visible">
+      <article class="card edu-reveal p-5 sm:p-6 flex gap-4 sm:gap-5 relative overflow-visible">
         <!-- dot for timeline (desktop) -->
         <span class="hidden sm:flex absolute top-6 w-3 h-3 rounded-full border-2" style="left:-18px; background:var(--color-accent); border-color:var(--color-bg); box-shadow:0 0 0 4px var(--color-border);" aria-hidden="true"></span>
         <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
@@ -124,6 +124,46 @@
     `;
   }
 
+  function initReveal() {
+    const revealEls = document.querySelectorAll('.reveal');
+    if (revealEls.length && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const idx = Array.from(revealEls).indexOf(el);
+            setTimeout(() => el.classList.add('in'), (idx % 3) * 70);
+            obs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach((el) => obs.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+    }
+  }
+
+  function observeEduCards() {
+    const cards = document.querySelectorAll('#edu-list .edu-reveal');
+    if (!cards.length) return;
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach((c) => c.classList.add('in'));
+      return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const idx = Array.from(cards).indexOf(el);
+          el.style.transitionDelay = `${idx * 80}ms`;
+          el.classList.add('in');
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12 });
+    cards.forEach((c) => obs.observe(c));
+  }
+
   function render() {
     const list = $('edu-list');
     const wrap = $('edu-timeline');
@@ -140,11 +180,13 @@
     wrap.classList.remove('hidden');
     list.innerHTML = State.data.map(cardHTML).join('');
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+    observeEduCards();
   }
 
   async function init() {
     applyTheme(State.theme);
     applyStatic();
+    initReveal();
     const themeBtn = $('theme-toggle');
     if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(State.theme === 'light' ? 'dark' : 'light'));
     const langBtn = $('lang-toggle');
