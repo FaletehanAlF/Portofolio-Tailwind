@@ -96,28 +96,35 @@
     const location = esc(item.location || '');
     const desc = esc(pick(item.description));
     const logo = esc(item.logo || '');
-    const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2 text-sm leading-relaxed" style="color:var(--color-text-muted);"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:var(--color-accent);"></i><span>${esc(pick(h))}</span></li>`).join('');
-    const tech = (item.tech || []).map((c) => `<span class="tech-badge">${esc(c)}</span>`).join('');
+    const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2.5 text-[14px] leading-6" style="color:var(--color-text);"><span class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background:var(--color-accent);"></span><span style="color:var(--color-text-muted);">${esc(pick(h))}</span></li>`).join('');
+    const tech = (item.tech || []).map((c) => `<span class="tech-badge !px-3 !py-1.5" style="background:var(--color-bg-secondary);">${esc(c)}</span>`).join('');
     return `
-      <article class="card p-6 sm:p-7 flex gap-5 sm:gap-6">
-        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2.5" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
-          <img src="${logo}" alt="${company} logo" class="w-full h-full object-contain" style="background:var(--color-bg);" loading="lazy" onerror="this.style.display='none'" />
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex flex-wrap items-start justify-between gap-2.5 mb-3">
-            <div>
-              <h3 class="text-base sm:text-lg font-bold leading-tight tracking-tight" style="color:var(--color-text);">${role}</h3>
-              <p class="text-sm font-semibold mt-0.5" style="color:var(--color-accent);">${company}</p>
+      <article class="card exp-card p-0 overflow-hidden flex flex-col">
+        <div class="h-1 w-full" style="background:linear-gradient(90deg,var(--color-accent),#60a5fa);"></div>
+        <div class="p-6 sm:p-7 flex gap-5">
+          <div class="hidden sm:flex w-14 h-14 rounded-xl items-center justify-center flex-shrink-0 overflow-hidden p-2.5" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
+            <img src="${logo}" alt="${company} logo" class="w-full h-full object-contain" loading="lazy" onerror="this.style.display='none'" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
+              <div class="flex gap-3 sm:gap-4">
+                <div class="sm:hidden w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
+                  <img src="${logo}" alt="${company} logo" class="w-full h-full object-contain" loading="lazy" onerror="this.style.display='none'" />
+                </div>
+                <div>
+                  <h3 class="text-[16px] sm:text-[17px] font-extrabold leading-tight tracking-tight" style="color:var(--color-text);">${role}</h3>
+                  <p class="text-sm font-semibold mt-1 flex items-center gap-1.5" style="color:var(--color-text);">${company} <span class="w-1 h-1 rounded-full" style="background:var(--color-text-muted);"></span> <span class="text-xs font-medium" style="color:var(--color-text-muted);">${location}</span></p>
+                </div>
+              </div>
+              <span class="tech-badge whitespace-nowrap self-start sm:mt-1" style="background:var(--color-accent); color:#fff; border-color:var(--color-accent); font-size:11px; letter-spacing:0.04em;">${period}</span>
             </div>
-            <span class="tech-badge" style="background:rgba(37,99,235,0.1); color:var(--color-accent); border-color:transparent;">${type}</span>
+            <div class="mb-4">
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full" style="background:rgba(37,99,235,0.08); color:var(--color-accent); border:1px solid rgba(37,99,235,0.12);">${type}</span>
+            </div>
+            <p class="text-[14.5px] leading-7 mb-4 font-[450]" style="color:var(--color-text-muted); letter-spacing:-0.01em;">${desc}</p>
+            ${highlights ? `<ul class="flex flex-col gap-2 mb-5 pl-1">${highlights}</ul>` : ''}
+            ${tech ? `<div class="flex flex-wrap gap-2 pt-4" style="border-top:1px solid var(--color-border);">${tech}</div>` : ''}
           </div>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="tech-badge">${period}</span>
-            ${location ? `<span class="tech-badge"><i data-feather="map-pin" class="w-3 h-3 inline -mt-0.5"></i> ${location}</span>` : ''}
-          </div>
-          <p class="text-[15px] leading-7 mb-5" style="color:var(--color-text-muted);">${desc}</p>
-          ${highlights ? `<ul class="flex flex-col gap-2.5 mb-5">${highlights}</ul>` : ''}
-          ${tech ? `<div class="flex flex-wrap gap-2">${tech}</div>` : ''}
         </div>
       </article>
     `;
