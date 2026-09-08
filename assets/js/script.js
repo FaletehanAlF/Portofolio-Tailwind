@@ -984,17 +984,15 @@ const ShowcaseSlider = (() => {
     const prev = document.getElementById(cfg.prev);
     const next = document.getElementById(cfg.next);
     if (!viewport) return;
+    viewport.style.cursor = 'grab';
     prev && prev.addEventListener('click', () => step(key, -1));
     next && next.addEventListener('click', () => step(key, 1));
 
-    // Keyboard: panah saat viewport fokus
     viewport.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') { e.preventDefault(); step(key, 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); step(key, -1); }
     });
 
-    // Swipe horizontal (sentuh): hanya geser halaman jika niat horizontal
-    // dominan, kalau tidak biarkan scroll vertikal halaman berjalan.
     let sx = 0, sy = 0, tracking = false;
     viewport.addEventListener('touchstart', e => {
       if (e.touches.length !== 1) return;
@@ -1011,6 +1009,46 @@ const ShowcaseSlider = (() => {
         step(key, dx < 0 ? 1 : -1);
       }
     }, { passive: true });
+
+    let wheelLock = false;
+    viewport.addEventListener('wheel', e => {
+      const horiz = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      const delta = horiz ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+      if (Math.abs(delta) < 18) return;
+      if (horiz || e.shiftKey) {
+        e.preventDefault();
+        if (wheelLock) return;
+        wheelLock = true;
+        step(key, delta > 0 ? 1 : -1);
+        setTimeout(() => { wheelLock = false; }, 380);
+      }
+    }, { passive: false });
+
+    let isDragging = false, startX = 0, didDrag = false;
+    viewport.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      isDragging = true;
+      didDrag = false;
+      startX = e.clientX;
+      viewport.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    viewport.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      if (Math.abs(e.clientX - startX) > 8) didDrag = true;
+    });
+    viewport.addEventListener('mouseup', e => {
+      if (!isDragging) return;
+      isDragging = false;
+      viewport.style.cursor = 'grab';
+      const dx = e.clientX - startX;
+      if (didDrag && Math.abs(dx) > 50) step(key, dx < 0 ? 1 : -1);
+      didDrag = false;
+    });
+    viewport.addEventListener('mouseleave', () => {
+      isDragging = false;
+      viewport.style.cursor = 'grab';
+    });
   }
 
   function init() {

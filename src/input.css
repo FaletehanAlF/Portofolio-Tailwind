@@ -672,11 +672,13 @@
     padding: 10px 4px;
     margin: -10px -4px;
   }
-  #archive-viewport {
+  #archive-viewport,
+  #techstack-viewport {
     cursor: grab;
     user-select: none;
   }
-  #archive-viewport:active {
+  #archive-viewport:active,
+  #techstack-viewport:active {
     cursor: grabbing;
   }
 
@@ -985,6 +987,16 @@
   /* Performance: contain for rendering optimization */
   .performance {
     contain: layout style paint;
+  }
+  /* Showcase grids must not be clipped — override paint containment */
+  #portfolio.performance,
+  #portfolio .performance,
+  #tab-projects,
+  #tab-certificates,
+  #projects-grid.performance,
+  #certificates-grid.performance {
+    contain: layout style;
+    overflow: visible;
   }
 
   /* Card hover lift */
