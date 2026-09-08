@@ -1,6 +1,6 @@
 /**
  * Experience – view/experience.html
- * Data: ../api/experience.json — logo + HRD timeline
+ * Horizontal slider with 2-finger drag, API-driven, clean
  */
 'use strict';
 (function () {
@@ -13,13 +13,14 @@
       experience: 'Experience',
       eyebrow: 'Career Path',
       title: 'Experience',
-      subtitle: 'Clean timeline of roles, impact and tech — built for HRD to scan in seconds.',
+      subtitle: 'Clean horizontal slider of roles, impact and tech — built for HRD to scan in seconds. Drag with two fingers or use arrows.',
       statYears: 'Years',
       statYearsSub: 'Active',
       statProjects: 'Projects',
       statProjectsSub: 'Shipped',
       statCompanies: 'Teams',
       statCompaniesSub: 'Places',
+      items: 'items',
       empty: 'No experience data.',
       ctaProjects: 'View Projects',
       ctaContact: 'Contact Me',
@@ -35,13 +36,14 @@
       experience: 'Pengalaman',
       eyebrow: 'Jalur Karier',
       title: 'Pengalaman',
-      subtitle: 'Timeline peran, dampak dan teknologi — dirancang agar HRD mudah memindai.',
+      subtitle: 'Slider horizontal peran, dampak dan teknologi — dirancang agar HRD mudah memindai. Geser dengan dua jari atau tombol panah.',
       statYears: 'Tahun',
       statYearsSub: 'Aktif',
       statProjects: 'Proyek',
       statProjectsSub: 'Selesai',
       statCompanies: 'Tim',
       statCompaniesSub: 'Tempat',
+      items: 'item',
       empty: 'Tidak ada data pengalaman.',
       ctaProjects: 'Lihat Proyek',
       ctaContact: 'Hubungi Saya',
@@ -55,6 +57,7 @@
     lang: localStorage.getItem('lang') || 'en',
     theme: localStorage.getItem('theme') || 'light',
     data: [],
+    currentPage: 0,
   };
 
   const t = (k) => (strings[State.lang] && strings[State.lang][k]) || strings.en[k] || k;
@@ -96,10 +99,9 @@
     const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2 text-sm leading-relaxed" style="color:var(--color-text-muted);"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:var(--color-accent);"></i><span>${esc(pick(h))}</span></li>`).join('');
     const tech = (item.tech || []).map((c) => `<span class="tech-badge">${esc(c)}</span>`).join('');
     return `
-      <article class="card exp-reveal p-6 sm:p-7 flex gap-5 sm:gap-6 relative overflow-visible">
-        <span class="hidden sm:flex absolute top-7 w-3 h-3 rounded-full border-2" style="left:-26px; background:var(--color-accent); border-color:var(--color-bg); box-shadow:0 0 0 4px var(--color-border);" aria-hidden="true"></span>
+      <article class="card p-6 sm:p-7 flex gap-5 sm:gap-6">
         <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2.5" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
-          <img src="${logo}" alt="${company} logo" class="exp-logo w-full h-full" loading="lazy" onerror="this.style.display='none'" />
+          <img src="${logo}" alt="${company} logo" class="w-full h-full object-contain" style="background:var(--color-bg);" loading="lazy" onerror="this.style.display='none'" />
         </div>
         <div class="flex-1 min-w-0">
           <div class="flex flex-wrap items-start justify-between gap-2.5 mb-3">
@@ -121,6 +123,12 @@
     `;
   }
 
+  function chunk(arr, size) {
+    const out = [];
+    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+  }
+
   function initReveal() {
     const els = document.querySelectorAll('.reveal');
     if (els.length && 'IntersectionObserver' in window) {
@@ -140,45 +148,77 @@
     }
   }
 
-  function observeCards() {
-    const cards = document.querySelectorAll('#exp-list .exp-reveal');
-    if (!cards.length) return;
-    if (!('IntersectionObserver' in window)) {
-      cards.forEach((c) => c.classList.add('in'));
-      return;
-    }
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          const el = e.target;
-          const idx = Array.from(cards).indexOf(el);
-          el.style.transitionDelay = `${idx * 80}ms`;
-          el.classList.add('in');
-          setTimeout(() => { el.style.transitionDelay = ''; }, 500);
-          obs.unobserve(el);
-        }
+  function renderDots(total) {
+    const dotsEl = $('exp-dots');
+    if (!dotsEl) return;
+    if (total <= 1) { dotsEl.innerHTML = ''; return; }
+    dotsEl.innerHTML = Array.from({ length: total }, (_, i) =>
+      `<button type="button" class="slider-dot${i === State.currentPage ? ' active' : ''}" data-page="${i}" aria-label="Go to slide ${i + 1}"></button>`
+    ).join('');
+    dotsEl.querySelectorAll('.slider-dot').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        State.currentPage = parseInt(btn.dataset.page, 10);
+        paint();
+        renderDots(total);
       });
-    }, { threshold: 0.12 });
-    cards.forEach((c) => obs.observe(c));
+    });
+  }
+
+  function paint() {
+    const track = $('exp-track');
+    const prev = $('exp-prev');
+    const next = $('exp-next');
+    if (!track) return;
+    const pages = track.querySelectorAll(':scope > .pager-page');
+    const total = pages.length;
+    const idx = Math.max(0, Math.min(total - 1, State.currentPage));
+    State.currentPage = idx;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    pages.forEach((p, i) => p.classList.toggle('page-active', i === idx));
+    const dotsEl = $('exp-dots');
+    if (dotsEl) dotsEl.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    if (prev) { prev.disabled = idx <= 0; prev.style.display = total > 1 ? '' : 'none'; }
+    if (next) { next.disabled = idx >= total - 1; next.style.display = total > 1 ? '' : 'none'; }
+  }
+
+  function step(dir) {
+    const track = $('exp-track');
+    if (!track) return;
+    const total = track.querySelectorAll(':scope > .pager-page').length;
+    State.currentPage = Math.max(0, Math.min(total - 1, State.currentPage + dir));
+    paint();
+    renderDots(total);
   }
 
   function render() {
-    const list = $('exp-list');
-    const wrap = $('exp-timeline');
+    const track = $('exp-track');
     const loading = $('exp-loading');
     const empty = $('exp-empty');
-    if (!list || !wrap) return;
+    const countEl = $('exp-count');
+    if (!track) return;
     if (loading) loading.classList.add('hidden');
     if (!State.data.length) {
-      wrap.classList.add('hidden');
+      track.innerHTML = '';
+      const vp = $('exp-viewport');
+      if (vp) vp.style.display = 'none';
       if (empty) empty.classList.remove('hidden');
+      if (countEl) countEl.textContent = `0 ${t('items')}`;
+      const dotsEl = $('exp-dots');
+      if (dotsEl) dotsEl.innerHTML = '';
       return;
     }
     if (empty) empty.classList.add('hidden');
-    wrap.classList.remove('hidden');
-    list.innerHTML = State.data.map(cardHTML).join('');
+    const vp = $('exp-viewport');
+    if (vp) vp.style.display = '';
+    const pages = chunk(State.data, 2);
+    track.innerHTML = pages.map((pg, i) =>
+      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid pager-grid-exp">${pg.map(cardHTML).join('')}</div></div>`
+    ).join('');
+    if (countEl) countEl.textContent = `${State.data.length} ${t('items')}`;
+    State.currentPage = Math.max(0, Math.min(pages.length - 1, State.currentPage));
+    renderDots(pages.length);
+    paint();
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
-    observeCards();
   }
 
   async function init() {
@@ -192,8 +232,76 @@
       State.lang = State.lang === 'en' ? 'id' : 'en';
       localStorage.setItem('lang', State.lang);
       applyStatic();
+      State.currentPage = 0;
       render();
     });
+
+    const prev = $('exp-prev');
+    const next = $('exp-next');
+    if (prev) prev.addEventListener('click', () => step(-1));
+    if (next) next.addEventListener('click', () => step(1));
+
+    const viewport = $('exp-viewport');
+    if (viewport) {
+      viewport.style.cursor = 'grab';
+      viewport.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      });
+      let sx = 0, sy = 0, tracking = false;
+      viewport.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        tracking = true;
+        sx = e.touches[0].clientX;
+        sy = e.touches[0].clientY;
+      }, { passive: true });
+      viewport.addEventListener('touchend', (e) => {
+        if (!tracking) return;
+        tracking = false;
+        const dx = e.changedTouches[0].clientX - sx;
+        const dy = e.changedTouches[0].clientY - sy;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.3) step(dx < 0 ? 1 : -1);
+      }, { passive: true });
+      let wheelLock = false;
+      viewport.addEventListener('wheel', (e) => {
+        const horiz = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        const delta = horiz ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+        if (Math.abs(delta) < 18) return;
+        if (horiz || e.shiftKey) {
+          e.preventDefault();
+          if (wheelLock) return;
+          wheelLock = true;
+          step(delta > 0 ? 1 : -1);
+          setTimeout(() => { wheelLock = false; }, 380);
+        }
+      }, { passive: false });
+      let isDragging = false, startX = 0, didDrag = false;
+      viewport.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        didDrag = false;
+        startX = e.clientX;
+        viewport.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+      viewport.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        if (Math.abs(e.clientX - startX) > 8) didDrag = true;
+      });
+      viewport.addEventListener('mouseup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.style.cursor = 'grab';
+        const dx = e.clientX - startX;
+        if (didDrag && Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+        didDrag = false;
+      });
+      viewport.addEventListener('mouseleave', () => {
+        isDragging = false;
+        viewport.style.cursor = 'grab';
+      });
+    }
+
     try {
       const res = await fetch('../api/experience.json');
       if (!res.ok) throw new Error(res.status);

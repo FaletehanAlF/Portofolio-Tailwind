@@ -673,12 +673,14 @@
     margin: -10px -4px;
   }
   #archive-viewport,
-  #techstack-viewport {
+  #techstack-viewport,
+  #exp-viewport {
     cursor: grab;
     user-select: none;
   }
   #archive-viewport:active,
-  #techstack-viewport:active {
+  #techstack-viewport:active,
+  #exp-viewport:active {
     cursor: grabbing;
   }
 
@@ -833,6 +835,16 @@
     }
     .pager-grid-tech {
       grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  /* Experience slider — 1 col mobile, 2 cols desktop (beda dari education vertical) */
+  #exp-track .pager-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media (min-width: 1024px) {
+    #exp-track .pager-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

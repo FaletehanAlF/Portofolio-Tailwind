@@ -79,18 +79,26 @@
         </div>
       </div>
 
-      <!-- Loading -->
-      <div id="exp-loading" class="grid gap-5">
-        <div class="skeleton h-40"></div>
-        <div class="skeleton h-40"></div>
-        <div class="skeleton h-40"></div>
+      <!-- Controls -->
+      <div class="flex items-center justify-between gap-3 mb-4">
+        <p class="text-xs font-semibold" style="color:var(--color-text-muted);"><span id="exp-count">0</span> <span data-i18n-exp="items">items</span></p>
+        <div class="flex items-center gap-2">
+          <button class="slider-btn" id="exp-prev" aria-label="Previous"><i data-feather="chevron-left" class="w-4 h-4"></i></button>
+          <button class="slider-btn" id="exp-next" aria-label="Next"><i data-feather="chevron-right" class="w-4 h-4"></i></button>
+        </div>
       </div>
 
-      <!-- Timeline vertical -->
-      <div id="exp-timeline" class="hidden relative">
-        <div class="hidden sm:block absolute top-2 bottom-2 w-px" style="left:30px; background:var(--color-border);" aria-hidden="true"></div>
-        <div id="exp-list" class="flex flex-col gap-6 sm:gap-8 sm:pl-14"></div>
+      <!-- Loading -->
+      <div id="exp-loading" class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div class="skeleton h-64"></div>
+        <div class="skeleton h-64 hidden lg:block"></div>
       </div>
+
+      <!-- Slider — horizontal, 2-finger drag -->
+      <div class="pager-viewport" id="exp-viewport" tabindex="0" aria-label="Experience slider. Use arrow buttons or drag with two fingers to navigate.">
+        <div class="pager-track" id="exp-track"></div>
+      </div>
+      <div class="flex items-center justify-center gap-1.5 mt-5" id="exp-dots"></div>
 
       <div id="exp-empty" class="hidden card p-10 text-center mt-6">
         <p class="text-sm" style="color:var(--color-text-muted);" data-i18n-exp="empty">No experience data.</p>
