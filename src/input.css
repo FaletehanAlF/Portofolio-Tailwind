@@ -193,7 +193,7 @@
   [data-theme="dark"] .card:hover,
   [data-theme="dark"] .cert-card:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.32);
   }
 
   /* Section */
@@ -703,14 +703,12 @@
     contain: layout style;
   }
 
-  /* Archive / TechStack entrance — smooth hover anti-tabrakan */
+  /* Archive / TechStack entrance — hover sama seperti showcase */
   .pager-page .card {
     opacity: 0;
     transform: translateY(14px);
-    isolation: isolate;
     cursor: pointer;
-    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 0.61, 0.21, 1), box-shadow 0.22s ease, border-color 0.18s ease;
-    will-change: transform;
+    transition: opacity 0.35s ease, transform 0.22s cubic-bezier(0.22, 0.61, 0.21, 1), box-shadow 0.22s ease, border-color 0.18s ease;
   }
 
   .pager-page.page-active .card {
@@ -720,40 +718,36 @@
 
   .pager-page.page-active .card:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 12px 28px -10px rgba(37, 99, 235, 0.22);
-    transform: translateY(-5px);
+    box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.18);
+    transform: translateY(-6px);
     z-index: 2;
   }
 
   [data-theme="dark"] .pager-page.page-active .card:hover {
-    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.32);
   }
 
-  /* Static showcase grids — transform tetap tapi anti-tabrakan */
+  /* Showcase grids — hover referensi: lift halus, tidak ketutup */
   #projects-grid,
   #certificates-grid {
-    padding: 10px 6px;
-    margin: -10px -6px;
-    isolation: isolate;
+    padding: 12px 8px;
+    margin: -12px -8px;
   }
   #projects-grid .card,
   #certificates-grid .card {
     cursor: pointer;
-    isolation: isolate;
-    transform: translateZ(0);
     transition: transform 0.22s cubic-bezier(0.22, 0.61, 0.21, 1), border-color 0.18s ease, box-shadow 0.22s ease;
-    will-change: transform;
   }
   #projects-grid .card:hover,
   #certificates-grid .card:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 14px 30px -10px rgba(37, 99, 235, 0.2);
-    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.18);
+    transform: translateY(-6px);
     z-index: 2;
   }
   [data-theme="dark"] #projects-grid .card:hover,
   [data-theme="dark"] #certificates-grid .card:hover {
-    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.32);
   }
 
   /* ===== Page dot transition ===== */
@@ -984,18 +978,21 @@
     }
   }
 
-  /* Performance: contain for rendering optimization */
+  /* Performance: contain without paint so hover shadow/transform tidak ketutup */
   .performance {
-    contain: layout style paint;
+    contain: layout style;
   }
-  /* Showcase grids must not be clipped — override paint containment */
   #portfolio.performance,
-  #portfolio .performance,
   #tab-projects,
   #tab-certificates,
   #projects-grid.performance,
   #certificates-grid.performance {
     contain: layout style;
+    overflow: visible;
+  }
+  #portfolio,
+  #tab-projects,
+  #tab-certificates {
     overflow: visible;
   }
 
