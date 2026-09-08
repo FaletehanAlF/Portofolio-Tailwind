@@ -838,14 +838,9 @@
     }
   }
 
-  /* Experience slider — 1 col mobile, 2 cols desktop (beda dari education vertical) */
+  /* Experience slider — panjang ke samping, 1 card per slide full width */
   #exp-track .pager-grid {
     grid-template-columns: minmax(0, 1fr);
-  }
-  @media (min-width: 1024px) {
-    #exp-track .pager-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

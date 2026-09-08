@@ -217,9 +217,9 @@
     if (empty) empty.classList.add('hidden');
     const vp = $('exp-viewport');
     if (vp) vp.style.display = '';
-    const pages = chunk(State.data, 2);
+    const pages = chunk(State.data, 1);
     track.innerHTML = pages.map((pg, i) =>
-      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid pager-grid-exp">${pg.map(cardHTML).join('')}</div></div>`
+      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid">${pg.map(cardHTML).join('')}</div></div>`
     ).join('');
     if (countEl) countEl.textContent = `${State.data.length} ${t('items')}`;
     State.currentPage = Math.max(0, Math.min(pages.length - 1, State.currentPage));
