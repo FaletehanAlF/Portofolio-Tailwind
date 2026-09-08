@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Education — Faletehan Portfolio. HRD-friendly academic journey with verified credentials." />
-  <title>Education | Faletehan</title>
+  <meta name="description" content="Experience — Faletehan Portfolio. Professional journey, roles and impact for HRD." />
+  <title>Experience | Faletehan</title>
   <link rel="stylesheet" href="../src/output.css" />
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,10 +13,10 @@
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
     img { display: block; }
-    .edu-logo { object-fit: contain; background: var(--color-bg); }
+    .exp-logo { object-fit: contain; background: var(--color-bg); }
   </style>
 </head>
-<body data-page="education">
+<body data-page="experience">
 
   <!-- NAVBAR capsule -->
   <header class="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
@@ -27,15 +27,15 @@
             style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
             <i data-feather="chevron-left" class="w-4 h-4" style="color:var(--color-accent);"></i>
           </span>
-          <span class="text-sm font-bold truncate hidden sm:inline" style="color:var(--color-text);">Education</span>
-          <span class="text-sm font-bold truncate sm:hidden" style="color:var(--color-text);">Edu</span>
+          <span class="text-sm font-bold truncate hidden sm:inline" style="color:var(--color-text);">Experience</span>
+          <span class="text-sm font-bold truncate sm:hidden" style="color:var(--color-text);">Exp</span>
         </a>
         <nav class="hidden md:flex items-center justify-center gap-2 flex-1" aria-label="Archive Navigation">
-          <a href="../index.html#home" class="nav-link" data-i18n-edu="home">Home</a>
-          <a href="projects.html" class="nav-link" data-i18n-edu="projects">Projects</a>
-          <a href="certificates.html" class="nav-link" data-i18n-edu="certificates">Certificates</a>
-          <a href="education.html" class="nav-link active" data-i18n-edu="education">Education</a>
-          <a href="experience.html" class="nav-link" data-i18n-edu="experience">Experience</a>
+          <a href="../index.html#home" class="nav-link" data-i18n-exp="home">Home</a>
+          <a href="projects.html" class="nav-link" data-i18n-exp="projects">Projects</a>
+          <a href="certificates.html" class="nav-link" data-i18n-exp="certificates">Certificates</a>
+          <a href="education.html" class="nav-link" data-i18n-exp="education">Education</a>
+          <a href="experience.html" class="nav-link active" data-i18n-exp="experience">Experience</a>
         </nav>
         <div class="flex items-center gap-2 flex-shrink-0">
           <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">EN</button>
@@ -53,58 +53,56 @@
 
       <!-- Hero -->
       <div class="text-center max-w-2xl mx-auto mb-10 reveal">
-        <p class="section-label" data-i18n-edu="eyebrow">Academic Journey</p>
-        <h1 class="font-extrabold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-edu="title">Education</h1>
-        <p class="text-sm sm:text-base leading-relaxed" style="color:var(--color-text-muted);" data-i18n-edu="subtitle">
-          HRD-friendly overview — verified schools, period, GPA and how each stage prepared me for a junior full-stack role.
+        <p class="section-label" data-i18n-exp="eyebrow">Career Path</p>
+        <h1 class="font-extrabold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-exp="title">Experience</h1>
+        <p class="text-sm sm:text-base leading-relaxed" style="color:var(--color-text-muted);" data-i18n-exp="subtitle">
+          Clean timeline of roles, impact and tech — built for HRD to scan in seconds.
         </p>
       </div>
 
-      <!-- Stats HRD -->
+      <!-- Stats -->
       <div class="grid grid-cols-3 gap-4 sm:gap-5 mb-12">
         <div class="card p-5 sm:p-6 text-center reveal">
-          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYears">Years</div>
-          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">2023—26</div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYearsSub">SMKFocus</div>
+          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statYears">Years</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">3+</div>
+          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statYearsSub">Active</div>
         </div>
         <div class="card p-5 sm:p-6 text-center reveal">
-          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statGpa">GPA</div>
-          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-accent);">8.0<span class="text-sm">/10</span></div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statGpaSub">Productive</div>
+          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statProjects">Projects</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-accent);">10+</div>
+          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statProjectsSub">Shipped</div>
         </div>
         <div class="card p-5 sm:p-6 text-center reveal">
-          <div class="text-[11px] font-bold tracking-widest uppercase mb-1" style="color:var(--color-text-muted);" data-i18n-edu="statCert">Certs</div>
-          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">5+</div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statCertSub">Verified</div>
+          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statCompanies">Teams</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">3</div>
+          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statCompaniesSub">Places</div>
         </div>
       </div>
 
       <!-- Loading -->
-      <div id="edu-loading" class="grid gap-5">
+      <div id="exp-loading" class="grid gap-5">
         <div class="skeleton h-40"></div>
         <div class="skeleton h-40"></div>
         <div class="skeleton h-40"></div>
       </div>
 
-      <!-- Timeline -->
-      <div id="edu-timeline" class="hidden relative">
-        <!-- vertical line -->
+      <!-- Timeline vertical -->
+      <div id="exp-timeline" class="hidden relative">
         <div class="hidden sm:block absolute top-2 bottom-2 w-px" style="left:30px; background:var(--color-border);" aria-hidden="true"></div>
-        <div id="edu-list" class="flex flex-col gap-6 sm:gap-8 sm:pl-14"></div>
+        <div id="exp-list" class="flex flex-col gap-6 sm:gap-8 sm:pl-14"></div>
       </div>
 
-      <div id="edu-empty" class="hidden card p-10 text-center mt-6">
-        <p class="text-sm" style="color:var(--color-text-muted);" data-i18n-edu="empty">No education data.</p>
+      <div id="exp-empty" class="hidden card p-10 text-center mt-6">
+        <p class="text-sm" style="color:var(--color-text-muted);" data-i18n-exp="empty">No experience data.</p>
       </div>
 
       <!-- CTA -->
       <div class="flex flex-col sm:flex-row gap-3 justify-center mt-10 reveal">
-        <a href="projects.html" class="btn-primary justify-center"><i data-feather="grid" class="w-4 h-4"></i> <span data-i18n-edu="ctaProjects">View Projects</span></a>
-        <a href="../index.html#contact" class="btn-secondary justify-center"><i data-feather="mail" class="w-4 h-4"></i> <span data-i18n-edu="ctaContact">Contact Me</span></a>
+        <a href="projects.html" class="btn-primary justify-center"><i data-feather="grid" class="w-4 h-4"></i> <span data-i18n-exp="ctaProjects">View Projects</span></a>
+        <a href="../index.html#contact" class="btn-secondary justify-center"><i data-feather="mail" class="w-4 h-4"></i> <span data-i18n-exp="ctaContact">Contact Me</span></a>
       </div>
-
       <div class="flex justify-center mt-6 reveal">
-        <a href="../index.html#about" class="see-all-link"><i data-feather="arrow-left" class="w-4 h-4"></i> <span data-i18n-edu="backShowcase">Back to Portfolio</span></a>
+        <a href="../index.html#about" class="see-all-link"><i data-feather="arrow-left" class="w-4 h-4"></i> <span data-i18n-exp="backShowcase">Back to Portfolio</span></a>
       </div>
 
     </div>
@@ -123,6 +121,6 @@
     </div>
   </footer>
 
-  <script src="../script/education.js"></script>
+  <script src="../script/experience.js"></script>
 </body>
 </html>

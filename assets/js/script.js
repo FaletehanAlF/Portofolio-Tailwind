@@ -14,6 +14,7 @@ const translations = {
     'nav.about': 'About Me',
     'nav.portfolio': 'Portfolio',
     'nav.education': 'Education',
+    'nav.experience': 'Experience',
     'nav.contact': 'Contact',
 
     'hero.greeting': "Hi, My Name is  ",
@@ -86,6 +87,7 @@ const translations = {
     'nav.about': 'Tentang Saya',
     'nav.portfolio': 'Portofolio',
     'nav.education': 'Pendidikan',
+    'nav.experience': 'Pengalaman',
     'nav.contact': 'Kontak',
 
     'hero.greeting': 'Halo, Nama Saya ',
