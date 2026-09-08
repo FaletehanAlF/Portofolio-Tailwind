@@ -97,28 +97,28 @@
     const courses = (item.courses || []).map((c) => `<span class="tech-badge">${esc(c)}</span>`).join('');
 
     return `
-      <article class="card edu-reveal p-5 sm:p-6 flex gap-4 sm:gap-5 relative overflow-visible">
+      <article class="card edu-reveal p-6 sm:p-7 flex gap-5 sm:gap-6 relative overflow-visible">
         <!-- dot for timeline (desktop) -->
-        <span class="hidden sm:flex absolute top-6 w-3 h-3 rounded-full border-2" style="left:-18px; background:var(--color-accent); border-color:var(--color-bg); box-shadow:0 0 0 4px var(--color-border);" aria-hidden="true"></span>
-        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
+        <span class="hidden sm:flex absolute top-7 w-3 h-3 rounded-full border-2" style="left:-26px; background:var(--color-accent); border-color:var(--color-bg); box-shadow:0 0 0 4px var(--color-border);" aria-hidden="true"></span>
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2.5" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
           <img src="${logo}" alt="${institution} logo" class="edu-logo w-full h-full" loading="lazy" onerror="this.style.display='none'" />
         </div>
         <div class="flex-1 min-w-0">
-          <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+          <div class="flex flex-wrap items-start justify-between gap-2.5 mb-3">
             <div>
-              <h3 class="text-base sm:text-lg font-bold leading-tight" style="color:var(--color-text);">${institution}</h3>
-              <p class="text-sm font-semibold" style="color:var(--color-accent);">${degree}</p>
+              <h3 class="text-base sm:text-lg font-bold leading-tight tracking-tight" style="color:var(--color-text);">${institution}</h3>
+              <p class="text-sm font-semibold mt-0.5" style="color:var(--color-accent);">${degree}</p>
             </div>
             ${item.accredited ? `<span class="tech-badge" style="background:rgba(37,99,235,0.1); color:var(--color-accent); border-color:transparent;"><i data-feather="shield" class="w-3 h-3 inline -mt-0.5"></i> ${esc(t('accredited'))}</span>` : ''}
           </div>
-          <div class="flex flex-wrap gap-2 mb-3">
+          <div class="flex flex-wrap gap-2 mb-4">
             <span class="tech-badge">${period}</span>
             <span class="tech-badge" style="background:var(--color-accent); color:#fff; border-color:var(--color-accent);">${status}</span>
             ${location ? `<span class="tech-badge"><i data-feather="map-pin" class="w-3 h-3 inline -mt-0.5"></i> ${location}</span>` : ''}
           </div>
-          <p class="text-sm leading-relaxed mb-4" style="color:var(--color-text-muted);">${desc}</p>
-          ${highlights ? `<ul class="flex flex-col gap-2 mb-4">${highlights}</ul>` : ''}
-          ${courses ? `<div class="flex flex-wrap gap-1.5">${courses}</div>` : ''}
+          <p class="text-[15px] leading-7 mb-5" style="color:var(--color-text-muted);">${desc}</p>
+          ${highlights ? `<ul class="flex flex-col gap-2.5 mb-5">${highlights}</ul>` : ''}
+          ${courses ? `<div class="flex flex-wrap gap-2">${courses}</div>` : ''}
         </div>
       </article>
     `;
@@ -157,6 +157,7 @@
           const idx = Array.from(cards).indexOf(el);
           el.style.transitionDelay = `${idx * 80}ms`;
           el.classList.add('in');
+          setTimeout(() => { el.style.transitionDelay = ''; }, 500);
           obs.unobserve(el);
         }
       });

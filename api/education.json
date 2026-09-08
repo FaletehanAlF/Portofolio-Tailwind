@@ -20,15 +20,14 @@
       },
       "location": "Depok, West Java, Indonesia",
       "description": {
-        "en": "Focused on full-stack web development and UI/UX design. Built 10+ production-ready projects, mastered HTML/CSS/JS, Tailwind CSS, Laravel, PHP & MySQL. Consistently ranked among top students with strong discipline, teamwork, and problem-solving skills — ready for internship / junior full-stack role.",
-        "id": "Fokus pada pengembangan web full-stack dan desain UI/UX. Membangun 10+ proyek siap produksi, menguasai HTML/CSS/JS, Tailwind CSS, Laravel, PHP & MySQL. Konsisten di peringkat atas dengan nilai produktif 8.0 — disiplin, kolaboratif, dan siap magang / junior full-stack."
+        "en": "Focused on full-stack web development and UI/UX design. Built 10+ real projects with HTML, CSS, JS, Tailwind & Laravel. Disciplined, collaborative, and ready for internship.",
+        "id": "Fokus pada web full-stack dan UI/UX. Membangun 10+ proyek nyata dengan HTML, CSS, JS, Tailwind & Laravel. Disiplin, kolaboratif, siap magang."
       },
       "highlights": [
-        { "en": "Vocational score 8.0 — Top 5 in class", "id": "Nilai produktif 8.0 — 5 besar di kelas" },
-        { "en": "Built E-Commerce, SmartCanteen & Portfolio with real users", "id": "Membangun E-Commerce, SmartCanteen & Portfolio dipakai pengguna nyata" },
-        { "en": "Active in UI/UX exploration with Figma", "id": "Aktif eksplorasi UI/UX dengan Figma" }
+        { "en": "GPA 8.0 — Top 5 in class", "id": "Nilai 8.0 — 5 besar di kelas" },
+        { "en": "E-Commerce & SmartCanteen used by real users", "id": "E-Commerce & SmartCanteen dipakai pengguna nyata" }
       ],
-      "courses": ["HTML", "CSS", "JavaScript", "Tailwind CSS", "Laravel", "PHP", "MySQL", "Figma", "Git & GitHub"],
+      "courses": ["HTML", "CSS", "JavaScript", "Tailwind", "Laravel"],
       "accredited": true
     }
   ]
