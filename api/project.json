@@ -113,52 +113,60 @@
       ]
     },
     {
-      "slug": "coming-soon-1",
+      "slug": "Stone Island Landing Page ",
       "name": {
-        "en": "New Project Coming Soon",
-        "id": "Proyek Baru Segera Hadir"
+        "en": "Stone Island Landing Page",
+        "id": "Halaman Landing Stone Island"
       },
       "short_desc": {
-        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
-        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+        "en": "A modern fashion landing page inspired by Stone Island, built with Next.js, React, and TypeScript.",
+        "id": "Sebuah halaman landing fashion modern yang terinspirasi oleh Stone Island, dibangun dengan Next.js, React, dan TypeScript."
       },
       "long_desc": {
-        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
-        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+        "en": "A modern fashion landing page inspired by Stone Island, built with Next.js, React, and TypeScript.",
+        "id": "Sebuah halaman landing fashion modern yang terinspirasi oleh Stone Island, dibangun dengan Next.js, React, dan TypeScript."
       },
-      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
-      "demo": "#",
-      "github": "#",
+      "image": "https://i.pinimg.com/736x/ab/3c/ff/ab3cff0217031ae3d1179b20ed42e01a.jpg",
+      "demo": "https://stoneislandid.vercel.app/",
+      "github": "https://github.com/FaletehanAlF/stone-island-nextjs.git",
       "category": {
-        "en": "Coming Soon",
-        "id": "Segera Hadir"
+        "en": "App Application Web Development",
+        "id": "Aplikasi Web Development"
       },
       "year": "2026",
-      "tech": []
+      "tech": [
+        { "name": "Next.js", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { "name": "React", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { "name": "TypeScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" }
+      ]
     },
     {
-      "slug": "coming-soon-2",
+      "slug": "Expense Tracker App",
       "name": {
-        "en": "New Project Coming Soon",
-        "id": "Proyek Baru Segera Hadir"
+        "en": "Expense Tracker App",
+        "id": "Aplikasi Pelacak Pengeluaran"
       },
       "short_desc": {
-        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
-        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+        "en": "A simple web application for recording and managing daily expenses in an organized and user-friendly way.",
+        "id": "Aplikasi web sederhana untuk merekam dan mengelola pengeluaran harian secara terorganisir dan ramah pengguna."
       },
       "long_desc": {
-        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
-        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+        "en": "A simple web application for recording and managing daily expenses in an organized and user-friendly way.",
+        "id": "Aplikasi web sederhana untuk merekam dan mengelola pengeluaran harian secara terorganisir dan ramah pengguna."
       },
-      "image": "https://i.pinimg.com/1200x/a4/3f/50/a43f50d3aa860b7abaee8e30c274769d.jpg",
-      "demo": "#",
-      "github": "#",
+      "image": "https://i.pinimg.com/736x/f2/07/04/f207047bd4451eb7877b8f46050e726e.jpg",
+      "demo": "https://expense-tracker-app-amber-ten.vercel.app/",
+      "github": "https://github.com/FaletehanAlF/expense-tracker-app.git",
       "category": {
-        "en": "Coming Soon",
-        "id": "Segera Hadir"
+        "en": "App Application Web Development",
+        "id": "Aplikasi Web Development"
       },
       "year": "2026",
-      "tech": []
+      "tech": [
+        { "name": "HTML", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { "name": "CSS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+        { "name": "JavaScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+      ]
     },
     {
       "slug": "coming-soon-3",
