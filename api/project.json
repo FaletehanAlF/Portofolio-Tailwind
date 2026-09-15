@@ -169,14 +169,14 @@
       ]
     },
     {
-      "slug": "coming-soon-3",
+      "slug": "Panduan Jurusan Kuliah",
       "name": {
-        "en": "New Project Coming Soon",
-        "id": "Proyek Baru Segera Hadir"
+        "en": "College Major Guide",
+        "id": "Panduan Jurusan Kuliah"
       },
       "short_desc": {
-        "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
-        "id": "Sebuah aplikasi web baru sedang dikembangkan menggunakan teknologi modern. Silakan kembali lagi nanti untuk melihat tampilan lengkap proyek ini."
+        "en": "A website that helps parents choose a college major for their children. It provides information on majors, career prospects, and tips for selecting a field of study that aligns with a child's interests and talents.",
+        "id": "Sebuah Website yang membantu orang tua untuk memilih jurusan kuliaah anak mereka. Website ini memberikan informasi tentang jurusan kuliah, prospek kerja, dan tips memilih jurusan yang sesuai dengan minat dan bakat anak."
       },
       "long_desc": {
         "en": "A new web application is currently being built using modern technologies. Check back soon for the complete project showcase.",
