@@ -355,33 +355,33 @@ const LangSwitcher = (() => {
 })();
 
 /* ================================================================
-   5. NAVBAR
+   5. NAVBAR (active link via IntersectionObserver, no scroll listener)
 ================================================================ */
 const Navbar = (() => {
   const sections = ['home', 'about', 'portfolio', 'contact'];
 
-  function updateActive() {
-    const scrollY = window.scrollY + 80;
-    let current = 'home';
-
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) current = id;
-    });
-
+  function setActive(id) {
     document.querySelectorAll('.nav-link').forEach(link => {
       const href = link.getAttribute('href');
-      if (href === `#${current}`) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+      link.classList.toggle('active', href === `#${id}`);
     });
   }
 
   function init() {
-    window.addEventListener('scroll', updateActive, { passive: true });
-    updateActive();
+    if (!('IntersectionObserver' in window)) {
+      setActive('home');
+      return;
+    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
   }
 
   return { init };
