@@ -103,6 +103,7 @@
     font-weight: 500;
     padding: 0.375rem 0.75rem;
     border-radius: 0.5rem;
+    white-space: nowrap;
     transition:
       color 0.2s ease,
       background-color 0.2s ease;
@@ -185,10 +186,15 @@
     border-radius: 1rem;
     position: relative;
     overflow: hidden;
-    cursor: pointer;
     transition:
       border-color 0.18s ease,
       box-shadow 0.18s ease;
+  }
+
+  /* Pointer only where a card is genuinely clickable (certificate modal).
+     Project, stat, tech, and form cards must not promise interaction. */
+  .cert-card {
+    cursor: pointer;
   }
 
   .card:hover,
@@ -640,6 +646,15 @@
     transform-style: preserve-3d;
     will-change: transform;
     transition: transform 0.08s linear;
+  }
+
+  /* Soft tinted shadow for the hero photo (no harsh pure-black shadow) */
+  .photo-soft {
+    box-shadow: 0 24px 48px -24px rgba(37, 99, 235, 0.28);
+  }
+
+  [data-theme="dark"] .photo-soft {
+    box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.65);
   }
 
   /* ===== Paged slider - now ONLY for Tech Stack & Archive (Projects/Certs homepage are static grids) ===== */

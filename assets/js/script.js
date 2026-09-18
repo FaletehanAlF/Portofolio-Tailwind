@@ -422,7 +422,7 @@ const HamburgerMenu = (() => {
 
     // Auto-close when resizing to desktop (prevent stuck open pill)
     window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768 && open) toggle(false);
+      if (window.innerWidth >= 1024 && open) toggle(false);
     });
 
     // Close on ESC
