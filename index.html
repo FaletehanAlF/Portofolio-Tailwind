@@ -5,15 +5,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Faletehan – Fullstack Developer & UI/UX Designer. Building premium digital experiences." />
+    content="Faletehan - Fullstack Web Developer and UI/UX Designer building responsive, user-friendly websites." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Faletehan | Fullstack Developer and UI/UX Designer" />
+  <meta property="og:description"
+    content="Portfolio of Faletehan: selected projects, certificates, tech stack, education, and experience." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='36' font-weight='700' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E" />
   <title>Faletehan | Fullstack Developer & UI/UX Designer</title>
   <link rel="stylesheet" href="./src/output.css" />
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js" defer></script>
-  <!-- Inter Font -->
+  <!-- Fonts: Space Grotesk (display) + Inter (body) + JetBrains Mono (meta) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
   <style>
     /* Inline critical: ensure font is set even before output.css loads */
@@ -62,6 +69,8 @@
 </head>
 
 <body>
+
+  <a href="#main" class="skip-link" data-i18n="a11y.skip">Skip to content</a>
 
   <!-- ============================================================
      NAVBAR — floating capsule
@@ -123,20 +132,21 @@
     </div>
   </header>
 
+  <main id="main">
   <!-- ============================================================
      HERO SECTION
 ============================================================ -->
-  <section id="home" class="min-h-screen flex items-center pt-28 sm:pt-32 overflow-hidden">
-    <div class="max-w-6xl mx-auto px-5 w-full py-20">
+  <section id="home" class="min-h-screen flex items-center pt-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 w-full py-12 sm:py-16">
       <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8">
 
         <!-- Left: Text -->
         <div class="flex-1 max-w-xl">
 
           <!-- Heading - Split Text -->
-          <h1 class="text-3xl sm:text-4xl lg:text-[2.6rem] font-extrabold tracking-tight mb-3"
-            style="line-height:1.15; color:var(--color-text);">
-            <span data-i18n="hero.greeting" id="split-greeting">Hi, My Name Is</span>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-3"
+            style="line-height:1.08; color:var(--color-text);">
+            <span data-i18n="hero.greeting" id="split-greeting">Hi, my name is</span>
             <span class="block mt-1" style="color:var(--color-accent);">
               <span id="split-name">Faletehan Al Farabi</span>
             </span>
@@ -149,11 +159,7 @@
 
           <!-- Description -->
           <p class="text-base leading-relaxed mb-8 fade-up" style="color:var(--color-text-muted); max-width:420px;">
-            <span data-i18n="hero.desc">I am a Software Engineering student at SMK Taruna Bhakti who is passionate about
-              web development and UI/UX design. I enjoy building responsive and user-friendly websites while
-              continuously learning new technologies. My goal is to become a Full Stack Web Developer. Through school
-              projects and self-learning, I have gained experience with HTML, CSS, JavaScript, Tailwind CSS, and
-              Laravel, while maintaining a vocational subject score of 8.</span>
+            <span data-i18n="hero.desc">Software Engineering student building responsive, user-friendly websites with modern web technologies.</span>
           </p>
 
           <!-- Buttons -->
@@ -532,6 +538,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ============================================================
      FOOTER
