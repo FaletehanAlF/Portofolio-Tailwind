@@ -113,7 +113,7 @@
       ]
     },
     {
-      "slug": "Stone Island Landing Page ",
+      "slug": "stone-island-landing-page",
       "name": {
         "en": "Stone Island Landing Page",
         "id": "Halaman Landing Stone Island"
@@ -130,8 +130,8 @@
       "demo": "https://stoneislandid.vercel.app/",
       "github": "https://github.com/FaletehanAlF/stone-island-nextjs.git",
       "category": {
-        "en": "App Application Web Development",
-        "id": "Aplikasi Web Development"
+        "en": "Web Application",
+        "id": "Aplikasi Web"
       },
       "year": "2026",
       "tech": [
@@ -141,7 +141,7 @@
       ]
     },
     {
-      "slug": "Expense Tracker App",
+      "slug": "expense-tracker-app",
       "name": {
         "en": "Expense Tracker App",
         "id": "Aplikasi Pelacak Pengeluaran"
