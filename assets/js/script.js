@@ -314,7 +314,7 @@ const LangSwitcher = (() => {
       el.placeholder = t(key);
     });
 
-    // Update typewriter text
+    // About intro is static; data-i18n swaps the text.
     // (About intro is static text now; data-i18n handles the swap.)
 
     // Update lang toggle label
@@ -671,7 +671,7 @@ const PortfolioTabs = (() => {
 })();
 
 /* ================================================================
-   15b. PROJECTS SECTION (from /api/project.json) — slider cards
+   15b. PROJECTS SECTION (from /api/project.json) - slider cards
    ================================================================ */
 const ProjectsSection = (() => {
   let data = null;
@@ -707,7 +707,7 @@ const ProjectsSection = (() => {
       </article>`;
   }
 
-  // Showcase now: static 6 preview only — easy to extend via api/project.json
+  // Showcase now: static 6 preview only - easy to extend via api/project.json
   // Just add new object at TOP of projects array; homepage auto shows first 6, See All shows all.
   function render() {
     const grid = document.getElementById('projects-grid');
@@ -738,7 +738,7 @@ const ProjectsSection = (() => {
 })();
 
 /* ================================================================
-   15c. CERTIFICATES SECTION (from /api/certificate.json) — static 6
+   15c. CERTIFICATES SECTION (from /api/certificate.json) - static 6
    ================================================================ */
 const CertificatesSection = (() => {
   let data = null;
@@ -760,7 +760,7 @@ const CertificatesSection = (() => {
       </article>`;
   }
 
-  // Showcase now: static 6 preview only — add new items to api/certificate.json, homepage auto shows first 6
+  // Showcase now: static 6 preview only - add new items to api/certificate.json, homepage auto shows first 6
   function render() {
     const grid = document.getElementById('certificates-grid');
     if (!grid || !data) return;
@@ -790,7 +790,7 @@ const CertificatesSection = (() => {
 })();
 
 /* ================================================================
-   15e. SHOWCASE PAGER — now ONLY for Tech Stack (Projects & Certs are static 6)
+   15e. SHOWCASE PAGER - now ONLY for Tech Stack (Projects & Certs are static 6)
    scroll vertikal tidak terhalang, See All di kanan bawah untuk Projects/Certs
    ================================================================ */
 const ShowcaseSlider = (() => {
@@ -1048,7 +1048,7 @@ const TechStackSection = (() => {
 
 /* Load all JSON-driven sections, then start sliders */
 async function loadData() {
-  // Load each section independently — one failure must not block the others
+  // Load each section independently - one failure must not block the others
   const results = await Promise.allSettled([
     TechStackSection.init().catch(e => { console.error('[TechStack] Load failed:', e); }),
     ProjectsSection.init().catch(e => { console.error('[Projects] Load failed:', e); }),
