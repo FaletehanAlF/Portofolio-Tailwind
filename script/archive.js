@@ -88,6 +88,15 @@
     }[c]));
   }
 
+  /* Site-root asset paths break on subpath deploys.
+     Archive pages live in /view/, so map "/assets/..." to "../assets/...". */
+  function fixAsset(src) {
+    const s = String(src || '').trim();
+    if (!s) return '';
+    if (s.charAt(0) === '/' && s.indexOf('//') !== 0) return '..' + s;
+    return s;
+  }
+
   /* ---------- theme ---------- */
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -138,7 +147,7 @@
 return `
         <article class="card overflow-hidden fade-up flex flex-col">
           <div class="h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
+          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
         </div>
         <div class="p-5 flex flex-col flex-1">
           <p class="font-meta text-[11px] uppercase mb-1.5" style="color:var(--color-accent); letter-spacing:0.08em;">${cat}${p.year ? ` - ${escapeHtml(p.year)}` : ''}</p>
@@ -190,9 +199,9 @@ return `
     const issuer = escapeHtml(pick(c.issuer));
 return `
         <article class="card overflow-hidden cursor-pointer cert-card flex flex-col fade-up" role="button" tabindex="0"
-          data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
+          data-cert-img="${escapeHtml(fixAsset(c.image))}" data-cert-name="${name}" data-cert-issuer="${issuer}">
         <div class="h-56 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
+          <img src="${escapeHtml(fixAsset(c.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
         </div>
         <div class="p-4 sm:p-5 flex-1">
           <h3 class="text-sm sm:text-base font-bold mb-1 leading-snug" style="color:var(--color-text);">${name}</h3>

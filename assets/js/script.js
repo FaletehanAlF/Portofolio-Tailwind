@@ -216,6 +216,15 @@ function escapeHtml(value) {
   }[c]));
 }
 
+/* Site-root asset paths ("/assets/...") break on subpath deploys.
+   index.html lives at root, so strip the leading slash to relative. */
+function fixAsset(src) {
+  const s = String(src || '').trim();
+  if (!s) return '';
+  if (s.charAt(0) === '/' && s.indexOf('//') !== 0) return s.slice(1);
+  return s;
+}
+
 /* ================================================================
    3. THEME SWITCHER
 ================================================================ */
@@ -687,7 +696,7 @@ const ProjectsSection = (() => {
     return `
       <article class="card overflow-hidden fade-up flex flex-col">
         <div class="relative h-44 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
+          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
           <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,.28), transparent 55%);"></div>
         </div>
         <div class="p-5 flex flex-col flex-1">
@@ -744,9 +753,9 @@ const CertificatesSection = (() => {
 
     return `
       <article class="card overflow-hidden cursor-pointer cert-card fade-up flex flex-col" role="button" tabindex="0"
-        data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
+        data-cert-img="${escapeHtml(fixAsset(c.image))}" data-cert-name="${name}" data-cert-issuer="${issuer}">
         <div class="h-52 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
+          <img src="${escapeHtml(fixAsset(c.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
         </div>
         <div class="p-4 flex-1">
           <h3 class="text-sm font-bold mb-0.5 line-clamp-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
