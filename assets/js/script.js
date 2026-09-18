@@ -609,8 +609,9 @@ function initTiltCard() {
   const wrapper = document.getElementById('tilt-wrapper');
   if (!card || !wrapper) return;
 
-  // Only on desktop
+  // Only on desktop, never under reduced motion
   if (window.matchMedia('(pointer: coarse)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   wrapper.addEventListener('mousemove', e => {
     const rect = wrapper.getBoundingClientRect();
@@ -619,8 +620,8 @@ function initTiltCard() {
     const dx = (e.clientX - cx) / (rect.width / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
 
-    const rotateY = dx * 10;
-    const rotateX = -dy * 8;
+    const rotateY = dx * 6;
+    const rotateX = -dy * 5;
 
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   });
@@ -1055,7 +1056,6 @@ async function loadData() {
     CertificatesSection.init().catch(e => { console.error('[Certificates] Load failed:', e); }),
   ]);
 
-  initMarquee();
   initLogoSlider();
   if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refreshAll();
   if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
@@ -1142,8 +1142,24 @@ const CertModal = (() => {
 })();
 
 /* ================================================================
-   17. CONTACT FORM (Formspree + Validation)
+   17. CONTACT FORM (Formspree + inline validation + toast)
 ================================================================ */
+function showToast(message) {
+  let toast = document.getElementById('site-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'site-toast';
+    toast.className = 'toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
 const ContactForm = (() => {
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
