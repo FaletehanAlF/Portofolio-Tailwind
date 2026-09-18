@@ -158,8 +158,8 @@
       "demo": "https://expense-tracker-app-amber-ten.vercel.app/",
       "github": "https://github.com/FaletehanAlF/expense-tracker-app.git",
       "category": {
-        "en": "App Application Web Development",
-        "id": "Aplikasi Web Development"
+        "en": "Web Application",
+        "id": "Aplikasi Web"
       },
       "year": "2026",
       "tech": [
@@ -169,7 +169,7 @@
       ]
     },
     {
-      "slug": "Panduan Jurusan Kuliah",
+      "slug": "panduan-jurusan-kuliah",
       "name": {
         "en": "College Major Guide",
         "id": "Panduan Jurusan Kuliah"
@@ -186,8 +186,8 @@
       "demo": "#",
       "github": "#",
       "category": {
-        "en": "App Application Web Development",
-        "id": "Aplikasi Web Development"
+        "en": "Web Application",
+        "id": "Aplikasi Web"
       },
       "year": "2026",
       "tech": []
