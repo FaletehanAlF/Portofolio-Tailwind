@@ -8,6 +8,7 @@
 (function () {
   const strings = {
     en: {
+      skip: 'Skip to content',
       back: 'Back to Portfolio',
       home: 'Home',
       projects: 'Projects',
@@ -56,6 +57,7 @@
       toLight: 'Switch to light mode',
     },
     id: {
+      skip: 'Lewati ke konten',
       back: 'Kembali ke Portofolio',
       home: 'Beranda',
       projects: 'Proyek',
@@ -309,6 +311,7 @@
     const langBtn = $('lang-toggle');
     if (langBtn) langBtn.textContent = State.lang === 'en' ? 'ID' : 'EN';
     const set = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+    set('skip-link', t('skip'));
     set('back-label', t('back'));
     set('d-crumb-home', t('home'));
     set('d-crumb-projects', t('projects'));

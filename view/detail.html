@@ -51,7 +51,7 @@
     </div>
   </header>
 
-  <main class="min-h-screen pt-28 sm:pt-32 pb-16">
+  <main class="min-h-screen pt-28 sm:pt-32 pb-16" id="main">
     <div class="max-w-6xl mx-auto px-4 sm:px-5">
 
       <!-- Breadcrumb -->
@@ -109,7 +109,7 @@
         <!-- Header: eyebrow + title + subtitle + meta (flow, no overlap) -->
         <header class="max-w-3xl mb-7">
           <p class="section-label mb-2" id="d-eyebrow">Project Case Study</p>
-          <h1 class="font-extrabold tracking-tight leading-tight text-3xl sm:text-4xl mb-3" style="color:var(--color-text);" id="d-title">Project title</h1>
+          <h1 class="font-display font-bold tracking-tight leading-tight text-3xl sm:text-4xl mb-3" style="color:var(--color-text);" id="d-title">Project title</h1>
           <p class="text-base leading-relaxed mb-5" style="color:var(--color-text-muted);" id="d-subtitle"></p>
           <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-medium" style="color:var(--color-text-muted);">
             <span class="inline-flex items-center gap-2">
@@ -144,7 +144,6 @@
 
             <!-- 01 Overview -->
             <section aria-labelledby="d-overview-title">
-              <p class="detail-section-index" id="d-overview-index">01 — Overview</p>
               <h2 class="detail-section-title" id="d-overview-title">About this project</h2>
               <div id="d-desc" class="detail-prose"></div>
             </section>
@@ -153,7 +152,6 @@
             <section aria-labelledby="d-tech-title">
               <div class="flex items-baseline justify-between gap-3 mb-1">
                 <div>
-                  <p class="detail-section-index" id="d-tech-index">02 — Tech Stack</p>
                   <h2 class="detail-section-title" id="d-tech-title">Technologies used</h2>
                 </div>
                 <span class="text-xs font-semibold whitespace-nowrap" style="color:var(--color-text-muted);" id="d-tech-count"></span>
@@ -164,7 +162,6 @@
 
             <!-- 03 Access -->
             <section aria-labelledby="d-access-title">
-              <p class="detail-section-index" id="d-access-index">03 — Access</p>
               <h2 class="detail-section-title" id="d-access-title">Links</h2>
               <div class="flex flex-col sm:flex-row gap-3 mt-4">
                 <a id="d-demo" href="#" target="_blank" rel="noopener" class="btn-primary justify-center flex-1">
@@ -186,11 +183,11 @@
             <nav class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2" aria-label="More projects" id="d-pager">
               <a id="d-prev" href="#" class="detail-pager">
                 <span class="detail-pager-dir"><i data-feather="arrow-left" class="w-3.5 h-3.5"></i><span id="d-prev-dir">Previous</span></span>
-                <span class="detail-pager-name" id="d-prev-name">—</span>
+                <span class="detail-pager-name" id="d-prev-name"></span>
               </a>
               <a id="d-next" href="#" class="detail-pager detail-pager-next">
                 <span class="detail-pager-dir"><span id="d-next-dir">Next</span><i data-feather="arrow-right" class="w-3.5 h-3.5"></i></span>
-                <span class="detail-pager-name" id="d-next-name">—</span>
+                <span class="detail-pager-name" id="d-next-name"></span>
               </a>
             </nav>
 
@@ -208,15 +205,15 @@
                 </div>
                 <div class="detail-fact">
                   <dt><i data-feather="tag" class="w-4 h-4"></i><span id="d-lbl-category">Category</span></dt>
-                  <dd id="d-info-category">—</dd>
+                  <dd id="d-info-category"></dd>
                 </div>
                 <div class="detail-fact">
                   <dt><i data-feather="calendar" class="w-4 h-4"></i><span id="d-lbl-year">Year</span></dt>
-                  <dd id="d-info-year">—</dd>
+                  <dd id="d-info-year"></dd>
                 </div>
                 <div class="detail-fact detail-fact-last">
                   <dt><i data-feather="layers" class="w-4 h-4"></i><span id="d-lbl-stack">Stack</span></dt>
-                  <dd id="d-info-stack">—</dd>
+                  <dd id="d-info-stack"></dd>
                 </div>
               </dl>
             </div>
