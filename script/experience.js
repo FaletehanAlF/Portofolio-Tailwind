@@ -6,6 +6,7 @@
 (function () {
   const strings = {
     en: {
+      skip: 'Skip to content',
       home: 'Home',
       projects: 'Projects',
       certificates: 'Certificates',
@@ -29,6 +30,7 @@
       toLight: 'Switch to light mode',
     },
     id: {
+      skip: 'Lewati ke konten',
       home: 'Beranda',
       projects: 'Proyek',
       certificates: 'Sertifikat',

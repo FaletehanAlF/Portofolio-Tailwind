@@ -35,7 +35,7 @@
       projectsOther: 'See Certificates',
       certsEyebrow: 'Achievements',
       certsTitle: 'All Certificates',
-      certsSub: 'Verified courses & awards. Click any card to preview. Data loaded live from API.',
+      certsSub: 'Verified courses and awards. Select any card to preview.',
       certsOther: 'See Projects',
     },
     id: {
@@ -63,7 +63,7 @@
       projectsOther: 'Lihat Sertifikat',
       certsEyebrow: 'Pencapaian',
       certsTitle: 'Semua Sertifikat',
-      certsSub: 'Kursus & penghargaan terverifikasi. Klik kartu untuk pratinjau. Data dimuat langsung dari API.',
+      certsSub: 'Kursus dan penghargaan terverifikasi. Pilih kartu untuk pratinjau.',
       certsOther: 'Lihat Proyek',
     },
   };
