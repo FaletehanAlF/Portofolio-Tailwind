@@ -212,14 +212,13 @@
   <!-- ============================================================
      ABOUT SECTION
 ============================================================ -->
-  <section id="about" class="py-16 sm:py-20 performance" style="background-color:var(--color-bg);">
+  <section id="about" class="py-16 sm:py-24 performance" style="background-color:var(--color-bg);">
     <div class="max-w-6xl mx-auto px-5">
 
-      <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-        <!-- Left -->
-        <div class="flex-1">
-          <p class="section-label fade-up" data-i18n="about.label">About</p>
+        <!-- Left: statement + facts (7 cols) -->
+        <div class="lg:col-span-7">
           <h2 class="section-heading font-display mb-6 fade-up" data-i18n="about.heading">Turning ideas into functional
             and user-friendly web solutions.</h2>
 
@@ -229,14 +228,14 @@
             and UI/UX design. Experienced with HTML, CSS, JavaScript, Tailwind CSS, and Laravel through school
             projects and self-learning, with a vocational subject score of 8.</p>
 
-          <p class="text-base leading-relaxed mb-8 fade-up" style="color:var(--color-text-muted);"
+          <p class="text-base leading-relaxed mb-4 fade-up" style="color:var(--color-text-muted);"
             data-i18n="about.extra">
             I enjoy turning what I learn into personal projects and exploring UI/UX design.
           </p>
 
-          <!-- Info grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 fade-up">
-            <div class="flex items-center gap-3">
+          <!-- Facts: divider rows, no boxes -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 mt-6 fade-up">
+            <div class="ed-fact flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                 style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
                 <i data-feather="map-pin" class="w-4 h-4" style="color:var(--color-accent);"></i>
@@ -247,7 +246,7 @@
                 <div class="text-sm font-semibold" style="color:var(--color-text);">Indonesia</div>
               </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="ed-fact flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                 style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
                 <i data-feather="briefcase" class="w-4 h-4" style="color:var(--color-accent);"></i>
@@ -258,7 +257,7 @@
                 <div class="text-sm font-semibold" style="color:var(--color-text);">3+ Years</div>
               </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="ed-fact flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                 style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
                 <i data-feather="award" class="w-4 h-4" style="color:var(--color-accent);"></i>
@@ -270,7 +269,7 @@
                   Engineering</div>
               </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="ed-fact flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                 style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
                 <i data-feather="zap" class="w-4 h-4" style="color:var(--color-accent);"></i>
@@ -285,28 +284,34 @@
           </div>
         </div>
 
-        <!-- Right: Stats -->
-        <div class="flex-shrink-0 w-full lg:w-64">
-          <div class="grid grid-cols-3 lg:grid-cols-1 gap-4">
-
-            <div class="card p-4 sm:p-6 text-center lg:text-left fade-up">
+        <!-- Right: stat strip + deep links (offset 4 cols) -->
+        <div class="w-full lg:col-span-4 lg:col-start-9">
+          <div class="stat-strip">
+            <div class="fade-up">
               <div class="stat-number" data-counter="10" data-suffix="+">0</div>
               <div class="text-xs font-600 mt-1" style="color:var(--color-text-muted); font-weight:600;"
                 data-i18n="stat.projects">Projects Completed</div>
             </div>
-
-            <div class="card p-4 sm:p-6 text-center lg:text-left fade-up">
+            <div class="fade-up">
               <div class="stat-number" data-counter="5" data-suffix="+">0</div>
               <div class="text-xs font-600 mt-1" style="color:var(--color-text-muted); font-weight:600;"
                 data-i18n="stat.certs">Certificates</div>
             </div>
-
-            <div class="card p-4 sm:p-6 text-center lg:text-left fade-up">
+            <div class="fade-up">
               <div class="stat-number" data-counter="12" data-suffix="+">0</div>
               <div class="text-xs font-600 mt-1" style="color:var(--color-text-muted); font-weight:600;"
                 data-i18n="stat.tech">Technologies</div>
             </div>
-
+          </div>
+          <div class="flex flex-col gap-1 mt-6 fade-up">
+            <a href="view/education.html" class="see-all-link self-start">
+              <span data-i18n="nav.education">Education</span>
+              <i data-feather="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="view/experience.html" class="see-all-link self-start">
+              <span data-i18n="nav.experience">Experience</span>
+              <i data-feather="arrow-right" class="w-4 h-4"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -314,16 +319,9 @@
     </div>
   </section>
 
-  <!-- ============================================================
-     TECH STACK LOGO LOOP (the single marquee on this page)
-============================================================ -->
-  <div class="py-12 performance"
-    style="background-color:var(--color-bg-secondary); border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border);">
-    <div class="logo-slider-wrapper" id="logo-slider-wrapper">
-      <div class="logo-slider-inner" id="logo-slider">
-        <!-- Rendered by JS from /api/techstack.json -->
-      </div>
-    </div>
+  <!-- Section divider: tech lives once, inside the Portfolio tabs below -->
+  <div aria-hidden="true" class="max-w-6xl mx-auto px-5">
+    <div class="divider"></div>
   </div>
 
   <!-- ============================================================
@@ -336,6 +334,9 @@
       <div class="mb-8 fade-up max-w-2xl">
         <p class="section-label" data-i18n="portfolio.label">Selected work</p>
         <h2 class="section-heading font-display" data-i18n="portfolio.heading">Portfolio showcase</h2>
+        <p class="text-sm sm:text-base leading-relaxed mt-3" style="color:var(--color-text-muted);"
+          data-i18n="portfolio.sub">A featured build first, then supporting work. Certificates and stack live in
+          their own tabs.</p>
       </div>
 
       <!-- Tabs -->
@@ -345,11 +346,12 @@
         <button class="tab-btn" data-tab="techstack" data-i18n="portfolio.tab_tech">Tech Stack</button>
       </div>
 
-      <!-- ---- PROJECTS TAB : static 6 preview + See All (no slider) ---- -->
+      <!-- ---- PROJECTS TAB : featured build + supporting rows ---- -->
       <div class="tab-panel active" id="tab-projects">
-        <div id="projects-grid" class="pager-grid performance"></div>
+        <div id="projects-featured"></div>
+        <div id="projects-grid" class="sup-grid performance"></div>
 
-        <div class="flex justify-start mt-5">
+        <div class="flex justify-start mt-6">
           <a href="view/projects.html" class="see-all-link">
             <span data-i18n="portfolio.see_all_projects">All projects</span>
             <i data-feather="arrow-right" class="w-4 h-4"></i>
@@ -357,11 +359,11 @@
         </div>
       </div>
 
-      <!-- ---- CERTIFICATES TAB : static 6 preview + See All (no slider) ---- -->
+      <!-- ---- CERTIFICATES TAB : compact rows + See All ---- -->
       <div class="tab-panel" id="tab-certificates">
-        <div id="certificates-grid" class="pager-grid performance"></div>
+        <div id="certificates-grid" class="cert-list performance"></div>
 
-        <div class="flex justify-start mt-5">
+        <div class="flex justify-start mt-6">
           <a href="view/certificates.html" class="see-all-link">
             <span data-i18n="portfolio.see_all_certs">All certificates</span>
             <i data-feather="arrow-right" class="w-4 h-4"></i>
@@ -369,31 +371,14 @@
         </div>
       </div>
 
-      <!-- ---- TECH STACK TAB : paged slider halus ---- -->
+      <!-- ---- TECH STACK TAB : categorized columns, no slider ---- -->
       <div class="tab-panel" id="tab-techstack">
-        <div class="flex items-center justify-between gap-3 mb-4">
-          <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
-            <span id="techstack-count">0</span>
-            <span data-i18n="portfolio.items">items</span>
-          </p>
-          <div class="flex items-center gap-2">
-            <button class="slider-btn" id="techstack-prev" data-i18n-aria="portfolio.prev" aria-label="Previous tech stack">
-              <i data-feather="chevron-left" class="w-4 h-4"></i>
-            </button>
-            <button class="slider-btn" id="techstack-next" data-i18n-aria="portfolio.next" aria-label="Next tech stack">
-              <i data-feather="chevron-right" class="w-4 h-4"></i>
-            </button>
-          </div>
-        </div>
+        <p class="text-xs font-semibold mb-5" style="color:var(--color-text-muted);">
+          <span id="techstack-count">0</span>
+          <span data-i18n="portfolio.items">items</span>
+        </p>
 
-        <div class="pager-viewport" id="techstack-viewport" tabindex="0" data-pager="techstack"
-          data-i18n-aria="portfolio.slider_tech" aria-label="Tech stack slider. Use arrow buttons or swipe to navigate.">
-          <div class="pager-track" id="techstack-grid"></div>
-        </div>
-
-        <div class="flex items-center justify-start gap-3 mt-5">
-          <div class="flex items-center gap-1.5 flex-wrap" id="techstack-dots" aria-hidden="true"></div>
-        </div>
+        <div id="techstack-grid" class="tech-cats performance"></div>
       </div>
 
     </div>
