@@ -21,6 +21,7 @@ const translations = {
     'hero.greeting': 'Hi, my name is',
     'hero.role': 'Fullstack Web Developer & UI/UX Designer',
     'hero.desc': 'Software Engineering student building responsive, user-friendly websites with modern web technologies.',
+    'hero.availability': 'Based in Indonesia — open to junior roles & freelance',
     'hero.btn_projects': 'View projects',
     'hero.btn_cv': 'Download CV',
 
