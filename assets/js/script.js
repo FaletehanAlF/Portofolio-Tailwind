@@ -1187,6 +1187,28 @@ const ContactForm = (() => {
     }
   }
 
+  function setFieldError(inputEl, errorEl, message) {
+    if (inputEl) inputEl.classList.toggle('invalid', !!message);
+    if (errorEl) {
+      errorEl.textContent = message || '';
+      errorEl.classList.toggle('show', !!message);
+    }
+  }
+
+  function setNote(message, kind) {
+    const note = document.getElementById('form-note');
+    if (!note) return;
+    if (!message) {
+      note.textContent = '';
+      note.classList.add('hidden');
+      note.classList.remove('is-success', 'is-error');
+      return;
+    }
+    note.textContent = message;
+    note.classList.remove('hidden', 'is-success', 'is-error');
+    if (kind) note.classList.add(kind);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -1199,22 +1221,38 @@ const ContactForm = (() => {
     const message = messageEl ? messageEl.value.trim() : '';
 
     const lang = State.lang;
+    const msg = key => (translations[lang] && translations[lang][key]) || translations.en[key] || key;
 
-    // Validation
-    if (!name || !email || !message) {
-      alert(lang === 'id'
-        ? 'Harap isi semua kolom.'
-        : 'Please fill all fields.');
+    // Inline validation (one message per field, no alert dialogs)
+    let firstInvalid = null;
+    if (!name) {
+      setFieldError(nameEl, document.getElementById('contact-name-error'), msg('form.err_name'));
+      firstInvalid = firstInvalid || nameEl;
+    } else {
+      setFieldError(nameEl, document.getElementById('contact-name-error'), '');
+    }
+    if (!email) {
+      setFieldError(emailEl, document.getElementById('contact-email-error'), msg('form.err_email_empty'));
+      firstInvalid = firstInvalid || emailEl;
+    } else if (!isValidEmail(email)) {
+      setFieldError(emailEl, document.getElementById('contact-email-error'), msg('form.err_email_invalid'));
+      firstInvalid = firstInvalid || emailEl;
+    } else {
+      setFieldError(emailEl, document.getElementById('contact-email-error'), '');
+    }
+    if (!message) {
+      setFieldError(messageEl, document.getElementById('contact-message-error'), msg('form.err_message'));
+      firstInvalid = firstInvalid || messageEl;
+    } else {
+      setFieldError(messageEl, document.getElementById('contact-message-error'), '');
+    }
+    if (firstInvalid) {
+      setNote(msg('form.err_required'), 'is-error');
+      firstInvalid.focus();
       return;
     }
 
-    if (!isValidEmail(email)) {
-      alert(lang === 'id'
-        ? 'Alamat email tidak valid.'
-        : 'Invalid email address.');
-      return;
-    }
-
+    setNote('', null);
     setLoading(true);
 
     try {
@@ -1225,23 +1263,18 @@ const ContactForm = (() => {
       });
 
       if (res.ok) {
-        alert(lang === 'id'
-          ? 'Pesan berhasil terkirim!'
-          : 'Message sent successfully!');
+        setNote(msg('form.ok_sent'), 'is-success');
+        showToast(msg('form.ok_sent'));
         if (nameEl) nameEl.value = '';
         if (emailEl) emailEl.value = '';
         if (messageEl) messageEl.value = '';
       } else {
-        const data = await res.json().catch(() => ({}));
-        const msg = data.errors ? data.errors.map(e => e.message).join(', ') : 'Unknown error';
-        alert(lang === 'id'
-          ? `Gagal mengirim pesan: ${msg}`
-          : `Failed to send message: ${msg}`);
+        setNote(msg('form.err_send'), 'is-error');
+        showToast(msg('form.err_send'));
       }
     } catch {
-      alert(lang === 'id'
-        ? 'Terjadi kesalahan jaringan. Silakan coba lagi.'
-        : 'A network error occurred. Please try again.');
+      setNote(msg('form.err_network'), 'is-error');
+      showToast(msg('form.err_network'));
     } finally {
       setLoading(false);
     }
@@ -1281,7 +1314,6 @@ function init() {
   HamburgerMenu.init();
   initSmoothScroll();
   SplitText.init();
-  TypewriterAnim.init();
   CounterAnim.init();
   initFadeUp();
   initTiltCard();
