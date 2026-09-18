@@ -138,7 +138,7 @@
 return `
         <article class="card overflow-hidden fade-up flex flex-col">
           <div class="relative h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
+          <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
           <span class="absolute top-3 left-3 tech-badge" style="background:rgba(255,255,255,.94); color:#0f172a; border-color:transparent;">${cat}</span>
           ${p.year ? `<span class="absolute top-3 right-3 tech-badge" style="background:rgba(0,0,0,.55); color:#fff; border-color:transparent;">${escapeHtml(p.year)}</span>` : ''}
         </div>
@@ -193,7 +193,7 @@ return `
         <article class="card overflow-hidden cursor-pointer cert-card flex flex-col fade-up" role="button" tabindex="0"
           data-cert-img="${escapeHtml(c.image)}" data-cert-name="${name}" data-cert-issuer="${issuer}">
         <div class="h-56 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" />
+          <img src="${escapeHtml(c.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
         </div>
         <div class="p-4 sm:p-5 flex-1">
           <h3 class="text-sm sm:text-base font-bold mb-1 leading-snug" style="color:var(--color-text);">${name}</h3>
