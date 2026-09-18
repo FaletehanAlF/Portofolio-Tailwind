@@ -10,6 +10,7 @@
 ================================================================ */
 const translations = {
   en: {
+    'a11y.skip': 'Skip to content',
     'nav.home': 'Home',
     'nav.about': 'About Me',
     'nav.portfolio': 'Portfolio',
@@ -17,15 +18,15 @@ const translations = {
     'nav.experience': 'Experience',
     'nav.contact': 'Contact',
 
-    'hero.greeting': "Hi, My Name is  ",
+    'hero.greeting': 'Hi, my name is',
     'hero.role': 'Fullstack Web Developer & UI/UX Designer',
-    'hero.desc': "I am a Software Engineering student passionate about web development and UI/UX design. I enjoy building modern, responsive, and user-friendly websites while continuously learning new technologies and improving my skills through real projects.",
-    'hero.btn_projects': 'View Projects',
+    'hero.desc': 'Software Engineering student building responsive, user-friendly websites with modern web technologies.',
+    'hero.btn_projects': 'View projects',
     'hero.btn_cv': 'Download CV',
 
-    'about.label': 'About Me',
-    'about.heading': 'Turning Ideas into Functional and User-Friendly Web Solutions.',
-    'about.typewriter': "I am a Software Engineering student at SMK Taruna Bhakti who is passionate about web development and UI/UX design. I enjoy building responsive and user-friendly websites while continuously learning new technologies. My goal is to become a Full Stack Web Developer. Through school projects and self-learning, I have gained experience with HTML, CSS, JavaScript, Tailwind CSS, and Laravel, while maintaining a vocational subject score of 8.",
+    'about.label': 'About',
+    'about.heading': 'Turning ideas into functional and user-friendly web solutions.',
+    'about.typewriter': "Software Engineering student at SMK Taruna Bhakti, focused on web development and UI/UX design. Experienced with HTML, CSS, JavaScript, Tailwind CSS, and Laravel through school projects and self-learning, with a vocational subject score of 8.",
     'about.extra': "I enjoy learning new technologies, creating personal projects, and exploring UI/UX design. Every project gives me an opportunity to improve my skills and brings me closer to my goal of becoming a Full Stack Web Developer.",
     'about.info_location': 'Location',
     'about.info_exp': 'Experience',
