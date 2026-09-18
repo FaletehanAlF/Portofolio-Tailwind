@@ -718,8 +718,6 @@ const ProjectsSection = (() => {
     } else {
       grid.innerHTML = preview.map(card).join('');
     }
-    const count = document.getElementById('projects-count');
-    if (count) count.textContent = data.length;
     observeFadeUp(grid);
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
@@ -770,8 +768,6 @@ const CertificatesSection = (() => {
     } else {
       grid.innerHTML = preview.map(card).join('');
     }
-    const count = document.getElementById('certs-count');
-    if (count) count.textContent = data.length;
     observeFadeUp(grid);
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
