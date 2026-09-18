@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif Bahasa Indonesia Kelas 11 - Teks Editorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-md py-4 px-6">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Kuis Bahasa Indonesia Kelas 11</h1>
+            <span id="progress-indicator" class="text-sm bg-indigo-700 px-3 py-1 rounded-full font-medium">Soal 1 dari 30</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-3xl w-full mx-auto p-4 sm:p-6 my-8">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center">
+            <h2 class="text-2xl font-bold text-slate-900 mb-3">Evaluasi Teks Editorial & Kebahasaan</h2>
+            <p class="text-slate-600 mb-6 leading-relaxed">
+                Kuis ini mencakup 30 soal pilihan ganda analitis dan benar-salah seputar Teks Editorial, Struktur (Tesis, Argumentasi, Penegasan Ulang), Fakta & Opini, Hubungan Antarparagraf, Solusi Redaksi, hingga Makna Kontekstual setara tingkat kelas 11 SMK.
+            </p>
+            <button onclick="startQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition duration-200 shadow-md">
+                Mulai Kuis Sekarang
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+            <div class="mb-4 flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-indigo-600">
+                <span id="question-category">Kategori Soal</span>
+                <span id="question-type-badge" class="bg-indigo-50 px-2.5 py-1 rounded">Pilihan Ganda</span>
+            </div>
+            
+            <h3 id="question-text" class="text-lg sm:text-xl font-semibold text-slate-900 mb-6 leading-snug"></h3>
+            
+            <div id="options-container" class="space-y-3 mb-8">
+                <!-- Options injected via JS -->
+            </div>
+
+            <div class="flex justify-between items-center border-t border-slate-100 pt-4">
+                <div id="feedback-text" class="text-sm font-medium"></div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl transition duration-200">
+                    Selanjutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center">
+            <div class="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold" id="score-circle">
+                0
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">Kuis Selesai!</h2>
+            <p id="result-message" class="text-slate-600 mb-6">Hebat, Anda telah menyelesaikan seluruh soal latihan analitis.</p>
+            <button onclick="restartQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition duration-200 shadow-md">
+                Ulangi Kuis
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-xs text-slate-400">
+        &copy; 2026 Kuis Pembelajaran Bahasa Indonesia Kelas 11 SMK
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                category: "Teks Editorial",
+                type: "Pilihan Ganda",
+                question: "Mengapa teks editorial atau tajuk rencana tidak sekadar menyajikan berita peristiwa secara kronologis, melainkan harus disertai dengan analisis tajam redaksi?",
+                options: [
+                    "Karena pembaca koran lebih menyukai cerita fiksi dan opini pribadi penulis lepas.",
+                    "Karena teks editorial berfungsi sebagai forum opini lembaga pers untuk mempengaruhi cara pandang pembaca terhadap isu aktual.",
+                    "Karena aturan jurnalistik mewajibkan seluruh halaman koran berisi kritik tajam terhadap pemerintah.",
+                    "Karena redaksi harus menyampaikan laporan keuangan perusahaan secara transparan kepada publik."
+                ],
+                correct: 1
+            },
+            {
+                category: "Struktur Teks Editorial - Tesis",
+                type: "Pilihan Ganda",
+                question: "Dalam tajuk rencana mengenai krisis energi, paragraf awal memuat pandangan redaksi bahwa transisi energi hijau tidak boleh mengorbankan kesejahteraan masyarakat kecil. Bagian ini dikategorikan sebagai tesis karena...",
+                options: [
+                    "Menyajikan daftar pustaka lengkap dari jurnal internasional terkait energi.",
+                    "Berisi rincian data statistik kerugian negara akibat subsidi energi.",
+                    "Menjadi pernyataan pendapat awal yang memuat sudut pandang dasar redaksi terhadap isu yang dibahas.",
+                    "Merupakan kesimpulan akhir dari seluruh rangkaian argumen yang telah dipaparkan."
+                ],
+                correct: 2
+            },
+            {
+                category: "Struktur Teks Editorial - Argumentasi",
+                type: "Pilihan Ganda",
+                question: "Suatu paragraf dalam teks editorial memuat data penurunan angka pengangguran dari Badan Pusat Statistik (BPS) yang dihubungkan dengan kebijakan pelatihan vokasi. Mengapa paragraf tersebut diklasifikasikan sebagai bagian argumentasi?",
+                options: [
+                    "Karena memuat asumsi subjektif penulis tanpa didasari bukti yang valid.",
+                    "Karena menyajikan bukti faktual dan alasan logis yang berfungsi memperkuat pernyataan pendapat (tesis).",
+                    "Karena berada di bagian paling akhir teks sebagai penutup artikel.",
+                    "Karena berfungsi semata-mata untuk menarik perhatian pembaca melalui judul yang provokatif."
+                ],
+                correct: 1
+            },
+            {
+                category: "Struktur Teks Editorial - Penegasan Ulang",
+                type: "Pilihan Ganda",
+                question: "Apa alasan utama sebuah teks editorial diakhiri dengan bagian penegasan ulang (reiteration)?",
+                options: [
+                    "Untuk membatalkan seluruh argumen yang telah disampaikan di awal paragraf.",
+                    "Untuk memperkuat kembali tesis yang didukung oleh fakta dan argumen sebelumnya serta memberikan rekomendasi akhir.",
+                    "Untuk membuka babak permasalahan baru yang sama sekali belum dibahas dalam teks.",
+                    "Untuk menuliskan biodata lengkap seluruh wartawan yang meliput berita tersebut."
+                ],
+                correct: 1
+            },
+            {
+                category: "Fakta dan Opini",
+                type: "Pilihan Ganda",
+                question: "Perhatikan kalimat-kalimat berikut:\n(1) Pemerintah menaikkan tarif cukai rokok sebesar 10% mulai Januari tahun depan.\n(2) Kebijakan ini diyakini mampu menekan angka perokok pemula secara signifikan.\n(3) Pendapatan negara dari sektor cukai tercatat mencapai Rp200 triliun tahun lalu.\nManakah kombinasi fakta dan opini redaksi yang paling tepat?",
+                options: [
+                    "(1) dan (2) adalah fakta, sedangkan (3) adalah opini.",
+                    "(1) dan (3) adalah fakta, sedangkan (2) adalah opini.",
+                    "(2) dan (3) adalah fakta, sedangkan (1) adalah opini.",
+                    "Semuanya merupakan opini murni redaksi media massa."
+                ],
+                correct: 1
+            },
+            {
+                category: "Pendapat atau Sikap Redaksi",
+                type: "Pilihan Ganda",
+                question: "Sikap redaksi dalam teks editorial terhadap suatu kebijakan publik yang dinilai merugikan masyarakat luas umumnya dicirikan melalui bentuk...",
+                options: [
+                    "Penggunaan bahasa yang memuji kebijakan tersebut secara berlebihan tanpa kritik konstruktif.",
+                    "Penyajian analisis kritis disertai desakan logis agar pemerintah melakukan evaluasi atau revisi kebijakan.",
+                    "Pengabaian total terhadap dampak sosial yang dirasakan oleh warga.",
+                    "Penolakan untuk memberitakan isu tersebut di halaman surat kabar."
+                ],
+                correct: 1
+            },
+            {
+                category: "Masalah Utama (Isu Aktual)",
+                type: "Pilihan Ganda",
+                question: "Bagaimana cara paling tepat untuk mengidentifikasi masalah utama (isu aktual) yang dikritisi dalam sebuah teks editorial yang panjang?",
+                options: [
+                    "Menghitung jumlah paragraf yang membahas latar belakang sejarah tokoh terkait.",
+                    "Menemukan fenomena atau peristiwa hangat yang menjadi fokus sorotan dan dibahas secara konsisten sejak awal hingga akhir teks.",
+                    "Membaca kalimat terakhir pada paragraf penutup saja tanpa melihat konteks keseluruhan.",
+                    "Mencari kalimat yang menggunakan huruf kapital seluruhnya."
+                ],
+                correct: 1
+            },
+            {
+                category: "Gagasan Utama",
+                type: "Pilihan Ganda",
+                question: "Dalam menganalisis gagasan utama sebuah paragraf argumentatif pada teks editorial, hal krusial yang harus diperhatikan adalah...",
+                options: [
+                    "Kalimat penjelas yang menyajikan contoh spesifik di tengah paragraf.",
+                    "Ide pokok yang menjadi jiwa atau inti pembahasan dalam paragraf tersebut, yang didukung oleh kalimat-kalimat penjelas.",
+                    "Jumlah tanda baca titik dan koma yang digunakan oleh penulis.",
+                    "Panjang pendeknya kalimat yang ditulis oleh redaktur."
+                ],
+                correct: 1
+            },
+            {
+                category: "Hubungan Antarparagraf",
+                type: "Pilihan Ganda",
+                question: "Paragraf 2 teks editorial menjelaskan tingginya angka kecelakaan akibat minimnya rambu jalan, sementara paragraf 3 dimulai dengan kalimat 'Kendati demikian, dinas terkait berdalih bahwa anggaran perawatan infrastruktur telah terserap habis.' Apa hubungan logis antara kedua paragraf tersebut?",
+                options: [
+                    "Paragraf 3 mendukung sepenuhnya argumen pada paragraf 2 tanpa syarat.",
+                    "Paragraf 3 menyatakan hubungan pertentangan (kontras) terhadap fakta atau argumen yang disajikan pada paragraf 2.",
+                    "Paragraf 3 menyimpulkan seluruh isi teks tanpa kaitan dengan paragraf sebelumnya.",
+                    "Paragraf 3 merupakan perincian waktu kejadian kecelakaan pada paragraf 2."
+                ],
+                correct: 1
+            },
+            {
+                category: "Makna Kata Berdasarkan Konteks",
+                type: "Pilihan Ganda",
+                question: "Dalam sebuah teks editorial tentang ketahanan pangan, terdapat kalimat: 'Ketergantungan impor beras dikhawatirkan menggerus kedaulatan petani lokal.' Apa makna kata 'menggerus' berdasarkan konteks kalimat tersebut?",
+                options: [
+                    "Memperkuat dan melindungi kesejahteraan petani lokal secara maksimal.",
+                    "Mengikis, melemahkan, atau merusak eksistensi secara perlahan.",
+                    "Menambah jumlah produksi gabah di lumbung padi nasional.",
+                    "Membeli hasil panen dengan harga yang sangat tinggi."
+                ],
+                correct: 1
+            },
+            {
+                category: "Tujuan Penulis",
+                type: "Pilihan Ganda",
+                question: "Selain menyampaikan informasi mengenai suatu peristiwa, apa tujuan utama penulisan teks editorial bagi pembaca?",
+                options: [
+                    "Mengajak pembaca untuk menyelami alur cerita fiksi yang menghibur.",
+                    "Membentuk opini publik serta mendorong pembaca untuk berpikir kritis dan menyikapi masalah aktual.",
+                    "Melaporkan laba rugi perusahaan percetakan koran secara periodik.",
+                    "Mengajarkan tata cara menulis berita kriminal kepada jurnalis pemula."
+                ],
+                correct: 1
+            },
+            {
+                category: "Kesimpulan Teks Editorial",
+                type: "Pilihan Ganda",
+                question: "Kesimpulan yang valid dan komprehensif dalam sebuah teks editorial harus mencakup unsur...",
+                options: [
+                    "Ringkasan masalah utama dan rekomendasi solusi atau sikap akhir redaksi.",
+                    "Daftar nama seluruh narasumber yang diwawancarai secara eksklusif.",
+                    "Ramalan cuaca untuk keesokan harinya di wilayah perkotaan.",
+                    "Iklan komersial produk yang disponsori oleh media massa."
+                ],
+                correct: 0
+            },
+            {
+                category: "Ketepatan Judul Teks Editorial",
+                type: "Pilihan Ganda",
+                question: "Suatu teks editorial membahas mengenai darurat sampah plastik di kawasan pesisir pantai. Judul manakah yang paling tepat, efektif, dan mencerminkan isi teks?",
+                options: [
+                    "Liburan Menyenangkan di Pantai Indah Bersama Keluarga",
+                    "Darurat Sampah Pesisir: Ancaman Nyata Ekosistem Laut yang Terabaikan",
+                    "Cara Mudah Mendaur Ulang Botol Plastik Menjadi Mainan Anak",
+                    "Sejarah Perkembangan Industri Plastik di Asia Tenggara"
+                ],
+                correct: 1
+            },
+            {
+                category: "Konjungsi dan Fungsinya",
+                type: "Pilihan Ganda",
+                question: "Perhatikan kalimat: 'Pemerintah memperketat pengawasan impor tekstil *agar* industri konveksi dalam negeri tidak mengalami gulung tikar.' Apa fungsi konjungsi yang dicetak miring dalam kalimat tersebut?",
+                options: [
+                    "Menyatakan pertentangan antarperistiwa dalam kalimat.",
+                    "Menyatakan tujuan atau harapan dari suatu tindakan yang dilakukan.",
+                    "Menyatakan hubungan sebab akibat langsung secara empiris.",
+                    "Menyatakan perbandingan setara antar-objek."
+                ],
+                correct: 1
+            },
+            {
+                category: "Solusi yang Ditawarkan dalam Teks",
+                type: "Pilihan Ganda",
+                question: "Mengapa solusi yang ditawarkan dalam teks editorial idealnya harus bersifat konstruktif dan realistis?",
+                options: [
+                    "Agar dapat diterapkan secara masuk akal oleh pihak berwenang untuk menyelesaikan masalah yang dikritik.",
+                    "Agar pembaca merasa terhibur dengan kisah humor di dalam teks.",
+                    "Agar redaksi terhindar dari keharusan menulis artikel di kemudian hari.",
+                    "Agar masalah yang dibahas semakin rumit dan berlarut-larut."
+                ],
+                correct: 0
+            },
+            {
+                category: "Fungsi Kalimat Terakhir",
+                type: "Pilihan Ganda",
+                question: "Dalam struktur penegasan ulang teks editorial, kalimat terakhir sering kali dirancang untuk...",
+                options: [
+                    "Mengubah topik pembahasan secara drastis ke masalah hiburan.",
+                    "Menghapus seluruh argumen yang telah ditulis sebelumnya.",
+                    "Memberikan pukulan moral, ajakan bertindak (call to action), atau konklusi tegas dari redaksi.",
+                    "Menampilkan daftar pustaka penulisan artikel."
+                ],
+                correct: 2
+            },
+            {
+                category: "Unsur ADIKSIMBA",
+                type: "Pilihan Ganda",
+                question: "Dalam menganalisis isi berita atau latar belakang teks editorial, unsur 'Mengapa' (Why) berfungsi untuk...",
+                options: [
+                    "Menunjukkan lokasi atau tempat kejadian perkara secara spesifik.",
+                    "Menjelaskan latar belakang, alasan, atau motivasi terjadinya suatu permasalahan.",
+                    "Menyebutkan waktu pelaksanaan kebijakan publik oleh pemerintah.",
+                    "Mengetahui jumlah kerugian finansial secara persis."
+                ],
+                correct: 1
+            },
+            {
+                category: "Menganalisis Fakta dan Opini",
+                type: "Pilihan Ganda",
+                question: "Suatu paragraf editorial menyatakan: 'Berdasarkan data Kementerian Perhubungan, angka kecelakaan mudik turun 15%. Penurunan ini membuktikan bahwa kebijakan rekayasa lalu lintas tahun ini sangat sukses.' Analisis manakah yang paling tepat terhadap kalimat tersebut?",
+                options: [
+                    "Seluruh kalimat dalam paragraf tersebut adalah opini pribadi penulis.",
+                    "Kalimat pertama adalah fakta (data resmi), sedangkan kalimat kedua adalah opini redaksi yang menyimpulkan keberhasilan berdasarkan data tersebut.",
+                    "Seluruh kalimat merupakan fakta mutlak tanpa ada unsur penafsiran.",
+                    "Kalimat pertama adalah opini, sedangkan kalimat kedua adalah fakta sejarah."
+                ],
+                correct: 1
+            },
+            {
+                category: "Posisi atau Argumentasi Redaksi",
+                type: "Pilihan Ganda",
+                question: "Ketika redaksi surat kabar menentang kebijakan penggusuran lahan tanpa relokasi yang layak, posisi argumentasi redaksi tersebut mencerminkan keberpihakan pada...",
+                options: [
+                    "Kelompok pengembang properti komersial semata.",
+                    "Nilai keadilan sosial dan perlindungan hak-hak masyarakat marginal.",
+                    "Keuntungan finansial lembaga media massa.",
+                    "Kepentingan birokrasi pemerintahan kota."
+                ],
+                correct: 1
+            },
+            {
+                category: "Menentukan Informasi",
+                type: "Pilihan Ganda",
+                question: "Dalam menganalisis teks editorial, cara paling akurat untuk menentukan informasi tersirat adalah dengan...",
+                options: [
+                    "Menebak makna kata tanpa membaca kalimat pendukung.",
+                    "Menyimpulkan makna tersembunyi berdasarkan hubungan antar-fakta dan argumen logis yang disajikan penulis dalam teks.",
+                    "Mencari kalimat yang tercetak tebal di bagian judul saja.",
+                    "Mengabaikan paragraf tengah karena dianggap tidak penting."
+                ],
+                correct: 1
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Teks editorial murni bersifat objektif dan bebas sepenuhnya dari unsur pandangan atau sikap subjektif lembaga penerbit pers.",
+                options: ["Benar", "Salah"],
+                correct: 1
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Tesis dalam teks editorial berfungsi untuk memperkenalkan sudut pandang atau pernyataan pendapat awal redaksi terhadap isu yang akan dibahas.",
+                options: ["Benar", "Salah"],
+                correct: 0
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Data statistik resmi dari lembaga terpercaya yang disajikan dalam teks editorial termasuk ke dalam kategori fakta yang memperkuat argumen.",
+                options: ["Benar", "Salah"],
+                correct: 0
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Bagian argumentasi dalam teks editorial cukup diisi dengan asumsi subjektif tanpa perlu didukung alasan logis atau bukti empiris.",
+                options: ["Benar", "Salah"],
+                correct: 1
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Penegasan ulang di bagian akhir teks editorial bertujuan untuk memperkuat tesis serta menegaskan kembali sikap redaksi terhadap masalah yang dikritisi.",
+                options: ["Benar", "Salah"],
+                correct: 0
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Hubungan sebab-akibat (kausalitas) antarparagraf dalam teks editorial ditandai dengan adanya kaitan logis di mana paragraf sebelumnya menjadi latar belakang atau pemicu bagi paragraf berikutnya.",
+                options: ["Benar", "Salah"],
+                correct: 0
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Judul teks editorial yang baik harus bersifat provokatif negatif dan sengaja menyesatkan pembaca agar tidak sesuai dengan isi teks.",
+                options: ["Benar", "Salah"],
+                correct: 1
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Solusi yang ditawarkan redaksi dalam teks editorial idealnya bersifat konstruktif dan dapat menjadi alternatif jalan keluar bagi pemangku kebijakan.",
+                options: ["Benar", "Salah"],
+                correct: 0
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Unsur 'Bagaimana' (How) dalam ADIKSIMBA digunakan semata-mata untuk menanyakan waktu terjadinya suatu peristiwa.",
+                options: ["Benar", "Salah"],
+                correct: 1
+            },
+            {
+                category: "Benar / Salah",
+                type: "Benar / Salah",
+                question: "Opini dan sikap redaksi yang dituangkan dalam teks editorial mewakili suara resmi lembaga pers dalam merespons fenomena sosial yang sedang hangat.",
+                options: ["Benar", "Salah"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionCategory = document.getElementById('question-category');
+        const questionTypeBadge = document.getElementById('question-type-badge');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const nextBtn = document.getElementById('next-btn');
+        const progressIndicator = document.getElementById('progress-indicator');
+        const feedbackText = document.getElementById('feedback-text');
+        const scoreCircle = document.getElementById('score-circle');
+        const resultMessage = document.getElementById('result-message');
+
+        function startQuiz() {
+            welcomeScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            nextBtn.classList.add('hidden');
+            feedbackText.textContent = '';
+            
+            const q = questions[currentQuestion];
+            progressIndicator.textContent = `Soal ${currentQuestion + 1} dari ${questions.length}`;
+            questionCategory.textContent = q.category;
+            questionTypeBadge.textContent = q.type;
+            questionText.textContent = q.question;
+
+            optionsContainer.innerHTML = '';
+            q.options.forEach((opt, index) => {
+                const button = document.createElement('button');
+                button.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition duration-150 font-medium text-slate-700 flex items-center justify-between group";
+                button.innerHTML = `<span>${opt}</span><span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs font-bold text-slate-400 group-hover:border-indigo-500 group-hover:text-indigo-600">${String.fromCharCode(65 + index)}</span>`;
+                button.onclick = () => selectOption(index, button);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const buttons = optionsContainer.children;
+
+            if (selectedIndex === q.correct) {
+                btnElement.classList.remove('border-slate-200', 'hover:border-indigo-500', 'hover:bg-indigo-50/50');
+                btnElement.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                feedbackText.textContent = "Jawaban Benar! 🎉";
+                feedbackText.className = "text-sm font-medium text-emerald-600";
+                score++;
+            } else {
+                btnElement.classList.remove('border-slate-200', 'hover:border-indigo-500', 'hover:bg-indigo-50/50');
+                btnElement.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-900');
+                
+                // Highlight correct
+                buttons[q.correct].classList.remove('border-slate-200', 'hover:border-indigo-500', 'hover:bg-indigo-50/50');
+                buttons[q.correct].classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                
+                feedbackText.textContent = "Jawaban Kurang Tepat.";
+                feedbackText.className = "text-sm font-medium text-rose-600";
+            }
+
+            // Disable all buttons
+            Array.from(buttons).forEach(b => b.disabled = true);
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            scoreCircle.textContent = `${score}`;
+            
+            if (percentage >= 80) {
+                resultMessage.textContent = `Luar biasa! Skor Anda ${score} dari ${questions.length} (${percentage}%). Anda sudah sangat menguasai analisis teks editorial secara kritis!`;
+            } else if (percentage >= 60) {
+                resultMessage.textContent = `Bagus! Skor Anda ${score} dari ${questions.length} (${percentage}%). Pertahankan kemampuan analisis dan penalaran Anda.`;
+            } else {
+                resultMessage.textContent = `Skor Anda ${score} dari ${questions.length} (${percentage}%). Ayo tingkatkan ketelitian dalam membaca dan menganalisis struktur serta kaidah teks editorial!`;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            resultScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
