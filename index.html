@@ -219,14 +219,15 @@
 
         <!-- Left -->
         <div class="flex-1">
-          <p class="section-label fade-up" data-i18n="about.label">About Me</p>
-          <h2 class="section-heading mb-6 fade-up" data-i18n="about.heading">Turning Ideas into Functional <br />and
-            User-Friendly Web Solutions.</h2>
+          <p class="section-label fade-up" data-i18n="about.label">About</p>
+          <h2 class="section-heading font-display mb-6 fade-up" data-i18n="about.heading">Turning ideas into functional
+            and user-friendly web solutions.</h2>
 
-          <!-- Typewriter paragraph -->
-          <div class="text-base leading-8 mb-6" style="color:var(--color-text-muted); min-height:96px;">
-            <span id="typewriter-text"></span><span id="typewriter-cursor" style="color:var(--color-accent);">|</span>
-          </div>
+          <!-- Intro paragraph (static: calm reading for recruiters) -->
+          <p class="text-base leading-8 mb-6 fade-up" style="color:var(--color-text-muted);"
+            data-i18n="about.typewriter">Software Engineering student at SMK Taruna Bhakti, focused on web development
+            and UI/UX design. Experienced with HTML, CSS, JavaScript, Tailwind CSS, and Laravel through school
+            projects and self-learning, with a vocational subject score of 8.</p>
 
           <p class="text-base leading-relaxed mb-8 fade-up" style="color:var(--color-text-muted);"
             data-i18n="about.extra">
@@ -316,13 +317,10 @@
   </section>
 
   <!-- ============================================================
-     TECH STACK LOGO LOOP
+     TECH STACK LOGO LOOP (the single marquee on this page)
 ============================================================ -->
   <div class="py-12 performance"
     style="background-color:var(--color-bg-secondary); border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border);">
-    <div class="max-w-6xl mx-auto px-5 mb-6">
-      <p class="section-label text-center fade-up" data-i18n="tech.label">Tech Stack</p>
-    </div>
     <div class="logo-slider-wrapper" id="logo-slider-wrapper">
       <div class="logo-slider-inner" id="logo-slider">
         <!-- Rendered by JS from /api/techstack.json -->
@@ -338,8 +336,8 @@
 
       <!-- Header -->
       <div class="text-center mb-10 fade-up">
-        <p class="section-label" data-i18n="portfolio.label">My Work</p>
-        <h2 class="section-heading" data-i18n="portfolio.heading">Portfolio Showcase</h2>
+        <p class="section-label" data-i18n="portfolio.label">Selected work</p>
+        <h2 class="section-heading font-display" data-i18n="portfolio.heading">Portfolio showcase</h2>
       </div>
 
       <!-- Tabs -->
@@ -429,8 +427,7 @@
 
         <!-- Left: Info -->
         <div class="flex-1 fade-up">
-          <p class="section-label" data-i18n="contact.label">Contact</p>
-          <h2 class="section-heading mb-4" data-i18n="contact.heading">Let's Work<br />Together.</h2>
+          <h2 class="section-heading font-display mb-4" data-i18n="contact.heading">Let's work<br />together.</h2>
           <p class="text-base leading-relaxed mb-8" style="color:var(--color-text-muted);" data-i18n="contact.desc">
             Feel free to reach out if you'd like to discuss a project, share ideas, or connect. I'm always open to
             learning opportunities, collaboration, and new experiences in web development.
@@ -480,22 +477,26 @@
           <div class="card p-8 fade-up">
             <form id="contact-form" novalidate>
               <div class="mb-5">
-                <label class="form-label" for="contact-name" data-i18n="form.name">Your Name</label>
-                <input type="text" id="contact-name" class="form-input" placeholder="John Doe"
-                  data-i18n-placeholder="form.name_ph" autocomplete="name" />
+                <label class="form-label" for="contact-name" data-i18n="form.name">Your name</label>
+                <input type="text" id="contact-name" class="form-input" placeholder="Your name"
+                  data-i18n-placeholder="form.name_ph" autocomplete="name" aria-describedby="contact-name-error" />
+                <p class="form-error" id="contact-name-error" role="alert"></p>
               </div>
               <div class="mb-5">
-                <label class="form-label" for="contact-email" data-i18n="form.email">Email Address</label>
-                <input type="email" id="contact-email" class="form-input" placeholder="john@example.com"
-                  data-i18n-placeholder="form.email_ph" autocomplete="email" />
+                <label class="form-label" for="contact-email" data-i18n="form.email">Email address</label>
+                <input type="email" id="contact-email" class="form-input" placeholder="you@example.com"
+                  data-i18n-placeholder="form.email_ph" autocomplete="email" aria-describedby="contact-email-error" />
+                <p class="form-error" id="contact-email-error" role="alert"></p>
               </div>
               <div class="mb-6">
                 <label class="form-label" for="contact-message" data-i18n="form.message">Message</label>
-                <textarea id="contact-message" class="form-input" rows="5" placeholder="Tell me about your project..."
-                  data-i18n-placeholder="form.msg_ph"></textarea>
+                <textarea id="contact-message" class="form-input" rows="5" placeholder="Tell me about your project or role..."
+                  data-i18n-placeholder="form.msg_ph" aria-describedby="contact-message-error"></textarea>
+                <p class="form-error" id="contact-message-error" role="alert"></p>
               </div>
+              <p class="form-note mb-4 hidden" id="form-note" role="status"></p>
               <button type="submit" id="submit-btn" class="btn-primary w-full justify-center">
-                <span id="submit-text" data-i18n="form.submit">Send Message</span>
+                <span id="submit-text" data-i18n="form.submit">Send message</span>
                 <div id="submit-loader" class="hidden flex items-center gap-1">
                   <div class="loading-dot"></div>
                   <div class="loading-dot"></div>
@@ -582,8 +583,8 @@
           <span data-i18n="footer.copy">© 2026 Faletehan. All rights reserved.</span>
         </p>
         <p class="text-xs" style="color:var(--color-text-muted);">
-          <span data-i18n="footer.made">Made with</span> <span style="color:var(--color-accent);"></span> <span
-            data-i18n="footer.using">using HTML + Tailwind + Vanilla JS</span>
+          <span data-i18n="footer.made">Built with</span> <span
+            data-i18n="footer.using">HTML, Tailwind CSS, and vanilla JavaScript</span>
         </p>
       </div>
     </div>
