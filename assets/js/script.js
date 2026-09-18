@@ -39,8 +39,6 @@ const translations = {
     'stat.certs': 'Certificates',
     'stat.tech': 'Technologies',
 
-    'tech.label': 'Tech Stack',
-
     'portfolio.label': 'Selected work',
     'portfolio.heading': 'Portfolio showcase',
     'portfolio.tab_projects': 'Projects',
@@ -119,8 +117,6 @@ const translations = {
     'stat.projects': 'Proyek Selesai',
     'stat.certs': 'Sertifikat',
     'stat.tech': 'Teknologi',
-
-    'tech.label': 'Tech Stack',
 
     'portfolio.label': 'Karya pilihan',
     'portfolio.heading': 'Etalase portofolio',
