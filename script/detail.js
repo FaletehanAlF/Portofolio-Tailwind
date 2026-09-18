@@ -1,41 +1,55 @@
 /**
  * Portfolio – detail.js
- * Project Detail Page | Reads /api/project.json
- * ------------------------------------------------------------------ */
-
+ * Project Detail Page | Reads ../api/project.json
+ * Professional HR-friendly layout. Null-safe, no overlapping UI.
+ */
 'use strict';
 
 (function () {
-  /* ================================================================
-     1. STRINGS (EN / ID)
-     ================================================================ */
   const strings = {
     en: {
       back: 'Back to Portfolio',
       home: 'Home',
-      portfolio: 'Portfolio',
-      tech: 'Technologies Used',
+      projects: 'Projects',
+      eyebrow: 'Project Case Study',
+      overviewIndex: '01 — Overview',
+      overviewTitle: 'About this project',
+      techIndex: '02 — Tech Stack',
+      techTitle: 'Technologies used',
+      techCount: '{n} technologies',
+      techCountOne: '1 technology',
+      techEmpty: 'Tech stack is not listed for this project yet.',
+      accessIndex: '03 — Access',
+      accessTitle: 'Links',
       demo: 'Live Demo',
-      github: 'GitHub',
+      github: 'Source Code',
+      copyLink: 'Copy page link',
+      copied: 'Page link copied!',
+      noDemo: 'Live demo is not available for this project yet.',
+      onlyDemo: 'Live demo is available. Source code is private or not published yet.',
+      onlyGithub: 'Source code is available. Live demo is not published yet.',
+      bothOk: 'Both live demo and source code are available for review.',
+      noneOk: 'This project is still in progress — links will be published soon.',
+      imageCaption: 'Project preview',
+      completed: 'Completed',
+      comingSoon: 'In Progress',
+      prev: 'Previous',
+      next: 'Next',
       other: 'Other Projects',
-      explore: 'Keep Exploring',
+      explore: 'Keep exploring',
       seeAll: 'See All',
       allProjects: 'All Projects',
       hireMe: 'Hire Me',
-      info: 'Project Info',
+      info: 'Project snapshot',
       category: 'Category',
       year: 'Year',
       stack: 'Stack',
-      status: 'Status',
-      copyLink: 'Copy Live Demo link',
-      copyDemo: 'Copy Live Demo link',
-      copiedDemo: 'Live Demo link copied!',
-      noDemo: 'Demo not available yet',
-      completed: '● Completed',
-      completedPlain: 'Completed',
-      comingSoon: '○ Coming Soon',
-      comingSoonPlain: 'Coming Soon',
-      copied: 'Link copied!',
+      ctaTitle: 'Interested in this work?',
+      ctaDesc: 'Available for internships, freelance, and junior roles.',
+      checkTitle: 'For recruiters',
+      check0: 'Open the live demo to review UX and responsiveness.',
+      check1: 'Check source code for structure and readability.',
+      check2: 'See tech stack relevance to your role.',
       nfTitle: 'Project Not Found',
       nfDesc: "The project you are looking for doesn't exist or has been moved.",
       loadFail: 'Failed to load project data. Please try again later.',
@@ -45,29 +59,46 @@
     id: {
       back: 'Kembali ke Portofolio',
       home: 'Beranda',
-      portfolio: 'Portofolio',
-      tech: 'Teknologi yang Digunakan',
+      projects: 'Proyek',
+      eyebrow: 'Studi Kasus Proyek',
+      overviewIndex: '01 — Ringkasan',
+      overviewTitle: 'Tentang proyek ini',
+      techIndex: '02 — Teknologi',
+      techTitle: 'Teknologi yang digunakan',
+      techCount: '{n} teknologi',
+      techCountOne: '1 teknologi',
+      techEmpty: 'Teknologi proyek ini belum dicantumkan.',
+      accessIndex: '03 — Akses',
+      accessTitle: 'Tautan',
       demo: 'Demo Langsung',
-      github: 'GitHub',
+      github: 'Kode Sumber',
+      copyLink: 'Salin tautan halaman',
+      copied: 'Tautan halaman disalin!',
+      noDemo: 'Demo langsung belum tersedia untuk proyek ini.',
+      onlyDemo: 'Demo langsung tersedia. Kode sumber privat atau belum dipublikasikan.',
+      onlyGithub: 'Kode sumber tersedia. Demo langsung belum dipublikasikan.',
+      bothOk: 'Demo langsung dan kode sumber tersedia untuk ditinjau.',
+      noneOk: 'Proyek ini masih dalam pengerjaan — tautan akan dipublikasikan segera.',
+      imageCaption: 'Pratinjau proyek',
+      completed: 'Selesai',
+      comingSoon: 'Dalam Pengerjaan',
+      prev: 'Sebelumnya',
+      next: 'Berikutnya',
       other: 'Proyek Lainnya',
-      explore: 'Jelajahi Lagi',
+      explore: 'Jelajahi lagi',
       seeAll: 'Lihat Semua',
       allProjects: 'Semua Proyek',
       hireMe: 'Rekrut Saya',
-      info: 'Info Proyek',
+      info: 'Ringkasan proyek',
       category: 'Kategori',
       year: 'Tahun',
       stack: 'Teknologi',
-      status: 'Status',
-      copyLink: 'Salin tautan Demo',
-      copyDemo: 'Salin tautan Demo',
-      copiedDemo: 'Tautan Demo disalin!',
-      noDemo: 'Demo belum tersedia',
-      completed: '● Selesai',
-      completedPlain: 'Selesai',
-      comingSoon: '○ Segera Hadir',
-      comingSoonPlain: 'Segera Hadir',
-      copied: 'Tautan disalin!',
+      ctaTitle: 'Tertarik dengan karya ini?',
+      ctaDesc: 'Tersedia untuk magang, freelance, dan peran junior.',
+      checkTitle: 'Untuk perekrut',
+      check0: 'Buka demo langsung untuk menilai UX dan responsivitas.',
+      check1: 'Periksa kode sumber untuk struktur dan keterbacaan.',
+      check2: 'Lihat relevansi tech stack dengan peran Anda.',
       nfTitle: 'Proyek Tidak Ditemukan',
       nfDesc: 'Proyek yang Anda cari tidak ada atau telah dipindahkan.',
       loadFail: 'Gagal memuat data proyek. Silakan coba lagi nanti.',
@@ -77,45 +108,73 @@
   };
 
   const State = {
-    lang: localStorage.getItem('lang') || 'en',
-    theme: localStorage.getItem('theme') || 'light',
+    lang: 'en',
+    theme: 'light',
     projects: [],
     active: null,
+    activeIndex: -1,
   };
 
-  const t = key => strings[State.lang][key] || strings.en[key] || key;
-  const pick = obj => (obj ? obj[State.lang] || obj.en || '' : '');
+  try {
+    State.lang = localStorage.getItem('lang') || 'en';
+    if (State.lang !== 'en' && State.lang !== 'id') State.lang = 'en';
+  } catch (_) { State.lang = 'en'; }
+  try {
+    State.theme = localStorage.getItem('theme') || 'light';
+    if (State.theme !== 'light' && State.theme !== 'dark') State.theme = 'light';
+  } catch (_) { State.theme = 'light'; }
 
-  const $ = id => document.getElementById(id);
+  const t = (key) => (strings[State.lang] && strings[State.lang][key]) || strings.en[key] || key;
+  const pick = (obj) => (obj ? obj[State.lang] || obj.en || '' : '');
+  const $ = (id) => document.getElementById(id);
 
   function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, c => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;',
+    return String(value == null ? '' : value).replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
     }[c]));
   }
 
-  /* ================================================================
-     2. THEME SWITCHER — matahari (sun) utk terang, bulan (moon) utk gelap
-     ================================================================ */
+  function normSlug(value) {
+    return String(value == null ? '' : value)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/_+/g, '-')
+      .replace(/[^a-z0-9-]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function fixAsset(src) {
+    const s = String(src || '').trim();
+    if (!s) return '';
+    // Absolute site-root paths break on file:// and sub-path hosting.
+    // detail.html lives in /view/, so map "/assets/..." -> "../assets/...".
+    if (s.charAt(0) === '/' && s.indexOf('//') !== 0) return '..' + s;
+    return s;
+  }
+
+  function hasLink(url) {
+    const s = String(url || '').trim();
+    return s !== '' && s !== '#';
+  }
+
+  /* ---------- theme ---------- */
   function applyTheme(theme) {
+    if (theme !== 'light' && theme !== 'dark') theme = 'light';
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
-    localStorage.setItem('theme', theme);
-
+    try { localStorage.setItem('theme', theme); } catch (_) {}
     const isDark = theme === 'dark';
-    const sun = $('theme-icon-light'); // matahari
-    const moon = $('theme-icon-dark'); // bulan
+    const sun = $('theme-icon-light');
+    const moon = $('theme-icon-dark');
     if (sun) {
       sun.classList.toggle('hidden', isDark);
-      sun.setAttribute('aria-hidden', isDark ? 'true' : 'false');
+      sun.classList.toggle('block', !isDark);
     }
     if (moon) {
       moon.classList.toggle('hidden', !isDark);
-      moon.setAttribute('aria-hidden', !isDark ? 'true' : 'false');
+      moon.classList.toggle('block', isDark);
     }
     const btn = $('theme-toggle');
     if (btn) {
@@ -125,300 +184,435 @@
     }
   }
 
-  /* ================================================================
-     3. RENDER
-     ================================================================ */
-  function renderTech(project) {
-    const wrap = $('d-tech');
-    const list = project.tech || [];
-    if (!list.length) {
-      wrap.innerHTML = `<span class="text-xs" style="color:var(--color-text-muted);">—</span>`;
-      return;
-    }
-    wrap.innerHTML = list.map(item => `
-      <span class="inline-flex items-center gap-2 text-xs font-semibold pl-1.5 pr-3 py-1.5 rounded-full"
-        style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border); color:var(--color-text);">
-        <img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" title="${escapeHtml(item.name)}"
-          class="w-6 h-6 rounded-full object-contain p-0.5" style="background:var(--color-card); border:1px solid var(--color-border);" loading="lazy" />
-        ${escapeHtml(item.name)}
-      </span>`).join('');
+  function refreshIcons() {
+    try {
+      if (typeof feather !== 'undefined' && feather && typeof feather.replace === 'function') {
+        feather.replace({ 'stroke-width': 1.75 });
+      }
+    } catch (_) {}
   }
 
-  function shuffleArray(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+  /* ---------- render helpers ---------- */
+  function renderParagraphs(text) {
+    const wrap = $('d-desc');
+    if (!wrap) return;
+    const clean = String(text || '').trim();
+    if (!clean) {
+      wrap.innerHTML = '';
+      return;
     }
-    return a;
+    // Split into sentences, then group into readable paragraphs (max ~2 sentences each).
+    const sentences = clean.replace(/\s+/g, ' ').split(/(?<=[.!?])\s+/).filter(Boolean);
+    const groups = [];
+    for (let i = 0; i < sentences.length; i += 2) {
+      groups.push(sentences.slice(i, i + 2).join(' '));
+    }
+    const paras = groups.length ? groups : [clean];
+    wrap.innerHTML = paras.map((p) => `<p>${escapeHtml(p)}</p>`).join('');
+  }
+
+  function renderTech(project) {
+    const wrap = $('d-tech');
+    const emptyEl = $('d-tech-empty');
+    const countEl = $('d-tech-count');
+    const list = Array.isArray(project.tech) ? project.tech : [];
+    if (countEl) {
+      countEl.textContent = list.length === 1 ? t('techCountOne')
+        : list.length > 1 ? t('techCount').replace('{n}', String(list.length)) : '';
+    }
+    if (!wrap) return;
+    if (!list.length) {
+      wrap.innerHTML = '';
+      if (emptyEl) {
+        emptyEl.textContent = t('techEmpty');
+        emptyEl.classList.remove('hidden');
+      }
+      return;
+    }
+    if (emptyEl) emptyEl.classList.add('hidden');
+    wrap.innerHTML = list.map((item) => {
+      const name = escapeHtml(item && item.name ? item.name : 'Tech');
+      const icon = escapeHtml(item && item.icon ? item.icon : '');
+      const img = icon
+        ? `<img src="${icon}" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'" />`
+        : `<span class="detail-tech-fallback" aria-hidden="true">${escapeHtml(name.charAt(0) || 'T')}</span>`;
+      return `<div class="detail-tech">${img}<span>${name}</span></div>`;
+    }).join('');
   }
 
   function renderRelated() {
-    const candidates = State.projects.filter(p => p.slug !== State.active.slug);
-    const others = shuffleArray(candidates).slice(0, 3);
     const section = $('d-related');
     const grid = $('d-related-grid');
-
-    if (!others.length) {
+    if (!section || !grid) return;
+    if (!State.projects.length) {
       section.classList.add('hidden');
       return;
     }
-
-grid.innerHTML = others.map(p => {
-        const techIconsHtml = (p.tech || []).slice(0, 3).map(t =>
-          `<img src="${escapeHtml(t.icon)}" alt="${escapeHtml(t.name)}" title="${escapeHtml(t.name)}" class="w-4 h-4 rounded-full object-contain" loading="lazy" />`
-        ).join('');
-        return `
-        <a href="?project=${encodeURIComponent(p.slug)}"
-          class="card overflow-hidden group flex flex-col performance">
-          <div class="h-36 sm:h-40 overflow-hidden" style="background-color:var(--color-bg-secondary);">
-            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(pick(p.name))}"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+    // Deterministic: the next 3 projects after the active one (wrap around).
+    const total = State.projects.length;
+    const out = [];
+    for (let k = 1; k < total && out.length < 3; k++) {
+      const p = State.projects[(State.activeIndex + k) % total];
+      if (p && p !== State.active) out.push(p);
+    }
+    if (!out.length) {
+      section.classList.add('hidden');
+      return;
+    }
+    grid.innerHTML = out.map((p) => {
+      const name = escapeHtml(pick(p.name));
+      const cat = escapeHtml(pick(p.category));
+      const img = fixAsset(p.image);
+      const icons = (Array.isArray(p.tech) ? p.tech : []).slice(0, 4).map((x) =>
+        `<img src="${escapeHtml(x.icon)}" alt="${escapeHtml(x.name)}" title="${escapeHtml(x.name)}" loading="lazy" onerror="this.style.display='none'" />`
+      ).join('');
+      return `
+        <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="card overflow-hidden group flex flex-col">
+          <div class="h-40 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
+            <img src="${escapeHtml(img)}" alt="${name}" loading="lazy"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onerror="this.style.objectFit='contain';this.style.padding='1rem';this.onerror=null;" />
           </div>
-          <div class="p-4 flex flex-col gap-2 flex-1">
-            <div class="min-w-0">
-              <h3 class="text-sm font-bold mb-0.5 truncate" style="color:var(--color-text);">${escapeHtml(pick(p.name))}</h3>
-              <span class="text-xs font-semibold">${escapeHtml(pick(p.category))}</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              ${techIconsHtml}
-              ${(p.tech || []).length > 3 ? `<span class="text-xs font-semibold" style="color:var(--color-text-muted);">+${p.tech.length - 3}</span>` : ''}
-            </div>
-            <span class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-1 mt-auto"
-              style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
-              <i data-feather="arrow-right" class="w-4 h-4" style="color:var(--color-accent);"></i>
-            </span>
+          <div class="p-4 flex flex-col gap-1.5 flex-1">
+            <span class="text-[11px] font-semibold uppercase tracking-wider" style="color:var(--color-accent);">${cat}</span>
+            <h3 class="text-sm font-bold leading-snug" style="color:var(--color-text);">${name}</h3>
+            ${icons ? `<div class="detail-mini-icons">${icons}</div>` : ''}
           </div>
         </a>`;
-      }).join('');
-
+    }).join('');
     section.classList.remove('hidden');
   }
 
-  function updateShareButton() {
-    const p = State.active;
-    const share = $('d-share');
-    if (!share || !p) return;
-    const hasDemo = p.demo && p.demo !== '#';
-    if (hasDemo) {
-      share.disabled = false;
-      share.style.opacity = '';
-      share.style.cursor = '';
-      share.setAttribute('aria-label', t('copyDemo'));
-      share.setAttribute('title', t('copyDemo'));
-    } else {
-      share.disabled = true;
-      share.style.opacity = '0.45';
-      share.style.cursor = 'not-allowed';
-      share.setAttribute('aria-label', t('noDemo'));
-      share.setAttribute('title', t('noDemo'));
+  function renderPager() {
+    const total = State.projects.length;
+    if (total < 2) {
+      const pager = $('d-pager');
+      if (pager) pager.classList.add('hidden');
+      return;
+    }
+    const prev = State.projects[(State.activeIndex - 1 + total) % total];
+    const next = State.projects[(State.activeIndex + 1) % total];
+    const prevA = $('d-prev');
+    const nextA = $('d-next');
+    if (prev && prevA) {
+      prevA.href = `detail.html?project=${encodeURIComponent(prev.slug)}`;
+      const n = $('d-prev-name');
+      if (n) n.textContent = pick(prev.name);
+    }
+    if (next && nextA) {
+      nextA.href = `detail.html?project=${encodeURIComponent(next.slug)}`;
+      const n = $('d-next-name');
+      if (n) n.textContent = pick(next.name);
     }
   }
 
   function renderStaticLabels() {
-    document.documentElement.lang = State.lang;
+    document.documentElement.lang = State.lang === 'id' ? 'id' : 'en';
     const langBtn = $('lang-toggle');
     if (langBtn) langBtn.textContent = State.lang === 'en' ? 'ID' : 'EN';
     const set = (id, val) => { const el = $(id); if (el) el.textContent = val; };
     set('back-label', t('back'));
     set('d-crumb-home', t('home'));
-    set('d-crumb-portfolio', t('portfolio'));
-    set('d-nf-back', t('back'));
-    set('d-nf-all', t('allProjects'));
-    set('d-tech-label', t('tech'));
+    set('d-crumb-projects', t('projects'));
+    set('d-eyebrow', t('eyebrow'));
+    set('d-overview-index', t('overviewIndex'));
+    set('d-overview-title', t('overviewTitle'));
+    set('d-tech-index', t('techIndex'));
+    set('d-tech-title', t('techTitle'));
+    set('d-access-index', t('accessIndex'));
+    set('d-access-title', t('accessTitle'));
+    set('d-demo-label', t('demo'));
+    set('d-github-label', t('github'));
     set('d-other-label', t('other'));
     set('d-explore-label', t('explore'));
     set('d-seeall-label', t('seeAll'));
-    set('d-demo-label', t('demo'));
-    set('d-github-label', t('github'));
-    set('d-nf-title', t('nfTitle'));
-    set('d-nf-desc', t('nfDesc'));
     set('d-info-title', t('info'));
     set('d-lbl-category', t('category'));
     set('d-lbl-year', t('year'));
     set('d-lbl-stack', t('stack'));
-    set('d-lbl-status', t('status'));
+    set('d-lbl-status', t('status') === 'status' ? (State.lang === 'id' ? 'Status' : 'Status') : t('status'));
+    set('d-cta-title', t('ctaTitle'));
+    set('d-cta-desc', t('ctaDesc'));
     set('d-all-label', t('allProjects'));
     set('d-hire-label', t('hireMe'));
-    updateShareButton();
-    const themeBtn = $('theme-toggle');
-    if (themeBtn) {
-      const label = State.theme === 'dark' ? t('toLight') : t('toDark');
-      themeBtn.setAttribute('aria-label', label);
-      themeBtn.setAttribute('title', label);
+    set('d-check-title', t('checkTitle'));
+    set('d-nf-title', t('nfTitle'));
+    set('d-nf-desc', t('nfDesc'));
+    set('d-nf-back', t('back'));
+    set('d-nf-all', t('allProjects'));
+    set('d-prev-dir', t('prev'));
+    set('d-next-dir', t('next'));
+    set('d-image-caption', t('imageCaption'));
+    document.querySelectorAll('[data-check]').forEach((el) => {
+      const k = 'check' + el.getAttribute('data-check');
+      if (strings[State.lang][k]) el.textContent = t(k);
+    });
+    const share = $('d-share');
+    if (share) {
+      share.setAttribute('aria-label', t('copyLink'));
+      share.setAttribute('title', t('copyLink'));
     }
   }
 
   function render() {
     const p = State.active;
     if (!p) return;
+    renderStaticLabels();
 
     const name = pick(p.name);
     const category = pick(p.category);
-    const isSoon = !p.demo || p.demo === '#';
+    const shortDesc = pick(p.short_desc);
+    const longDesc = pick(p.long_desc) || shortDesc;
+    const demoOk = hasLink(p.demo);
+    const githubOk = hasLink(p.github);
+    const isDone = demoOk;
+
     document.title = `${name} | Faletehan`;
-    $('d-image').src = p.image || '';
-    $('d-image').alt = name;
-    $('d-category').textContent = category;
-    $('d-year').textContent = p.year || '';
-    $('d-title').textContent = name;
-    $('d-desc').textContent = pick(p.long_desc) || pick(p.short_desc);
+
     const crumb = $('d-breadcrumb-name');
     if (crumb) crumb.textContent = name;
-    const statusEl = $('d-status');
-    if (statusEl) {
-      statusEl.textContent = isSoon ? t('comingSoon') : t('completed');
-      statusEl.style.background = isSoon ? 'rgba(100,116,139,.92)' : 'rgba(37,99,235,.92)';
+    const title = $('d-title');
+    if (title) title.textContent = name;
+    const sub = $('d-subtitle');
+    if (sub) {
+      sub.textContent = shortDesc;
+      sub.style.display = shortDesc ? '' : 'none';
     }
+
+    const cat = $('d-category');
+    if (cat) cat.textContent = category || '—';
+    const year = $('d-year');
+    if (year) year.textContent = p.year || '—';
+
+    const dot = $('d-status-dot');
+    if (dot) {
+      dot.classList.toggle('is-done', isDone);
+      dot.classList.toggle('is-progress', !isDone);
+    }
+    const stx = $('d-status-text');
+    if (stx) stx.textContent = isDone ? t('completed') : t('comingSoon');
+
+    const img = $('d-image');
+    if (img) {
+      img.src = fixAsset(p.image);
+      img.alt = name;
+      img.onerror = function () {
+        this.onerror = null;
+        this.style.objectFit = 'contain';
+        this.style.padding = '2rem';
+      };
+    }
+
+    renderParagraphs(longDesc);
+    renderTech(p);
+
+    // Info sidebar
     const setInfo = (id, val) => { const el = $(id); if (el) el.textContent = val; };
     setInfo('d-info-category', category || '—');
     setInfo('d-info-year', p.year || '—');
-    setInfo('d-info-stack', (p.tech && p.tech.length ? p.tech.map(t => t.name).join(', ') : '—'));
-    setInfo('d-info-status', isSoon ? t('comingSoonPlain') : t('completedPlain'));
+    const stackNames = Array.isArray(p.tech) && p.tech.length
+      ? p.tech.map((x) => x.name).filter(Boolean).join(', ')
+      : '—';
+    setInfo('d-info-stack', stackNames);
     const infoStatus = $('d-info-status');
-    if (infoStatus) infoStatus.style.color = isSoon ? 'var(--color-text-muted)' : '#16a34a';
-    renderTech(p);
+    if (infoStatus) {
+      infoStatus.textContent = isDone ? t('completed') : t('comingSoon');
+      infoStatus.style.color = isDone ? '#16a34a' : 'var(--color-text-muted)';
+    }
 
-    // Links – hide when not available ("#")
-    const hasDemo = p.demo && p.demo !== '#';
-    const hasGithub = p.github && p.github !== '#';
-    $('d-demo').href = hasDemo ? p.demo : '#';
-    $('d-demo').classList.toggle('hidden', !hasDemo);
-    $('d-github').href = hasGithub ? p.github : '#';
-    $('d-github').classList.toggle('hidden', !hasGithub);
+    // Links
+    const demoA = $('d-demo');
+    if (demoA) {
+      if (demoOk) {
+        demoA.href = p.demo;
+        demoA.target = '_blank';
+        demoA.rel = 'noopener';
+        demoA.removeAttribute('aria-disabled');
+        demoA.classList.remove('is-disabled');
+      } else {
+        demoA.href = '#';
+        demoA.removeAttribute('target');
+        demoA.setAttribute('aria-disabled', 'true');
+        demoA.classList.add('is-disabled');
+      }
+    }
+    const ghA = $('d-github');
+    if (ghA) {
+      if (githubOk) {
+        ghA.href = p.github;
+        ghA.target = '_blank';
+        ghA.rel = 'noopener';
+        ghA.removeAttribute('aria-disabled');
+        ghA.classList.remove('is-disabled');
+      } else {
+        ghA.href = '#';
+        ghA.removeAttribute('target');
+        ghA.setAttribute('aria-disabled', 'true');
+        ghA.classList.add('is-disabled');
+      }
+    }
+    const note = $('d-links-note');
+    if (note) {
+      if (demoOk && githubOk) note.textContent = t('bothOk');
+      else if (demoOk) note.textContent = t('onlyDemo');
+      else if (githubOk) note.textContent = t('onlyGithub');
+      else note.textContent = t('noneOk');
+    }
 
-    renderStaticLabels();
-    updateShareButton();
-    // re-apply status after labels (language dependent)
-    if (statusEl) statusEl.textContent = isSoon ? t('comingSoon') : t('completed');
-    setInfo('d-info-status', isSoon ? t('comingSoonPlain') : t('completedPlain'));
+    renderPager();
     renderRelated();
-
-    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+    refreshIcons();
   }
 
   function showNotFound(message) {
-    $('d-loading').classList.add('hidden');
-    $('d-content').classList.add('hidden');
-    $('d-related').classList.add('hidden');
-    if (message) $('d-nf-desc').textContent = message;
-    $('d-notfound').classList.remove('hidden');
-    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+    const loading = $('d-loading');
+    const content = $('d-content');
+    const related = $('d-related');
+    if (loading) loading.classList.add('hidden');
+    if (content) content.classList.add('hidden');
+    if (related) related.classList.add('hidden');
+    if (message) {
+      const d = $('d-nf-desc');
+      if (d) d.textContent = message;
+    }
+    const nf = $('d-notfound');
+    if (nf) nf.classList.remove('hidden');
+    refreshIcons();
   }
 
-  /* ================================================================
-     4. INIT
-     ================================================================ */
+  /* ---------- toast + copy ---------- */
+  function ensureToast() {
+    let toast = document.getElementById('copy-toast');
+    if (toast) return toast;
+    toast = document.createElement('div');
+    toast.id = 'copy-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+    return toast;
+  }
+
+  function showToast(msg) {
+    const toast = ensureToast();
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  async function copyText(text) {
+    const s = String(text || '');
+    if (!s) return false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(s);
+        return true;
+      }
+    } catch (_) {}
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = s;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return !!ok;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function findProject(projects, rawSlug) {
+    if (!Array.isArray(projects) || !projects.length) return { project: null, index: -1 };
+    const q = String(rawSlug == null ? '' : rawSlug);
+    if (!q.trim()) return { project: null, index: -1 };
+    let idx = projects.findIndex((p) => p && p.slug === q);
+    if (idx >= 0) return { project: projects[idx], index: idx };
+    const nq = normSlug(q);
+    idx = projects.findIndex((p) => p && normSlug(p.slug) === nq);
+    if (idx >= 0) return { project: projects[idx], index: idx };
+    return { project: null, index: -1 };
+  }
+
+  /* ---------- init ---------- */
   async function init() {
     applyTheme(State.theme);
     renderStaticLabels();
 
-    $('theme-icon-light').classList.toggle('hidden', State.theme === 'dark');
-    $('theme-icon-dark').classList.toggle('hidden', State.theme !== 'dark');
+    const themeBtn = $('theme-toggle');
+    if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(State.theme === 'light' ? 'dark' : 'light'));
 
-    $('theme-toggle').addEventListener('click', () => applyTheme(State.theme === 'light' ? 'dark' : 'light'));
-    $('lang-toggle').addEventListener('click', () => {
+    const langBtn = $('lang-toggle');
+    if (langBtn) langBtn.addEventListener('click', () => {
       State.lang = State.lang === 'en' ? 'id' : 'en';
-      localStorage.setItem('lang', State.lang);
+      try { localStorage.setItem('lang', State.lang); } catch (_) {}
       render();
     });
 
-    function ensureToast() {
-      let toast = document.getElementById('copy-toast');
-      if (toast) return toast;
-      toast = document.createElement('div');
-      toast.id = 'copy-toast';
-      toast.setAttribute('role', 'status');
-      toast.setAttribute('aria-live', 'polite');
-      toast.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(12px);background:var(--color-text);color:var(--color-bg);font-size:0.82rem;font-weight:600;padding:0.6rem 1rem;border-radius:9999px;box-shadow:0 10px 28px rgba(0,0,0,0.18);opacity:0;pointer-events:none;transition:opacity 0.22s ease, transform 0.22s ease;z-index:99999;white-space:nowrap;';
-      document.body.appendChild(toast);
-      return toast;
-    }
-    function showToast(msg, isError) {
-      const toast = ensureToast();
-      toast.textContent = msg;
-      toast.style.background = isError ? '#dc2626' : 'var(--color-text)';
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateX(-50%) translateY(0)';
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(-50%) translateY(12px)';
-      }, 1800);
-    }
-    async function copyText(text) {
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(text);
-          return true;
-        }
-      } catch {}
-      // fallback
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand('copy');
-        document.body.removeChild(ta);
-        return ok;
-      } catch { return false; }
-    }
+    // Guarded demo/github clicks when link is unavailable.
+    const demoA = $('d-demo');
+    if (demoA) demoA.addEventListener('click', (e) => {
+      if (demoA.classList.contains('is-disabled')) {
+        e.preventDefault();
+        showToast(t('noDemo'));
+      }
+    });
+    const ghA = $('d-github');
+    if (ghA) ghA.addEventListener('click', (e) => {
+      if (ghA.classList.contains('is-disabled')) e.preventDefault();
+    });
 
     const shareBtn = $('d-share');
     if (shareBtn) shareBtn.addEventListener('click', async () => {
-      const p = State.active;
-      const hasDemo = p && p.demo && p.demo !== '#';
-      if (!hasDemo) {
-        showToast(t('noDemo'), true);
-        return;
-      }
-      const ok = await copyText(p.demo);
-      if (ok) {
-        const prevBorder = shareBtn.style.borderColor;
-        shareBtn.style.borderColor = '#2563eb';
-        showToast(t('copiedDemo'));
-        shareBtn.setAttribute('title', t('copiedDemo'));
-        setTimeout(() => {
-          shareBtn.style.borderColor = prevBorder || '';
-          shareBtn.setAttribute('title', t('copyDemo'));
-          updateShareButton();
-        }, 1500);
-      } else {
-        showToast(t('loadFail'), true);
-      }
+      const ok = await copyText(window.location.href);
+      if (ok) showToast(t('copied'));
+      else showToast(t('loadFail'));
     });
 
     try {
-      const res = await fetch('../api/project.json');
-      if (!res.ok) throw new Error(res.status);
+      const res = await fetch('../api/project.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       const json = await res.json();
-      State.projects = json.projects || [];
+      State.projects = Array.isArray(json.projects) ? json.projects : [];
     } catch (err) {
-      console.error('[Detail] Failed to load API:', err);
+      renderStaticLabels();
       showNotFound(t('loadFail'));
       return;
     }
 
-    const slug = new URLSearchParams(location.search).get('project');
-    State.active = State.projects.find(p => p.slug === slug) || null;
+    let slug = '';
+    try {
+      slug = new URLSearchParams(window.location.search).get('project') || '';
+    } catch (_) { slug = ''; }
 
-    $('d-loading').classList.add('hidden');
-    $('d-notfound').classList.add('hidden');
-    $('d-content').classList.add('hidden');
-    $('d-related').classList.add('hidden');
+    const found = findProject(State.projects, slug);
+    State.active = found.project;
+    State.activeIndex = found.index;
+
+    const loading = $('d-loading');
+    const nf = $('d-notfound');
+    const content = $('d-content');
+    const related = $('d-related');
+    if (loading) loading.classList.add('hidden');
+    if (nf) nf.classList.add('hidden');
+    if (content) content.classList.add('hidden');
+    if (related) related.classList.add('hidden');
 
     if (!State.active) {
+      renderStaticLabels();
       showNotFound();
       return;
     }
 
     render();
-    $('d-content').classList.remove('hidden');
-    if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+    if (content) content.classList.remove('hidden');
+    refreshIcons();
   }
 
   if (document.readyState === 'loading') {
