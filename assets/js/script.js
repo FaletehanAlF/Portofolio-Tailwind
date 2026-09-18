@@ -26,7 +26,7 @@ const translations = {
 
     'about.label': 'About',
     'about.heading': 'Turning ideas into functional and user-friendly web solutions.',
-    'about.typewriter': "Software Engineering student at SMK Taruna Bhakti, focused on web development and UI/UX design. Experienced with HTML, CSS, JavaScript, Tailwind CSS, and Laravel through school projects and self-learning, with a vocational subject score of 8.",
+    'about.intro': "Software Engineering student at SMK Taruna Bhakti, focused on web development and UI/UX design. Experienced with HTML, CSS, JavaScript, Tailwind CSS, and Laravel through school projects and self-learning, with a vocational subject score of 8.",
     'about.extra': "I enjoy learning new technologies, creating personal projects, and exploring UI/UX design. Every project gives me an opportunity to improve my skills and brings me closer to my goal of becoming a Full Stack Web Developer.",
     'about.info_location': 'Location',
     'about.info_exp': 'Experience',
@@ -107,7 +107,7 @@ const translations = {
 
     'about.label': 'Tentang',
     'about.heading': 'Mengubah ide menjadi solusi web yang fungsional dan mudah digunakan.',
-    'about.typewriter': 'Siswa Rekayasa Perangkat Lunak di SMK Taruna Bhakti yang fokus pada pengembangan web dan desain UI/UX. Berpengalaman dengan HTML, CSS, JavaScript, Tailwind CSS, dan Laravel melalui proyek sekolah dan belajar mandiri, dengan nilai kejuruan 8.',
+    'about.intro': 'Siswa Rekayasa Perangkat Lunak di SMK Taruna Bhakti yang fokus pada pengembangan web dan desain UI/UX. Berpengalaman dengan HTML, CSS, JavaScript, Tailwind CSS, dan Laravel melalui proyek sekolah dan belajar mandiri, dengan nilai kejuruan 8.',
     'about.extra': 'Saya senang mempelajari teknologi baru, membuat proyek pribadi, dan mengeksplorasi desain UI/UX. Setiap proyek memberikan saya kesempatan untuk meningkatkan kemampuan dan membawa saya lebih dekat pada tujuan saya untuk menjadi seorang Full Stack Web Developer.',
     'about.info_location': 'Lokasi',
     'about.info_exp': 'Pengalaman',
@@ -178,8 +178,7 @@ const translations = {
 const State = {
   lang: localStorage.getItem('lang') || 'en',
   theme: localStorage.getItem('theme') || 'light',
-  typewriterActive: false,
-  typewriterTimer: null,
+  
   countersTriggered: false,
 };
 
