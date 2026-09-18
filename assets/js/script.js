@@ -1,5 +1,5 @@
 /**
- * Portfolio – script.js
+ * Portfolio: script.js
  * Modular Vanilla JS | No external dependencies beyond Feather Icons
  * ------------------------------------------------------------------ */
 
@@ -315,7 +315,6 @@ const LangSwitcher = (() => {
     });
 
     // About intro is static; data-i18n swaps the text.
-    // (About intro is static text now; data-i18n handles the swap.)
 
     // Update lang toggle label
     const langBtn = document.getElementById('lang-toggle');
