@@ -91,6 +91,7 @@ const translations = {
   },
 
   id: {
+    'a11y.skip': 'Lewati ke konten',
     'nav.home': 'Beranda',
     'nav.about': 'Tentang Saya',
     'nav.portfolio': 'Portofolio',
@@ -98,15 +99,15 @@ const translations = {
     'nav.experience': 'Pengalaman',
     'nav.contact': 'Kontak',
 
-    'hero.greeting': 'Halo, Nama Saya ',
+    'hero.greeting': 'Halo, nama saya',
     'hero.role': 'Fullstack Web Developer & UI/UX Designer',
-    'hero.desc': 'Saya adalah siswa Rekayasa Perangkat Lunak (RPL) yang memiliki minat besar pada pengembangan web dan desain UI/UX. Saya senang membangun website modern, responsif, dan mudah digunakan, serta terus belajar teknologi baru melalui berbagai proyek dan latihan.',
-    'hero.btn_projects': 'Lihat Proyek',
+    'hero.desc': 'Siswa RPL yang membangun website responsif, modern, dan mudah digunakan.',
+    'hero.btn_projects': 'Lihat proyek',
     'hero.btn_cv': 'Unduh CV',
 
-    'about.label': 'Tentang Saya',
+    'about.label': 'Tentang',
     'about.heading': 'Mengubah ide menjadi solusi web yang fungsional dan mudah digunakan.',
-    'about.typewriter': 'Saya adalah siswa Rekayasa Perangkat Lunak (RPL) di SMK Taruna Bhakti yang memiliki minat besar pada pengembangan web dan desain UI/UX. Saya senang membangun website yang responsif, modern, dan mudah digunakan sambil terus mempelajari teknologi baru. Tujuan saya adalah menjadi seorang Full Stack Web Developer. Melalui proyek sekolah dan pembelajaran mandiri, saya telah mempelajari HTML, CSS, JavaScript, Tailwind CSS, dan Laravel, serta memperoleh nilai kejuruan 8 sebagai bukti komitmen saya dalam bidang pengembangan perangkat lunak.',
+    'about.typewriter': 'Siswa Rekayasa Perangkat Lunak di SMK Taruna Bhakti yang fokus pada pengembangan web dan desain UI/UX. Berpengalaman dengan HTML, CSS, JavaScript, Tailwind CSS, dan Laravel melalui proyek sekolah dan belajar mandiri, dengan nilai kejuruan 8.',
     'about.extra': 'Saya senang mempelajari teknologi baru, membuat proyek pribadi, dan mengeksplorasi desain UI/UX. Setiap proyek memberikan saya kesempatan untuk meningkatkan kemampuan dan membawa saya lebih dekat pada tujuan saya untuk menjadi seorang Full Stack Web Developer.',
     'about.info_location': 'Lokasi',
     'about.info_exp': 'Pengalaman',
@@ -121,8 +122,8 @@ const translations = {
 
     'tech.label': 'Tech Stack',
 
-    'portfolio.label': 'Karya Saya',
-    'portfolio.heading': 'Etalase Portofolio',
+    'portfolio.label': 'Karya pilihan',
+    'portfolio.heading': 'Etalase portofolio',
     'portfolio.tab_projects': 'Proyek',
     'portfolio.tab_certs': 'Sertifikat',
     'portfolio.tab_tech': 'Tech Stack',
@@ -140,11 +141,10 @@ const translations = {
     'theme.sun': 'Matahari (mode terang)',
     'theme.moon': 'Bulan (mode gelap)',
 
-    'btn.detail': 'Detail Proyek',
+    'btn.detail': 'Detail',
     'btn.github': 'GitHub',
 
-    'contact.label': 'Kontak',
-    'contact.heading': 'Ayo Bekerja\nSama.',
+    'contact.heading': 'Mari bekerja\nsama.',
     'contact.desc': 'Jangan ragu untuk menghubungi saya jika ingin berdiskusi tentang proyek, berbagi ide, atau sekadar terhubung. Saya selalu terbuka untuk kesempatan belajar, kolaborasi, dan pengalaman baru di bidang pengembangan web.',
 
     'form.name': 'Nama Anda',
