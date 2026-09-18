@@ -91,6 +91,7 @@
       allProjects: 'Semua Proyek',
       hireMe: 'Rekrut Saya',
       info: 'Ringkasan proyek',
+      status: 'Status',
       category: 'Kategori',
       year: 'Tahun',
       stack: 'Teknologi',
@@ -331,7 +332,7 @@
     set('d-lbl-category', t('category'));
     set('d-lbl-year', t('year'));
     set('d-lbl-stack', t('stack'));
-    set('d-lbl-status', t('status') === 'status' ? (State.lang === 'id' ? 'Status' : 'Status') : t('status'));
+    set('d-lbl-status', t('status'));
     set('d-cta-title', t('ctaTitle'));
     set('d-cta-desc', t('ctaDesc'));
     set('d-all-label', t('allProjects'));
