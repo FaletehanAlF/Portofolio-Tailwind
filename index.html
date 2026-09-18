@@ -387,61 +387,49 @@
   <!-- ============================================================
      CONTACT SECTION
 ============================================================ -->
-  <section id="contact" class="py-20 sm:py-24 performance" style="background-color:var(--color-bg-secondary);">
+  <section id="contact" class="py-20 sm:py-28 performance" style="background-color:var(--color-bg-secondary);">
     <div class="max-w-6xl mx-auto px-5">
 
-      <div class="flex flex-col lg:flex-row gap-16 items-start">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-        <!-- Left: Info -->
-        <div class="flex-1 fade-up">
-          <h2 class="section-heading font-display mb-4" data-i18n="contact.heading">Let's work<br />together.</h2>
-          <p class="text-base leading-relaxed mb-8" style="color:var(--color-text-muted);" data-i18n="contact.desc">
+        <!-- Left: closing statement + direct channels (6 cols) -->
+        <div class="lg:col-span-6 fade-up">
+          <h2 class="section-heading font-display mb-4" style="font-size:clamp(2.2rem, 1.6rem + 3vw, 3.2rem);"
+            data-i18n="contact.heading">Let's work<br />together.</h2>
+          <p class="text-base leading-relaxed mb-8" style="color:var(--color-text-muted); max-width:44ch;"
+            data-i18n="contact.desc">
             Feel free to reach out if you'd like to discuss a project, share ideas, or connect. I'm always open to
             learning opportunities, collaboration, and new experiences in web development.
           </p>
 
-          <!-- Contact Items -->
-          <div class="flex flex-col gap-4">
-            <a href="mailto:faletehanalfarabi09@gmail.com" class="flex items-center gap-4 group">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style="background-color:var(--color-bg); border:1px solid var(--color-border);">
-                <i data-feather="mail" class="w-4 h-4" style="color:var(--color-accent);"></i>
-              </div>
-              <div>
-                <div class="text-xs font-semibold mb-0.5" style="color:var(--color-text-muted);">Email</div>
-                <div class="text-sm font-semibold group-hover:underline" style="color:var(--color-text);">
-                  faletehanalfarabi09@gmail.com</div>
-              </div>
+          <a href="mailto:faletehanalfarabi09@gmail.com" class="contact-mail mb-8">
+            faletehanalfarabi09@gmail.com</a>
+
+          <!-- Secondary channels: divider rows, not cards -->
+          <div class="chan-list mt-8">
+            <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener"
+              class="chan-row group">
+              <span>LinkedIn — Faletehan Al Farabi</span>
+              <i data-feather="arrow-up-right" class="w-4 h-4 flex-shrink-0"
+                style="color:var(--color-accent);"></i>
             </a>
-            <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener" class="flex items-center gap-4 group">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style="background-color:var(--color-bg); border:1px solid var(--color-border);">
-                <i data-feather="linkedin" class="w-4 h-4" style="color:var(--color-accent);"></i>
-              </div>
-              <div>
-                <div class="text-xs font-semibold mb-0.5" style="color:var(--color-text-muted);">LinkedIn</div>
-                <div class="text-sm font-semibold group-hover:underline" style="color:var(--color-text);">
-                  Faletehan Al Farabi
-                </div>
-              </div>
+            <a href="https://github.com/FaletehanAlF" target="_blank" rel="noopener" class="chan-row group">
+              <span>GitHub — FaletehanAlF</span>
+              <i data-feather="arrow-up-right" class="w-4 h-4 flex-shrink-0"
+                style="color:var(--color-accent);"></i>
             </a>
-            <a href="https://github.com/FaletehanAlF" target="_blank" rel="noopener" class="flex items-center gap-4 group">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style="background-color:var(--color-bg); border:1px solid var(--color-border);">
-                <i data-feather="github" class="w-4 h-4" style="color:var(--color-accent);"></i>
-              </div>
-              <div>
-                <div class="text-xs font-semibold mb-0.5" style="color:var(--color-text-muted);">GitHub</div>
-                <div class="text-sm font-semibold group-hover:underline" style="color:var(--color-text);">
-                  FaletehanAlF</div>
-              </div>
+            <a href="https://www.instagram.com/faalen_portofolio/?hl=en" target="_blank" rel="noopener"
+              class="chan-row group">
+              <span>Instagram — faalen_portofolio</span>
+              <i data-feather="arrow-up-right" class="w-4 h-4 flex-shrink-0"
+                style="color:var(--color-accent);"></i>
             </a>
           </div>
         </div>
 
-        <!-- Right: Form -->
-        <div class="flex-1 w-full">
-          <div class="card p-8 fade-up">
+        <!-- Right: form without card chrome (offset 5 cols) -->
+        <div class="w-full lg:col-span-5 lg:col-start-8 fade-up">
+          <div style="border-top:1px solid var(--color-border); padding-top:1.5rem;">
             <form id="contact-form" novalidate>
               <div class="mb-5">
                 <label class="form-label" for="contact-name" data-i18n="form.name">Your name</label>
