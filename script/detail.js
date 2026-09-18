@@ -41,6 +41,7 @@
       allProjects: 'All Projects',
       hireMe: 'Hire Me',
       info: 'Project snapshot',
+      status: 'Status',
       category: 'Category',
       year: 'Year',
       stack: 'Stack',
