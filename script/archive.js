@@ -137,12 +137,11 @@
     const github = placeholder ? '#' : escapeHtml(p.github);
 return `
         <article class="card overflow-hidden fade-up flex flex-col">
-          <div class="relative h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
+          <div class="h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
           <img src="${escapeHtml(p.image)}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
-          <span class="absolute top-3 left-3 tech-badge" style="background:rgba(255,255,255,.94); color:#0f172a; border-color:transparent;">${cat}</span>
-          ${p.year ? `<span class="absolute top-3 right-3 tech-badge" style="background:rgba(0,0,0,.55); color:#fff; border-color:transparent;">${escapeHtml(p.year)}</span>` : ''}
         </div>
         <div class="p-5 flex flex-col flex-1">
+          <p class="font-meta text-[11px] uppercase mb-1.5" style="color:var(--color-accent); letter-spacing:0.08em;">${cat}${p.year ? ` - ${escapeHtml(p.year)}` : ''}</p>
           <h3 class="text-base font-bold mb-1.5 tracking-tight" style="color:var(--color-text);">${name}</h3>
           <p class="text-sm leading-relaxed mb-4" style="color:var(--color-text-muted);">${desc}</p>
           <div class="flex flex-wrap items-center gap-1.5 mb-5">${techIcons(p)}</div>
