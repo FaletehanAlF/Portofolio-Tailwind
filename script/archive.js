@@ -11,6 +11,7 @@
 
   const strings = {
     en: {
+      skip: 'Skip to content',
       searchProjects: 'Search projects...',
       searchCerts: 'Search certificates...',
       all: 'All',
@@ -38,6 +39,7 @@
       certsOther: 'See Projects',
     },
     id: {
+      skip: 'Lewati ke konten',
       searchProjects: 'Cari proyek...',
       searchCerts: 'Cari sertifikat...',
       all: 'Semua',

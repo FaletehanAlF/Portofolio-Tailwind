@@ -15,7 +15,7 @@
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
     img { display: block; }
@@ -23,6 +23,8 @@
   </style>
 </head>
 <body data-page="education">
+
+  <a href="#main" class="skip-link" id="skip-link">Skip to content</a>
 
   <!-- NAVBAR capsule -->
   <header class="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
@@ -54,15 +56,15 @@
     </div>
   </header>
 
-  <main class="min-h-screen pt-28 sm:pt-32 pb-16">
+  <main class="min-h-screen pt-28 sm:pt-32 pb-16" id="main">
     <div class="max-w-5xl mx-auto px-4 sm:px-5">
 
       <!-- Hero -->
       <div class="text-center max-w-2xl mx-auto mb-10 reveal">
         <p class="section-label" data-i18n-edu="eyebrow">Academic Journey</p>
-        <h1 class="font-extrabold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-edu="title">Education</h1>
+        <h1 class="font-display font-bold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-edu="title">Education</h1>
         <p class="text-sm sm:text-base leading-relaxed" style="color:var(--color-text-muted);" data-i18n-edu="subtitle">
-          HRD-friendly overview — verified schools, period, GPA and how each stage prepared me for a junior full-stack role.
+          Schools, years, grades, and how each stage prepared me for a junior full-stack role.
         </p>
       </div>
 
@@ -70,8 +72,8 @@
       <div class="grid grid-cols-3 gap-4 sm:gap-5 mb-12">
         <div class="card p-5 sm:p-6 text-center reveal">
           <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYears">Years</div>
-          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">2023—26</div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYearsSub">SMKFocus</div>
+          <div class="text-xl sm:text-2xl font-extrabold" style="color:var(--color-text);">2023-2026</div>
+          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYearsSub">SMK focus</div>
         </div>
         <div class="card p-5 sm:p-6 text-center reveal">
           <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statGpa">GPA</div>
