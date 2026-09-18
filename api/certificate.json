@@ -67,7 +67,7 @@
       }
     },
     {
-      "image": "https://via.placeholder.com/800x600/f8fafc/64748b?text=Certificate+7",
+      "image": "https://picsum.photos/seed/certificate-javascript/800/600",
       "name": {
         "en": "Advanced JavaScript (ES6+)",
         "id": "JavaScript Lanjutan (ES6+)"
@@ -78,7 +78,7 @@
       }
     },
     {
-      "image": "https://via.placeholder.com/800x600/f1f5f9/475569?text=Certificate+8",
+      "image": "https://picsum.photos/seed/certificate-react/800/600",
       "name": {
         "en": "React Fundamentals",
         "id": "Dasar-Dasar React"
@@ -89,7 +89,7 @@
       }
     },
     {
-      "image": "https://via.placeholder.com/800x600/eff6ff/2563eb?text=Certificate+9",
+      "image": "https://picsum.photos/seed/certificate-mysql/800/600",
       "name": {
         "en": "Database Design with MySQL",
         "id": "Desain Database dengan MySQL"
@@ -100,7 +100,7 @@
       }
     },
     {
-      "image": "https://via.placeholder.com/800x600/f0fdf4/16a34a?text=Certificate+10",
+      "image": "https://picsum.photos/seed/certificate-laravel/800/600",
       "name": {
         "en": "Laravel Backend Development",
         "id": "Pengembangan Backend Laravel"
@@ -111,7 +111,7 @@
       }
     },
     {
-      "image": "https://via.placeholder.com/800x600/fefce8/ca8a04?text=Certificate+11",
+      "image": "https://picsum.photos/seed/certificate-figma/800/600",
       "name": {
         "en": "Figma UI/UX Advanced",
         "id": "UI/UX Figma Lanjutan"
@@ -122,7 +122,7 @@
       }
     },
     {
-      "image": "https://via.placeholder.com/800x600/fdf2f8/ec4899?text=Certificate+12",
+      "image": "https://picsum.photos/seed/certificate-git/800/600",
       "name": {
         "en": "Git & GitHub Collaboration",
         "id": "Kolaborasi Git & GitHub"

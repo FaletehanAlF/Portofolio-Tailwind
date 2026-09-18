@@ -1,6 +1,6 @@
 /**
- * Education – view/education.html
- * Data: ../api/education.json — logo + HRD-friendly description
+ * Education: view/education.html
+ * Data: ../api/education.json: logo + HRD-friendly description
  */
 'use strict';
 (function () {
@@ -13,7 +13,7 @@
       experience: 'Experience',
       eyebrow: 'Academic Journey',
       title: 'Education',
-      subtitle: 'HRD-friendly overview — verified schools, period, GPA and how each stage prepared me for a junior full-stack role.',
+      subtitle: 'Schools, years, grades, and how each stage prepared me for a junior full-stack role.',
       statYears: 'Years',
       statYearsSub: 'SMK Focus',
       statGpa: 'GPA',
@@ -21,8 +21,8 @@
       statCert: 'Certs',
       statCertSub: 'Verified',
       empty: 'No education data.',
-      ctaProjects: 'View Projects',
-      ctaContact: 'Contact Me',
+      ctaProjects: 'View projects',
+      ctaContact: 'Hire me',
       backShowcase: 'Back to Portfolio',
       toDark: 'Switch to dark mode',
       toLight: 'Switch to light mode',
@@ -36,7 +36,7 @@
       experience: 'Pengalaman',
       eyebrow: 'Perjalanan Akademik',
       title: 'Pendidikan',
-      subtitle: 'Ringkasan ramah HRD — sekolah terverifikasi, periode, nilai, dan bagaimana tiap tahap menyiapkan saya untuk peran junior full-stack.',
+      subtitle: 'Sekolah, tahun, nilai, dan bagaimana tiap tahap menyiapkan saya untuk peran junior full-stack.',
       statYears: 'Tahun',
       statYearsSub: 'Fokus SMK',
       statGpa: 'Nilai',
@@ -44,8 +44,8 @@
       statCert: 'Sertif',
       statCertSub: 'Terverifikasi',
       empty: 'Tidak ada data pendidikan.',
-      ctaProjects: 'Lihat Proyek',
-      ctaContact: 'Hubungi Saya',
+      ctaProjects: 'Lihat proyek',
+      ctaContact: 'Rekrut saya',
       backShowcase: 'Kembali ke Portofolio',
       toDark: 'Ganti ke mode gelap',
       toLight: 'Ganti ke mode terang',

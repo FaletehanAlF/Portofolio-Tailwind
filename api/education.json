@@ -11,12 +11,12 @@
         "id": "Rekayasa Perangkat Lunak (RPL)"
       },
       "period": {
-        "en": "2023 — 2026 • Expected Graduation",
-        "id": "2023 — 2026 • Lulus Tahun Ini"
+        "en": "2023-2026, expected graduation",
+        "id": "2023-2026, lulus tahun ini"
       },
       "status": {
-        "en": "Vocational High School • GPA 8.0/10 (Productive)",
-        "id": "Sekolah Menengah Kejuruan • Nilai Produktif 8.0/10"
+        "en": "Vocational high school, GPA 8.0/10 (productive)",
+        "id": "Sekolah menengah kejuruan, nilai produktif 8.0/10"
       },
       "location": "Depok, West Java, Indonesia",
       "description": {
@@ -24,7 +24,7 @@
         "id": "Fokus pada web full-stack dan UI/UX. Membangun 10+ proyek nyata dengan HTML, CSS, JS, Tailwind & Laravel. Disiplin, kolaboratif, siap magang."
       },
       "highlights": [
-        { "en": "GPA 8.0 — Top 5 in class", "id": "Nilai 8.0 — 5 besar di kelas" },
+        { "en": "GPA 8.0, top 5 in class", "id": "Nilai 8.0, 5 besar di kelas" },
         { "en": "E-Commerce & SmartCanteen used by real users", "id": "E-Commerce & SmartCanteen dipakai pengguna nyata" }
       ],
       "courses": ["HTML", "CSS", "JavaScript", "Tailwind", "Laravel"],

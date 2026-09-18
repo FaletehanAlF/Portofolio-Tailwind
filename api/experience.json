@@ -2,14 +2,14 @@
   "experience": [
     {
       "logo": "https://img.icons8.com/fluency/96/code.png",
-      "company": { "en": "Freelance — Remote", "id": "Freelance — Remote" },
+      "company": { "en": "Freelance, remote", "id": "Freelance, remote" },
       "role": { "en": "Fullstack Web Developer", "id": "Fullstack Web Developer" },
-      "period": { "en": "2024 — Present", "id": "2024 — Sekarang" },
-      "type": { "en": "Freelance • Part-time", "id": "Freelance • Paruh Waktu" },
+      "period": { "en": "2024-present", "id": "2024-sekarang" },
+      "type": { "en": "Freelance, part-time", "id": "Freelance, paruh waktu" },
       "location": "Depok, Indonesia (Remote)",
       "description": {
-        "en": "Built responsive, production-ready websites for small businesses and school projects. Delivered E-Commerce and SmartCanteen platforms with clean UI, fast load, and mobile-first UX — from Figma to deploy on Vercel.",
-        "id": "Membangun website responsif siap produksi untuk UMKM dan proyek sekolah. Menghasilkan platform E-Commerce dan SmartCanteen dengan UI bersih, load cepat, dan UX mobile-first — dari Figma hingga deploy di Vercel."
+        "en": "Built responsive, production-ready websites for small businesses and school projects. Delivered E-Commerce and SmartCanteen platforms with clean UI, fast load, and mobile-first UX, from Figma to deploy on Vercel.",
+        "id": "Membangun website responsif siap produksi untuk UMKM dan proyek sekolah. Menghasilkan platform E-Commerce dan SmartCanteen dengan UI bersih, load cepat, dan UX mobile-first, dari Figma hingga deploy di Vercel."
       },
       "highlights": [
         { "en": "Delivered 4 live projects with 100% on-time", "id": "Menyelesaikan 4 proyek live tepat waktu 100%" },
@@ -19,14 +19,14 @@
     },
     {
       "logo": "https://img.icons8.com/fluency/96/school.png",
-      "company": { "en": "SMK Taruna Bhakti — School Projects", "id": "SMK Taruna Bhakti — Proyek Sekolah" },
+      "company": { "en": "SMK Taruna Bhakti, school projects", "id": "SMK Taruna Bhakti, proyek sekolah" },
       "role": { "en": "Lead Frontend & UI/UX", "id": "Lead Frontend & UI/UX" },
-      "period": { "en": "2023 — 2025", "id": "2023 — 2025" },
-      "type": { "en": "Academic • Team", "id": "Akademik • Tim" },
+      "period": { "en": "2023-2025", "id": "2023-2025" },
+      "type": { "en": "Academic, team", "id": "Akademik, tim" },
       "location": "Depok, Indonesia",
       "description": {
-        "en": "Led frontend for team assignments, created design systems in Figma, and integrated REST APIs. Mentored juniors on Git, clean code, and responsive design — HRD values: leadership, collaboration, and ownership.",
-        "id": "Memimpin frontend untuk tugas tim, membuat design system di Figma, dan integrasi REST API. Membimbing junior tentang Git, clean code, dan desain responsif — nilai HRD: kepemimpinan, kolaborasi, dan tanggung jawab."
+        "en": "Led frontend for team assignments, created design systems in Figma, and integrated REST APIs. Mentored juniors on Git, clean code, and responsive design. HRD values shown: leadership, collaboration, and ownership.",
+        "id": "Memimpin frontend untuk tugas tim, membuat design system di Figma, dan integrasi REST API. Membimbing junior tentang Git, clean code, dan desain responsif. Nilai untuk HRD: kepemimpinan, kolaborasi, dan tanggung jawab."
       },
       "highlights": [
         { "en": "Led 3-person team for SmartCanteen", "id": "Pimpin tim 3 orang untuk SmartCanteen" },
@@ -36,14 +36,14 @@
     },
     {
       "logo": "https://img.icons8.com/fluency/96/training.png",
-      "company": { "en": "Self Learning — Dicoding & MySkill", "id": "Belajar Mandiri — Dicoding & MySkill" },
+      "company": { "en": "Self learning, Dicoding and MySkill", "id": "Belajar mandiri, Dicoding dan MySkill" },
       "role": { "en": "Certified Learner", "id": "Peserta Bersertifikat" },
-      "period": { "en": "2024 — 2025", "id": "2024 — 2025" },
-      "type": { "en": "Online • Certified", "id": "Online • Bersertifikat" },
+      "period": { "en": "2024-2025", "id": "2024-2025" },
+      "type": { "en": "Online, certified", "id": "Online, bersertifikat" },
       "location": "Indonesia (Online)",
       "description": {
-        "en": "Completed 5+ verified courses (Haskell, C, Java, SOLID, UI/UX). Applied learnings directly to portfolio — strong proof of self-discipline and growth mindset for HRD.",
-        "id": "Menyelesaikan 5+ kursus terverifikasi (Haskell, C, Java, SOLID, UI/UX). Hasil belajar langsung diterapkan ke portfolio — bukti disiplin dan growth mindset untuk HRD."
+        "en": "Completed 5+ verified courses (Haskell, C, Java, SOLID, UI/UX). Applied learnings directly to portfolio. Strong proof of self-discipline and growth mindset for HRD.",
+        "id": "Menyelesaikan 5+ kursus terverifikasi (Haskell, C, Java, SOLID, UI/UX). Hasil belajar langsung diterapkan ke portfolio. Bukti disiplin dan growth mindset untuk HRD."
       },
       "highlights": [
         { "en": "5 verified certificates", "id": "5 sertifikat terverifikasi" },

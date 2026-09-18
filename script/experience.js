@@ -1,5 +1,5 @@
 /**
- * Experience – view/experience.html
+ * Experience: view/experience.html
  * Horizontal slider with 2-finger drag, API-driven, clean
  */
 'use strict';
@@ -13,7 +13,7 @@
       experience: 'Experience',
       eyebrow: 'Career Path',
       title: 'Experience',
-      subtitle: 'Clean horizontal slider of roles, impact and tech — built for HRD to scan in seconds. Drag with two fingers or use arrows.',
+      subtitle: 'Roles, impact, and tech. Use the arrows or drag to browse.',
       statYears: 'Years',
       statYearsSub: 'Active',
       statProjects: 'Projects',
@@ -22,8 +22,8 @@
       statCompaniesSub: 'Places',
       items: 'items',
       empty: 'No experience data.',
-      ctaProjects: 'View Projects',
-      ctaContact: 'Contact Me',
+      ctaProjects: 'View projects',
+      ctaContact: 'Hire me',
       backShowcase: 'Back to Portfolio',
       toDark: 'Switch to dark mode',
       toLight: 'Switch to light mode',
@@ -36,7 +36,7 @@
       experience: 'Pengalaman',
       eyebrow: 'Jalur Karier',
       title: 'Pengalaman',
-      subtitle: 'Slider horizontal peran, dampak dan teknologi — dirancang agar HRD mudah memindai. Geser dengan dua jari atau tombol panah.',
+      subtitle: 'Peran, dampak, dan teknologi. Gunakan panah atau geser untuk menjelajah.',
       statYears: 'Tahun',
       statYearsSub: 'Aktif',
       statProjects: 'Proyek',
@@ -45,8 +45,8 @@
       statCompaniesSub: 'Tempat',
       items: 'item',
       empty: 'Tidak ada data pengalaman.',
-      ctaProjects: 'Lihat Proyek',
-      ctaContact: 'Hubungi Saya',
+      ctaProjects: 'Lihat proyek',
+      ctaContact: 'Rekrut saya',
       backShowcase: 'Kembali ke Portofolio',
       toDark: 'Ganti ke mode gelap',
       toLight: 'Ganti ke mode terang',
@@ -96,11 +96,11 @@
     const location = esc(item.location || '');
     const desc = esc(pick(item.description));
     const logo = esc(item.logo || '');
-    const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2.5 text-[14px] leading-6" style="color:var(--color-text);"><span class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background:var(--color-accent);"></span><span style="color:var(--color-text-muted);">${esc(pick(h))}</span></li>`).join('');
+    const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2.5 text-[14px] leading-6" style="color:var(--color-text);"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:var(--color-accent);"></i><span style="color:var(--color-text-muted);">${esc(pick(h))}</span></li>`).join('');
     const tech = (item.tech || []).map((c) => `<span class="tech-badge !px-3 !py-1.5" style="background:var(--color-bg-secondary);">${esc(c)}</span>`).join('');
     return `
       <article class="card exp-card p-0 overflow-hidden flex flex-col">
-        <div class="h-1 w-full" style="background:linear-gradient(90deg,var(--color-accent),#60a5fa);"></div>
+        <div class="h-1 w-full" style="background:var(--color-accent);"></div>
         <div class="p-6 sm:p-7 flex gap-5">
           <div class="hidden sm:flex w-14 h-14 rounded-xl items-center justify-center flex-shrink-0 overflow-hidden p-2.5" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
             <img src="${logo}" alt="${company} logo" class="w-full h-full object-contain" loading="lazy" onerror="this.style.display='none'" />
@@ -113,7 +113,7 @@
                 </div>
                 <div>
                   <h3 class="text-[16px] sm:text-[17px] font-extrabold leading-tight tracking-tight" style="color:var(--color-text);">${role}</h3>
-                  <p class="text-sm font-semibold mt-1 flex items-center gap-1.5" style="color:var(--color-text);">${company} <span class="w-1 h-1 rounded-full" style="background:var(--color-text-muted);"></span> <span class="text-xs font-medium" style="color:var(--color-text-muted);">${location}</span></p>
+                  <p class="text-sm font-semibold mt-1 flex items-center gap-1.5" style="color:var(--color-text);">${company} <span class="text-xs font-medium" style="color:var(--color-text-muted);">- ${location}</span></p>
                 </div>
               </div>
               <span class="tech-badge whitespace-nowrap self-start sm:mt-1" style="background:var(--color-accent); color:#fff; border-color:var(--color-accent); font-size:11px; letter-spacing:0.04em;">${period}</span>

@@ -1,5 +1,5 @@
 /**
- * Portfolio – detail.js
+ * Portfolio: detail.js
  * Project Detail Page | Reads ../api/project.json
  * Professional HR-friendly layout. Null-safe, no overlapping UI.
  */
@@ -12,14 +12,11 @@
       home: 'Home',
       projects: 'Projects',
       eyebrow: 'Project Case Study',
-      overviewIndex: '01 — Overview',
       overviewTitle: 'About this project',
-      techIndex: '02 — Tech Stack',
       techTitle: 'Technologies used',
       techCount: '{n} technologies',
       techCountOne: '1 technology',
       techEmpty: 'Tech stack is not listed for this project yet.',
-      accessIndex: '03 — Access',
       accessTitle: 'Links',
       demo: 'Live Demo',
       github: 'Source Code',
@@ -29,7 +26,8 @@
       onlyDemo: 'Live demo is available. Source code is private or not published yet.',
       onlyGithub: 'Source code is available. Live demo is not published yet.',
       bothOk: 'Both live demo and source code are available for review.',
-      noneOk: 'This project is still in progress — links will be published soon.',
+      noneOk: 'This project is still in progress. Links will be published soon.',
+      na: 'Not listed',
       imageCaption: 'Project preview',
       completed: 'Completed',
       comingSoon: 'In Progress',
@@ -39,7 +37,7 @@
       explore: 'Keep exploring',
       seeAll: 'See All',
       allProjects: 'All Projects',
-      hireMe: 'Hire Me',
+      hireMe: 'Hire me',
       info: 'Project snapshot',
       status: 'Status',
       category: 'Category',
@@ -62,14 +60,11 @@
       home: 'Beranda',
       projects: 'Proyek',
       eyebrow: 'Studi Kasus Proyek',
-      overviewIndex: '01 — Ringkasan',
       overviewTitle: 'Tentang proyek ini',
-      techIndex: '02 — Teknologi',
       techTitle: 'Teknologi yang digunakan',
       techCount: '{n} teknologi',
       techCountOne: '1 teknologi',
       techEmpty: 'Teknologi proyek ini belum dicantumkan.',
-      accessIndex: '03 — Akses',
       accessTitle: 'Tautan',
       demo: 'Demo Langsung',
       github: 'Kode Sumber',
@@ -79,7 +74,8 @@
       onlyDemo: 'Demo langsung tersedia. Kode sumber privat atau belum dipublikasikan.',
       onlyGithub: 'Kode sumber tersedia. Demo langsung belum dipublikasikan.',
       bothOk: 'Demo langsung dan kode sumber tersedia untuk ditinjau.',
-      noneOk: 'Proyek ini masih dalam pengerjaan — tautan akan dipublikasikan segera.',
+      noneOk: 'Proyek ini masih dalam pengerjaan. Tautan akan dipublikasikan segera.',
+      na: 'Belum dicantumkan',
       imageCaption: 'Pratinjau proyek',
       completed: 'Selesai',
       comingSoon: 'Dalam Pengerjaan',
@@ -89,7 +85,7 @@
       explore: 'Jelajahi lagi',
       seeAll: 'Lihat Semua',
       allProjects: 'Semua Proyek',
-      hireMe: 'Rekrut Saya',
+      hireMe: 'Rekrut saya',
       info: 'Ringkasan proyek',
       status: 'Status',
       category: 'Kategori',
@@ -317,11 +313,8 @@
     set('d-crumb-home', t('home'));
     set('d-crumb-projects', t('projects'));
     set('d-eyebrow', t('eyebrow'));
-    set('d-overview-index', t('overviewIndex'));
     set('d-overview-title', t('overviewTitle'));
-    set('d-tech-index', t('techIndex'));
     set('d-tech-title', t('techTitle'));
-    set('d-access-index', t('accessIndex'));
     set('d-access-title', t('accessTitle'));
     set('d-demo-label', t('demo'));
     set('d-github-label', t('github'));
@@ -382,9 +375,9 @@
     }
 
     const cat = $('d-category');
-    if (cat) cat.textContent = category || '—';
+    if (cat) cat.textContent = category || t('na');
     const year = $('d-year');
-    if (year) year.textContent = p.year || '—';
+    if (year) year.textContent = p.year || t('na');
 
     const dot = $('d-status-dot');
     if (dot) {
@@ -410,11 +403,11 @@
 
     // Info sidebar
     const setInfo = (id, val) => { const el = $(id); if (el) el.textContent = val; };
-    setInfo('d-info-category', category || '—');
-    setInfo('d-info-year', p.year || '—');
+    setInfo('d-info-category', category || t('na'));
+    setInfo('d-info-year', p.year || t('na'));
     const stackNames = Array.isArray(p.tech) && p.tech.length
       ? p.tech.map((x) => x.name).filter(Boolean).join(', ')
-      : '—';
+      : t('na');
     setInfo('d-info-stack', stackNames);
     const infoStatus = $('d-info-status');
     if (infoStatus) {

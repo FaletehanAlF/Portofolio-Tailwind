@@ -1,5 +1,5 @@
 /**
- * Portfolio – archive.js
+ * Portfolio: archive.js
  * Shared logic for view/projects.html & view/certificates.html
  * Data source: ../api/project.json & ../api/certificate.json
  * Uses pager-viewport slider: 6 cards per page (3 top + 3 bottom), swipe/slide to navigate
@@ -17,7 +17,7 @@
       filterLabel: 'Category',
       empty: 'Nothing found. Try another keyword.',
       items: 'items',
-      detail: 'Project Detail',
+      detail: 'Details',
       github: 'GitHub',
       back: 'Back',
       home: 'Home',
@@ -25,12 +25,12 @@
       certificates: 'Certificates',
       education: 'Education',
       experience: 'Experience',
-      backShowcase: 'Back to Showcase',
+      backShowcase: 'Back to Portfolio',
       toDark: 'Switch to dark mode',
       toLight: 'Switch to light mode',
       projectsEyebrow: 'Portfolio',
       projectsTitle: 'All Projects',
-      projectsSub: 'Complete collection of my work — from experiments to production apps. Data loaded live from API.',
+      projectsSub: 'Complete collection of my work, from experiments to production apps.',
       projectsOther: 'See Certificates',
       certsEyebrow: 'Achievements',
       certsTitle: 'All Certificates',
@@ -44,7 +44,7 @@
       filterLabel: 'Kategori',
       empty: 'Tidak ditemukan. Coba kata kunci lain.',
       items: 'item',
-      detail: 'Detail Proyek',
+      detail: 'Detail',
       github: 'GitHub',
       back: 'Kembali',
       home: 'Beranda',
@@ -52,12 +52,12 @@
       certificates: 'Sertifikat',
       education: 'Pendidikan',
       experience: 'Pengalaman',
-      backShowcase: 'Kembali ke Showcase',
+      backShowcase: 'Kembali ke Portofolio',
       toDark: 'Ganti ke mode gelap',
       toLight: 'Ganti ke mode terang',
       projectsEyebrow: 'Portofolio',
       projectsTitle: 'Semua Proyek',
-      projectsSub: 'Koleksi lengkap karya saya — dari eksperimen hingga aplikasi produksi. Data dimuat langsung dari API.',
+      projectsSub: 'Koleksi lengkap karya saya, dari eksperimen hingga aplikasi produksi.',
       projectsOther: 'Lihat Sertifikat',
       certsEyebrow: 'Pencapaian',
       certsTitle: 'Semua Sertifikat',
@@ -476,7 +476,7 @@ return `
     if (prevBtn) prevBtn.addEventListener('click', () => archiveStep(-1));
     if (nextBtn) nextBtn.addEventListener('click', () => archiveStep(1));
 
-    // Viewport interactions — keyboard + touch + mouse drag + two-finger wheel
+    // Viewport interactions: keyboard + touch + mouse drag + two-finger wheel
     const viewport = $('archive-viewport');
     if (viewport) {
       viewport.style.cursor = 'grab';
