@@ -492,104 +492,10 @@ const SplitText = (() => {
 })();
 
 /* ================================================================
-   9. TYPEWRITER ANIMATION (About Section)
+   9. ABOUT INTRO (static text; translations render via data-i18n)
+   Typewriter removed: re-typing on every scroll is distracting
+   for recruiters. Calm fade-up reveal is handled by initFadeUp.
 ================================================================ */
-const TypewriterAnim = (() => {
-  let typing = false;
-  let erasing = false;
-  let pos = 0;
-  let timer = null;
-
-  function getText() {
-    return LangSwitcher.t('about.typewriter');
-  }
-
-  function tick() {
-    const el = document.getElementById('typewriter-text');
-    if (!el) return;
-    const full = getText();
-
-    if (typing) {
-      if (pos < full.length) {
-        el.textContent = full.slice(0, pos + 1);
-        pos++;
-        timer = setTimeout(tick, 28);
-      } else {
-        typing = false;
-      }
-    } else if (erasing) {
-      if (pos > 0) {
-        pos--;
-        el.textContent = full.slice(0, pos);
-        timer = setTimeout(tick, 14);
-      } else {
-        erasing = false;
-      }
-    }
-  }
-
-  function startTyping() {
-    if (typing) return;
-    erasing = false;
-    typing = true;
-    clearTimeout(timer);
-    tick();
-  }
-
-  function startErasing() {
-    if (erasing) return;
-    typing = false;
-    erasing = true;
-    clearTimeout(timer);
-    tick();
-  }
-
-  function reset() {
-    clearTimeout(timer);
-    typing = false;
-    erasing = false;
-    pos = 0;
-    const el = document.getElementById('typewriter-text');
-    if (el) el.textContent = '';
-    // Re-check if section is in view
-    const section = document.getElementById('about');
-    if (section) {
-      const rect = section.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
-        startTyping();
-      }
-    }
-  }
-
-  function blinkCursor() {
-    const cur = document.getElementById('typewriter-cursor');
-    if (!cur) return;
-    let visible = true;
-    setInterval(() => {
-      visible = !visible;
-      cur.style.opacity = visible ? '1' : '0';
-    }, 500);
-  }
-
-  function init() {
-    blinkCursor();
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          startTyping();
-        } else {
-          startErasing();
-        }
-      });
-    }, { threshold: 0.3 });
-
-    const section = document.getElementById('about');
-    if (section) observer.observe(section);
-  }
-
-  return { init, reset, startTyping };
-})();
 
 /* ================================================================
    10. COUNTER ANIMATION
