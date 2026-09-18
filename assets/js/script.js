@@ -558,6 +558,10 @@ const fadeObserver = ('IntersectionObserver' in window)
 
 function observeFadeUp(scope = document) {
   if (!scope) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    scope.querySelectorAll('.fade-up:not(.visible)').forEach(el => el.classList.add('visible'));
+    return;
+  }
   scope.querySelectorAll('.fade-up:not(.visible)').forEach((el, i) => {
     el.style.transitionDelay = `${(i % 4) * 80}ms`;
     if (fadeObserver) {
@@ -573,15 +577,10 @@ function initFadeUp() {
 }
 
 /* ================================================================
-   12. MARQUEE INFINITE SCROLL
+   12. TEXT MARQUEE (removed)
+   One marquee per page max: the tech logo loop stays, the keyword
+   text strip was decorative filler. initLogoSlider below is the one.
 ================================================================ */
-function initMarquee() {
-  const inner = document.getElementById('marquee-inner');
-  if (!inner) return;
-  // Duplicate content for seamless loop
-  const clone = inner.innerHTML;
-  inner.innerHTML = clone + clone;
-}
 
 /* ================================================================
    13. LOGO SLIDER (Tech Stack Loop)
