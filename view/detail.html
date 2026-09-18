@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Project detail – Faletehan Portfolio" />
+  <meta name="description" content="Project case study – Faletehan Portfolio" />
   <title>Project Detail | Faletehan</title>
   <link rel="stylesheet" href="../src/output.css" />
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
@@ -20,7 +20,7 @@
 
 <body>
 
-  <!-- NAVBAR — floating capsule -->
+  <!-- NAVBAR -->
   <header class="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
     <div class="capsule-nav max-w-5xl mx-auto">
       <div class="capsule-bar h-14 sm:h-16 flex items-center justify-between gap-2 px-3 sm:px-5">
@@ -32,8 +32,8 @@
           <span id="back-label" class="text-sm font-semibold truncate" style="color:var(--color-text);">Back to Portfolio</span>
         </a>
         <div class="flex items-center gap-2 flex-shrink-0">
-          <a href="../index.html#home" class="lang-toggle hidden sm:inline-flex !no-underline" style="text-decoration:none;" aria-label="Home">Home</a>
-          <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">EN</button>
+          <a href="../index.html#home" class="lang-toggle hidden sm:inline-flex" style="text-decoration:none;" aria-label="Home">Home</a>
+          <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">ID</button>
           <button class="toggle-btn !rounded-full" id="theme-toggle" aria-label="Toggle Theme">
             <i data-feather="sun" class="w-4 h-4 block" id="theme-icon-light"></i>
             <i data-feather="moon" class="w-4 h-4 hidden" id="theme-icon-dark"></i>
@@ -47,30 +47,41 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-5">
 
       <!-- Breadcrumb -->
-      <nav class="flex items-center gap-1.5 text-xs font-medium mb-5 flex-wrap" style="color:var(--color-text-muted);" aria-label="Breadcrumb">
+      <nav class="flex items-center gap-2 text-xs font-medium mb-6 flex-wrap" style="color:var(--color-text-muted);" aria-label="Breadcrumb">
         <a href="../index.html#home" class="hover:underline" id="d-crumb-home">Home</a>
-        <span aria-hidden="true">/</span>
-        <a href="../index.html#portfolio" class="hover:underline" id="d-crumb-portfolio">Portfolio</a>
-        <span aria-hidden="true">/</span>
-        <span id="d-breadcrumb-name" class="font-semibold truncate max-w-[55vw] sm:max-w-none" style="color:var(--color-text);">Project</span>
+        <span aria-hidden="true" class="select-none">/</span>
+        <a href="projects.html" class="hover:underline" id="d-crumb-projects">Projects</a>
+        <span aria-hidden="true" class="select-none">/</span>
+        <span id="d-breadcrumb-name" class="font-semibold truncate max-w-[50vw] sm:max-w-[320px]" style="color:var(--color-text);">Project</span>
       </nav>
 
-      <!-- Loading skeleton -->
-      <div id="d-loading" class="flex flex-col gap-4" aria-hidden="true">
-        <div class="skeleton w-full" style="height:clamp(220px,45vw,440px); border-radius:1.5rem;"></div>
-        <div class="skeleton h-8 w-2/3"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-5/6"></div>
+      <!-- Loading -->
+      <div id="d-loading" class="flex flex-col gap-6" aria-hidden="true">
+        <div class="flex flex-col gap-3 max-w-2xl">
+          <div class="skeleton h-4 w-32"></div>
+          <div class="skeleton h-9 w-3/4"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-2/3"></div>
+        </div>
+        <div class="skeleton w-full" style="height:clamp(200px,40vw,420px); border-radius:1rem;"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-8">
+          <div class="flex flex-col gap-3">
+            <div class="skeleton h-4 w-full"></div>
+            <div class="skeleton h-4 w-full"></div>
+            <div class="skeleton h-4 w-4/5"></div>
+          </div>
+          <div class="skeleton h-56 hidden lg:block"></div>
+        </div>
       </div>
 
       <!-- Not Found -->
-      <div id="d-notfound" class="hidden card p-8 sm:p-14 text-center">
-        <div class="w-14 h-14 rounded-2xl mx-auto mb-5 flex items-center justify-center"
+      <div id="d-notfound" class="hidden card p-8 sm:p-12 text-center !cursor-default">
+        <div class="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center"
           style="background-color:var(--color-bg-secondary); border:1px solid var(--color-border);">
-          <i data-feather="alert-circle" class="w-6 h-6" style="color:var(--color-accent);"></i>
+          <i data-feather="alert-circle" class="w-5 h-5" style="color:var(--color-accent);"></i>
         </div>
-        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3" style="color:var(--color-text);" id="d-nf-title">Project Not Found</h1>
-        <p class="text-sm mb-8 max-w-md mx-auto leading-relaxed" style="color:var(--color-text-muted);" id="d-nf-desc">
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight mb-2" style="color:var(--color-text);" id="d-nf-title">Project Not Found</h1>
+        <p class="text-sm mb-7 max-w-md mx-auto leading-relaxed" style="color:var(--color-text-muted);" id="d-nf-desc">
           The project you are looking for doesn't exist or has been moved.</p>
         <div class="flex flex-wrap justify-center gap-3">
           <a href="../index.html#portfolio" class="btn-primary">
@@ -87,88 +98,155 @@
       <!-- Content -->
       <article id="d-content" class="hidden">
 
-        <!-- Cover -->
-        <div class="detail-cover-wrap mb-6 sm:mb-8">
-          <img id="d-image" src="" alt="" class="detail-cover" />
-          <div class="detail-cover-overlay"></div>
-          <div class="absolute top-3 left-3 sm:top-5 sm:left-5 flex flex-wrap gap-2">
-            <span class="tech-badge backdrop-blur" id="d-category" style="background:rgba(255,255,255,.92);"></span>
-            <span class="tech-badge" id="d-year" style="background:rgba(255,255,255,.92); color:#0f172a; border-color:rgba(255,255,255,.4);"></span>
+        <!-- Header: eyebrow + title + subtitle + meta (flow, no overlap) -->
+        <header class="max-w-3xl mb-7">
+          <p class="section-label mb-2" id="d-eyebrow">Project Case Study</p>
+          <h1 class="font-extrabold tracking-tight leading-tight text-3xl sm:text-4xl mb-3" style="color:var(--color-text);" id="d-title">Project title</h1>
+          <p class="text-base leading-relaxed mb-5" style="color:var(--color-text-muted);" id="d-subtitle"></p>
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-medium" style="color:var(--color-text-muted);">
+            <span class="inline-flex items-center gap-2">
+              <span id="d-status-dot" class="detail-status-dot" aria-hidden="true"></span>
+              <span id="d-status-text" class="font-semibold" style="color:var(--color-text);">Completed</span>
+            </span>
+            <span aria-hidden="true" class="select-none" style="color:var(--color-border);">|</span>
+            <span class="inline-flex items-center gap-1.5">
+              <i data-feather="tag" class="w-3.5 h-3.5"></i>
+              <span id="d-category">Web Application</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <i data-feather="calendar" class="w-3.5 h-3.5"></i>
+              <span id="d-year">2025</span>
+            </span>
           </div>
-          <div class="absolute bottom-3 right-3 sm:bottom-5 sm:right-5">
-            <span class="tech-badge" id="d-status" style="background:rgba(37,99,235,.92); color:#fff; border-color:transparent;">● Completed</span>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-8 lg:gap-10 items-start">
+
+          <!-- Main column -->
+          <div class="min-w-0 flex flex-col gap-10">
+
+            <!-- Cover: clean, no absolute badges -->
+            <figure class="detail-figure">
+              <img id="d-image" src="" alt="" class="detail-figure-img" />
+              <figcaption class="detail-figure-caption">
+                <i data-feather="image" class="w-3.5 h-3.5"></i>
+                <span id="d-image-caption">Project preview</span>
+              </figcaption>
+            </figure>
+
+            <!-- 01 Overview -->
+            <section aria-labelledby="d-overview-title">
+              <p class="detail-section-index" id="d-overview-index">01 — Overview</p>
+              <h2 class="detail-section-title" id="d-overview-title">About this project</h2>
+              <div id="d-desc" class="detail-prose"></div>
+            </section>
+
+            <!-- 02 Tech -->
+            <section aria-labelledby="d-tech-title">
+              <div class="flex items-baseline justify-between gap-3 mb-1">
+                <div>
+                  <p class="detail-section-index" id="d-tech-index">02 — Tech Stack</p>
+                  <h2 class="detail-section-title" id="d-tech-title">Technologies used</h2>
+                </div>
+                <span class="text-xs font-semibold whitespace-nowrap" style="color:var(--color-text-muted);" id="d-tech-count"></span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4" id="d-tech"></div>
+              <p class="text-[13px] mt-3 hidden" style="color:var(--color-text-muted);" id="d-tech-empty"></p>
+            </section>
+
+            <!-- 03 Access -->
+            <section aria-labelledby="d-access-title">
+              <p class="detail-section-index" id="d-access-index">03 — Access</p>
+              <h2 class="detail-section-title" id="d-access-title">Links</h2>
+              <div class="flex flex-col sm:flex-row gap-3 mt-4">
+                <a id="d-demo" href="#" target="_blank" rel="noopener" class="btn-primary justify-center flex-1">
+                  <i data-feather="external-link" class="w-4 h-4"></i>
+                  <span id="d-demo-label">Live Demo</span>
+                </a>
+                <a id="d-github" href="#" target="_blank" rel="noopener" class="btn-secondary justify-center flex-1">
+                  <i data-feather="github" class="w-4 h-4"></i>
+                  <span id="d-github-label">Source Code</span>
+                </a>
+                <button id="d-share" type="button" class="btn-secondary justify-center sm:w-12 sm:px-0 sm:flex-none" aria-label="Copy link">
+                  <i data-feather="link" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <p class="text-[13px] mt-3 leading-relaxed" style="color:var(--color-text-muted);" id="d-links-note"></p>
+            </section>
+
+            <!-- Prev / Next -->
+            <nav class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2" aria-label="More projects" id="d-pager">
+              <a id="d-prev" href="#" class="detail-pager">
+                <span class="detail-pager-dir"><i data-feather="arrow-left" class="w-3.5 h-3.5"></i><span id="d-prev-dir">Previous</span></span>
+                <span class="detail-pager-name" id="d-prev-name">—</span>
+              </a>
+              <a id="d-next" href="#" class="detail-pager detail-pager-next">
+                <span class="detail-pager-dir"><span id="d-next-dir">Next</span><i data-feather="arrow-right" class="w-3.5 h-3.5"></i></span>
+                <span class="detail-pager-name" id="d-next-name">—</span>
+              </a>
+            </nav>
+
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:gap-10 items-start">
+          <!-- Sidebar -->
+          <aside class="w-full flex flex-col gap-4 lg:sticky lg:top-24">
 
-          <!-- Main -->
-          <div class="min-w-0">
-            <h1 class="font-extrabold tracking-tight mb-3 text-2xl sm:text-3xl lg:text-4xl leading-tight" style="color:var(--color-text);" id="d-title"></h1>
-            <p class="text-sm sm:text-base leading-relaxed mb-8" style="color:var(--color-text-muted);" id="d-desc"></p>
-
-            <p class="section-label mb-3" id="d-tech-label">Technologies Used</p>
-            <div class="flex flex-wrap items-center gap-2 mb-10" id="d-tech"></div>
-
-            <div class="flex flex-col sm:flex-row gap-3" id="d-links">
-              <a id="d-demo" href="#" target="_blank" rel="noopener" class="btn-primary justify-center flex-1 sm:flex-none sm:px-8">
-                <i data-feather="external-link" class="w-4 h-4"></i>
-                <span id="d-demo-label">Live Demo</span>
-              </a>
-              <a id="d-github" href="#" target="_blank" rel="noopener" class="btn-secondary justify-center flex-1 sm:flex-none sm:px-8">
-                <i data-feather="github" class="w-4 h-4"></i>
-                <span id="d-github-label">GitHub</span>
-              </a>
-              <button id="d-share" type="button" class="btn-secondary justify-center sm:w-12 sm:px-0" aria-label="Copy Live Demo link" title="Copy Live Demo link">
-                <i data-feather="link" class="w-4 h-4"></i>
-              </button>
+            <div class="card !cursor-default p-5 sm:p-6">
+              <h2 class="text-sm font-bold mb-4" style="color:var(--color-text);" id="d-info-title">Project snapshot</h2>
+              <dl class="flex flex-col">
+                <div class="detail-fact">
+                  <dt><i data-feather="activity" class="w-4 h-4"></i><span id="d-lbl-status">Status</span></dt>
+                  <dd id="d-info-status">Completed</dd>
+                </div>
+                <div class="detail-fact">
+                  <dt><i data-feather="tag" class="w-4 h-4"></i><span id="d-lbl-category">Category</span></dt>
+                  <dd id="d-info-category">—</dd>
+                </div>
+                <div class="detail-fact">
+                  <dt><i data-feather="calendar" class="w-4 h-4"></i><span id="d-lbl-year">Year</span></dt>
+                  <dd id="d-info-year">—</dd>
+                </div>
+                <div class="detail-fact detail-fact-last">
+                  <dt><i data-feather="layers" class="w-4 h-4"></i><span id="d-lbl-stack">Stack</span></dt>
+                  <dd id="d-info-stack">—</dd>
+                </div>
+              </dl>
             </div>
-          </div>
 
-          <!-- Sidebar info -->
-          <aside class="card p-5 sm:p-6 lg:sticky lg:top-28 w-full">
-            <h2 class="text-sm font-bold mb-4" style="color:var(--color-text);" id="d-info-title">Project Info</h2>
-            <dl class="flex flex-col gap-4 text-sm">
-              <div class="flex items-start justify-between gap-3">
-                <dt class="flex items-center gap-2 font-medium" style="color:var(--color-text-muted);"><i data-feather="tag" class="w-4 h-4"></i><span id="d-lbl-category">Category</span></dt>
-                <dd class="font-semibold text-right" style="color:var(--color-text);" id="d-info-category">—</dd>
+            <div class="card !cursor-default p-5 sm:p-6">
+              <h2 class="text-sm font-bold mb-1" style="color:var(--color-text);" id="d-cta-title">Interested in this work?</h2>
+              <p class="text-[13px] leading-relaxed mb-4" style="color:var(--color-text-muted);" id="d-cta-desc">Available for internships, freelance, and junior roles.</p>
+              <div class="flex flex-col gap-2">
+                <a href="../index.html#contact" class="btn-primary !text-[13px] justify-center">
+                  <i data-feather="mail" class="w-3.5 h-3.5"></i> <span id="d-hire-label">Hire Me</span>
+                </a>
+                <a href="projects.html" class="btn-secondary !text-[13px] justify-center">
+                  <i data-feather="grid" class="w-3.5 h-3.5"></i> <span id="d-all-label">All Projects</span>
+                </a>
               </div>
-              <div class="divider"></div>
-              <div class="flex items-start justify-between gap-3">
-                <dt class="flex items-center gap-2 font-medium" style="color:var(--color-text-muted);"><i data-feather="calendar" class="w-4 h-4"></i><span id="d-lbl-year">Year</span></dt>
-                <dd class="font-semibold text-right" style="color:var(--color-text);" id="d-info-year">—</dd>
-              </div>
-              <div class="divider"></div>
-              <div class="flex items-start justify-between gap-3">
-                <dt class="flex items-center gap-2 font-medium" style="color:var(--color-text-muted);"><i data-feather="layers" class="w-4 h-4"></i><span id="d-lbl-stack">Stack</span></dt>
-                <dd class="font-semibold text-right" style="color:var(--color-text);" id="d-info-stack">—</dd>
-              </div>
-              <div class="divider"></div>
-              <div class="flex items-start justify-between gap-3">
-                <dt class="flex items-center gap-2 font-medium" style="color:var(--color-text-muted);"><i data-feather="check-circle" class="w-4 h-4"></i><span id="d-lbl-status">Status</span></dt>
-                <dd class="font-semibold text-right" style="color:#16a34a;" id="d-info-status">Completed</dd>
-              </div>
-            </dl>
-            <div class="flex gap-2 mt-6">
-              <a href="projects.html" class="btn-secondary !text-xs flex-1 justify-center !py-2.5">
-                <i data-feather="grid" class="w-3.5 h-3.5"></i> <span id="d-all-label">All Projects</span>
-              </a>
-              <a href="../index.html#contact" class="btn-primary !text-xs flex-1 justify-center !py-2.5">
-                <i data-feather="mail" class="w-3.5 h-3.5"></i> <span id="d-hire-label">Hire Me</span>
-              </a>
             </div>
+
+            <div class="card !cursor-default p-5 sm:p-6">
+              <h2 class="text-sm font-bold mb-3" style="color:var(--color-text);" id="d-check-title">For recruiters</h2>
+              <ul class="flex flex-col gap-2.5 text-[13px] leading-relaxed" style="color:var(--color-text-muted);" id="d-check-list">
+                <li class="flex items-start gap-2"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;"></i><span data-check="0">Open the live demo to review UX and responsiveness.</span></li>
+                <li class="flex items-start gap-2"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;"></i><span data-check="1">Check source code for structure and readability.</span></li>
+                <li class="flex items-start gap-2"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;"></i><span data-check="2">See tech stack relevance to your role.</span></li>
+              </ul>
+            </div>
+
           </aside>
         </div>
       </article>
 
-      <!-- Other Projects -->
-      <section id="d-related" class="hidden mt-14 sm:mt-20">
+      <!-- Related -->
+      <section id="d-related" class="hidden mt-14 sm:mt-16">
         <div class="flex items-end justify-between gap-3 mb-5">
           <div>
             <p class="section-label mb-1" id="d-other-label">Other Projects</p>
-            <h2 class="text-lg sm:text-xl font-bold tracking-tight" style="color:var(--color-text);" id="d-explore-label">Keep Exploring</h2>
+            <h2 class="text-lg sm:text-xl font-bold tracking-tight" style="color:var(--color-text);" id="d-explore-label">Keep exploring</h2>
           </div>
-          <a href="projects.html" class="see-all-link !py-1.5 !px-3 !text-xs sm:!text-sm"><span id="d-seeall-label">See All</span> <i data-feather="arrow-right" class="w-4 h-4"></i></a>
+          <a href="projects.html" class="see-all-link"><span id="d-seeall-label">See All</span> <i data-feather="arrow-right" class="w-4 h-4"></i></a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5" id="d-related-grid"></div>
       </section>
