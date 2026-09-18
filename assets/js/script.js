@@ -316,10 +316,7 @@ const LangSwitcher = (() => {
     });
 
     // Update typewriter text
-    const tw = document.getElementById('typewriter-text');
-    if (tw) {
-      TypewriterAnim.reset();
-    }
+    // (About intro is static text now; data-i18n handles the swap.)
 
     // Update lang toggle label
     const langBtn = document.getElementById('lang-toggle');
@@ -501,9 +498,16 @@ const SplitText = (() => {
    10. COUNTER ANIMATION
 ================================================================ */
 const CounterAnim = (() => {
+  const reduceMotion = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function animateCounter(el) {
     const target = parseInt(el.getAttribute('data-counter'), 10);
     const suffix = el.getAttribute('data-suffix') || '';
+    if (reduceMotion()) {
+      el.textContent = target + suffix;
+      return;
+    }
     const duration = 1600;
     const start = performance.now();
 
