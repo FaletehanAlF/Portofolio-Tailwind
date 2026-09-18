@@ -1407,6 +1407,251 @@
     transform: translateX(-50%) translateY(0);
   }
 
+  /* ===== Layout variation system: one voice per section, one design system =====
+     Dividers and type carry the hierarchy here, not boxes. Cards remain only
+     where clickability must be promised (archive grids, modal rows). */
+
+  /* About: divider facts (no boxes) + stat strip (no cards) */
+  .ed-fact {
+    border-top: 1px solid var(--color-border);
+    padding: 1rem 0;
+  }
+
+  .stat-strip > div {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .stat-strip {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Portfolio: featured project (7/5 asymmetric) */
+  .feat {
+    display: grid;
+    gap: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.75rem;
+  }
+  .feat-media {
+    display: block;
+    border: 1px solid var(--color-card-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--color-bg-secondary);
+  }
+  .feat-media img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.21, 1);
+  }
+  .feat-media:hover img {
+    transform: scale(1.025);
+  }
+  .feat-meta {
+    font-family: var(--font-meta);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 0.6rem;
+  }
+
+  /* Portfolio: supporting rows (thumb + text, dividers instead of cards) */
+  .sup-grid {
+    display: grid;
+    gap: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sup {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .sup-thumb {
+    display: block;
+    width: 96px;
+    height: 76px;
+    border-radius: 0.65rem;
+    overflow: hidden;
+    border: 1px solid var(--color-card-border);
+    background-color: var(--color-bg-secondary);
+    flex-shrink: 0;
+  }
+  .sup-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .sup-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .sup-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Certificates: compact rows (contrast vs project cards) */
+  .cert-list {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .card.cert-row {
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    border-radius: 0;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) 24px;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.9rem 0.25rem;
+  }
+  .card.cert-row:hover {
+    border-color: var(--color-border);
+    border-top-color: var(--color-accent);
+    box-shadow: none;
+    background-color: var(--color-bg-secondary);
+  }
+  .cert-thumb {
+    width: 64px;
+    height: 48px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--color-card-border);
+    background-color: var(--color-bg-secondary);
+    flex-shrink: 0;
+  }
+  .cert-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Tech stack: categorized columns (no slider, no cards) */
+  .tech-cats {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+  }
+  .tech-cat-title {
+    font-family: var(--font-meta);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .tech-cat ul {
+    list-style: none;
+  }
+  .tech-cat li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .tech-cat li img {
+    width: 1.35rem;
+    height: 1.35rem;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  /* Experience: vertical editorial timeline (no slider) */
+  .tl {
+    list-style: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--color-border);
+    position: relative;
+  }
+  .tl-period {
+    font-family: var(--font-meta);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+  }
+
+  /* Contact: closing statement (no card around the form) */
+  .contact-mail {
+    display: inline-block;
+    font-size: clamp(1.1rem, 0.9rem + 2vw, 1.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+  .contact-mail:hover {
+    color: var(--color-accent);
+  }
+  .chan-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .chan-row:hover {
+    color: var(--color-accent);
+  }
+  .chan-list {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .sup-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 2.5rem;
+    }
+    .tech-cats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .tl-item {
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .feat {
+      grid-template-columns: 7fr 5fr;
+      align-items: center;
+      gap: 2.5rem;
+    }
+  }
+
   /* ===== Reduced motion: all loops and reveals collapse to static ===== */
   @media (prefers-reduced-motion: reduce) {
     .logo-slider-inner {
@@ -1420,7 +1665,8 @@
       transform: none;
       transition: none;
     }
-    .photo-card-inner {
+    .photo-card-inner,
+    .feat-media img {
       transition: none;
     }
     html {
