@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @import "flowbite/src/themes/default";
 
@@ -15,10 +15,15 @@
     --color-border: #e5e7eb;
     --color-accent: #2563eb;
     --color-accent-hover: #1d4ed8;
+    --color-accent-strong: #1d4ed8; /* text-on-light AA pair for the locked accent */
     --color-card: #ffffff;
     --color-card-border: #e5e7eb;
     --color-nav: rgba(255, 255, 255, 0.8);
     --color-overlay: rgba(0, 0, 0, 0.5);
+    --color-danger: #dc2626;
+    --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, sans-serif;
+    --font-meta: "JetBrains Mono", ui-monospace, monospace;
   }
 
   [data-theme="dark"] {
