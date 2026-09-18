@@ -76,35 +76,22 @@
       <div id="archive-filters" class="hidden"></div>
       <select id="archive-filter-select" class="hidden"></select>
 
-      <!-- Slider controls -->
-      <div class="flex items-center justify-between gap-3 mb-4">
-        <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
-          <span id="archive-count">0 items</span>
-        </p>
-        <div class="flex items-center gap-2">
-          <button class="slider-btn" id="archive-prev" aria-label="Previous">
-            <i data-feather="chevron-left" class="w-4 h-4"></i>
-          </button>
-          <button class="slider-btn" id="archive-next" aria-label="Next">
-            <i data-feather="chevron-right" class="w-4 h-4"></i>
-          </button>
-        </div>
-      </div>
+      <!-- Count -->
+      <p class="text-xs font-semibold mb-4" style="color:var(--color-text-muted);">
+        <span id="archive-count">0 items</span>
+      </p>
 
       <!-- Loading -->
-      <div id="archive-loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        <div class="skeleton h-72"></div>
-        <div class="skeleton h-72 hidden sm:block"></div>
-        <div class="skeleton h-72 hidden lg:block"></div>
+      <div id="archive-loading" class="grid gap-3">
+        <div class="skeleton h-20"></div>
+        <div class="skeleton h-20"></div>
+        <div class="skeleton h-20"></div>
       </div>
 
-      <!-- Pager slider (from ../api/certificate.json) -->
-      <div class="pager-viewport" id="archive-viewport" tabindex="0">
-        <div class="pager-track" id="archive-track"></div>
+      <!-- Archive list (from ../api/certificate.json) -->
+      <div id="archive-viewport" tabindex="0">
+        <div id="archive-track"></div>
       </div>
-
-      <!-- Dots -->
-      <div class="flex items-center justify-center gap-1.5 mt-5" id="archive-dots"></div>
 
       <!-- Empty -->
       <div id="archive-empty" class="hidden card p-10 text-center mt-2">

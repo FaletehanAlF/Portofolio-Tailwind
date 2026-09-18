@@ -60,52 +60,43 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-5">
 
       <!-- Hero -->
-      <div class="text-center max-w-2xl mx-auto mb-10 reveal">
+      <div class="max-w-2xl mb-10 reveal">
         <p class="section-label" data-i18n-exp="eyebrow">Career Path</p>
         <h1 class="font-display font-bold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-exp="title">Experience</h1>
         <p class="text-sm sm:text-base leading-relaxed" style="color:var(--color-text-muted);" data-i18n-exp="subtitle">
-          Roles, impact, and tech. Use the arrows or drag to browse.
+          Roles, impact, and tech — most recent first.
         </p>
       </div>
 
-      <!-- Stats -->
-      <div class="grid grid-cols-3 gap-2 sm:gap-5 mb-12">
-        <div class="card p-3 sm:p-6 text-center reveal">
+      <!-- Facts strip: divider rhythm, not cards -->
+      <div class="stat-strip grid grid-cols-3 gap-2 sm:gap-5 mb-12">
+        <div class="reveal">
           <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statYears">Years</div>
           <div class="text-sm sm:text-2xl font-extrabold" style="color:var(--color-text);">3+</div>
           <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statYearsSub">Active</div>
         </div>
-        <div class="card p-3 sm:p-6 text-center reveal">
+        <div class="reveal">
           <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statProjects">Projects</div>
           <div class="text-sm sm:text-2xl font-extrabold" style="color:var(--color-accent);">10+</div>
           <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statProjectsSub">Shipped</div>
         </div>
-        <div class="card p-3 sm:p-6 text-center reveal">
+        <div class="reveal">
           <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statCompanies">Teams</div>
           <div class="text-sm sm:text-2xl font-extrabold" style="color:var(--color-text);">3</div>
           <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-exp="statCompaniesSub">Places</div>
         </div>
       </div>
 
-      <!-- Controls -->
-      <div class="flex items-center justify-between gap-3 mb-4">
-        <p class="text-xs font-semibold" style="color:var(--color-text-muted);"><span id="exp-count">0</span> <span data-i18n-exp="items">items</span></p>
-        <div class="flex items-center gap-2">
-          <button class="slider-btn" id="exp-prev" aria-label="Previous"><i data-feather="chevron-left" class="w-4 h-4"></i></button>
-          <button class="slider-btn" id="exp-next" aria-label="Next"><i data-feather="chevron-right" class="w-4 h-4"></i></button>
-        </div>
-      </div>
+      <!-- Count -->
+      <p class="text-xs font-semibold mb-4" style="color:var(--color-text-muted);"><span id="exp-count">0</span> <span data-i18n-exp="items">items</span></p>
 
       <!-- Loading -->
       <div id="exp-loading" class="grid gap-5">
         <div class="skeleton h-64"></div>
       </div>
 
-      <!-- Slider - horizontal, 2-finger drag -->
-      <div class="pager-viewport" id="exp-viewport" tabindex="0" aria-label="Experience slider. Use arrow buttons or drag with two fingers to navigate.">
-        <div class="pager-track" id="exp-track"></div>
-      </div>
-      <div class="flex items-center justify-center gap-1.5 mt-5" id="exp-dots"></div>
+      <!-- Timeline: year + role + description, most recent first -->
+      <ol id="exp-timeline" class="tl"></ol>
 
       <div id="exp-empty" class="hidden card p-10 text-center mt-6">
         <p class="text-sm" style="color:var(--color-text-muted);" data-i18n-exp="empty">No experience data.</p>

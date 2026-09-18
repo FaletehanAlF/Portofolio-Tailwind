@@ -193,20 +193,21 @@ return `
     if (legacyWrap) legacyWrap.classList.add('hidden');
   }
 
-  /* ---------- certificates ---------- */
+  /* ---------- certificates: compact rows, not project-like cards ---------- */
   function certCard(c) {
     const name = escapeHtml(pick(c.name));
     const issuer = escapeHtml(pick(c.issuer));
 return `
-        <article class="card overflow-hidden cursor-pointer cert-card flex flex-col fade-up" role="button" tabindex="0"
+        <article class="card overflow-hidden cursor-pointer cert-card cert-row fade-up" role="button" tabindex="0"
           data-cert-img="${escapeHtml(fixAsset(c.image))}" data-cert-name="${name}" data-cert-issuer="${issuer}">
-        <div class="h-56 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(fixAsset(c.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
+        <div class="cert-thumb" aria-hidden="true">
+          <img src="${escapeHtml(fixAsset(c.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
         </div>
-        <div class="p-4 sm:p-5 flex-1">
-          <h3 class="text-sm sm:text-base font-bold mb-1 leading-snug" style="color:var(--color-text);">${name}</h3>
-          <p class="text-xs sm:text-sm font-semibold" style="color:var(--color-accent);">${issuer}</p>
+        <div class="min-w-0">
+          <h3 class="text-sm sm:text-[15px] font-bold leading-snug line-clamp-1" style="color:var(--color-text);">${name}</h3>
+          <p class="text-xs sm:text-sm font-semibold line-clamp-1 mt-0.5" style="color:var(--color-accent);">${issuer}</p>
         </div>
+        <i data-feather="eye" class="w-4 h-4 justify-self-end flex-shrink-0" style="color:var(--color-text-muted);"></i>
       </article>`;
   }
 
@@ -261,6 +262,22 @@ return `
     }
 
     if (emptyEl) emptyEl.classList.add('hidden');
+
+    /* Certificates read as an archive list: single column of compact rows,
+       no pager, no dots — visually distinct from the projects grid. */
+    if (page === 'certificates') {
+      track.style.transform = '';
+      track.innerHTML = `<div class="cert-list">${items.map(cardFn).join('')}</div>`;
+      if (countEl) countEl.textContent = `${items.length} ${t('items')}`;
+      const prevBtn = $('archive-prev');
+      const nextBtn = $('archive-next');
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      if (dotsEl) dotsEl.innerHTML = '';
+      if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
+      if (page === 'certificates') initCertModalEvents();
+      return;
+    }
 
     // Chunk into pages of 6
     const pages = chunk(items, 6);

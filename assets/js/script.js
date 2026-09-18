@@ -42,6 +42,11 @@ const translations = {
 
     'portfolio.label': 'Selected work',
     'portfolio.heading': 'Portfolio showcase',
+    'portfolio.sub': 'A featured build first, then supporting work. Certificates and stack live in their own tabs.',
+    'portfolio.featured': 'Featured project',
+    'portfolio.cat_frontend': 'Frontend',
+    'portfolio.cat_backend': 'Backend',
+    'portfolio.cat_tools': 'Tools & Deploy',
     'portfolio.tab_projects': 'Projects',
     'portfolio.tab_certs': 'Certificates',
     'portfolio.tab_tech': 'Tech Stack',
@@ -99,6 +104,7 @@ const translations = {
     'hero.greeting': 'Halo, nama saya',
     'hero.role': 'Fullstack Web Developer & UI/UX Designer',
     'hero.desc': 'Siswa RPL yang membangun website responsif, modern, dan mudah digunakan.',
+    'hero.availability': 'Berbasis di Indonesia — terbuka untuk peran junior & freelance',
     'hero.btn_projects': 'Lihat proyek',
     'hero.btn_cv': 'Unduh CV',
 
@@ -119,6 +125,11 @@ const translations = {
 
     'portfolio.label': 'Karya pilihan',
     'portfolio.heading': 'Etalase portofolio',
+    'portfolio.sub': 'Satu karya unggulan dulu, lalu karya pendukung. Sertifikat dan stack ada di tab masing-masing.',
+    'portfolio.featured': 'Proyek unggulan',
+    'portfolio.cat_frontend': 'Frontend',
+    'portfolio.cat_backend': 'Backend',
+    'portfolio.cat_tools': 'Tools & Deploy',
     'portfolio.tab_projects': 'Proyek',
     'portfolio.tab_certs': 'Sertifikat',
     'portfolio.tab_tech': 'Tech Stack',
@@ -309,6 +320,7 @@ const LangSwitcher = (() => {
     // Re-render API-driven sections (projects & certificates)
     if (typeof ProjectsSection !== 'undefined') ProjectsSection.render();
     if (typeof CertificatesSection !== 'undefined') CertificatesSection.render();
+    if (typeof TechStackSection !== 'undefined') TechStackSection.init();
 
     // Placeholder attributes
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -683,43 +695,76 @@ const ProjectsSection = (() => {
         class="tech-icon" loading="lazy" />`).join('');
   }
 
-  function card(p) {
+  function metaLine(p) {
+    const cat = escapeHtml(pick(p.category));
+    const year = p.year ? ` — ${escapeHtml(p.year)}` : '';
+    return `${cat}${year}`;
+  }
+
+  /* Featured build: large asymmetric media + content, carries the most weight */
+  function featuredCard(p) {
     const name = escapeHtml(pick(p.name));
-    const desc = escapeHtml(pick(p.short_desc));
+    const desc = escapeHtml(pick(p.long_desc || p.short_desc));
     const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
     const placeholder = !p.demo || p.demo === '#';
     const github = placeholder ? '#' : escapeHtml(p.github);
 
     return `
-      <article class="card overflow-hidden fade-up flex flex-col">
-        <div class="relative h-44 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
-          <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,.28), transparent 55%);"></div>
-        </div>
-        <div class="p-5 flex flex-col flex-1">
-          <h3 class="text-sm font-bold mb-1 line-clamp-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
-          <p class="text-xs mb-3 leading-relaxed line-clamp-2" style="color:var(--color-text-muted); min-height:2rem;">${desc}</p>
-          <div class="flex flex-wrap items-center gap-1.5 mb-4">${techIcons(p)}</div>
-          <div class="flex gap-2 mt-auto">
-            <a href="${detailUrl}" class="btn-primary !text-xs !px-3 !py-2 flex-1 justify-center">${LangSwitcher.t('btn.detail')}</a>
-            <a href="${github}" class="btn-secondary !text-xs !px-3 !py-2"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${LangSwitcher.t('btn.github')}</a>
+      <article class="feat fade-up">
+        <a href="${detailUrl}" class="feat-media" aria-label="${name}">
+          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
+        </a>
+        <div>
+          <p class="feat-meta">${LangSwitcher.t('portfolio.featured')} · ${metaLine(p)}</p>
+          <h3 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-3" style="color:var(--color-text);">${name}</h3>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--color-text-muted);">${desc}</p>
+          <div class="flex flex-wrap items-center gap-1.5 mb-5">${techIcons(p)}</div>
+          <div class="flex gap-2">
+            <a href="${detailUrl}" class="btn-primary !text-xs !px-4 !py-2.5">${LangSwitcher.t('btn.detail')}</a>
+            <a href="${github}" class="btn-secondary !text-xs !px-4 !py-2.5"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${LangSwitcher.t('btn.github')}</a>
           </div>
         </div>
       </article>`;
   }
 
-  // Showcase now: static 6 preview only - easy to extend via api/project.json
-  // Just add new object at TOP of projects array; homepage auto shows first 6, See All shows all.
+  /* Supporting work: compact thumb + text rows separated by dividers */
+  function supCard(p) {
+    const name = escapeHtml(pick(p.name));
+    const desc = escapeHtml(pick(p.short_desc));
+    const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
+
+    return `
+      <article class="sup fade-up">
+        <a href="${detailUrl}" class="sup-thumb" aria-label="${name}" tabindex="-1">
+          <img src="${escapeHtml(fixAsset(p.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='0.5rem';" />
+        </a>
+        <div class="min-w-0">
+          <p class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-accent); letter-spacing:0.08em;">${metaLine(p)}</p>
+          <h3 class="text-[15px] font-bold mb-1 leading-snug" style="color:var(--color-text);">
+            <a href="${detailUrl}" class="hover:underline">${name}</a>
+          </h3>
+          <p class="text-[13px] leading-relaxed line-clamp-2 mb-2.5" style="color:var(--color-text-muted);">${desc}</p>
+          <a href="${detailUrl}" class="sup-link">${LangSwitcher.t('btn.detail')} <span aria-hidden="true">→</span></a>
+        </div>
+      </article>`;
+  }
+
+  // Showcase: first item featured large, next 5 as compact supporting rows.
+  // Just add new object at TOP of api/project.json projects array.
   function render() {
+    const feat = document.getElementById('projects-featured');
     const grid = document.getElementById('projects-grid');
-    if (!grid || !data) return;
+    if ((!feat && !grid) || !data) return;
     const preview = data.slice(0, 6);
     if (!preview.length) {
-      grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No projects yet.</p>`;
+      if (feat) feat.innerHTML = '';
+      if (grid) grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No projects yet.</p>`;
     } else {
-      grid.innerHTML = preview.map(card).join('');
+      if (feat) feat.innerHTML = featuredCard(preview[0]);
+      if (grid) grid.innerHTML = preview.slice(1).map(supCard).join('');
     }
-    observeFadeUp(grid);
+    if (feat) observeFadeUp(feat);
+    if (grid) observeFadeUp(grid);
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
 
@@ -747,15 +792,16 @@ const CertificatesSection = (() => {
     const issuer = escapeHtml(pick(c.issuer));
 
     return `
-      <article class="card overflow-hidden cursor-pointer cert-card fade-up flex flex-col" role="button" tabindex="0"
+      <article class="card overflow-hidden cursor-pointer cert-card cert-row fade-up" role="button" tabindex="0"
         data-cert-img="${escapeHtml(fixAsset(c.image))}" data-cert-name="${name}" data-cert-issuer="${issuer}">
-        <div class="h-52 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(fixAsset(c.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
+        <div class="cert-thumb" aria-hidden="true">
+          <img src="${escapeHtml(fixAsset(c.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
         </div>
-        <div class="p-4 flex-1">
-          <h3 class="text-sm font-bold mb-0.5 line-clamp-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
-          <p class="text-xs line-clamp-1" style="color:var(--color-accent); font-weight:600;">${issuer}</p>
+        <div class="min-w-0">
+          <h3 class="text-sm font-bold leading-snug line-clamp-1" style="font-weight:700; color:var(--color-text);">${name}</h3>
+          <p class="text-xs line-clamp-1 mt-0.5" style="color:var(--color-accent); font-weight:600;">${issuer}</p>
         </div>
+        <i data-feather="eye" class="w-4 h-4 justify-self-end" style="color:var(--color-text-muted);"></i>
       </article>`;
   }
 
@@ -992,48 +1038,57 @@ const ShowcaseSlider = (() => {
    15d. TECH STACK SECTION (from /api/techstack.json)
    ================================================================ */
 const TechStackSection = (() => {
+  /* Recruiter scan: three stable groups instead of a slider + marquee + cards */
+  const GROUPS = [
+    { key: 'portfolio.cat_frontend', names: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'React', 'Next JS', 'Flutter'] },
+    { key: 'portfolio.cat_backend', names: ['PHP', 'Laravel', 'MySQL', 'Python', 'Node.js', 'Mongo DB', 'Supabase', 'Fastapi', 'Golang'] },
+    { key: 'portfolio.cat_tools', names: ['Git', 'GitHub', 'Figma', 'Linux', 'Postman', 'Vercel', 'Netlify'] },
+  ];
+
   function imgProps(item) {
-    const cls = item.invert_dark ? 'w-10 h-10 invert-dark' : 'w-10 h-10';
+    const cls = item.invert_dark ? 'invert-dark' : '';
     const filter = item.invert_dark && State.theme === 'dark' ? ' style="filter:invert(1);"' : '';
     return `class="${cls}"${filter}`;
   }
 
-  function marqueeItem(s) {
-    return `
-      <div class="logo-item" title="${escapeHtml(s.name)}">
-        <img src="${escapeHtml(s.icon)}" alt="${escapeHtml(s.name)}" ${imgProps(s)} loading="lazy" />
-        <span class="text-xs font-semibold" style="color:var(--color-text-muted);">${escapeHtml(s.label || s.name)}</span>
-      </div>`;
-  }
-
-  function gridItem(s) {
-    return `
-      <div class="card p-4 flex flex-col items-center gap-2 fade-up">
-        <img src="${escapeHtml(s.icon)}" alt="${escapeHtml(s.name)}" ${imgProps(s)} loading="lazy" />
-        <span class="text-xs font-semibold text-center" style="color:var(--color-text-muted);">${escapeHtml(s.label || s.name)}</span>
-      </div>`;
+  function catColumn(title, items) {
+    if (!items.length) return '';
+    const rows = items.map(s => `
+      <li class="fade-up">
+        <img src="${escapeHtml(s.icon)}" alt="" ${imgProps(s)} loading="lazy" />
+        <span>${escapeHtml(s.label || s.name)}</span>
+      </li>`).join('');
+    return `<div class="tech-cat"><h4 class="tech-cat-title">${escapeHtml(title)}</h4><ul>${rows}</ul></div>`;
   }
 
   async function init() {
     try {
       const json = await DataService.techstack();
-      const slider = document.getElementById('logo-slider');
       const grid = document.getElementById('techstack-grid');
-
-      if (slider && json && json.marquee) {
-        slider.innerHTML = json.marquee.map(marqueeItem).join('');
-      }
       if (grid && json && json.grid) {
-        // 12 item per halaman, geser halus seperti project & certificate
-        const pages = [];
-        for (let i = 0; i < json.grid.length; i += 12) pages.push(json.grid.slice(i, i + 12));
-        grid.innerHTML = pages.map((page, i) =>
-          `<div class="pager-page${i === 0 ? ' page-active' : ''}"><div class="pager-grid pager-grid-tech performance">${page.map(gridItem).join('')}</div></div>`
-        ).join('');
+        const rest = [...json.grid];
+        const cols = GROUPS.map(g => {
+          const items = [];
+          g.names.forEach(n => {
+            const i = rest.findIndex(s => s.name === n);
+            if (i !== -1) items.push(rest.splice(i, 1)[0]);
+          });
+          return catColumn(LangSwitcher.t(g.key), items);
+        });
+        /* Anything new in techstack.json falls into Tools so nothing is lost */
+        if (rest.length) {
+          const toolsIdx = cols.length - 1;
+          const extra = rest.map(s => `
+            <li class="fade-up">
+              <img src="${escapeHtml(s.icon)}" alt="" ${imgProps(s)} loading="lazy" />
+              <span>${escapeHtml(s.label || s.name)}</span>
+            </li>`).join('');
+          cols[toolsIdx] = cols[toolsIdx].replace('</ul></div>', `${extra}</ul></div>`);
+        }
+        grid.innerHTML = cols.join('');
         const count = document.getElementById('techstack-count');
         if (count) count.textContent = json.grid.length;
         observeFadeUp(grid);
-        if (typeof ShowcaseSlider !== 'undefined') ShowcaseSlider.refresh('techstack');
       }
     } catch (err) {
       console.error('[TechStack] Failed to initialize:', err);
