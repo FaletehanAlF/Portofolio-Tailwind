@@ -9,11 +9,10 @@
       education: 'Education',
       experience: 'Experience',
       kicker: 'Experience',
-      title: 'Experience documented as case study',
-      subtitle: 'Competition, freelance, and self-directed learning — structured so HRD can see what the event was, when and where, my role, what I actually did, and the documentation.',
-      noteLabel: 'How to read',
-      noteText: 'Each entry: Title → Date → Location → Role → About → What I did → Documentation. No CV list, no cards.',
-      items: 'items',
+      title: 'Selected experiences',
+      subtitle: 'Competition, development work, and practical experience — documented with context, contribution, and evidence.',
+      countSub: 'Competition · Development · Learning',
+      items: 'EXPERIENCES',
       empty: 'No experience data.',
       ctaTitle: 'Want to see the builds?',
       ctaDesc: 'Experience above is the context. Projects show the actual code, UI, and deployment.',
@@ -46,11 +45,10 @@
       education: 'Pendidikan',
       experience: 'Pengalaman',
       kicker: 'Pengalaman',
-      title: 'Pengalaman sebagai studi kasus',
-      subtitle: 'Lomba, freelance, dan belajar mandiri — disusun agar HRD langsung paham: acaranya apa, kapan dan di mana, peran saya, apa yang saya kerjakan, dan dokumentasinya.',
-      noteLabel: 'Cara membaca',
-      noteText: 'Setiap entri: Judul → Tanggal → Lokasi → Peran → Tentang → Apa yang saya kerjakan → Dokumentasi. Bukan daftar CV, tanpa kartu.',
-      items: 'item',
+      title: 'Pengalaman terpilih',
+      subtitle: 'Lomba, pengembangan, dan pengalaman praktis — didokumentasikan dengan konteks, kontribusi, dan bukti.',
+      countSub: 'Kompetisi · Pengembangan · Pembelajaran',
+      items: 'PENGALAMAN',
       empty: 'Tidak ada data pengalaman.',
       ctaTitle: 'Ingin melihat hasilnya?',
       ctaDesc: 'Pengalaman di atas adalah konteksnya. Proyek menunjukkan kode, UI, dan deployment yang sebenarnya.',
@@ -222,8 +220,19 @@
     else if (year) items.push({ dt: t('metaYear'), dd: year });
     if (location) items.push({ dt: t('metaLocation'), dd: location });
     if (organizer) items.push({ dt: t('metaOrganizer'), dd: organizer });
-    if (typeVal) items.push({ dt: t('metaType'), dd: typeVal });
-    if (catLabel) items.push({ dt: t('metaCategory'), dd: catLabel });
+    // Deduplicate TYPE vs CATEGORY when they are the same value (e.g. Competition/Competition)
+    const normType = typeVal ? typeVal.trim().toLowerCase() : '';
+    const normCat = catLabel ? catLabel.trim().toLowerCase() : '';
+    if (normType && normCat && normType === normCat) {
+      // keep only one — prefer TYPE, skip CATEGORY
+    } else {
+      if (typeVal) items.push({ dt: t('metaType'), dd: typeVal });
+      if (catLabel) items.push({ dt: t('metaCategory'), dd: catLabel });
+    }
+    // If they were identical and we skipped both, add back one
+    if (normType && normCat && normType === normCat && typeVal) {
+      items.push({ dt: t('metaType'), dd: typeVal });
+    }
     return items;
   }
 
