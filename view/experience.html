@@ -118,9 +118,11 @@
     </div>
   </footer>
 
-  <!-- Lightbox for documentation photos -->
+  <!-- Lightbox for documentation photos (reused, with prev/next) -->
   <div id="exp-lightbox" class="exp-lightbox" role="dialog" aria-modal="true" aria-label="Documentation preview" hidden>
     <button id="exp-lightbox-close" class="exp-lightbox-close" aria-label="Close preview"><i data-feather="x" class="w-5 h-5"></i></button>
+    <button id="exp-lightbox-prev" class="exp-lightbox-nav exp-lightbox-prev" aria-label="Previous photo">‹</button>
+    <button id="exp-lightbox-next" class="exp-lightbox-nav exp-lightbox-next" aria-label="Next photo">›</button>
     <img id="exp-lightbox-img" src="" alt="" />
     <p id="exp-lightbox-caption" class="exp-lightbox-caption hidden"></p>
   </div>

@@ -276,18 +276,38 @@
       </section>`;
   }
 
-  function renderDocGallery(images) {
-    if (images.length <= 1) return '';
-    const rest = images.slice(1);
-    const thumbs = rest.map((img) => `
-      <figure class="exp-doc-thumb" tabindex="0" role="button" data-lightbox-src="${esc(img.src)}" data-lightbox-alt="${esc(img.alt)}" aria-label="${esc(img.alt)}">
-        <img src="${esc(img.src)}" alt="${esc(img.alt)}" loading="lazy" onerror="this.closest('.exp-doc-thumb').style.display='none'" />
-      </figure>`).join('');
+  function renderShowcase(images, title, expNum) {
+    if (!images.length) {
+      return `
+      <figure class="exp-figure exp-figure--placeholder" aria-label="${esc(t('documentation'))}">
+        <div class="exp-placeholder-inner">
+          <p class="exp-placeholder-label">${esc(t('documentation'))}</p>
+        </div>
+      </figure>`;
+    }
+    const total = images.length;
+    const pad = (n) => String(n).padStart(2, '0');
+    const stack = images.map((img, i) => `
+        <img src="${esc(img.src)}" alt="${esc(img.alt)}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}
+          class="exp-show-img${i === 0 ? ' is-active' : ''}" data-idx="${i}"
+          onerror="this.style.display='none'" />`).join('');
+    const nav = total > 1 ? `
+        <div class="exp-show-nav" role="group" aria-label="${esc(t('documentation'))}">
+          ${images.map((_, i) => `
+          <button type="button" class="exp-show-btn${i === 0 ? ' is-active' : ''}" data-go="${i}"
+            aria-label="${esc(t('viewDoc'))} ${pad(i + 1)} / ${pad(total)}" aria-current="${i === 0 ? 'true' : 'false'}">${pad(i + 1)}</button>`).join('')}
+        </div>` : '';
+    const countLabel = `${pad(1)} / ${pad(total)}`;
     return `
-      <section class="exp-doc" aria-label="${esc(t('documentation'))}">
-        <h3 class="exp-section-title">${esc(t('documentation'))}</h3>
-        <div class="exp-doc-grid">${thumbs}</div>
-      </section>`;
+      <div class="exp-showcase" data-showcase="${esc(expNum)}" data-count="${total}">
+        <button type="button" class="exp-show-stage" aria-label="${esc(images[0].alt)} — ${countLabel}">
+          <span class="exp-show-stack">${stack}</span>
+        </button>
+        <div class="exp-show-meta">
+          <span class="exp-show-count" aria-live="polite">${countLabel}</span>
+          ${nav}
+        </div>
+      </div>`;
   }
 
   function itemHTML(item, idx) {
@@ -309,16 +329,7 @@
 
     const subtitleHtml = subtitle ? `<p class="exp-subtitle">${esc(subtitle)}</p>` : '';
 
-    const heroPhoto = hasImages ? `
-      <figure class="exp-figure exp-hero-photo" tabindex="0" role="button" data-lightbox-src="${esc(images[0].src)}" data-lightbox-alt="${esc(images[0].alt)}" aria-label="${esc(images[0].alt)}">
-        <img src="${esc(images[0].src)}" alt="${esc(images[0].alt)}" loading="lazy" onerror="this.closest('.exp-figure').style.display='none'" />
-        ${images[0].caption ? `<figcaption class="exp-figure-caption"><i data-feather="image" class="w-3.5 h-3.5"></i> ${esc(images[0].caption)}</figcaption>` : `<figcaption class="exp-figure-caption"><i data-feather="image" class="w-3.5 h-3.5"></i> ${esc(t('viewDoc'))} · ${esc(title)}</figcaption>`}
-      </figure>` : `
-      <figure class="exp-figure exp-figure--placeholder" aria-label="${esc(t('documentation'))}">
-        <div class="exp-placeholder-inner">
-          <p class="exp-placeholder-label">${esc(t('documentation'))}</p>
-        </div>
-      </figure>`;
+    const heroPhoto = renderShowcase(images, title, num);
 
     const aboutHtml = description ? `
       <section class="exp-about" aria-label="${esc(t('about'))}">
@@ -327,15 +338,13 @@
       </section>` : '';
 
     const didHtml = renderActivities(activities);
-    const docHtml = renderDocGallery(images);
     const techHtml = tech.length ? `<p class="exp-techline"><strong>${esc(t('techLabel'))}</strong> ${tech.map((c) => `<span>${esc(c)}</span>`).join('')}</p>` : '';
     const role = getRole(item);
     const roleBlock = renderRoleBlock(role);
 
     const anchorId = `exp-${num}`;
-    // DOM order: kicker/title/topMeta -> photo/placeholder -> role -> about/did -> tech -> gallery
-    // This gives mobile: Title -> Date/Location -> Photo -> Role -> About -> What I Did -> Documentation
-    // Desktop grid places photo on right, role stays on left column.
+    // DOM order: kicker/title/topMeta -> showcase/placeholder -> role -> about/did -> tech
+    // Showcase IS the documentation (01/03 + nav). No separate gallery to avoid duplication.
     return `
       <article id="${anchorId}" class="exp-case${isCompetition} reveal has-visual">
         <div class="exp-hero">
@@ -353,27 +362,44 @@
           ${didHtml || '<div></div>'}
         </div>
         ${techHtml}
-        ${docHtml}
       </article>`;
   }
 
-  // ---- Lightbox ----
+  // ---- Lightbox (reused, now with prev/next for current showcase) ----
   let lightboxEls = null;
+  const LightboxState = { images: [], index: 0 };
   function initLightbox() {
     const wrap = $('exp-lightbox');
     const img = $('exp-lightbox-img');
     const cap = $('exp-lightbox-caption');
     const closeBtn = $('exp-lightbox-close');
+    const prevBtn = $('exp-lightbox-prev');
+    const nextBtn = $('exp-lightbox-next');
     if (!wrap || !img) return;
-    lightboxEls = { wrap, img, cap, closeBtn };
+    lightboxEls = { wrap, img, cap, closeBtn, prevBtn, nextBtn };
 
-    function open(src, alt) {
-      img.src = src;
-      img.alt = alt || '';
+    function show() {
+      const cur = LightboxState.images[LightboxState.index];
+      if (!cur) return;
+      img.src = cur.src;
+      img.alt = cur.alt || '';
+      const pad = (n) => String(n).padStart(2, '0');
+      const label = LightboxState.images.length > 1
+        ? `${pad(LightboxState.index + 1)} / ${pad(LightboxState.images.length)} — ${cur.alt || ''}`
+        : (cur.alt || '');
       if (cap) {
-        if (alt) { cap.textContent = alt; cap.classList.remove('hidden'); }
+        if (label) { cap.textContent = label; cap.classList.remove('hidden'); }
         else cap.classList.add('hidden');
       }
+      const multi = LightboxState.images.length > 1;
+      if (prevBtn) prevBtn.style.display = multi ? '' : 'none';
+      if (nextBtn) nextBtn.style.display = multi ? '' : 'none';
+    }
+    function open(images, index) {
+      if (!Array.isArray(images) || !images.length) return;
+      LightboxState.images = images;
+      LightboxState.index = Math.max(0, Math.min(images.length - 1, index || 0));
+      show();
       wrap.hidden = false;
       requestAnimationFrame(() => wrap.classList.add('open'));
       document.body.style.overflow = 'hidden';
@@ -382,30 +408,121 @@
     function close() {
       wrap.classList.remove('open');
       document.body.style.overflow = '';
-      setTimeout(() => { wrap.hidden = true; img.src = ''; img.alt = ''; }, 220);
+      setTimeout(() => { wrap.hidden = true; img.src = ''; img.alt = ''; LightboxState.images = []; }, 220);
+    }
+    function step(dir) {
+      if (LightboxState.images.length < 2) return;
+      const n = LightboxState.images.length;
+      LightboxState.index = (LightboxState.index + dir + n) % n;
+      show();
     }
     lightboxEls.open = open;
     lightboxEls.close = close;
+    lightboxEls.step = step;
 
     closeBtn && closeBtn.addEventListener('click', close);
+    prevBtn && prevBtn.addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+    nextBtn && nextBtn.addEventListener('click', (e) => { e.stopPropagation(); step(1); });
     wrap.addEventListener('click', (e) => { if (e.target === wrap) close(); });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && wrap.classList.contains('open')) close();
+      if (!wrap.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
     });
   }
 
-  function bindLightboxTriggers(root) {
-    if (!lightboxEls) return;
-    root.querySelectorAll('[data-lightbox-src]').forEach((el) => {
-      const activate = () => {
-        const src = el.getAttribute('data-lightbox-src');
-        const alt = el.getAttribute('data-lightbox-alt') || el.getAttribute('aria-label') || '';
-        if (src) lightboxEls.open(src, alt);
+  // ---- Showcase: independent carousel per experience ----
+  const SHOW_INTERVAL = 4500;
+  const showcases = [];
+  function reducedMotion() {
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+    catch (_) { return false; }
+  }
+  function showcaseGo(sc, idx) {
+    const n = sc.images.length;
+    if (!n) return;
+    sc.current = (idx + n) % n;
+    sc.imgs.forEach((im, i) => im.classList.toggle('is-active', i === sc.current));
+    sc.btns.forEach((b, i) => {
+      b.classList.toggle('is-active', i === sc.current);
+      if (i === sc.current) b.setAttribute('aria-current', 'true');
+      else b.removeAttribute('aria-current');
+    });
+    const pad = (v) => String(v).padStart(2, '0');
+    if (sc.countEl) sc.countEl.textContent = `${pad(sc.current + 1)} / ${pad(n)}`;
+    if (sc.stage) sc.stage.setAttribute('aria-label', `${sc.images[sc.current].alt} — ${pad(sc.current + 1)} / ${pad(n)}`);
+  }
+  function showcaseStop(sc) {
+    if (sc.timer) { clearInterval(sc.timer); sc.timer = null; }
+  }
+  function showcaseStart(sc) {
+    showcaseStop(sc);
+    if (sc.images.length < 2 || reducedMotion()) return;
+    if (!sc.inView || sc.hoverPaused) return;
+    sc.timer = setInterval(() => showcaseGo(sc, sc.current + 1), SHOW_INTERVAL);
+  }
+  function initShowcases(root) {
+    showcases.length = 0;
+    const reduced = reducedMotion();
+    // Preload to avoid white/black flash before transition
+    State.data.forEach((item) => {
+      const imgs = normalizeImages(item).slice(0, 3);
+      imgs.forEach((im) => { const p = new Image(); p.src = im.src; });
+    });
+    root.querySelectorAll('.exp-showcase').forEach((el) => {
+      const expNum = el.getAttribute('data-showcase');
+      const idx = parseInt(expNum, 10) - 1;
+      const item = State.data[idx];
+      if (!item) return;
+      const images = normalizeImages(item).slice(0, 3);
+      if (images.length < 2) return;
+      const sc = {
+        root: el,
+        images,
+        current: 0,
+        timer: null,
+        inView: true,
+        hoverPaused: false,
+        stage: el.querySelector('.exp-show-stage'),
+        imgs: Array.from(el.querySelectorAll('.exp-show-img')),
+        btns: Array.from(el.querySelectorAll('.exp-show-btn')),
+        countEl: el.querySelector('.exp-show-count'),
       };
-      el.addEventListener('click', activate);
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+      showcases.push(sc);
+      sc.btns.forEach((b) => {
+        b.addEventListener('click', () => {
+          showcaseGo(sc, parseInt(b.getAttribute('data-go'), 10));
+          showcaseStart(sc);
+        });
       });
+      if (sc.stage && lightboxEls) {
+        sc.stage.addEventListener('click', () => lightboxEls.open(sc.images, sc.current));
+      }
+      el.addEventListener('mouseenter', () => { sc.hoverPaused = true; showcaseStop(sc); });
+      el.addEventListener('mouseleave', () => { sc.hoverPaused = false; showcaseStart(sc); });
+      // Pause when out of viewport, resume when visible
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((en) => {
+            sc.inView = en.isIntersecting;
+            if (sc.inView) showcaseStart(sc);
+            else showcaseStop(sc);
+          });
+        }, { threshold: 0.2 });
+        obs.observe(el);
+      }
+      if (!reduced) showcaseStart(sc);
+    });
+    // Single-photo stage still opens lightbox
+    root.querySelectorAll('.exp-showcase[data-count="1"] .exp-show-stage').forEach((stage) => {
+      const box = stage.closest('.exp-showcase');
+      const expNum = box ? box.getAttribute('data-showcase') : null;
+      const idx = expNum ? parseInt(expNum, 10) - 1 : -1;
+      const item = idx >= 0 ? State.data[idx] : null;
+      if (!item) return;
+      const images = normalizeImages(item).slice(0, 3);
+      stage.addEventListener('click', () => { if (lightboxEls) lightboxEls.open(images, 0); });
     });
   }
 
@@ -474,7 +591,7 @@
     if (empty) empty.classList.add('hidden');
     list.innerHTML = State.data.map((item, i) => itemHTML(item, i)).join('');
     renderIndex();
-    bindLightboxTriggers(list);
+    initShowcases(list);
     initReveal();
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }

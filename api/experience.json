@@ -19,7 +19,7 @@
         { "en": "Implementing responsive layout and UI with modern web technologies", "id": "Menerapkan layout responsif dan UI dengan teknologi web modern" },
         { "en": "Problem-solving and iterating under competition pressure", "id": "Menyelesaikan masalah dan iterasi di bawah tekanan kompetisi" }
       ],
-      "images": [],
+      "images": [ "https://i.pinimg.com/736x/c9/da/01/c9da0128927f21e481c7499f37ced217.jpg", "https://i.pinimg.com/736x/60/21/07/602107b15a42453d4194e82c3a1fb34f.jpg" ],
       "company": { "en": "Web Developer Competition", "id": "Lomba Web Developer" },
       "period": { "en": "2025", "id": "2025" },
       "highlights": [],
