@@ -1964,6 +1964,10 @@
     .exp-hero-main {
       padding-top: 0.25rem;
     }
+    /* when no visual, hero is single column — role stacks under meta */
+    .exp-case:not(.has-visual) .exp-hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
     .exp-figure img {
       aspect-ratio: 4 / 3.2;
     }

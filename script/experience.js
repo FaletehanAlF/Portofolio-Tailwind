@@ -302,7 +302,13 @@
       <figure class="exp-figure exp-hero-photo" tabindex="0" role="button" data-lightbox-src="${esc(images[0].src)}" data-lightbox-alt="${esc(images[0].alt)}" aria-label="${esc(images[0].alt)}">
         <img src="${esc(images[0].src)}" alt="${esc(images[0].alt)}" loading="lazy" onerror="this.closest('.exp-figure').style.display='none'" />
         ${images[0].caption ? `<figcaption class="exp-figure-caption"><i data-feather="image" class="w-3.5 h-3.5"></i> ${esc(images[0].caption)}</figcaption>` : `<figcaption class="exp-figure-caption"><i data-feather="image" class="w-3.5 h-3.5"></i> ${esc(t('viewDoc'))} · ${esc(title)}</figcaption>`}
-      </figure>` : '';
+      </figure>` : `
+      <figure class="exp-figure exp-figure--placeholder" aria-label="${esc(t('viewDoc'))}">
+        <div class="exp-placeholder-inner">
+          <i data-feather="image" class="w-6 h-6" style="color:var(--color-text-muted);"></i>
+          <p class="font-meta text-[11px]" style="color:var(--color-text-muted); letter-spacing:0.06em; margin-top:0.5rem;">${esc(State.lang === 'id' ? 'Dokumentasi — tambahkan foto ke images[] di experience.json' : 'Documentation — add photos to images[] in experience.json')}</p>
+        </div>
+      </figure>`;
 
     const aboutHtml = description ? `
       <section class="exp-about" aria-label="${esc(t('about'))}">
