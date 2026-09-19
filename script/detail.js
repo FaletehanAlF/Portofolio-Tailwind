@@ -10,6 +10,7 @@
     en: {
       skip: 'Skip to content',
       back: 'Back to Portfolio',
+      backProjects: 'Back to Projects',
       home: 'Home',
       projects: 'Projects',
       eyebrow: 'Project Case Study',
@@ -59,6 +60,7 @@
     id: {
       skip: 'Lewati ke konten',
       back: 'Kembali ke Portofolio',
+      backProjects: 'Kembali ke Proyek',
       home: 'Beranda',
       projects: 'Proyek',
       eyebrow: 'Studi Kasus Proyek',
