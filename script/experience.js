@@ -208,31 +208,27 @@
     }).filter(Boolean);
   }
 
-  function metaItems(item) {
+  function topMetaItems(item) {
     const items = [];
-    const title = getTitle(item);
     const dateLabel = getDateLabel(item);
     const year = item.year ? String(item.year).trim() : '';
     const location = getLocation(item);
     const organizer = getOrganizer(item);
-    const role = getRole(item);
     const cat = item.category || '';
     const typeVal = item.type ? pick(item.type) : '';
     const catLabel = cat && categoryLabels[cat] ? pick(categoryLabels[cat]) : (cat ? cat.toUpperCase() : '');
 
-    if (title) items.push({ dt: t('metaEvent'), dd: title });
     if (dateLabel) items.push({ dt: t('metaDate'), dd: dateLabel });
     else if (year) items.push({ dt: t('metaYear'), dd: year });
     if (location) items.push({ dt: t('metaLocation'), dd: location });
-    if (role) items.push({ dt: t('metaRole'), dd: role });
     if (organizer) items.push({ dt: t('metaOrganizer'), dd: organizer });
     if (typeVal) items.push({ dt: t('metaType'), dd: typeVal });
-    if (catLabel && cat !== 'competition') items.push({ dt: t('metaCategory'), dd: catLabel });
+    if (catLabel) items.push({ dt: t('metaCategory'), dd: catLabel });
     return items;
   }
 
-  function renderMeta(item) {
-    const rows = metaItems(item);
+  function renderTopMeta(item) {
+    const rows = topMetaItems(item);
     if (!rows.length) return '';
     const single = rows.length === 1 ? ' is-single' : '';
     const html = rows.map((r) => `
@@ -241,6 +237,15 @@
         <dd>${esc(r.dd)}</dd>
       </div>`).join('');
     return `<dl class="exp-meta${single}">${html}</dl>`;
+  }
+
+  function renderRoleBlock(role) {
+    if (!role) return '';
+    return `
+      <div class="exp-role-block">
+        <p class="exp-role-label">${esc(t('metaRole'))}</p>
+        <p class="exp-role-value">${esc(role)}</p>
+      </div>`;
   }
 
   function renderActivities(activities) {
@@ -308,9 +313,12 @@
     const didHtml = renderActivities(activities);
     const docHtml = renderDocGallery(images);
     const techHtml = tech.length ? `<p class="exp-techline"><strong>${esc(t('techLabel'))}</strong> ${tech.map((c) => `<span>${esc(c)}</span>`).join('')}</p>` : '';
+    const role = getRole(item);
+    const roleBlock = renderRoleBlock(role);
 
-    // When no images, hero has no photo — content spans full width via CSS.
-    // When images exist, hero is 7/5 split.
+    // DOM order: kicker/title/topMeta -> photo -> role -> about/did -> tech -> gallery
+    // This gives mobile: Title -> Date/Location -> Photo -> Role -> About -> What I Did -> Documentation
+    // Desktop grid places photo on right, role stays on left column.
     return `
       <article class="exp-case${isCompetition} reveal${hasImages ? ' has-visual' : ''}">
         <div class="exp-hero">
@@ -318,9 +326,10 @@
             ${kicker}
             <h2 class="exp-title">${esc(title)}</h2>
             ${subtitleHtml}
-            ${renderMeta(item)}
+            ${renderTopMeta(item)}
           </div>
           ${hasImages ? heroPhoto : ''}
+          ${roleBlock}
         </div>
         <div class="exp-content">
           ${aboutHtml}
