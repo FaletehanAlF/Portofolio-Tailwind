@@ -196,7 +196,7 @@ return `
             <div class="pcard-tech" aria-label="Technologies">${icons || '&nbsp;'}</div>
             <div class="pcard-actions">
               <a href="${detailUrl}" class="pcard-view">${viewLabel} <span aria-hidden="true">→</span></a>
-              ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="pcard-gh"><i data-feather="github" class="pcard-gh-icon" aria-hidden="true"></i>${escapeHtml(t('github'))}</a>` : ''}
+              ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="pcard-gh" aria-label="${escapeHtml(t('github'))} – ${name}" title="${escapeHtml(t('github'))}"><i data-feather="github" class="pcard-gh-icon" aria-hidden="true"></i></a>` : ''}
             </div>
           </div>
         </article>`;
