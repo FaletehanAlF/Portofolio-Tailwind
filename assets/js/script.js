@@ -63,6 +63,7 @@ const translations = {
     'theme.moon': 'Moon (dark mode)',
 
     'btn.detail': 'Details',
+    'btn.view': 'View project',
     'btn.github': 'GitHub',
 
     'contact.heading': "Let's work\ntogether.",
@@ -146,6 +147,7 @@ const translations = {
     'theme.moon': 'Bulan (mode gelap)',
 
     'btn.detail': 'Detail',
+    'btn.view': 'Lihat proyek',
     'btn.github': 'GitHub',
 
     'contact.heading': 'Mari bekerja\nsama.',
