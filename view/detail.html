@@ -65,13 +65,15 @@
 
       <!-- Loading -->
       <div id="d-loading" class="flex flex-col gap-6" aria-hidden="true">
-        <div class="flex flex-col gap-3 max-w-2xl">
-          <div class="skeleton h-4 w-32"></div>
-          <div class="skeleton h-9 w-3/4"></div>
-          <div class="skeleton h-4 w-full"></div>
-          <div class="skeleton h-4 w-2/3"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 items-center">
+          <div class="flex flex-col gap-3">
+            <div class="skeleton h-4 w-32"></div>
+            <div class="skeleton h-9 w-3/4"></div>
+            <div class="skeleton h-4 w-full"></div>
+            <div class="skeleton h-4 w-2/3"></div>
+          </div>
+          <div class="skeleton w-full" style="aspect-ratio:16/10; border-radius:1rem;"></div>
         </div>
-        <div class="skeleton w-full" style="height:clamp(200px,40vw,420px); border-radius:1rem;"></div>
         <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-8">
           <div class="flex flex-col gap-3">
             <div class="skeleton h-4 w-full"></div>
