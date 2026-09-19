@@ -665,16 +665,18 @@
     padding: 12px 8px;
     margin: -12px -8px;
   }
-  #archive-viewport,
   #techstack-viewport,
   #exp-viewport {
     cursor: grab;
     user-select: none;
   }
-  #archive-viewport:active,
   #techstack-viewport:active,
   #exp-viewport:active {
     cursor: grabbing;
+  }
+  /* Archive is a plain card grid (no slider): keep text selectable, default cursor */
+  #archive-viewport {
+    cursor: default;
   }
 
   .pager-viewport:focus-visible {
@@ -2687,22 +2689,10 @@
   }
 
   @media (min-width: 1024px) {
-    .feat {
-      grid-template-columns: 7fr 5fr;
-      align-items: start;
-      gap: 2.5rem;
-    }
-    .feat-body {
-      padding-top: 0.25rem;
-    }
-    .feat.is-archive {
-      margin-bottom: 3.5rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .feat {
-      gap: 3rem;
+    /* Project cards: 3 columns on desktop */
+    .pcard-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
     }
   }
 
@@ -2720,9 +2710,8 @@
       transition: none;
     }
     .photo-card-inner,
-    .feat-media img,
-    .proj-view span,
-    .proj-go span {
+    .pcard-media img,
+    .pcard-view span {
       transition: none;
     }
     html {
