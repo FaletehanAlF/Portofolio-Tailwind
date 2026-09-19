@@ -2421,6 +2421,154 @@
     text-decoration: underline;
   }
 
+  /* Portfolio: compact tech line + editorial actions (detail first, GitHub quiet) */
+  .proj-tech {
+    font-family: var(--font-meta);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.1rem;
+  }
+  .proj-tech.is-row {
+    margin: 0.45rem 0 0;
+    font-size: 0.7rem;
+  }
+  .proj-actions {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+  }
+  .proj-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .proj-view span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .proj-view:hover span {
+    transform: translateX(3px);
+  }
+  .proj-gh {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .proj-gh:hover {
+    color: var(--color-accent);
+  }
+
+  /* Portfolio: editorial archive list — one row per project, dividers only */
+  .proj-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .proj-row {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) 1.75rem;
+    gap: 0.85rem;
+    align-items: start;
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .proj-num {
+    font-family: var(--font-meta);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    padding-top: 0.2rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .proj-meta {
+    font-family: var(--font-meta);
+    font-size: 0.66rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .proj-title {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+    text-wrap: balance;
+  }
+  .proj-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .proj-title a:hover {
+    color: var(--color-accent);
+  }
+  .proj-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .proj-go {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-top: 0.15rem;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--color-accent);
+    text-decoration: none;
+    border-radius: 9999px;
+  }
+  .proj-go span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .proj-row:hover .proj-go span {
+    transform: translateX(3px);
+  }
+  .proj-go:focus-visible,
+  .proj-view:focus-visible,
+  .proj-gh:focus-visible,
+  .proj-title a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .proj-archive-head {
+    margin: 0 0 0.25rem;
+    padding-top: 0.25rem;
+  }
+  .proj-archive-title {
+    font-family: var(--font-meta);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-text-muted);
+  }
+
   /* Certificates: compact rows (contrast vs project cards) */
   .cert-list {
     border-bottom: 1px solid var(--color-border);
