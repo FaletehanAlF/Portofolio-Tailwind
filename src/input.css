@@ -2332,6 +2332,105 @@
     border-bottom: 1px solid var(--color-border);
   }
 
+  /* About: quiet editorial — number + label + type + dividers, no cards */
+  .about-wrap {
+    max-width: 760px;
+  }
+  .about-headline {
+    font-weight: 700;
+    font-size: clamp(1.85rem, 1.3rem + 2.6vw, 2.75rem);
+    line-height: 1.16;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    text-wrap: balance;
+    max-width: 22ch;
+    margin: 0.6rem 0 0;
+  }
+  .about-rule {
+    margin: 2.25rem 0;
+  }
+  .about-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .about-block {
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .about-block:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .about-block:last-child {
+    padding-bottom: 0;
+  }
+  .about-block-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: 0.7rem;
+  }
+  .about-num {
+    font-family: var(--font-meta);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+  .about-block-label {
+    font-family: var(--font-meta);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .about-block p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    max-width: 65ch;
+    margin: 0;
+    overflow-wrap: break-word;
+  }
+  .about-meta {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+  .about-meta-item dt {
+    font-family: var(--font-meta);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.35rem;
+  }
+  .about-meta-item dd {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .about-connect {
+    margin-top: 2.25rem;
+  }
+  .about-connect-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin: 0 0 0.75rem;
+  }
+  .about-connect-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-left: -1rem;
+  }
+
   /* Portfolio: uniform project cards — image is the hero (16/10, ~40-45% of card).
      One shared renderer for homepage + archive. Quiet, no glow/tilt/gradient. */
   .pcard-grid {
@@ -2686,6 +2785,11 @@
     .pcard-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.4rem;
+    }
+    /* About meta: 3 compact columns on tablet and up, stacked on mobile */
+    .about-meta {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
     }
     .sup-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
