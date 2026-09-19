@@ -37,6 +37,7 @@
       next: 'Next',
       other: 'Other Projects',
       explore: 'Keep exploring',
+      viewProject: 'View project',
       seeAll: 'See All',
       allProjects: 'All Projects',
       hireMe: 'Hire me',
@@ -87,6 +88,7 @@
       next: 'Berikutnya',
       other: 'Proyek Lainnya',
       explore: 'Jelajahi lagi',
+      viewProject: 'Lihat proyek',
       seeAll: 'Lihat Semua',
       allProjects: 'Semua Proyek',
       hireMe: 'Rekrut saya',
@@ -276,7 +278,7 @@
             <h3 class="text-[15px] font-bold mb-1 leading-snug" style="color:var(--color-text);">
               <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="hover:underline">${name}</a>
             </h3>
-            <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="sup-link">${t('seeAll')} <span aria-hidden="true">→</span></a>
+            <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="sup-link">${t('viewProject')} <span aria-hidden="true">→</span></a>
           </div>
         </article>`;
     }).join('');
