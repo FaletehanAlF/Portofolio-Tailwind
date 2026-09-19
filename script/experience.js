@@ -104,6 +104,15 @@
   const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const safeSet = (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} };
 
+  function fixAsset(src) {
+    const s = String(src || '').trim();
+    if (!s) return '';
+    if (/^https?:\/\//i.test(s) || s.indexOf('data:') === 0) return s;
+    if (s.charAt(0) === '/' && s.indexOf('//') !== 0) return '..' + s;
+    if (s.indexOf('assets/') === 0) return '../' + s;
+    return s;
+  }
+
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
@@ -191,7 +200,7 @@
       if (!src) return null;
       const fallbackAlt = title ? `${t('photoFallback')} — ${title}` : t('photoFallback');
       return {
-        src,
+        src: fixAsset(src),
         alt: alt || fallbackAlt,
         caption: caption || '',
         idx,
