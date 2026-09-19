@@ -115,7 +115,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
-    localStorage.setItem('theme', theme);
+    safeSet('theme', theme);
     const isDark = theme === 'dark';
     const sun = $('theme-icon-light');
     const moon = $('theme-icon-dark');
