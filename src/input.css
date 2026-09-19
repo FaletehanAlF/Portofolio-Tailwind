@@ -2416,15 +2416,18 @@
     min-height: calc(1.6em * 2);
   }
   .pcard-tech {
-    font-family: var(--font-meta);
-    font-size: 0.7rem;
-    letter-spacing: 0.03em;
-    color: var(--color-text-muted);
-    margin-top: 0.6rem;
-    min-height: 1.4em;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+    min-height: 22px;
     overflow: hidden;
-    text-overflow: ellipsis;
+  }
+  .pcard-tech-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
   }
   .pcard-actions {
     display: flex;
