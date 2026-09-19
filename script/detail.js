@@ -266,22 +266,19 @@
       const name = escapeHtml(pick(p.name));
       const cat = escapeHtml(pick(p.category));
       const img = fixAsset(p.image);
-      const icons = (Array.isArray(p.tech) ? p.tech : []).slice(0, 4).map((x) =>
-        `<img src="${escapeHtml(x.icon)}" alt="${escapeHtml(x.name)}" title="${escapeHtml(x.name)}" loading="lazy" onerror="this.style.display='none'" />`
-      ).join('');
       return `
-        <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="card overflow-hidden group flex flex-col">
-          <div class="h-40 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-            <img src="${escapeHtml(img)}" alt="${name}" loading="lazy"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              onerror="this.style.objectFit='contain';this.style.padding='1rem';this.onerror=null;" />
+        <article class="sup">
+          <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="sup-thumb" aria-label="${name}" tabindex="-1">
+            <img src="${escapeHtml(img)}" alt="" loading="lazy" onerror="this.style.objectFit='contain';this.style.padding='0.5rem';this.onerror=null;" />
+          </a>
+          <div class="min-w-0">
+            <p class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-accent); letter-spacing:0.08em;">${cat}</p>
+            <h3 class="text-[15px] font-bold mb-1 leading-snug" style="color:var(--color-text);">
+              <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="hover:underline">${name}</a>
+            </h3>
+            <a href="detail.html?project=${encodeURIComponent(p.slug)}" class="sup-link">${t('seeAll')} <span aria-hidden="true">→</span></a>
           </div>
-          <div class="p-4 flex flex-col gap-1.5 flex-1">
-            <span class="text-[11px] font-semibold uppercase tracking-wider" style="color:var(--color-accent);">${cat}</span>
-            <h3 class="text-sm font-bold leading-snug" style="color:var(--color-text);">${name}</h3>
-            ${icons ? `<div class="detail-mini-icons">${icons}</div>` : ''}
-          </div>
-        </a>`;
+        </article>`;
     }).join('');
     section.classList.remove('hidden');
   }
