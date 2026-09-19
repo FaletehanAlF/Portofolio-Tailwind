@@ -2701,6 +2701,18 @@
   }
 
   @media (min-width: 768px) {
+    /* Editorial project list stays single-column at every breakpoint (no card grid) */
+    .proj-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .proj-row {
+      grid-template-columns: 2.75rem minmax(0, 1fr) 2rem;
+      gap: 1rem;
+      padding: 1.35rem 0;
+    }
+    .proj-title {
+      font-size: 1.1rem;
+    }
     .sup-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 2.5rem;
