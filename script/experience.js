@@ -11,6 +11,7 @@
       kicker: 'Experience',
       title: 'Selected experiences',
       subtitle: 'Competition, development work, and practical experience — documented with context, contribution, and evidence.',
+      indexLabel: 'Index',
       countSub: 'Competition · Development · Learning',
       items: 'EXPERIENCES',
       empty: 'No experience data.',
@@ -47,6 +48,7 @@
       kicker: 'Pengalaman',
       title: 'Pengalaman terpilih',
       subtitle: 'Lomba, pengembangan, dan pengalaman praktis — didokumentasikan dengan konteks, kontribusi, dan bukti.',
+      indexLabel: 'Indeks',
       countSub: 'Kompetisi · Pengembangan · Pembelajaran',
       items: 'PENGALAMAN',
       empty: 'Tidak ada data pengalaman.',
@@ -330,11 +332,12 @@
     const role = getRole(item);
     const roleBlock = renderRoleBlock(role);
 
+    const anchorId = `exp-${num}`;
     // DOM order: kicker/title/topMeta -> photo/placeholder -> role -> about/did -> tech -> gallery
     // This gives mobile: Title -> Date/Location -> Photo -> Role -> About -> What I Did -> Documentation
     // Desktop grid places photo on right, role stays on left column.
     return `
-      <article class="exp-case${isCompetition} reveal has-visual">
+      <article id="${anchorId}" class="exp-case${isCompetition} reveal has-visual">
         <div class="exp-hero">
           <div class="exp-hero-main">
             ${kicker}
@@ -425,23 +428,52 @@
     }
   }
 
+  function renderIndex() {
+    const nav = $('exp-index');
+    const list = $('exp-index-list');
+    if (!nav || !list) return;
+    if (!State.data.length) {
+      nav.hidden = true;
+      list.innerHTML = '';
+      return;
+    }
+    // Show index only when it adds navigational value (>=2 items)
+    if (State.data.length < 2) {
+      nav.hidden = true;
+      list.innerHTML = '';
+      return;
+    }
+    nav.hidden = false;
+    list.innerHTML = State.data.map((item, i) => {
+      const title = getTitle(item) || '—';
+      const num = String(i + 1).padStart(2, '0');
+      const anchor = `exp-${num}`;
+      return `
+        <li class="exp-index-item">
+          <a href="#${anchor}" aria-label="${esc(title)}">
+            <span class="exp-index-num">${num}</span>
+            <span class="exp-index-title">${esc(title)}</span>
+          </a>
+        </li>`;
+    }).join('');
+  }
+
   function render() {
     const list = $('exp-list');
     const loading = $('exp-loading');
     const empty = $('exp-empty');
-    const countEl = $('exp-count');
     if (!list) return;
     if (loading) loading.style.display = 'none';
     if (!State.data.length) {
       list.innerHTML = '';
       if (empty) empty.classList.remove('hidden');
-      if (countEl) countEl.textContent = `0 ${t('items')}`;
+      renderIndex();
       if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
       return;
     }
     if (empty) empty.classList.add('hidden');
     list.innerHTML = State.data.map((item, i) => itemHTML(item, i)).join('');
-    if (countEl) countEl.textContent = `${State.data.length} ${t('items')}`;
+    renderIndex();
     bindLightboxTriggers(list);
     initReveal();
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
@@ -452,6 +484,18 @@
     applyStatic();
     initReveal();
     initLightbox();
+    // Index anchor offset for fixed capsule navbar
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('#exp-index a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top, behavior: 'smooth' });
+      history.pushState(null, '', `#${id}`);
+    });
     const tb = $('theme-toggle');
     if (tb) tb.addEventListener('click', () => applyTheme(State.theme === 'light' ? 'dark' : 'light'));
     const lb = $('lang-toggle');

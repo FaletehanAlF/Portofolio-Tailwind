@@ -57,19 +57,17 @@
   <main class="min-h-screen pt-36 sm:pt-40 pb-16" id="main">
     <div class="max-w-6xl mx-auto px-4 sm:px-5">
 
-      <!-- Page hero: professional, HRD-readable — not a spec sheet -->
+      <!-- Page hero: editorial + recruiter-readable -->
       <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-12 sm:mb-16">
-        <div class="lg:col-span-8">
+        <div class="lg:col-span-7">
           <p class="font-meta text-[11px] font-semibold uppercase tracking-[0.2em] mb-4" style="color:var(--color-accent);" data-i18n-exp="kicker">Experience</p>
           <h1 class="font-display font-bold tracking-tight mb-5" style="color:var(--color-text); line-height:0.92; letter-spacing:-0.04em; text-wrap:balance; font-size:clamp(2.8rem, 6vw, 4.4rem);" data-i18n-exp="title">Selected experiences</h1>
           <p class="text-[15px] leading-relaxed" style="color:var(--color-text-muted); max-width:46ch;" data-i18n-exp="subtitle">Competition, development work, and practical experience — documented with context, contribution, and evidence.</p>
         </div>
-        <div class="lg:col-span-3 lg:col-start-10 flex flex-col justify-end items-start lg:items-end gap-2">
-          <p class="font-meta text-[11px] font-semibold uppercase tracking-[0.16em]" style="color:var(--color-text-muted);">
-            <span id="exp-count">—</span>
-          </p>
-          <p class="font-meta text-[10px] uppercase tracking-[0.14em]" style="color:var(--color-text-muted);" data-i18n-exp="countSub">Competition · Development · Learning</p>
-        </div>
+        <nav id="exp-index" class="exp-index lg:col-span-4 lg:col-start-9" aria-label="Experience index" hidden>
+          <p class="exp-index-label" data-i18n-exp="indexLabel">Index</p>
+          <ol id="exp-index-list" class="exp-index-list"></ol>
+        </nav>
       </div>
 
       <div class="divider mb-6 sm:mb-8"></div>
