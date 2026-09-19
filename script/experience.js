@@ -285,28 +285,18 @@
         </div>
       </figure>`;
     }
-    const total = images.length;
-    const pad = (n) => String(n).padStart(2, '0');
+    // Clean editorial visual: photo only. No counter, no dots, no arrows,
+    // no thumbnails, no captions. Autoplay crossfade handled via .is-active.
     const stack = images.map((img, i) => `
-        <img src="${esc(img.src)}" alt="${esc(img.alt)}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}
-          class="exp-show-img${i === 0 ? ' is-active' : ''}" data-idx="${i}"
+        <img src="${esc(img.src)}" alt="${esc(img.alt)}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'}
+          class="exp-show-img${i === 0 ? ' is-active' : ''}" data-idx="${i}" draggable="false"
           onerror="this.style.display='none'" />`).join('');
-    const nav = total > 1 ? `
-        <div class="exp-show-nav" role="group" aria-label="${esc(t('documentation'))}">
-          ${images.map((_, i) => `
-          <button type="button" class="exp-show-btn${i === 0 ? ' is-active' : ''}" data-go="${i}"
-            aria-label="${esc(t('viewDoc'))} ${pad(i + 1)} / ${pad(total)}" aria-current="${i === 0 ? 'true' : 'false'}">${pad(i + 1)}</button>`).join('')}
-        </div>` : '';
-    const countLabel = `${pad(1)} / ${pad(total)}`;
+    const label = images[0].alt || t('documentation');
     return `
-      <div class="exp-showcase" data-showcase="${esc(expNum)}" data-count="${total}">
-        <button type="button" class="exp-show-stage" aria-label="${esc(images[0].alt)} — ${countLabel}">
+      <div class="exp-showcase" data-showcase="${esc(expNum)}" data-count="${images.length}">
+        <button type="button" class="exp-show-stage" aria-label="${esc(label)}">
           <span class="exp-show-stack">${stack}</span>
         </button>
-        <div class="exp-show-meta">
-          <span class="exp-show-count" aria-live="polite">${countLabel}</span>
-          ${nav}
-        </div>
       </div>`;
   }
 
@@ -444,14 +434,11 @@
     if (!n) return;
     sc.current = (idx + n) % n;
     sc.imgs.forEach((im, i) => im.classList.toggle('is-active', i === sc.current));
-    sc.btns.forEach((b, i) => {
-      b.classList.toggle('is-active', i === sc.current);
-      if (i === sc.current) b.setAttribute('aria-current', 'true');
-      else b.removeAttribute('aria-current');
-    });
-    const pad = (v) => String(v).padStart(2, '0');
-    if (sc.countEl) sc.countEl.textContent = `${pad(sc.current + 1)} / ${pad(n)}`;
-    if (sc.stage) sc.stage.setAttribute('aria-label', `${sc.images[sc.current].alt} — ${pad(sc.current + 1)} / ${pad(n)}`);
+    // No visual indicators to update (photo-only editorial).
+    // Keep stage label in sync for screen readers without any counter.
+    if (sc.stage && sc.images[sc.current]) {
+      sc.stage.setAttribute('aria-label', sc.images[sc.current].alt || t('documentation'));
+    }
   }
   function showcaseStop(sc) {
     if (sc.timer) { clearInterval(sc.timer); sc.timer = null; }
@@ -486,16 +473,9 @@
         hoverPaused: false,
         stage: el.querySelector('.exp-show-stage'),
         imgs: Array.from(el.querySelectorAll('.exp-show-img')),
-        btns: Array.from(el.querySelectorAll('.exp-show-btn')),
-        countEl: el.querySelector('.exp-show-count'),
       };
       showcases.push(sc);
-      sc.btns.forEach((b) => {
-        b.addEventListener('click', () => {
-          showcaseGo(sc, parseInt(b.getAttribute('data-go'), 10));
-          showcaseStart(sc);
-        });
-      });
+      // No clickable controls (photo-only). Stage still opens lightbox.
       if (sc.stage && lightboxEls) {
         sc.stage.addEventListener('click', () => lightboxEls.open(sc.images, sc.current));
       }
