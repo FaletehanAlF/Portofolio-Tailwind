@@ -76,35 +76,25 @@
       </div>
       <div id="archive-filters" class="hidden"></div>
 
-      <!-- Slider controls -->
+      <!-- Count -->
       <div class="flex items-center justify-between gap-3 mb-4">
         <p class="text-xs font-semibold" style="color:var(--color-text-muted);">
           <span id="archive-count">0 items</span>
         </p>
-        <div class="flex items-center gap-2">
-          <button class="slider-btn" id="archive-prev" aria-label="Previous">
-            <i data-feather="chevron-left" class="w-4 h-4"></i>
-          </button>
-          <button class="slider-btn" id="archive-next" aria-label="Next">
-            <i data-feather="chevron-right" class="w-4 h-4"></i>
-          </button>
-        </div>
+        <p class="font-meta text-[11px] uppercase hidden sm:block" style="color:var(--color-text-muted); letter-spacing:0.08em;">Index — 01 / 12</p>
       </div>
 
       <!-- Loading -->
-      <div id="archive-loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        <div class="skeleton h-80"></div>
-        <div class="skeleton h-80 hidden sm:block"></div>
-        <div class="skeleton h-80 hidden lg:block"></div>
+      <div id="archive-loading" class="flex flex-col">
+        <div class="skeleton h-20"></div>
+        <div class="skeleton h-20 mt-3"></div>
+        <div class="skeleton h-20 mt-3"></div>
       </div>
 
-      <!-- Pager slider (from ../api/project.json) -->
-      <div class="pager-viewport" id="archive-viewport" tabindex="0">
-        <div class="pager-track" id="archive-track"></div>
+      <!-- Editorial index (from ../api/project.json) -->
+      <div id="archive-viewport" tabindex="0">
+        <div id="archive-track" class="sup-grid"></div>
       </div>
-
-      <!-- Dots -->
-      <div class="flex items-center justify-center gap-1.5 mt-5" id="archive-dots"></div>
 
       <!-- Empty -->
       <div id="archive-empty" class="hidden card p-10 text-center mt-2">
