@@ -322,11 +322,11 @@
     const role = getRole(item);
     const roleBlock = renderRoleBlock(role);
 
-    // DOM order: kicker/title/topMeta -> photo -> role -> about/did -> tech -> gallery
+    // DOM order: kicker/title/topMeta -> photo/placeholder -> role -> about/did -> tech -> gallery
     // This gives mobile: Title -> Date/Location -> Photo -> Role -> About -> What I Did -> Documentation
     // Desktop grid places photo on right, role stays on left column.
     return `
-      <article class="exp-case${isCompetition} reveal${hasImages ? ' has-visual' : ''}">
+      <article class="exp-case${isCompetition} reveal has-visual">
         <div class="exp-hero">
           <div class="exp-hero-main">
             ${kicker}
@@ -334,7 +334,7 @@
             ${subtitleHtml}
             ${renderTopMeta(item)}
           </div>
-          ${hasImages ? heroPhoto : ''}
+          ${heroPhoto}
           ${roleBlock}
         </div>
         <div class="exp-content">
