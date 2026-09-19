@@ -2,7 +2,7 @@
  * Portfolio: archive.js
  * Shared logic for view/projects.html & view/certificates.html
  * Data source: ../api/project.json & ../api/certificate.json
- * Uses pager-viewport slider: 6 cards per page (3 top + 3 bottom), swipe/slide to navigate
+ * Editorial index lists (no slider): full vertical list + search/filter.
  */
 'use strict';
 
