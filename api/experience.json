@@ -1,49 +1,78 @@
 {
   "experience": [
     {
+      "title": { "en": "Web Developer Competition", "id": "Lomba Web Developer" },
       "category": "competition",
-      "logo": "",
-      "company": { "en": "Web Developer Competition", "id": "Lomba Web Developer" },
-      "role": { "en": "Web Developer · Participant", "id": "Web Developer · Peserta" },
-      "period": { "en": "2025", "id": "2025" },
-      "type": { "en": "Competition", "id": "Lomba" },
+      "date": { "en": "2025", "id": "2025" },
+      "year": "2025",
       "location": "Indonesia",
+      "organizer": null,
+      "role": { "en": "Web Developer · Participant", "id": "Web Developer · Peserta" },
+      "type": { "en": "Competition", "id": "Lomba" },
       "description": {
         "en": "Participated in a web development competition, building a website under time constraints and team collaboration. Gained practical experience in competitive web development and problem-solving.",
         "id": "Mengikuti lomba pengembangan web, membangun website di bawah tekanan waktu dan kolaborasi tim. Pengalaman praktis dalam web development kompetitif."
       },
+      "activities": [
+        { "en": "Building a website under time constraints", "id": "Membangun website di bawah tekanan waktu" },
+        { "en": "Collaborating with team members during the competition", "id": "Berkolaborasi dengan anggota tim selama kompetisi" },
+        { "en": "Implementing responsive layout and UI with modern web technologies", "id": "Menerapkan layout responsif dan UI dengan teknologi web modern" },
+        { "en": "Problem-solving and iterating under competition pressure", "id": "Menyelesaikan masalah dan iterasi di bawah tekanan kompetisi" }
+      ],
+      "images": [],
+      "company": { "en": "Web Developer Competition", "id": "Lomba Web Developer" },
+      "period": { "en": "2025", "id": "2025" },
       "highlights": [],
       "tech": ["HTML", "CSS", "JavaScript"],
       "photos": []
     },
     {
-      "category": "experience",
-      "logo": "https://img.icons8.com/fluency/96/code.png",
-      "company": { "en": "Freelance, remote", "id": "Freelance, remote" },
-      "role": { "en": "Fullstack Web Developer", "id": "Fullstack Web Developer" },
-      "period": { "en": "2024-present", "id": "2024-sekarang" },
-      "type": { "en": "Freelance, part-time", "id": "Freelance, paruh waktu" },
+      "title": { "en": "Freelance — Small business & school projects", "id": "Freelance — Proyek UMKM & sekolah" },
+      "category": "freelance",
+      "date": { "en": "2024 — Present", "id": "2024 — Sekarang" },
+      "year": "2024",
       "location": "Depok, Indonesia (Remote)",
+      "organizer": null,
+      "role": { "en": "Fullstack Web Developer", "id": "Fullstack Web Developer" },
+      "type": { "en": "Freelance, part-time", "id": "Freelance, paruh waktu" },
       "description": {
         "en": "Built responsive websites for small businesses and school projects. Delivered E-Commerce and SmartCanteen platforms with clean UI and mobile-first UX.",
         "id": "Membangun website responsif untuk UMKM dan proyek sekolah. Menghasilkan platform E-Commerce dan SmartCanteen dengan UI bersih dan UX mobile-first."
       },
+      "activities": [
+        { "en": "Built responsive websites for small businesses and school projects", "id": "Membangun website responsif untuk UMKM dan proyek sekolah" },
+        { "en": "Delivered E-Commerce platform with clean UI", "id": "Menghasilkan platform E-Commerce dengan UI bersih" },
+        { "en": "Delivered SmartCanteen platform with mobile-first UX", "id": "Menghasilkan platform SmartCanteen dengan UX mobile-first" }
+      ],
+      "images": [],
+      "company": { "en": "Freelance, remote", "id": "Freelance, remote" },
+      "period": { "en": "2024 — present", "id": "2024 — sekarang" },
       "highlights": [],
       "tech": ["HTML", "Tailwind CSS", "JavaScript", "Laravel", "Vercel"],
       "photos": []
     },
     {
+      "title": { "en": "Self learning — Dicoding & MySkill", "id": "Belajar mandiri — Dicoding & MySkill" },
       "category": "learning",
-      "logo": "https://img.icons8.com/fluency/96/training.png",
-      "company": { "en": "Self learning, Dicoding and MySkill", "id": "Belajar mandiri, Dicoding dan MySkill" },
-      "role": { "en": "Certified Learner", "id": "Peserta Bersertifikat" },
-      "period": { "en": "2024-2025", "id": "2024-2025" },
-      "type": { "en": "Online, certified", "id": "Online, bersertifikat" },
+      "date": { "en": "2024 — 2025", "id": "2024 — 2025" },
+      "year": "2024",
       "location": "Indonesia (Online)",
+      "organizer": null,
+      "role": { "en": "Certified Learner", "id": "Peserta Bersertifikat" },
+      "type": { "en": "Online, certified", "id": "Online, bersertifikat" },
       "description": {
         "en": "Completed verified courses in Haskell, C, Java, SOLID, and UI/UX. Applied learnings directly to portfolio projects.",
         "id": "Menyelesaikan kursus terverifikasi Haskell, C, Java, SOLID, dan UI/UX. Hasil belajar langsung diterapkan ke portfolio."
       },
+      "activities": [
+        { "en": "Completed verified courses in Haskell, C, and Java", "id": "Menyelesaikan kursus terverifikasi Haskell, C, dan Java" },
+        { "en": "Studied SOLID principles and applied them to projects", "id": "Mempelajari prinsip SOLID dan menerapkannya di proyek" },
+        { "en": "Studied UI/UX fundamentals", "id": "Mempelajari dasar-dasar UI/UX" },
+        { "en": "Applied learnings directly to portfolio projects", "id": "Menerapkan hasil belajar langsung ke proyek portfolio" }
+      ],
+      "images": [],
+      "company": { "en": "Self learning, Dicoding and MySkill", "id": "Belajar mandiri, Dicoding dan MySkill" },
+      "period": { "en": "2024 — 2025", "id": "2024 — 2025" },
       "highlights": [],
       "tech": ["Haskell", "Java", "SOLID", "UI/UX"],
       "photos": []
