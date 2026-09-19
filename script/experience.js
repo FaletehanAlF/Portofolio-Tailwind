@@ -133,15 +133,15 @@
     const category = item.category || '';
     const catLabel = categoryLabels[category] ? pick(categoryLabels[category]) : '';
     const num = String(idx + 1).padStart(2, '0');
-    const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2.5 text-[14px] leading-6" style="color:var(--color-text);"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:var(--color-accent);"></i><span style="color:var(--color-text-muted);">${esc(pick(h))}</span></li>`).join('');
+    const photos = renderPhotos(item);
+    const hasPhotos = photos !== null;
+    const isCompetition = category === 'competition' ? 'is-competition' : '';
     const tech = (item.tech || []).length
       ? `<div class="exp-tech">${item.tech.map((c) => `<span>${esc(c)}</span>`).join('')}</div>`
       : '';
-    const photos = renderPhotos(item);
-    const hasPhotos = photos ? 'has-photos' : '';
 
     return `
-      <li class="exp-item ${hasPhotos} reveal">
+      <li class="exp-item ${hasPhotos ? 'has-photos' : ''} ${isCompetition} reveal">
         <div class="exp-text-col">
           ${catLabel ? `<span class="exp-category">${esc(catLabel)}</span>` : ''}
           <span class="exp-num">${num}</span>
@@ -149,10 +149,9 @@
           <p class="exp-company">${company}${location ? ` <span style="color:var(--color-text-muted); font-weight:400;">- ${location}</span>` : ''}</p>
           <p class="exp-period">${period}</p>
           <p class="exp-desc">${desc}</p>
-          ${highlights ? `<ul class="exp-highlights">${highlights}</ul>` : ''}
           ${tech}
         </div>
-        ${photos}
+        ${photos || ''}
       </li>
     `;
   }
