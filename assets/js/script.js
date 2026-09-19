@@ -697,17 +697,27 @@ const ProjectsSection = (() => {
     return `${cat}${year}`;
   }
 
-  /* Compact tech line: names only, no icon wall. Keeps title as the focal point. */
+  /* Compact tech line: max 4 names, no icon wall. Title stays the focal point. */
   function techLine(project) {
-    const names = (project.tech || []).map(x => x && x.name).filter(Boolean);
+    const names = (project.tech || []).map(x => x && x.name).filter(Boolean).slice(0, 4);
     if (!names.length) return '';
     return names.map(escapeHtml).join(' · ');
   }
 
-  /* Featured build: image first, then short info. Short desc only — full story lives on detail page. */
-  function featuredCard(p) {
+  /* Card excerpt: pure truncation of existing short_desc, no new facts. Full story on detail page. */
+  function excerpt(text, max) {
+    const s = String(text || '').trim().replace(/\s+/g, ' ');
+    const limit = max || 130;
+    if (s.length <= limit) return escapeHtml(s);
+    const cut = s.slice(0, limit);
+    const sp = cut.lastIndexOf(' ');
+    const head = (sp > 60 ? cut.slice(0, sp) : cut).trimEnd();
+    return escapeHtml(head) + '…';
+  }
+
+  /* Shared project card — same visual language on homepage and archive. */
+  function projectCard(p) {
     const name = escapeHtml(pick(p.name));
-    const desc = escapeHtml(pick(p.short_desc));
     const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
     const hasLinks = p.demo && p.demo !== '#';
     const github = hasLinks ? escapeHtml(p.github) : '';
@@ -715,63 +725,35 @@ const ProjectsSection = (() => {
     const viewLabel = escapeHtml(LangSwitcher.t('btn.view'));
 
     return `
-      <article class="feat fade-up">
-        <a href="${detailUrl}" class="feat-media" aria-label="${name}">
-          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
+      <article class="pcard fade-up">
+        <a href="${detailUrl}" class="pcard-media" aria-label="${name}" tabindex="-1">
+          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
         </a>
-        <div class="feat-body min-w-0">
-          <p class="feat-meta">${metaLine(p)}</p>
-          <h3 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-2.5" style="color:var(--color-text); text-wrap:balance;">${name}</h3>
-          <p class="text-sm leading-relaxed mb-3.5" style="color:var(--color-text-muted); max-width:46ch;">${desc}</p>
-          ${tech ? `<p class="proj-tech">${tech}</p>` : ''}
-          <div class="proj-actions">
-            <a href="${detailUrl}" class="proj-view">${viewLabel} <span aria-hidden="true">→</span></a>
-            ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="proj-gh">GitHub <span aria-hidden="true">↗</span></a>` : ''}
+        <div class="pcard-body">
+          <p class="pcard-meta">${metaLine(p)}</p>
+          <h3 class="pcard-title" title="${name}">${name}</h3>
+          <p class="pcard-desc">${excerpt(pick(p.short_desc))}</p>
+          <p class="pcard-tech">${tech || '&nbsp;'}</p>
+          <div class="pcard-actions">
+            <a href="${detailUrl}" class="pcard-view">${viewLabel} <span aria-hidden="true">→</span></a>
+            ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="pcard-gh">GitHub <span aria-hidden="true">↗</span></a>` : ''}
           </div>
         </div>
       </article>`;
   }
 
-  /* Supporting work: numbered editorial rows separated by dividers (no cards, no thumbs) */
-  function supCard(p, rowIdx) {
-    const name = escapeHtml(pick(p.name));
-    const desc = escapeHtml(pick(p.short_desc));
-    const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
-    const num = String((typeof rowIdx === 'number' ? rowIdx : 1) + 1).padStart(2, '0');
-    const tech = techLine(p);
-    const viewLabel = escapeHtml(LangSwitcher.t('btn.view'));
-
-    return `
-      <article class="proj-row fade-up">
-        <span class="proj-num" aria-hidden="true">${num}</span>
-        <div class="min-w-0">
-          <p class="proj-meta">${metaLine(p)}</p>
-          <h3 class="proj-title">
-            <a href="${detailUrl}">${name}</a>
-          </h3>
-          <p class="proj-desc">${desc}</p>
-          ${tech ? `<p class="proj-tech is-row">${tech}</p>` : ''}
-        </div>
-        <a href="${detailUrl}" class="proj-go" aria-label="${viewLabel}: ${name}"><span aria-hidden="true">→</span></a>
-      </article>`;
-  }
-
-  // Showcase: first item featured large, next 5 as compact supporting rows.
+  // Homepage: first 3 projects as uniform cards (same renderer as archive).
   // Just add new object at TOP of api/project.json projects array.
   function render() {
-    const feat = document.getElementById('projects-featured');
     const grid = document.getElementById('projects-grid');
-    if ((!feat && !grid) || !data) return;
-    const preview = data.slice(0, 6);
+    if (!grid || !data) return;
+    const preview = data.slice(0, 3);
     if (!preview.length) {
-      if (feat) feat.innerHTML = '';
-      if (grid) grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No projects yet.</p>`;
+      grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No projects yet.</p>`;
     } else {
-      if (feat) feat.innerHTML = featuredCard(preview[0]);
-      if (grid) grid.innerHTML = preview.slice(1).map((p, i) => supCard(p, i + 1)).join('');
+      grid.innerHTML = preview.map(projectCard).join('');
     }
-    if (feat) observeFadeUp(feat);
-    if (grid) observeFadeUp(grid);
+    observeFadeUp(grid);
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
   }
 
