@@ -106,98 +106,67 @@
       <!-- Content -->
       <article id="d-content" class="hidden">
 
-        <!-- Header: eyebrow + title + subtitle + meta (flow, no overlap) -->
-        <header class="max-w-3xl mb-7">
-          <p class="section-label mb-2" id="d-eyebrow">Project Case Study</p>
-          <h1 class="font-display font-bold tracking-tight leading-tight text-3xl sm:text-4xl mb-3" style="color:var(--color-text);" id="d-title">Project title</h1>
-          <p class="text-base leading-relaxed mb-5" style="color:var(--color-text-muted);" id="d-subtitle"></p>
-          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-medium" style="color:var(--color-text-muted);">
-            <span class="inline-flex items-center gap-2">
-              <span id="d-status-dot" class="detail-status-dot" aria-hidden="true"></span>
-              <span id="d-status-text" class="font-semibold" style="color:var(--color-text);">Completed</span>
-            </span>
-            <span aria-hidden="true" class="select-none" style="color:var(--color-border);">|</span>
-            <span class="inline-flex items-center gap-1.5">
-              <i data-feather="tag" class="w-3.5 h-3.5"></i>
+        <!-- Hero: asymmetric editorial (text 7 / preview 5) -->
+        <header class="d-hero">
+          <div class="min-w-0">
+            <a href="projects.html" class="see-all-link d-back">
+              <i data-feather="arrow-left" class="w-4 h-4"></i>
+              <span id="back-label">Back to Projects</span>
+            </a>
+            <p class="section-label mt-6 mb-2" id="d-eyebrow">Project Case Study</p>
+            <h1 class="font-display font-bold tracking-tight text-4xl sm:text-5xl mb-3"
+              style="color:var(--color-text); line-height:1.05; text-wrap:balance;" id="d-title">Project title</h1>
+            <p class="text-base leading-relaxed mb-6" style="color:var(--color-text-muted); max-width:44ch;"
+              id="d-subtitle"></p>
+            <div class="d-meta">
+              <span class="inline-flex items-center gap-2">
+                <span id="d-status-dot" class="detail-status-dot" aria-hidden="true"></span>
+                <span id="d-status-text" class="font-semibold" style="color:var(--color-text);">Completed</span>
+              </span>
+              <span aria-hidden="true" class="select-none" style="color:var(--color-border);">/</span>
               <span id="d-category">Web Application</span>
-            </span>
-            <span class="inline-flex items-center gap-1.5">
-              <i data-feather="calendar" class="w-3.5 h-3.5"></i>
+              <span aria-hidden="true" class="select-none" style="color:var(--color-border);">/</span>
               <span id="d-year">2025</span>
-            </span>
+            </div>
+            <div class="flex flex-wrap gap-3 mt-6">
+              <a id="d-demo" href="#" target="_blank" rel="noopener" class="btn-primary">
+                <i data-feather="external-link" class="w-4 h-4"></i>
+                <span id="d-demo-label">Live Demo</span>
+              </a>
+              <a id="d-github" href="#" target="_blank" rel="noopener" class="btn-secondary">
+                <i data-feather="github" class="w-4 h-4"></i>
+                <span id="d-github-label">Source Code</span>
+              </a>
+              <button id="d-share" type="button" class="btn-secondary !px-3.5" aria-label="Copy link">
+                <i data-feather="link" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <p class="text-[13px] mt-3 leading-relaxed" style="color:var(--color-text-muted); max-width:52ch;"
+              id="d-links-note"></p>
           </div>
+
+          <!-- Preview: main visual, subtle frame -->
+          <figure class="min-w-0">
+            <div class="d-figure">
+              <img id="d-image" src="" alt="" />
+            </div>
+            <figcaption class="font-meta text-[11px] mt-2.5 flex items-center gap-1.5"
+              style="color:var(--color-text-muted); letter-spacing:0.06em;">
+              <i data-feather="image" class="w-3.5 h-3.5"></i>
+              <span id="d-image-caption">Project preview</span>
+            </figcaption>
+          </figure>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-8 lg:gap-10 items-start">
-
-          <!-- Main column -->
-          <div class="min-w-0 flex flex-col gap-10">
-
-            <!-- Cover: clean, no absolute badges -->
-            <figure class="detail-figure">
-              <img id="d-image" src="" alt="" class="detail-figure-img" />
-              <figcaption class="detail-figure-caption">
-                <i data-feather="image" class="w-3.5 h-3.5"></i>
-                <span id="d-image-caption">Project preview</span>
-              </figcaption>
-            </figure>
-
-            <!-- 01 Overview -->
-            <section aria-labelledby="d-overview-title">
+        <!-- Overview: dominant text + metadata column, no cards -->
+        <section class="d-section" aria-labelledby="d-overview-title">
+          <div class="d-overview">
+            <div class="min-w-0">
               <h2 class="detail-section-title" id="d-overview-title">About this project</h2>
               <div id="d-desc" class="detail-prose"></div>
-            </section>
-
-            <!-- 02 Tech -->
-            <section aria-labelledby="d-tech-title">
-              <div class="flex items-baseline justify-between gap-3 mb-1">
-                <div>
-                  <h2 class="detail-section-title" id="d-tech-title">Technologies used</h2>
-                </div>
-                <span class="text-xs font-semibold whitespace-nowrap" style="color:var(--color-text-muted);" id="d-tech-count"></span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4" id="d-tech"></div>
-              <p class="text-[13px] mt-3 hidden" style="color:var(--color-text-muted);" id="d-tech-empty"></p>
-            </section>
-
-            <!-- 03 Access -->
-            <section aria-labelledby="d-access-title">
-              <h2 class="detail-section-title" id="d-access-title">Links</h2>
-              <div class="flex flex-col sm:flex-row gap-3 mt-4">
-                <a id="d-demo" href="#" target="_blank" rel="noopener" class="btn-primary justify-center flex-1">
-                  <i data-feather="external-link" class="w-4 h-4"></i>
-                  <span id="d-demo-label">Live Demo</span>
-                </a>
-                <a id="d-github" href="#" target="_blank" rel="noopener" class="btn-secondary justify-center flex-1">
-                  <i data-feather="github" class="w-4 h-4"></i>
-                  <span id="d-github-label">Source Code</span>
-                </a>
-                <button id="d-share" type="button" class="btn-secondary justify-center sm:w-12 sm:px-0 sm:flex-none" aria-label="Copy link">
-                  <i data-feather="link" class="w-4 h-4"></i>
-                </button>
-              </div>
-              <p class="text-[13px] mt-3 leading-relaxed" style="color:var(--color-text-muted);" id="d-links-note"></p>
-            </section>
-
-            <!-- Prev / Next -->
-            <nav class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2" aria-label="More projects" id="d-pager">
-              <a id="d-prev" href="#" class="detail-pager">
-                <span class="detail-pager-dir"><i data-feather="arrow-left" class="w-3.5 h-3.5"></i><span id="d-prev-dir">Previous</span></span>
-                <span class="detail-pager-name" id="d-prev-name"></span>
-              </a>
-              <a id="d-next" href="#" class="detail-pager detail-pager-next">
-                <span class="detail-pager-dir"><span id="d-next-dir">Next</span><i data-feather="arrow-right" class="w-3.5 h-3.5"></i></span>
-                <span class="detail-pager-name" id="d-next-name"></span>
-              </a>
-            </nav>
-
-          </div>
-
-          <!-- Sidebar -->
-          <aside class="w-full flex flex-col gap-4 lg:sticky lg:top-24">
-
-            <div class="card !cursor-default p-5 sm:p-6">
-              <h2 class="text-sm font-bold mb-4" style="color:var(--color-text);" id="d-info-title">Project snapshot</h2>
+            </div>
+            <aside class="min-w-0" aria-label="Project info">
+              <h2 class="tech-cat-title" id="d-info-title">Project snapshot</h2>
               <dl class="flex flex-col">
                 <div class="detail-fact">
                   <dt><i data-feather="activity" class="w-4 h-4"></i><span id="d-lbl-status">Status</span></dt>
@@ -216,44 +185,61 @@
                   <dd id="d-info-stack"></dd>
                 </div>
               </dl>
-            </div>
+            </aside>
+          </div>
+        </section>
 
-            <div class="card !cursor-default p-5 sm:p-6">
-              <h2 class="text-sm font-bold mb-1" style="color:var(--color-text);" id="d-cta-title">Interested in this work?</h2>
-              <p class="text-[13px] leading-relaxed mb-4" style="color:var(--color-text-muted);" id="d-cta-desc">Available for internships, freelance, and junior roles.</p>
-              <div class="flex flex-col gap-2">
-                <a href="../index.html#contact" class="btn-primary !text-[13px] justify-center">
-                  <i data-feather="mail" class="w-3.5 h-3.5"></i> <span id="d-hire-label">Hire Me</span>
-                </a>
-                <a href="projects.html" class="btn-secondary !text-[13px] justify-center">
-                  <i data-feather="grid" class="w-3.5 h-3.5"></i> <span id="d-all-label">All Projects</span>
-                </a>
-              </div>
-            </div>
+        <!-- Technology: compact divider list, not cards -->
+        <section class="d-section" aria-labelledby="d-tech-title">
+          <div class="flex items-baseline justify-between gap-3">
+            <h2 class="detail-section-title !mb-0" id="d-tech-title">Technologies used</h2>
+            <span class="text-xs font-semibold whitespace-nowrap" style="color:var(--color-text-muted);"
+              id="d-tech-count"></span>
+          </div>
+          <div class="d-tech-list mt-4" id="d-tech"></div>
+          <p class="text-[13px] mt-3 hidden" style="color:var(--color-text-muted);" id="d-tech-empty"></p>
+        </section>
 
-            <div class="card !cursor-default p-5 sm:p-6">
-              <h2 class="text-sm font-bold mb-3" style="color:var(--color-text);" id="d-check-title">For recruiters</h2>
-              <ul class="flex flex-col gap-2.5 text-[13px] leading-relaxed" style="color:var(--color-text-muted);" id="d-check-list">
-                <li class="flex items-start gap-2"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;"></i><span data-check="0">Open the live demo to review UX and responsiveness.</span></li>
-                <li class="flex items-start gap-2"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;"></i><span data-check="1">Check source code for structure and readability.</span></li>
-                <li class="flex items-start gap-2"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;"></i><span data-check="2">See tech stack relevance to your role.</span></li>
-              </ul>
-            </div>
+        <!-- Prev / Next: editorial text links -->
+        <nav class="d-pager" aria-label="More projects" id="d-pager">
+          <a id="d-prev" href="#" class="d-page-link">
+            <span class="detail-pager-dir"><i data-feather="arrow-left" class="w-3.5 h-3.5"></i><span id="d-prev-dir">Previous</span></span>
+            <span class="detail-pager-name" id="d-prev-name"></span>
+          </a>
+          <a id="d-next" href="#" class="d-page-link d-page-link-next">
+            <span class="detail-pager-dir"><span id="d-next-dir">Next</span><i data-feather="arrow-right" class="w-3.5 h-3.5"></i></span>
+            <span class="detail-pager-name" id="d-next-name"></span>
+          </a>
+        </nav>
 
-          </aside>
-        </div>
+        <!-- Closing CTA: single intent (contact + browse), no link cards -->
+        <section class="d-cta" aria-labelledby="d-cta-title">
+          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-2"
+            style="color:var(--color-text);" id="d-cta-title">Interested in this work?</h2>
+          <p class="text-sm sm:text-base leading-relaxed mb-6" style="color:var(--color-text-muted); max-width:52ch;"
+            id="d-cta-desc">Available for internships, freelance, and junior roles.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="../index.html#contact" class="btn-primary">
+              <i data-feather="mail" class="w-4 h-4"></i> <span id="d-hire-label">Hire Me</span>
+            </a>
+            <a href="projects.html" class="btn-secondary">
+              <i data-feather="grid" class="w-4 h-4"></i> <span id="d-all-label">All Projects</span>
+            </a>
+          </div>
+        </section>
+
       </article>
 
-      <!-- Related -->
-      <section id="d-related" class="hidden mt-14 sm:mt-16">
-        <div class="flex items-end justify-between gap-3 mb-5">
+      <!-- Related: divider rows, not cards -->
+      <section id="d-related" class="hidden d-section">
+        <div class="flex items-end justify-between gap-3 mb-2">
           <div>
             <p class="section-label mb-1" id="d-other-label">Other Projects</p>
             <h2 class="text-lg sm:text-xl font-bold tracking-tight" style="color:var(--color-text);" id="d-explore-label">Keep exploring</h2>
           </div>
           <a href="projects.html" class="see-all-link"><span id="d-seeall-label">See All</span> <i data-feather="arrow-right" class="w-4 h-4"></i></a>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5" id="d-related-grid"></div>
+        <div class="sup-grid" id="d-related-grid"></div>
       </section>
 
     </div>
