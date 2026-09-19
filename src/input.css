@@ -2729,8 +2729,20 @@
   @media (min-width: 1024px) {
     .feat {
       grid-template-columns: 7fr 5fr;
-      align-items: center;
+      align-items: start;
       gap: 2.5rem;
+    }
+    .feat-body {
+      padding-top: 0.25rem;
+    }
+    .feat.is-archive {
+      margin-bottom: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .feat {
+      gap: 3rem;
     }
   }
 
@@ -2748,7 +2760,9 @@
       transition: none;
     }
     .photo-card-inner,
-    .feat-media img {
+    .feat-media img,
+    .proj-view span,
+    .proj-go span {
       transition: none;
     }
     html {
