@@ -232,13 +232,14 @@
       return;
     }
     if (emptyEl) emptyEl.classList.add('hidden');
-    wrap.innerHTML = list.map((item) => {
+    wrap.innerHTML = list.map((item, i) => {
       const name = escapeHtml(item && item.name ? item.name : 'Tech');
       const icon = escapeHtml(item && item.icon ? item.icon : '');
       const img = icon
         ? `<img src="${icon}" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'" />`
         : `<span class="detail-tech-fallback" aria-hidden="true">${escapeHtml(name.charAt(0) || 'T')}</span>`;
-      return `<div class="detail-tech">${img}<span>${name}</span></div>`;
+      const idx = String(i + 1).padStart(2, '0');
+      return `<div class="d-tech-row">${img}<span>${name}</span><span class="d-tech-idx">${idx}</span></div>`;
     }).join('');
   }
 
@@ -315,6 +316,7 @@
     const set = (id, val) => { const el = $(id); if (el) el.textContent = val; };
     set('skip-link', t('skip'));
     set('back-label', t('back'));
+    set('d-back-projects', t('backProjects'));
     set('d-crumb-home', t('home'));
     set('d-crumb-projects', t('projects'));
     set('d-eyebrow', t('eyebrow'));
