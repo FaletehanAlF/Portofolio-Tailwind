@@ -56,10 +56,25 @@
   };
 
   const State = {
-    lang: localStorage.getItem('lang') || 'en',
-    theme: localStorage.getItem('theme') || 'light',
+    lang: safeGet('lang', 'en'),
+    theme: safeGet('theme', 'light'),
     data: [],
   };
+
+  function safeGet(k, fb) {
+    try {
+      const v = localStorage.getItem(k);
+      return v || fb;
+    } catch (_) {
+      return fb;
+    }
+  }
+
+  function safeSet(k, v) {
+    try {
+      localStorage.setItem(k, v);
+    } catch (_) {}
+  }
 
   const t = (k) => (strings[State.lang] && strings[State.lang][k]) || strings.en[k] || k;
   const pick = (o) => (o ? o[State.lang] || o.en || '' : '');
@@ -69,7 +84,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     State.theme = theme;
-    localStorage.setItem('theme', theme);
+    safeSet('theme', theme);
     const isDark = theme === 'dark';
     const sun = $('theme-icon-light'), moon = $('theme-icon-dark');
     if (sun) { sun.classList.toggle('hidden', isDark); sun.setAttribute('aria-hidden', isDark ? 'true' : 'false'); }
@@ -97,32 +112,23 @@
     const desc = esc(pick(item.description));
     const location = esc(item.location || '');
     const logo = esc(item.logo || '');
-    const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2 text-sm leading-relaxed" style="color:var(--color-text-muted);"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:var(--color-accent);"></i><span>${esc(pick(h))}</span></li>`).join('');
-    const courses = (item.courses || []).map((c) => `<span class="tech-badge">${esc(c)}</span>`).join('');
+    const highlights = (item.highlights || []).map((h) => `<li><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#16a34a;" aria-hidden="true"></i><span>${esc(pick(h))}</span></li>`).join('');
+    const courses = (item.courses || []).map((c) => esc(c)).join(' · ');
 
     return `
-      <article class="card edu-reveal p-6 sm:p-7 flex gap-5 sm:gap-6 relative overflow-visible">
-        <!-- dot for timeline (desktop) -->
-        <span class="hidden sm:flex absolute top-7 w-3 h-3 rounded-full border-2" style="left:-26px; background:var(--color-accent); border-color:var(--color-bg); box-shadow:0 0 0 4px var(--color-border);" aria-hidden="true"></span>
-        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden p-2.5" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
-          <img src="${logo}" alt="${institution} logo" class="edu-logo w-full h-full" loading="lazy" onerror="this.style.display='none'" />
+      <article class="edu-profile edu-reveal">
+        <div class="edu-logo-frame">
+          <img src="${logo}" alt="${institution} logo" class="edu-logo" loading="lazy" onerror="this.style.display='none'" />
         </div>
         <div class="flex-1 min-w-0">
-          <div class="flex flex-wrap items-start justify-between gap-2.5 mb-3">
-            <div>
-              <h3 class="text-base sm:text-lg font-bold leading-tight tracking-tight" style="color:var(--color-text);">${institution}</h3>
-              <p class="text-sm font-semibold mt-0.5" style="color:var(--color-accent);">${degree}</p>
-            </div>
-            ${item.accredited ? `<span class="tech-badge" style="background:rgba(37,99,235,0.1); color:var(--color-accent); border-color:transparent;"><i data-feather="shield" class="w-3 h-3 inline -mt-0.5"></i> ${esc(t('accredited'))}</span>` : ''}
-          </div>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="tech-badge">${period}</span>
-            <span class="tech-badge" style="background:var(--color-accent); color:#fff; border-color:var(--color-accent);">${status}</span>
-            ${location ? `<span class="tech-badge"><i data-feather="map-pin" class="w-3 h-3 inline -mt-0.5"></i> ${location}</span>` : ''}
-          </div>
-          <p class="text-[15px] leading-7 mb-5" style="color:var(--color-text-muted);">${desc}</p>
-          ${highlights ? `<ul class="flex flex-col gap-2.5 mb-5">${highlights}</ul>` : ''}
-          ${courses ? `<div class="flex flex-wrap gap-2">${courses}</div>` : ''}
+          <p class="edu-period">${period}</p>
+          <h3 class="edu-school">${institution}</h3>
+          <p class="edu-degree">${degree}</p>
+          <p class="edu-sub">${location}${location && status ? ' · ' : ''}${status}</p>
+          ${item.accredited ? `<p class="edu-accred"><i data-feather="shield" class="w-3.5 h-3.5" aria-hidden="true"></i> ${esc(t('accredited'))}</p>` : ''}
+          <p class="edu-desc">${desc}</p>
+          ${highlights ? `<ul class="edu-points">${highlights}</ul>` : ''}
+          ${courses ? `<p class="edu-courses">${courses}</p>` : ''}
         </div>
       </article>
     `;
@@ -197,7 +203,7 @@
     const langBtn = $('lang-toggle');
     if (langBtn) langBtn.addEventListener('click', () => {
       State.lang = State.lang === 'en' ? 'id' : 'en';
-      localStorage.setItem('lang', State.lang);
+      safeSet('lang', State.lang);
       applyStatic();
       render();
     });

@@ -59,46 +59,43 @@
   <main class="min-h-screen pt-28 sm:pt-32 pb-16" id="main">
     <div class="max-w-5xl mx-auto px-4 sm:px-5">
 
-      <!-- Hero -->
-      <div class="text-center max-w-2xl mx-auto mb-10 reveal">
+      <!-- Hero: compact editorial intro, left-aligned -->
+      <div class="max-w-xl mb-10 reveal">
         <p class="section-label" data-i18n-edu="eyebrow">Academic Journey</p>
-        <h1 class="font-display font-bold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3" style="color:var(--color-text);" data-i18n-edu="title">Education</h1>
+        <h1 class="font-display font-bold tracking-tight text-3xl sm:text-4xl mb-3" style="color:var(--color-text); line-height:1.08; text-wrap:balance;" data-i18n-edu="title">Education</h1>
         <p class="text-sm sm:text-base leading-relaxed" style="color:var(--color-text-muted);" data-i18n-edu="subtitle">
           Schools, years, grades, and how each stage prepared me for a junior full-stack role.
         </p>
       </div>
 
-      <!-- Stats HRD -->
-      <div class="grid grid-cols-3 gap-2 sm:gap-5 mb-12">
-        <div class="card p-3 sm:p-6 text-center reveal">
-          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYears">Years</div>
-          <div class="text-sm sm:text-2xl font-extrabold" style="color:var(--color-text);">2023-2026</div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statYearsSub">SMK focus</div>
+      <!-- Stats: divider strip, no cards -->
+      <div class="stat-strip grid grid-cols-3 gap-4 mb-12 reveal">
+        <div>
+          <div class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-text-muted); letter-spacing:0.1em;" data-i18n-edu="statYears">Years</div>
+          <div class="text-base sm:text-2xl font-extrabold" style="color:var(--color-text);">2023-2026</div>
+          <div class="text-xs mt-1" style="color:var(--color-text-muted);" data-i18n-edu="statYearsSub">SMK focus</div>
         </div>
-        <div class="card p-3 sm:p-6 text-center reveal">
-          <div class="text-[11px] font-bold tracking-widest uppercase mb-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statGpa">GPA</div>
-          <div class="text-sm sm:text-2xl font-extrabold" style="color:var(--color-accent);">8.0<span class="text-sm">/10</span></div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statGpaSub">Productive</div>
+        <div>
+          <div class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-text-muted); letter-spacing:0.1em;" data-i18n-edu="statGpa">GPA</div>
+          <div class="text-base sm:text-2xl font-extrabold" style="color:var(--color-text);">8.0<span class="text-sm font-bold">/10</span></div>
+          <div class="text-xs mt-1" style="color:var(--color-text-muted);" data-i18n-edu="statGpaSub">Productive</div>
         </div>
-        <div class="card p-3 sm:p-6 text-center reveal">
-          <div class="text-[11px] font-bold tracking-widest uppercase mb-1" style="color:var(--color-text-muted);" data-i18n-edu="statCert">Certs</div>
-          <div class="text-sm sm:text-2xl font-extrabold" style="color:var(--color-text);">5+</div>
-          <div class="text-xs mt-1.5" style="color:var(--color-text-muted);" data-i18n-edu="statCertSub">Verified</div>
+        <div>
+          <div class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-text-muted); letter-spacing:0.1em;" data-i18n-edu="statCert">Certs</div>
+          <div class="text-base sm:text-2xl font-extrabold" style="color:var(--color-text);">5+</div>
+          <div class="text-xs mt-1" style="color:var(--color-text-muted);" data-i18n-edu="statCertSub">Verified</div>
         </div>
       </div>
 
       <!-- Loading -->
-      <div id="edu-loading" class="grid gap-5">
-        <div class="skeleton h-40"></div>
-        <div class="skeleton h-40"></div>
-        <div class="skeleton h-40"></div>
+      <div id="edu-loading" class="flex flex-col">
+        <div class="skeleton h-28"></div>
+        <div class="skeleton h-28 mt-3"></div>
       </div>
 
-      <!-- Timeline -->
-      <div id="edu-timeline" class="hidden relative">
-        <!-- vertical line -->
-        <div class="hidden sm:block absolute top-2 bottom-2 w-px" style="left:30px; background:var(--color-border);" aria-hidden="true"></div>
-        <div id="edu-list" class="flex flex-col gap-6 sm:gap-8 sm:pl-14"></div>
+      <!-- Profile list -->
+      <div id="edu-timeline">
+        <div id="edu-list" class="flex flex-col"></div>
       </div>
 
       <div id="edu-empty" class="hidden card p-10 text-center mt-6">
