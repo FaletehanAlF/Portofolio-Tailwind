@@ -229,14 +229,7 @@ return `
       </article>`;
   }
 
-  /* ---------- chunk helper ---------- */
-  function chunk(arr, size) {
-    const out = [];
-    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-    return out;
-  }
-
-  /* ---------- pager/slider system ---------- */
+  /* ---------- archive list system (editorial, no slider) ---------- */
   function getFilteredProjects() {
     const q = State.query.trim().toLowerCase();
     const allLabel = t('all');
@@ -256,157 +249,56 @@ return `
     });
   }
 
-  function renderSlider(items, cardFn) {
+  function hideLegacySliderChrome() {
+    const prevBtn = $('archive-prev');
+    const nextBtn = $('archive-next');
+    const dotsEl = $('archive-dots');
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (dotsEl) dotsEl.innerHTML = '';
+  }
+
+  function renderList(items, listHtml) {
     const track = $('archive-track');
     const viewport = $('archive-viewport');
     const countEl = $('archive-count');
     const emptyEl = $('archive-empty');
     const loadingEl = $('archive-loading');
-    const dotsEl = $('archive-dots');
     if (!track) return;
 
-    // Hide loading, show track
     if (loadingEl) loadingEl.classList.add('hidden');
     if (viewport) viewport.style.display = '';
+    hideLegacySliderChrome();
 
     if (items.length === 0) {
       track.innerHTML = '';
       if (viewport) viewport.style.display = 'none';
       if (emptyEl) emptyEl.classList.remove('hidden');
       if (countEl) countEl.textContent = `0 ${t('items')}`;
-      if (dotsEl) dotsEl.innerHTML = '';
-      State.currentPage = 0;
       return;
     }
 
     if (emptyEl) emptyEl.classList.add('hidden');
-
-    /* Certificates read as an archive list: single column of compact rows,
-       no pager, no dots — visually distinct from the projects grid. */
-    if (page === 'certificates') {
-      track.style.transform = '';
-      track.innerHTML = `<div class="cert-list">${items.map(cardFn).join('')}</div>`;
-      if (countEl) countEl.textContent = `${items.length} ${t('items')}`;
-      const prevBtn = $('archive-prev');
-      const nextBtn = $('archive-next');
-      if (prevBtn) prevBtn.style.display = 'none';
-      if (nextBtn) nextBtn.style.display = 'none';
-      if (dotsEl) dotsEl.innerHTML = '';
-      if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
-      if (page === 'certificates') initCertModalEvents();
-      return;
-    }
-
-    // Chunk into pages of 6
-    const pages = chunk(items, 6);
-    track.innerHTML = pages.map((pageItems, i) =>
-      `<div class="pager-page${i === State.currentPage ? ' page-active' : ''}"><div class="pager-grid performance">${pageItems.map(cardFn).join('')}</div></div>`
-    ).join('');
-
+    track.style.transform = '';
+    track.innerHTML = listHtml;
     if (countEl) countEl.textContent = `${items.length} ${t('items')}`;
-
-    // Clamp current page
-    State.currentPage = Math.max(0, Math.min(pages.length - 1, State.currentPage));
-
-    // Render dots
-    renderArchiveDots(pages.length);
-
-    // Paint slider position
-    paintArchiveSlider();
-
-    // Init feather icons on new cards
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
-
-    // Init cert modal on new cards
     if (page === 'certificates') initCertModalEvents();
   }
 
-  function renderArchiveDots(total) {
-    const dotsEl = $('archive-dots');
-    if (!dotsEl) return;
-    if (total <= 1) {
-      dotsEl.innerHTML = '';
-      return;
-    }
-    dotsEl.innerHTML = Array.from({ length: total }, (_, i) =>
-      `<button type="button" class="slider-dot${i === State.currentPage ? ' active' : ''}" data-page="${i}" aria-label="Go to slide ${i + 1}"></button>`
-    ).join('');
-    dotsEl.querySelectorAll('.slider-dot').forEach(btn => {
-      btn.addEventListener('click', () => {
-        State.currentPage = parseInt(btn.dataset.page, 10);
-        paintArchiveSlider();
-        renderArchiveDots(total);
-      });
-    });
-  }
-
-  function paintArchiveSlider() {
-    const track = $('archive-track');
-    const prevBtn = $('archive-prev');
-    const nextBtn = $('archive-next');
-    if (!track) return;
-
-    const pages = track.querySelectorAll(':scope > .pager-page');
-    const totalPages = pages.length;
-    const idx = Math.max(0, Math.min(totalPages - 1, State.currentPage));
-    State.currentPage = idx;
-
-    track.style.transform = `translateX(-${idx * 100}%)`;
-
-    // Mark active page for staggered card animations
-    pages.forEach((p, i) => {
-      const wasActive = p.classList.contains('page-active');
-      p.classList.toggle('page-active', i === idx);
-      // Re-trigger card animations when becoming active
-      if (i === idx && !wasActive) {
-        p.querySelectorAll('.card').forEach(card => {
-          card.style.transition = 'none';
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px) scale(0.97)';
-          // Force reflow then animate
-          void card.offsetHeight;
-          card.style.transition = '';
-          card.style.opacity = '';
-          card.style.transform = '';
-        });
-      }
-    });
-
-    // Update dots active state
-    const dotsEl = $('archive-dots');
-    if (dotsEl) {
-      dotsEl.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-    }
-
-    // Show/hide prev/next buttons
-    if (prevBtn) {
-      prevBtn.disabled = idx <= 0;
-      prevBtn.style.display = totalPages > 1 ? '' : 'none';
-    }
-    if (nextBtn) {
-      nextBtn.disabled = idx >= totalPages - 1;
-      nextBtn.style.display = totalPages > 1 ? '' : 'none';
-    }
-  }
-
-  function archiveStep(dir) {
-    const track = $('archive-track');
-    if (!track) return;
-    const totalPages = track.querySelectorAll(':scope > .pager-page').length;
-    State.currentPage = Math.max(0, Math.min(totalPages - 1, State.currentPage + dir));
-    paintArchiveSlider();
-    renderArchiveDots(totalPages);
-  }
-
-  function renderProjectSlider() {
+  function renderProjectList() {
     const items = getFilteredProjects();
-    renderSlider(items, projectCard);
+    renderList(items, `<div class="sup-grid">${items.map((p, i) => projectRow(p, i)).join('')}</div>`);
   }
 
-  function renderCertSlider() {
+  function renderCertList() {
     const items = getFilteredCerts();
-    renderSlider(items, certCard);
+    renderList(items, `<div class="cert-list">${items.map((c) => certCard(c)).join('')}</div>`);
   }
+
+  // Legacy aliases (kept so cached HTML / old callers don't crash).
+  function renderProjectSlider() { renderProjectList(); }
+  function renderCertSlider() { renderCertList(); }
 
   /* ---------- cert modal ---------- */
   function initCertModalEvents() {
