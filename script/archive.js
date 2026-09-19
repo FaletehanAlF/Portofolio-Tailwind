@@ -407,22 +407,6 @@ return `
 
     // Legacy slider chrome (if present in cached HTML): hide, never step.
     hideLegacySliderChrome();
-        if (Math.abs(e.clientX - startX) > 8) didDrag = true;
-      });
-      viewport.addEventListener('mouseup', e => {
-        if (!isDragging) return;
-        isDragging = false;
-        viewport.style.cursor = 'grab';
-        const dx = e.clientX - startX;
-        if (didDrag && Math.abs(dx) > 50) archiveStep(dx < 0 ? 1 : -1);
-        didDrag = false;
-      });
-      viewport.addEventListener('mouseleave', () => {
-        isDragging = false;
-        viewport.style.cursor = 'grab';
-      });
-    }
-
     // Load data
     try {
       if (page === 'projects') {
@@ -431,7 +415,7 @@ return `
         const json = await res.json();
         State.projects = json.projects || [];
         renderProjectFilters();
-        renderProjectSlider();
+        renderProjectList();
       } else {
         const res = await fetch('../api/certificate.json');
         if (!res.ok) throw new Error(res.status);
@@ -440,7 +424,7 @@ return `
         // Hide category filters for certificates
         const filtersWrap = $('archive-filters');
         if (filtersWrap) filtersWrap.classList.add('hidden');
-        renderCertSlider();
+        renderCertList();
       }
     } catch (err) {
       console.error('[Archive] Failed to load API:', err);
