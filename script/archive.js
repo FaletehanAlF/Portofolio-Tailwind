@@ -151,29 +151,34 @@
         class="tech-icon" loading="lazy" />`).join('');
   }
 
-  function projectCard(p) {
+  function projectRow(p, idx) {
     const name = escapeHtml(pick(p.name));
     const desc = escapeHtml(pick(p.short_desc));
     const cat = escapeHtml(pick(p.category));
     const detailUrl = `detail.html?project=${encodeURIComponent(p.slug)}`;
     const placeholder = !p.demo || p.demo === '#';
     const github = placeholder ? '#' : escapeHtml(p.github);
+    const num = String(idx + 1).padStart(2, '0');
+    const meta = `${num} · ${cat}${p.year ? ` — ${escapeHtml(p.year)}` : ''}`;
+    const icons = techIcons(p);
 return `
-        <article class="card overflow-hidden fade-up flex flex-col">
-          <div class="h-48 overflow-hidden flex-shrink-0" style="background-color:var(--color-bg-secondary);">
-          <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
-        </div>
-        <div class="p-5 flex flex-col flex-1">
-          <p class="font-meta text-[11px] uppercase mb-1.5" style="color:var(--color-accent); letter-spacing:0.08em;">${cat}${p.year ? ` - ${escapeHtml(p.year)}` : ''}</p>
-          <h3 class="text-base font-bold mb-1.5 tracking-tight" style="color:var(--color-text);">${name}</h3>
-          <p class="text-sm leading-relaxed mb-4" style="color:var(--color-text-muted);">${desc}</p>
-          <div class="flex flex-wrap items-center gap-1.5 mb-5">${techIcons(p)}</div>
-          <div class="flex gap-2 mt-auto">
-            <a href="${detailUrl}" class="btn-primary !text-xs !px-4 !py-2.5 flex-1 justify-center">${t('detail')}</a>
-            <a href="${github}" class="btn-secondary !text-xs !px-4 !py-2.5"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${t('github')}</a>
+        <article class="sup">
+          <a href="${detailUrl}" class="sup-thumb" aria-label="${name}" tabindex="-1">
+            <img src="${escapeHtml(fixAsset(p.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='0.5rem';" />
+          </a>
+          <div class="min-w-0">
+            <p class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-accent); letter-spacing:0.08em;">${meta}</p>
+            <h3 class="text-[15px] font-bold mb-1 leading-snug" style="color:var(--color-text);">
+              <a href="${detailUrl}" class="hover:underline">${name}</a>
+            </h3>
+            <p class="text-[13px] leading-relaxed line-clamp-2 mb-2.5" style="color:var(--color-text-muted);">${desc}</p>
+            ${icons ? `<div class="flex flex-wrap items-center gap-1.5 mb-2.5">${icons}</div>` : ''}
+            <div class="flex flex-wrap items-center gap-4">
+              <a href="${detailUrl}" class="sup-link">${t('detail')} <span aria-hidden="true">→</span></a>
+              <a href="${github}" class="sup-link"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${t('github')}</a>
+            </div>
           </div>
-        </div>
-      </article>`;
+        </article>`;
   }
 
   function smoothPageTransition() {
@@ -200,9 +205,8 @@ return `
     select.classList.remove('hidden');
     select.onchange = () => {
       State.projectFilter = select.value;
-      State.currentPage = 0;
       smoothPageTransition();
-      renderProjectSlider();
+      renderProjectList();
     };
     if (legacyWrap) legacyWrap.classList.add('hidden');
   }
