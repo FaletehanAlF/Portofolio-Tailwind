@@ -723,7 +723,7 @@ const ProjectsSection = (() => {
     const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
     const hasLinks = p.demo && p.demo !== '#';
     const github = hasLinks ? escapeHtml(p.github) : '';
-    const tech = techLine(p);
+    const icons = techIcons(p);
     const viewLabel = escapeHtml(LangSwitcher.t('btn.view'));
 
     return `
@@ -735,10 +735,10 @@ const ProjectsSection = (() => {
           <p class="pcard-meta">${metaLine(p)}</p>
           <h3 class="pcard-title" title="${name}">${name}</h3>
           <p class="pcard-desc">${excerpt(pick(p.short_desc))}</p>
-          <p class="pcard-tech">${tech || '&nbsp;'}</p>
+          <div class="pcard-tech" aria-label="Technologies">${icons || '&nbsp;'}</div>
           <div class="pcard-actions">
             <a href="${detailUrl}" class="pcard-view">${viewLabel} <span aria-hidden="true">→</span></a>
-            ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="pcard-gh">GitHub <span aria-hidden="true">↗</span></a>` : ''}
+            ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="pcard-gh"><i data-feather="github" class="pcard-gh-icon" aria-hidden="true"></i>GitHub</a>` : ''}
           </div>
         </div>
       </article>`;
