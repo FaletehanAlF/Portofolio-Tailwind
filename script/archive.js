@@ -69,14 +69,28 @@
   };
 
   const State = {
-    lang: localStorage.getItem('lang') || 'en',
-    theme: localStorage.getItem('theme') || 'light',
+    lang: safeGet('lang', 'en'),
+    theme: safeGet('theme', 'light'),
     projects: [],
     certs: [],
     projectFilter: 'All',
     query: '',
-    currentPage: 0,
   };
+
+  function safeGet(k, fb) {
+    try {
+      const v = localStorage.getItem(k);
+      return v || fb;
+    } catch (_) {
+      return fb;
+    }
+  }
+
+  function safeSet(k, v) {
+    try {
+      localStorage.setItem(k, v);
+    } catch (_) {}
+  }
 
   const t = (k) => (strings[State.lang] && strings[State.lang][k]) || strings.en[k] || k;
   const pick = (obj) => (obj ? obj[State.lang] || obj.en || '' : '');
