@@ -151,39 +151,65 @@
     return [t('all'), ...[...set.values()].sort()];
   }
 
-  function techIcons(p) {
-    return (p.tech || []).map((x) => `
-      <img src="${escapeHtml(x.icon)}" alt="${escapeHtml(x.name)}" title="${escapeHtml(x.name)}"
-        class="tech-icon" loading="lazy" />`).join('');
+  /* Compact tech line: names only, no icon wall. Title stays the focal point. */
+  function techLine(p) {
+    const names = (p.tech || []).map((x) => x && x.name).filter(Boolean);
+    if (!names.length) return '';
+    return names.map(escapeHtml).join(' · ');
   }
 
+  function metaLine(p) {
+    const cat = escapeHtml(pick(p.category));
+    return `${cat}${p.year ? ` · ${escapeHtml(p.year)}` : ''}`;
+  }
+
+  /* Featured: one large visual + short info. Short desc only — full story on detail page. */
+  function featuredProject(p) {
+    const name = escapeHtml(pick(p.name));
+    const desc = escapeHtml(pick(p.short_desc));
+    const detailUrl = `detail.html?project=${encodeURIComponent(p.slug)}`;
+    const hasLinks = p.demo && p.demo !== '#';
+    const github = hasLinks ? escapeHtml(p.github) : '';
+    const tech = techLine(p);
+    const viewLabel = escapeHtml(t('viewProject'));
+return `
+        <article class="feat is-archive">
+          <a href="${detailUrl}" class="feat-media" aria-label="${name}">
+            <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" ${'fetchpriority="high"'} onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
+          </a>
+          <div class="feat-body min-w-0">
+            <p class="feat-meta"><span class="feat-flag">${escapeHtml(t('featured'))}</span><span aria-hidden="true"> — </span>${metaLine(p)}</p>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-2.5" style="color:var(--color-text); text-wrap:balance;">${name}</h2>
+            <p class="text-sm leading-relaxed mb-3.5" style="color:var(--color-text-muted); max-width:46ch;">${desc}</p>
+            ${tech ? `<p class="proj-tech">${tech}</p>` : ''}
+            <div class="proj-actions">
+              <a href="${detailUrl}" class="proj-view">${viewLabel} <span aria-hidden="true">→</span></a>
+              ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="proj-gh">${escapeHtml(t('github'))} <span aria-hidden="true">↗</span></a>` : ''}
+            </div>
+          </div>
+        </article>`;
+  }
+
+  /* Archive row: number + title + meta + one-line desc + arrow. No cards, no thumbs. */
   function projectRow(p, idx) {
     const name = escapeHtml(pick(p.name));
     const desc = escapeHtml(pick(p.short_desc));
-    const cat = escapeHtml(pick(p.category));
     const detailUrl = `detail.html?project=${encodeURIComponent(p.slug)}`;
-    const placeholder = !p.demo || p.demo === '#';
-    const github = placeholder ? '#' : escapeHtml(p.github);
     const num = String(idx + 1).padStart(2, '0');
-    const meta = `${num} · ${cat}${p.year ? ` — ${escapeHtml(p.year)}` : ''}`;
-    const icons = techIcons(p);
+    const tech = techLine(p);
+    const viewLabel = escapeHtml(t('viewProject'));
 return `
-        <article class="sup">
-          <a href="${detailUrl}" class="sup-thumb" aria-label="${name}" tabindex="-1">
-            <img src="${escapeHtml(fixAsset(p.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='0.5rem';" />
-          </a>
+        <article class="proj-row">
+          <span class="proj-num" aria-hidden="true">${num}</span>
           <div class="min-w-0">
-            <p class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-accent); letter-spacing:0.08em;">${meta}</p>
-            <h3 class="text-[15px] font-bold mb-1 leading-snug" style="color:var(--color-text);">
-              <a href="${detailUrl}" class="hover:underline">${name}</a>
+            <p class="proj-meta">${metaLine(p)}</p>
+            <h3 class="proj-title">
+              <a href="${detailUrl}">${name}</a>
             </h3>
-            <p class="text-[13px] leading-relaxed line-clamp-2 mb-2.5" style="color:var(--color-text-muted);">${desc}</p>
-            ${icons ? `<div class="flex flex-wrap items-center gap-1.5 mb-2.5">${icons}</div>` : ''}
-            <div class="flex flex-wrap items-center gap-4">
-              <a href="${detailUrl}" class="sup-link">${t('detail')} <span aria-hidden="true">→</span></a>
-              <a href="${github}" class="sup-link"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${t('github')}</a>
-            </div>
+            <p class="proj-desc">${desc}</p>
+            ${tech ? `<p class="proj-tech is-row">${tech}</p>` : ''}
           </div>
+          <a href="${detailUrl}" class="proj-go" aria-label="${viewLabel}: ${name}"><span aria-hidden="true">→</span></a>
         </article>`;
   }
 
@@ -294,7 +320,18 @@ return `
 
   function renderProjectList() {
     const items = getFilteredProjects();
-    renderList(items, `<div class="sup-grid">${items.map((p, i) => projectRow(p, i)).join('')}</div>`);
+    const isDefaultView = State.projectFilter === t('all') && !State.query.trim();
+    // Default view: one featured visual + calm archive list. Filter/search: plain list.
+    let html;
+    if (isDefaultView && items.length > 1) {
+      const rows = items.slice(1).map((p, i) => projectRow(p, i + 1)).join('');
+      html = `${featuredProject(items[0])}`
+        + `<div class="proj-archive-head"><h2 class="proj-archive-title">${escapeHtml(t('archive'))}</h2></div>`
+        + `<div class="proj-list">${rows}</div>`;
+    } else {
+      html = `<div class="proj-list">${items.map((p, i) => projectRow(p, i)).join('')}</div>`;
+    }
+    renderList(items, html);
   }
 
   function renderCertList() {
