@@ -1552,8 +1552,8 @@
   .exp-item {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.25rem;
-    padding: 2rem 0;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
     border-top: 1px solid var(--color-border);
     position: relative;
   }
@@ -1567,37 +1567,37 @@
   }
   .exp-num {
     font-family: var(--font-meta);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     color: var(--color-accent);
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
   .exp-category {
     font-family: var(--font-meta);
-    font-size: 0.62rem;
-    font-weight: 600;
+    font-size: 0.6rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.2em;
     color: var(--color-accent);
     display: inline-block;
-    padding: 0.18rem 0.55rem;
+    padding: 0.15rem 0.5rem;
     border: 1px solid var(--color-border);
-    border-radius: 0.2rem;
-    margin-bottom: 0.65rem;
+    border-radius: 0.15rem;
+    margin-bottom: 0.75rem;
   }
   .exp-role {
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: var(--color-text);
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.2rem;
   }
   .exp-company {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--color-text);
     margin-bottom: 0.15rem;
@@ -1607,34 +1607,15 @@
     font-size: 0.7rem;
     font-weight: 500;
     color: var(--color-text-muted);
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.75rem;
     letter-spacing: 0.02em;
   }
   .exp-desc {
-    font-size: 0.88rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.75;
     color: var(--color-text-muted);
-    margin-bottom: 0.85rem;
+    margin-bottom: 1rem;
     max-width: 54ch;
-  }
-  .exp-highlights {
-    list-style: none;
-    margin-bottom: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-  .exp-highlights li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.82rem;
-    line-height: 1.55;
-    color: var(--color-text-muted);
-  }
-  .exp-highlights li i {
-    margin-top: 0.15rem;
-    flex-shrink: 0;
   }
   .exp-tech {
     font-family: var(--font-meta);
@@ -1642,6 +1623,7 @@
     font-weight: 500;
     color: var(--color-text-muted);
     letter-spacing: 0.04em;
+    margin-top: 0.5rem;
   }
   .exp-tech span {
     display: inline;
@@ -1669,17 +1651,17 @@
     aspect-ratio: 16 / 10;
     object-fit: cover;
     display: block;
-    transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.21, 1);
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.21, 1);
   }
   .exp-photo-main:hover img {
-    transform: scale(1.015);
+    transform: scale(1.02);
   }
   .exp-photo-caption {
     font-family: var(--font-meta);
     font-size: 0.65rem;
     color: var(--color-text-muted);
     letter-spacing: 0.06em;
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
     padding-left: 0.1rem;
   }
   .exp-photo-thumbs {
@@ -1699,9 +1681,25 @@
   .exp-photo-thumbs img:hover {
     transform: scale(1.02);
   }
-  /* No photo state */
-  .exp-no-photo {
-    display: none;
+  /* Competition: larger visual anchor */
+  .exp-item.is-competition {
+    padding: 3rem 0;
+  }
+  @media (min-width: 1024px) {
+    .exp-item.is-competition {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .exp-item.is-competition .exp-text-col {
+      padding-top: 1rem;
+    }
+    .exp-item.is-competition .exp-visual {
+      padding-top: 0.5rem;
+    }
+    .exp-item.is-competition .exp-photo-main img {
+      aspect-ratio: 4 / 3;
+    }
   }
   /* Asymmetric on desktop */
   @media (min-width: 1024px) {
@@ -1711,18 +1709,19 @@
       align-items: start;
     }
     .exp-item.has-photos .exp-text-col {
-      padding-top: 0.5rem;
+      padding-top: 0.75rem;
     }
     .exp-item.has-photos .exp-visual {
-      padding-top: 0.25rem;
+      padding-top: 0.5rem;
+    }
+  }
+  @media (min-width: 640px) {
+    .exp-role {
+      font-size: 1.5rem;
     }
   }
 
-  @media (min-width: 640px) {
-    .exp-role {
-      font-size: 1.45rem;
-    }
-  }
+  /* ===== Redesign foundation: type system ===== */
 
   /* ===== Redesign foundation: type system ===== */
   /* Display: Space Grotesk for headlines with dev character.

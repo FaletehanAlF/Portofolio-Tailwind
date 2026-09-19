@@ -107,7 +107,7 @@
 
   function renderPhotos(item) {
     const photos = item.photos || [];
-    if (!photos.length) return '';
+    if (!photos.length) return null;
     const main = photos[0];
     const rest = photos.slice(1);
     let html = '<div class="exp-visual">';
