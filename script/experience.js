@@ -139,10 +139,9 @@
       : '';
     const photos = renderPhotos(item);
     const hasPhotos = photos ? 'has-photos' : '';
-    const reverse = idx % 2 === 1 ? 'exp-reverse' : '';
 
     return `
-      <li class="exp-item ${hasPhotos} ${reverse} reveal">
+      <li class="exp-item ${hasPhotos} reveal">
         <div class="exp-text-col">
           ${catLabel ? `<span class="exp-category">${esc(catLabel)}</span>` : ''}
           <span class="exp-num">${num}</span>
