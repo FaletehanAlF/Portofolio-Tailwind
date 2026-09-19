@@ -2332,9 +2332,11 @@
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* About: quiet editorial — number + label + type + dividers, no cards */
-  .about-wrap {
-    max-width: 760px;
+  /* About: editorial 2-col — narrative left, snapshot right, no cards.
+     Mobile stacks: intro → snapshot → blocks → closing (source order). */
+  .about-grid {
+    display: grid;
+    gap: 2.25rem;
   }
   .about-headline {
     font-weight: 700;
@@ -2346,8 +2348,13 @@
     max-width: 22ch;
     margin: 0.6rem 0 0;
   }
-  .about-rule {
-    margin: 2.25rem 0;
+  .about-lede {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 62ch;
+    margin: 1.1rem 0 0;
+    overflow-wrap: break-word;
   }
   .about-list {
     list-style: none;
@@ -2355,12 +2362,7 @@
     padding: 0;
   }
   .about-block {
-    padding: 1.75rem 0;
-    border-top: 1px solid var(--color-border);
-  }
-  .about-block:first-child {
-    border-top: 0;
-    padding-top: 0;
+    padding: 0 0 1.75rem;
   }
   .about-block:last-child {
     padding-bottom: 0;
@@ -2390,45 +2392,110 @@
     font-size: 1rem;
     line-height: 1.75;
     color: var(--color-text-muted);
-    max-width: 65ch;
+    max-width: 62ch;
     margin: 0;
     overflow-wrap: break-word;
   }
-  .about-meta {
-    display: grid;
-    gap: 1.25rem;
+  /* Snapshot panel: hairlines + type only, never boxes */
+  .about-side {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.75rem;
+    min-width: 0;
+  }
+  .about-side-title {
+    font-family: var(--font-meta);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-text);
+    margin: 0 0 0.25rem;
+  }
+  .about-snapshot {
     margin: 0;
     padding: 0;
   }
-  .about-meta-item dt {
-    font-family: var(--font-meta);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-text-muted);
-    margin-bottom: 0.35rem;
+  .about-snap-item {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--color-border);
   }
-  .about-meta-item dd {
-    font-size: 0.95rem;
+  .about-snap-item:first-child {
+    border-top: 0;
+  }
+  .about-snap-item dt {
+    font-family: var(--font-meta);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .about-snap-item dd {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
   }
-  .about-connect {
-    margin-top: 2.25rem;
+  .about-snap-sub {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
   }
-  .about-connect-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--color-text);
-    margin: 0 0 0.75rem;
+  .about-side-connect {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
   }
-  .about-connect-links {
+  .about-links {
+    list-style: none;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 1.25rem;
-    margin-left: -1rem;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0.6rem 0 0;
+    padding: 0;
+  }
+  .about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .about-link:hover {
+    color: var(--color-accent);
+  }
+  .about-link svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .about-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+  .about-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .about-closing {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.75rem;
+    min-width: 0;
+  }
+  .about-closing p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    margin: 0;
+    overflow-wrap: break-word;
   }
 
   /* Portfolio: uniform project cards — image is the hero (16/10, ~40-45% of card).
@@ -2786,10 +2853,9 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.4rem;
     }
-    /* About meta: 3 compact columns on tablet and up, stacked on mobile */
-    .about-meta {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.5rem;
+    /* About stays single-column on tablet: snapshot below intro keeps hierarchy */
+    .about-grid {
+      gap: 2.5rem;
     }
     .sup-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2813,6 +2879,37 @@
     /* Roomier card content on desktop (22px sides, 22px top / 24px bottom) */
     .pcard-body {
       padding: 1.375rem 1.375rem 1.5rem;
+    }
+    /* About: narrative (~65%) + snapshot (~35%), snapshot fills right rail */
+    .about-grid {
+      grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+      grid-template-areas:
+        "intro side"
+        "main side"
+        "closing side";
+      column-gap: 3.5rem;
+      row-gap: 2.5rem;
+      align-items: start;
+    }
+    .about-intro {
+      grid-area: intro;
+      min-width: 0;
+    }
+    .about-side {
+      grid-area: side;
+      min-width: 0;
+      border-top: 0;
+      padding-top: 0;
+      border-left: 1px solid var(--color-border);
+      padding-left: 2.5rem;
+    }
+    .about-main {
+      grid-area: main;
+      min-width: 0;
+    }
+    .about-closing {
+      grid-area: closing;
+      min-width: 0;
     }
   }
 

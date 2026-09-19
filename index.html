@@ -225,74 +225,114 @@
   <section id="about" class="py-20 sm:py-28 performance" style="background-color:var(--color-bg);">
     <div class="max-w-6xl mx-auto px-5">
 
-      <div class="about-wrap">
+      <div class="about-grid">
 
-        <p class="section-label fade-up" data-i18n="about.label">About</p>
-        <h2 class="about-headline font-display fade-up" data-i18n="about.heading">Software Engineering student
-          focused on building useful digital experiences.</h2>
+        <div class="about-intro">
+          <p class="section-label fade-up" data-i18n="about.label">About</p>
+          <h2 class="about-headline font-display fade-up" data-i18n="about.heading">Software Engineering student
+            focused on building useful digital experiences.</h2>
+          <p class="about-lede fade-up" data-i18n="about.p1">I have a strong passion for Software Engineering and
+            Full-Stack Web Development. As a Software Engineering student at SMK Taruna Bhakti, I continuously
+            develop my technical skills through self-learning, hands-on projects, and participation in various
+            bootcamp programs.</p>
+        </div>
 
-        <div class="divider about-rule" aria-hidden="true"></div>
-
-        <ol class="about-list">
-          <li class="about-block fade-up">
-            <div class="about-block-head">
-              <span class="about-num" aria-hidden="true">01</span>
-              <h3 class="about-block-label" data-i18n="about.s1">Background</h3>
+        <aside class="about-side fade-up" data-i18n-aria="about.side_profile" aria-label="Profile">
+          <p class="about-side-title" data-i18n="about.side_profile">Profile</p>
+          <dl class="about-snapshot">
+            <div class="about-snap-item">
+              <dt data-i18n="about.meta_based">Based in</dt>
+              <dd>Indonesia</dd>
             </div>
-            <p data-i18n="about.p1">I have a strong passion for Software Engineering and Full-Stack Web Development.
-              As a Software Engineering student at SMK Taruna Bhakti, I continuously develop my technical skills
-              through self-learning, hands-on projects, and participation in various bootcamp programs.</p>
-          </li>
-          <li class="about-block fade-up">
-            <div class="about-block-head">
-              <span class="about-num" aria-hidden="true">02</span>
-              <h3 class="about-block-label" data-i18n="about.s2">Beyond code</h3>
+            <div class="about-snap-item">
+              <dt data-i18n="about.info_edu">Education</dt>
+              <dd>
+                <span data-i18n="about.edu_val">Software Engineering</span>
+                <span class="about-snap-sub">SMK Taruna Bhakti</span>
+              </dd>
             </div>
-            <p data-i18n="about.p2">Beyond technology, I am committed to continuous learning and personal growth.
-              I also actively participate in school activities as a futsal player, which has strengthened my
-              teamwork, discipline, leadership, and communication skills.</p>
-          </li>
-          <li class="about-block fade-up">
-            <div class="about-block-head">
-              <span class="about-num" aria-hidden="true">03</span>
-              <h3 class="about-block-label" data-i18n="about.s3">Direction</h3>
+            <div class="about-snap-item">
+              <dt data-i18n="about.info_focus">Focus</dt>
+              <dd>
+                <span data-i18n="about.edu_val">Software Engineering</span>
+                <span>Full-Stack Web Development</span>
+                <span>UI/UX Design</span>
+              </dd>
             </div>
-            <p data-i18n="about.p3">My goal is to pursue a career as a Software Engineer and contribute by creating
-              innovative, impactful, and user-focused digital solutions. I am open to professional networking and
-              collaboration opportunities through LinkedIn or via email at faletehanalfarabi09@gmail.com.</p>
-          </li>
-        </ol>
+            <div class="about-snap-item">
+              <dt data-i18n="about.r_goal">Career goal</dt>
+              <dd>Software Engineer</dd>
+            </div>
+          </dl>
+          <div class="about-side-connect">
+            <p class="about-side-title" data-i18n="about.connect">Let's connect</p>
+            <ul class="about-links">
+              <li>
+                <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener"
+                  class="about-link" aria-label="LinkedIn profile">
+                  <span>LinkedIn</span>
+                  <i data-feather="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:faletehanalfarabi09@gmail.com" class="about-link" aria-label="Email">
+                  <span>Email</span>
+                  <i data-feather="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
 
-        <div class="divider about-rule" aria-hidden="true"></div>
+        <div class="about-main">
+          <ol class="about-list">
+            <li class="about-block fade-up">
+              <div class="about-block-head">
+                <span class="about-num" aria-hidden="true">01</span>
+                <h3 class="about-block-label" data-i18n="about.s1">Background</h3>
+              </div>
+              <p data-i18n="about.p1">I have a strong passion for Software Engineering and Full-Stack Web
+                Development. As a Software Engineering student at SMK Taruna Bhakti, I continuously develop my
+                technical skills through self-learning, hands-on projects, and participation in various bootcamp
+                programs.</p>
+            </li>
+            <li class="about-block fade-up">
+              <div class="about-block-head">
+                <span class="about-num" aria-hidden="true">02</span>
+                <h3 class="about-block-label" data-i18n="about.s2">Beyond code</h3>
+              </div>
+              <p data-i18n="about.p2">Beyond technology, I am committed to continuous learning and personal growth.
+                I also actively participate in school activities as a futsal player, which has strengthened my
+                teamwork, discipline, leadership, and communication skills.</p>
+            </li>
+            <li class="about-block fade-up">
+              <div class="about-block-head">
+                <span class="about-num" aria-hidden="true">03</span>
+                <h3 class="about-block-label" data-i18n="about.s3">Direction</h3>
+              </div>
+              <p data-i18n="about.p3">My goal is to pursue a career as a Software Engineer and contribute by
+                creating innovative, impactful, and user-focused digital solutions.</p>
+            </li>
+          </ol>
+        </div>
 
-        <dl class="about-meta fade-up">
-          <div class="about-meta-item">
-            <dt data-i18n="about.meta_based">Based in</dt>
-            <dd>Indonesia</dd>
-          </div>
-          <div class="about-meta-item">
-            <dt data-i18n="about.info_edu">Education</dt>
-            <dd data-i18n="about.edu_val">Software Engineering</dd>
-          </div>
-          <div class="about-meta-item">
-            <dt data-i18n="about.info_focus">Focus</dt>
-            <dd data-i18n="about.focus_val">Web Development & UI/UX Design</dd>
-          </div>
-        </dl>
-
-        <div class="about-connect fade-up">
-          <p class="about-connect-title font-display" data-i18n="about.connect">Let's connect</p>
-          <div class="about-connect-links">
-            <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener"
-              class="see-all-link" aria-label="LinkedIn profile">
-              <span>LinkedIn</span>
-              <i data-feather="arrow-up-right" class="w-4 h-4"></i>
-            </a>
-            <a href="mailto:faletehanalfarabi09@gmail.com" class="see-all-link" aria-label="Email">
-              <span>Email</span>
-              <i data-feather="arrow-up-right" class="w-4 h-4"></i>
-            </a>
-          </div>
+        <div class="about-closing fade-up">
+          <p data-i18n="about.closing">Open to professional connections and collaboration.</p>
+          <ul class="about-links">
+            <li>
+              <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener"
+                class="about-link" aria-label="LinkedIn profile">
+                <span>LinkedIn</span>
+                <i data-feather="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:faletehanalfarabi09@gmail.com" class="about-link" aria-label="Email">
+                <span>Email</span>
+                <i data-feather="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
         </div>
 
       </div>
