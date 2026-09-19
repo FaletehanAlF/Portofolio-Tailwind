@@ -216,7 +216,7 @@ return `
     const name = escapeHtml(pick(c.name));
     const issuer = escapeHtml(pick(c.issuer));
 return `
-        <article class="card overflow-hidden cursor-pointer cert-card cert-row fade-up" role="button" tabindex="0"
+        <article class="card overflow-hidden cursor-pointer cert-card cert-row" role="button" tabindex="0"
           data-cert-img="${escapeHtml(fixAsset(c.image))}" data-cert-name="${name}" data-cert-issuer="${issuer}">
         <div class="cert-thumb" aria-hidden="true">
           <img src="${escapeHtml(fixAsset(c.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';" />
