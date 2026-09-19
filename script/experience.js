@@ -1,7 +1,3 @@
-/**
- * Experience: view/experience.html
- * Vertical editorial timeline, API-driven, most recent first
- */
 'use strict';
 (function () {
   const strings = {
@@ -14,7 +10,7 @@
       experience: 'Experience',
       eyebrow: 'Career Path',
       title: 'Experience',
-      subtitle: 'Roles, impact, and tech — most recent first.',
+      subtitle: 'Competition, projects, and roles that shaped my development journey.',
       statYears: 'Years',
       statYearsSub: 'Active',
       statProjects: 'Projects',
@@ -28,6 +24,7 @@
       backShowcase: 'Back to Portfolio',
       toDark: 'Switch to dark mode',
       toLight: 'Switch to light mode',
+      viewDoc: 'View documentation',
     },
     id: {
       skip: 'Lewati ke konten',
@@ -38,7 +35,7 @@
       experience: 'Pengalaman',
       eyebrow: 'Jalur Karier',
       title: 'Pengalaman',
-      subtitle: 'Peran, dampak, dan teknologi — dari yang terbaru.',
+      subtitle: 'Lomba, proyek, dan peran yang membentuk perjalanan saya.',
       statYears: 'Tahun',
       statYearsSub: 'Aktif',
       statProjects: 'Proyek',
@@ -52,7 +49,18 @@
       backShowcase: 'Kembali ke Portofolio',
       toDark: 'Ganti ke mode gelap',
       toLight: 'Ganti ke mode terang',
+      viewDoc: 'Lihat dokumentasi',
     },
+  };
+
+  const categoryLabels = {
+    competition: { en: 'COMPETITION', id: 'KOMPETISI' },
+    project: { en: 'PROJECT', id: 'PROYEK' },
+    experience: { en: 'EXPERIENCE', id: 'PENGALAMAN' },
+    education: { en: 'EDUCATION', id: 'PENDIDIKAN' },
+    learning: { en: 'LEARNING', id: 'PEMBELAJARAN' },
+    internship: { en: 'INTERNSHIP', id: 'MAGANG' },
+    freelance: { en: 'FREELANCE', id: 'FREELANCE' },
   };
 
   const State = {
@@ -89,37 +97,63 @@
     applyTheme(State.theme);
   }
 
-  /* Timeline row: year + role + description. Hierarchy by time, not boxes. */
-  function itemHTML(item) {
+  function renderPhoto(src, alt, isMain) {
+    const wrapper = isMain ? 'exp-photo-main' : '';
+    return `<div class="${wrapper}">
+      <img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"
+        onerror="this.parentElement.style.display='none'" />
+    </div>`;
+  }
+
+  function renderPhotos(item) {
+    const photos = item.photos || [];
+    if (!photos.length) return '';
+    const main = photos[0];
+    const rest = photos.slice(1);
+    let html = '<div class="exp-visual">';
+    html += renderPhoto(main.src, main.alt || main.caption || '', true);
+    if (main.caption) html += `<p class="exp-photo-caption">${esc(main.caption)}</p>`;
+    if (rest.length) {
+      html += '<div class="exp-photo-thumbs">';
+      rest.forEach((p) => {
+        html += renderPhoto(p.src, p.alt || p.caption || '');
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function itemHTML(item, idx) {
     const company = esc(pick(item.company));
     const role = esc(pick(item.role));
     const period = esc(pick(item.period));
-    const type = esc(pick(item.type));
     const location = esc(item.location || '');
     const desc = esc(pick(item.description));
-    const logo = esc(item.logo || '');
+    const category = item.category || '';
+    const catLabel = categoryLabels[category] ? pick(categoryLabels[category]) : '';
+    const num = String(idx + 1).padStart(2, '0');
     const highlights = (item.highlights || []).map((h) => `<li class="flex gap-2.5 text-[14px] leading-6" style="color:var(--color-text);"><i data-feather="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:var(--color-accent);"></i><span style="color:var(--color-text-muted);">${esc(pick(h))}</span></li>`).join('');
-    const tech = (item.tech || []).map((c) => `<span class="tech-badge">${esc(c)}</span>`).join('');
+    const tech = (item.tech || []).length
+      ? `<div class="exp-tech">${item.tech.map((c) => `<span>${esc(c)}</span>`).join('')}</div>`
+      : '';
+    const photos = renderPhotos(item);
+    const hasPhotos = photos ? 'has-photos' : '';
+    const reverse = idx % 2 === 1 ? 'exp-reverse' : '';
+
     return `
-      <li class="tl-item reveal">
-        <div>
-          <p class="tl-period">${period}</p>
-          <p class="text-xs font-semibold mt-1.5" style="color:var(--color-text-muted);">${type}</p>
+      <li class="exp-item ${hasPhotos} ${reverse} reveal">
+        <div class="exp-text-col">
+          ${catLabel ? `<span class="exp-category">${esc(catLabel)}</span>` : ''}
+          <span class="exp-num">${num}</span>
+          <h3 class="exp-role">${role}</h3>
+          <p class="exp-company">${company}${location ? ` <span style="color:var(--color-text-muted); font-weight:400;">- ${location}</span>` : ''}</p>
+          <p class="exp-period">${period}</p>
+          <p class="exp-desc">${desc}</p>
+          ${highlights ? `<ul class="exp-highlights">${highlights}</ul>` : ''}
+          ${tech}
         </div>
-        <div class="min-w-0">
-          <div class="flex items-start gap-3.5 mb-2">
-            <div class="w-11 h-11 rounded-xl items-center justify-center flex-shrink-0 overflow-hidden p-2 hidden sm:flex" style="background:var(--color-bg-secondary); border:1px solid var(--color-border);">
-              <img src="${logo}" alt="" class="w-full h-full object-contain" loading="lazy" onerror="this.style.display='none'" />
-            </div>
-            <div class="min-w-0">
-              <h3 class="text-[16px] sm:text-[18px] font-extrabold leading-tight tracking-tight" style="color:var(--color-text);">${role}</h3>
-              <p class="text-sm font-semibold mt-1" style="color:var(--color-text);">${company}${location ? ` <span class="text-xs font-medium" style="color:var(--color-text-muted);">- ${location}</span>` : ''}</p>
-            </div>
-          </div>
-          <p class="text-[14.5px] leading-7 mb-4 font-[450]" style="color:var(--color-text-muted); letter-spacing:-0.01em;">${desc}</p>
-          ${highlights ? `<ul class="flex flex-col gap-2 mb-4 pl-1">${highlights}</ul>` : ''}
-          ${tech ? `<div class="flex flex-wrap gap-2">${tech}</div>` : ''}
-        </div>
+        ${photos}
       </li>
     `;
   }
@@ -157,7 +191,7 @@
       return;
     }
     if (empty) empty.classList.add('hidden');
-    list.innerHTML = State.data.map(itemHTML).join('');
+    list.innerHTML = State.data.map((item, i) => itemHTML(item, i)).join('');
     if (countEl) countEl.textContent = `${State.data.length} ${t('items')}`;
     initReveal();
     if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.75 });
