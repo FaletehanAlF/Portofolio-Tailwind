@@ -2330,7 +2330,8 @@
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* Portfolio: featured project (7/5 asymmetric) */
+  /* Portfolio: featured project — visual carries 55-60%, info 40-45%.
+     Image first, short info second. Calm editorial, no card chrome. */
   .feat {
     display: grid;
     gap: 1.5rem;
@@ -2340,9 +2341,10 @@
   .feat-media {
     display: block;
     border: 1px solid var(--color-card-border);
-    border-radius: 1rem;
+    border-radius: 0.9rem;
     overflow: hidden;
     background-color: var(--color-bg-secondary);
+    line-height: 0;
   }
   .feat-media img {
     width: 100%;
@@ -2351,15 +2353,30 @@
     transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.21, 1);
   }
   .feat-media:hover img {
-    transform: scale(1.025);
+    transform: scale(1.015);
+  }
+  .feat-body {
+    min-width: 0;
   }
   .feat-meta {
     font-family: var(--font-meta);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.65rem;
+  }
+  .feat-flag {
+    font-weight: 700;
     color: var(--color-accent);
-    margin-bottom: 0.6rem;
+  }
+  /* Archive featured gets generous air before the list */
+  .feat.is-archive {
+    margin-bottom: 3rem;
+  }
+  #projects-featured .feat {
+    margin-bottom: 0.75rem;
   }
 
   /* Portfolio: supporting rows (thumb + text, dividers instead of cards) */
