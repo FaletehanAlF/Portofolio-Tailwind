@@ -1705,6 +1705,19 @@
   }
   /* Asymmetric on desktop */
   @media (min-width: 1024px) {
+    .exp-item.has-photos {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .exp-item.has-photos .exp-text-col {
+      padding-top: 0.5rem;
+    }
+    .exp-item.has-photos .exp-visual {
+      padding-top: 0.25rem;
+    }
+  }
+
   @media (min-width: 640px) {
     .exp-role {
       font-size: 1.45rem;
