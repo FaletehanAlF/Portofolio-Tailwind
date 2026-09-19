@@ -691,63 +691,68 @@ const PortfolioTabs = (() => {
 const ProjectsSection = (() => {
   let data = null;
 
-  function techIcons(project) {
-    return (project.tech || []).map(t => `
-      <img src="${escapeHtml(t.icon)}" alt="${escapeHtml(t.name)}" title="${escapeHtml(t.name)}"
-        class="tech-icon" loading="lazy" />`).join('');
-  }
-
   function metaLine(p) {
     const cat = escapeHtml(pick(p.category));
-    const year = p.year ? ` — ${escapeHtml(p.year)}` : '';
+    const year = p.year ? ` · ${escapeHtml(p.year)}` : '';
     return `${cat}${year}`;
   }
 
-  /* Featured build: large asymmetric media + content, carries the most weight */
+  /* Compact tech line: names only, no icon wall. Keeps title as the focal point. */
+  function techLine(project) {
+    const names = (project.tech || []).map(x => x && x.name).filter(Boolean);
+    if (!names.length) return '';
+    return names.map(escapeHtml).join(' · ');
+  }
+
+  /* Featured build: image first, then short info. Short desc only — full story lives on detail page. */
   function featuredCard(p) {
     const name = escapeHtml(pick(p.name));
-    const desc = escapeHtml(pick(p.long_desc || p.short_desc));
+    const desc = escapeHtml(pick(p.short_desc));
     const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
-    const placeholder = !p.demo || p.demo === '#';
-    const github = placeholder ? '#' : escapeHtml(p.github);
+    const hasLinks = p.demo && p.demo !== '#';
+    const github = hasLinks ? escapeHtml(p.github) : '';
+    const tech = techLine(p);
+    const viewLabel = escapeHtml(LangSwitcher.t('btn.view'));
 
     return `
       <article class="feat fade-up">
         <a href="${detailUrl}" class="feat-media" aria-label="${name}">
           <img src="${escapeHtml(fixAsset(p.image))}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='1rem';" />
         </a>
-        <div>
-          <p class="feat-meta">${LangSwitcher.t('portfolio.featured')} · ${metaLine(p)}</p>
-          <h3 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-3" style="color:var(--color-text);">${name}</h3>
-          <p class="text-sm leading-relaxed mb-4" style="color:var(--color-text-muted);">${desc}</p>
-          <div class="flex flex-wrap items-center gap-1.5 mb-5">${techIcons(p)}</div>
-          <div class="flex gap-2">
-            <a href="${detailUrl}" class="btn-primary !text-xs !px-4 !py-2.5">${LangSwitcher.t('btn.detail')}</a>
-            <a href="${github}" class="btn-secondary !text-xs !px-4 !py-2.5"${placeholder ? '' : ' target="_blank" rel="noopener"'}>${LangSwitcher.t('btn.github')}</a>
+        <div class="feat-body min-w-0">
+          <p class="feat-meta">${metaLine(p)}</p>
+          <h3 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-2.5" style="color:var(--color-text); text-wrap:balance;">${name}</h3>
+          <p class="text-sm leading-relaxed mb-3.5" style="color:var(--color-text-muted); max-width:46ch;">${desc}</p>
+          ${tech ? `<p class="proj-tech">${tech}</p>` : ''}
+          <div class="proj-actions">
+            <a href="${detailUrl}" class="proj-view">${viewLabel} <span aria-hidden="true">→</span></a>
+            ${hasLinks && github && github !== '#' ? `<a href="${github}" target="_blank" rel="noopener" class="proj-gh">GitHub <span aria-hidden="true">↗</span></a>` : ''}
           </div>
         </div>
       </article>`;
   }
 
-  /* Supporting work: compact thumb + text rows separated by dividers */
-  function supCard(p) {
+  /* Supporting work: numbered editorial rows separated by dividers (no cards, no thumbs) */
+  function supCard(p, rowIdx) {
     const name = escapeHtml(pick(p.name));
     const desc = escapeHtml(pick(p.short_desc));
     const detailUrl = `view/detail.html?project=${encodeURIComponent(p.slug)}`;
+    const num = String((typeof rowIdx === 'number' ? rowIdx : 1) + 1).padStart(2, '0');
+    const tech = techLine(p);
+    const viewLabel = escapeHtml(LangSwitcher.t('btn.view'));
 
     return `
-      <article class="sup fade-up">
-        <a href="${detailUrl}" class="sup-thumb" aria-label="${name}" tabindex="-1">
-          <img src="${escapeHtml(fixAsset(p.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.style.objectFit='contain';this.style.padding='0.5rem';" />
-        </a>
+      <article class="proj-row fade-up">
+        <span class="proj-num" aria-hidden="true">${num}</span>
         <div class="min-w-0">
-          <p class="font-meta text-[11px] uppercase mb-1" style="color:var(--color-accent); letter-spacing:0.08em;">${metaLine(p)}</p>
-          <h3 class="text-[15px] font-bold mb-1 leading-snug" style="color:var(--color-text);">
-            <a href="${detailUrl}" class="hover:underline">${name}</a>
+          <p class="proj-meta">${metaLine(p)}</p>
+          <h3 class="proj-title">
+            <a href="${detailUrl}">${name}</a>
           </h3>
-          <p class="text-[13px] leading-relaxed line-clamp-2 mb-2.5" style="color:var(--color-text-muted);">${desc}</p>
-          <a href="${detailUrl}" class="sup-link">${LangSwitcher.t('btn.detail')} <span aria-hidden="true">→</span></a>
+          <p class="proj-desc">${desc}</p>
+          ${tech ? `<p class="proj-tech is-row">${tech}</p>` : ''}
         </div>
+        <a href="${detailUrl}" class="proj-go" aria-label="${viewLabel}: ${name}"><span aria-hidden="true">→</span></a>
       </article>`;
   }
 
@@ -763,7 +768,7 @@ const ProjectsSection = (() => {
       if (grid) grid.innerHTML = `<p class="text-sm text-center py-8 col-span-full" style="color:var(--color-text-muted);">No projects yet.</p>`;
     } else {
       if (feat) feat.innerHTML = featuredCard(preview[0]);
-      if (grid) grid.innerHTML = preview.slice(1).map(supCard).join('');
+      if (grid) grid.innerHTML = preview.slice(1).map((p, i) => supCard(p, i + 1)).join('');
     }
     if (feat) observeFadeUp(feat);
     if (grid) observeFadeUp(grid);
