@@ -1743,13 +1743,13 @@
     outline-offset: 2px;
   }
   .exp-figure--placeholder {
-    border-style: dashed;
-    background: transparent;
+    border: 1px solid var(--color-card-border);
+    background: var(--color-bg-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 16 / 10.5;
-    min-height: 220px;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
   }
   .exp-placeholder-inner {
     display: flex;
@@ -1757,14 +1757,18 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1.5rem;
-    gap: 0.25rem;
+    padding: 2.25rem 1.5rem;
+  }
+  .exp-placeholder-label {
+    font-family: var(--font-meta);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
   }
   @media (min-width: 1024px) {
     .exp-figure--placeholder {
-      aspect-ratio: 4 / 3.2;
-    }
-    .exp-case.is-competition .exp-figure--placeholder {
       aspect-ratio: 4 / 3;
     }
   }
