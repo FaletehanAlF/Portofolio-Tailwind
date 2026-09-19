@@ -2333,66 +2333,36 @@
   }
 
   /* About: editorial 2-col — narrative left, snapshot right, no cards.
-     Mobile stacks: intro → snapshot → blocks → closing (source order). */
+     Single contact area only. Mobile stacks: intro → profile → connect. */
   .about-grid {
     display: grid;
-    gap: 2.25rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+  .about-intro {
+    min-width: 0;
   }
   .about-headline {
     font-weight: 700;
-    font-size: clamp(1.85rem, 1.3rem + 2.6vw, 2.75rem);
-    line-height: 1.16;
+    font-size: clamp(1.75rem, 1.25rem + 2.4vw, 2.5rem);
+    line-height: 1.18;
     letter-spacing: -0.02em;
     color: var(--color-text);
     text-wrap: balance;
     max-width: 22ch;
     margin: 0.6rem 0 0;
   }
-  .about-lede {
-    font-size: 1.02rem;
-    line-height: 1.75;
-    color: var(--color-text);
-    max-width: 62ch;
-    margin: 1.1rem 0 0;
-    overflow-wrap: break-word;
-  }
-  .about-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .about-block {
-    padding: 0 0 1.75rem;
-  }
-  .about-block:last-child {
-    padding-bottom: 0;
-  }
-  .about-block-head {
+  .about-prose {
+    margin-top: 1.75rem;
     display: flex;
-    align-items: baseline;
-    gap: 0.9rem;
-    margin-bottom: 0.7rem;
+    flex-direction: column;
+    gap: 1.25rem;
   }
-  .about-num {
-    font-family: var(--font-meta);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    color: var(--color-text-muted);
-  }
-  .about-block-label {
-    font-family: var(--font-meta);
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-text);
-    margin: 0;
-  }
-  .about-block p {
-    font-size: 1rem;
+  .about-prose p {
+    font-size: 1.0625rem;
     line-height: 1.75;
     color: var(--color-text-muted);
-    max-width: 62ch;
+    max-width: 60ch;
     margin: 0;
     overflow-wrap: break-word;
   }
@@ -2470,32 +2440,20 @@
   }
   .about-link:hover {
     color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
   }
-  .about-link svg {
-    width: 1rem;
-    height: 1rem;
-    flex-shrink: 0;
+  .about-link span[aria-hidden="true"] {
+    display: inline-block;
     transition: transform 0.2s ease;
   }
-  .about-link:hover svg {
-    transform: translate(2px, -2px);
+  .about-link:hover span[aria-hidden="true"] {
+    transform: translateX(2px);
   }
   .about-link:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
-  }
-  .about-closing {
-    border-top: 1px solid var(--color-border);
-    padding-top: 1.75rem;
-    min-width: 0;
-  }
-  .about-closing p {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--color-text-muted);
-    max-width: 60ch;
-    margin: 0;
-    overflow-wrap: break-word;
   }
 
   /* Portfolio: uniform project cards — image is the hero (16/10, ~40-45% of card).
@@ -2880,36 +2838,17 @@
     .pcard-body {
       padding: 1.375rem 1.375rem 1.5rem;
     }
-    /* About: narrative (~65%) + snapshot (~35%), snapshot fills right rail */
+    /* About: narrative (~65%) + snapshot (~35%), compact and intentional */
     .about-grid {
       grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
-      grid-template-areas:
-        "intro side"
-        "main side"
-        "closing side";
       column-gap: 3.5rem;
-      row-gap: 2.5rem;
       align-items: start;
     }
-    .about-intro {
-      grid-area: intro;
-      min-width: 0;
-    }
     .about-side {
-      grid-area: side;
-      min-width: 0;
       border-top: 0;
       padding-top: 0;
       border-left: 1px solid var(--color-border);
       padding-left: 2.5rem;
-    }
-    .about-main {
-      grid-area: main;
-      min-width: 0;
-    }
-    .about-closing {
-      grid-area: closing;
-      min-width: 0;
     }
   }
 
