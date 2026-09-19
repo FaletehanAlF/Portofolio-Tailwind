@@ -151,11 +151,13 @@
     return [t('all'), ...[...set.values()].sort()];
   }
 
-  /* Compact tech line: max 4 names, no icon wall. Title stays the focal point. */
-  function techLine(p) {
-    const names = (p.tech || []).map((x) => x && x.name).filter(Boolean).slice(0, 4);
-    if (!names.length) return '';
-    return names.map(escapeHtml).join(' · ');
+  /* Supporting tech icons: max 4, small and quiet. Title stays the focal point. */
+  function techIcons(p) {
+    const items = (p.tech || []).filter((x) => x && x.name && x.icon).slice(0, 4);
+    if (!items.length) return '';
+    return items.map((x) => `
+      <img src="${escapeHtml(x.icon)}" alt="${escapeHtml(x.name)}" title="${escapeHtml(x.name)}"
+        class="pcard-tech-icon" loading="lazy" decoding="async" onerror="this.style.display='none'" />`).join('');
   }
 
   function metaLine(p) {
