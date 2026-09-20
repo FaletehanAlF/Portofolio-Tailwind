@@ -645,6 +645,8 @@
   .hero-name {
     font-size: clamp(2.25rem, 1.5rem + 3.5vw, 3.5rem);
   }
+
+  /* Photo card */
   .photo-card-inner {
     transform-style: preserve-3d;
     will-change: transform;
