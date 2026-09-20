@@ -133,27 +133,29 @@
   </header>
 
   <main id="main">
-  <!-- ============================================================
-     HERO — stacked editorial composition (homepage only)
-     greeting → constrained stacked title → indented statement/CTA
-     beside an offset portrait anchor. Role, photo, statement, CTA.
-  ============================================================ -->
+<!-- ============================================================
+      HERO — simple 2-column layout (desktop) / 1-column (mobile)
+      left: greeting → headline + role → description → CTA
+      right: photo (desktop only)
+   ============================================================ -->
   <section id="home" class="hero-editorial overflow-hidden">
-    <div class="mx-auto w-full px-5 hero-inner">
-      <p class="hero-intro fade-up">
-        <span data-i18n="hero.intro">Hello, I'm Faletehan Al Farabi</span>
-      </p>
-
-      <div class="hero-compo">
-        <h1 class="hero-title font-display fade-up">
-          <span class="hero-role-main"><span data-i18n="hero.role_1">Software Engineering Student</span></span>
-          <span class="hero-role-sub"><span data-i18n="hero.role_2">Full-Stack Web Developer</span></span>
-        </h1>
-
-        <div class="hero-body">
-          <p class="hero-desc fade-up">
-            <span data-i18n="hero.desc">Focused on building useful, user-focused digital experiences.</span>
+    <div class="mx-auto max-w-7xl px-5">
+      <div class="grid lg:grid-cols-2 gap-8 items-center">
+        <!-- Left column: text + CTA -->
+        <div>
+          <p class="hero-greeting fade-up">
+            <span data-i18n="hero.intro">Halo, saya Faletehan Al Farabi</span>
           </p>
+
+          <h1 class="hero-title font-display fade-up">
+            <span class="hero-role-main"><span data-i18n="hero.role_1">Software Engineering Student</span></span>
+            <span class="hero-role-sub"><span data-i18n="hero.role_2">Full-Stack Web Developer</span></span>
+          </h1>
+
+          <p class="hero-desc fade-up">
+            <span data-i18n="hero.desc">Berfokus membangun pengalaman digital yang bermanfaat dan berorientasi pada pengguna.</span>
+          </p>
+
           <div class="hero-ctas fade-up">
             <a href="#portfolio" class="btn-primary">
               <i data-feather="arrow-right" class="w-4 h-4"></i>
@@ -166,7 +168,8 @@
           </div>
         </div>
 
-        <div class="hero-visual fade-up">
+        <!-- Right column: photo (desktop) -->
+        <div class="hero-visual">
           <figure class="hero-figure">
             <img src="assets/image/Me.jpg"
               alt="Faletehan Al Farabi — Software Engineering Student and Full-Stack Web Developer"
@@ -176,6 +179,11 @@
       </div>
     </div>
   </section>
+</section>
+</main>
+</section>
+</section>
+</section>
 
 <!-- ============================================================
       ABOUT SECTION
