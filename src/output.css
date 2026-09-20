@@ -4610,7 +4610,7 @@
       margin-top: 2rem;
     }
     .hero-visual {
-      margin-top: clamp(-7rem, -1 * (4rem + 4vw), -4rem);
+      margin-top: -5.5rem;
     }
     .hero-figure {
       width: clamp(240px, 24vw, 310px);
