@@ -2957,29 +2957,29 @@
     line-height: 1.15;
     color: var(--color-accent);
   }
-  /* Grid: single column on mobile (copy → portrait → meta),
-     two columns from tablet up. Portrait never leaves its own cell. */
-  .hero-grid {
+  /* Stacked composition: title → body → portrait on mobile;
+     title + body left with portrait anchored right on larger screens. */
+  .hero-compo {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "copy" "visual" "foot";
-    row-gap: 1.75rem;
-    margin-top: 2rem;
+    grid-template-areas: "title" "body" "visual";
     min-width: 0;
   }
-  .hero-copy {
-    grid-area: copy;
+  /* Statement + CTA live under the title, never beside the photo. */
+  .hero-body {
+    grid-area: body;
     min-width: 0;
+    max-width: 480px;
+    margin-top: 2rem;
   }
   /* One short supporting sentence, max ~2 lines on desktop. */
   .hero-desc {
-    margin: 0 0 1.9rem;
-    max-width: 48ch;
+    margin: 0 0 1.75rem;
     font-size: 1rem;
     line-height: 1.6;
     color: var(--color-text-muted);
   }
-  /* Two compact CTAs (~46px tall), never full-column width. */
+  /* Two compact CTAs (~45px tall), never full-column width. */
   .hero-ctas {
     display: flex;
     flex-wrap: wrap;
@@ -2988,33 +2988,8 @@
   }
   .hero-ctas .btn-primary,
   .hero-ctas .btn-secondary {
-    padding: 0.8rem 1.35rem;
+    padding: 0.78rem 1.35rem;
     font-size: 0.875rem;
-    white-space: nowrap;
-  }
-  /* Quiet meta: max 3 small icons + tiny secondary availability line. */
-  .hero-foot {
-    grid-area: foot;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-    min-width: 0;
-  }
-  .hero-social {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .hero-social .social-icon {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-  }
-  .hero-avail {
-    margin: 0;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
   }
   /* Portrait: own column, 3/4 matches Me.jpg (960×1280), subtle border. */
   .hero-visual {

@@ -4472,21 +4472,20 @@
     line-height: 1.15;
     color: var(--color-accent);
   }
-  .hero-grid {
+  .hero-compo {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "copy" "visual" "foot";
-    row-gap: 1.75rem;
-    margin-top: 2rem;
+    grid-template-areas: "title" "body" "visual";
     min-width: 0;
   }
-  .hero-copy {
-    grid-area: copy;
+  .hero-body {
+    grid-area: body;
     min-width: 0;
+    max-width: 480px;
+    margin-top: 2rem;
   }
   .hero-desc {
-    margin: 0 0 1.9rem;
-    max-width: 48ch;
+    margin: 0 0 1.75rem;
     font-size: 1rem;
     line-height: 1.6;
     color: var(--color-text-muted);
@@ -4498,32 +4497,8 @@
     margin: 0;
   }
   .hero-ctas .btn-primary, .hero-ctas .btn-secondary {
-    padding: 0.8rem 1.35rem;
+    padding: 0.78rem 1.35rem;
     font-size: 0.875rem;
-    white-space: nowrap;
-  }
-  .hero-foot {
-    grid-area: foot;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-    min-width: 0;
-  }
-  .hero-social {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .hero-social .social-icon {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-  }
-  .hero-avail {
-    margin: 0;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
   }
   .hero-visual {
     grid-area: visual;
