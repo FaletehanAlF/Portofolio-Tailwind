@@ -39,7 +39,7 @@ const translations = {
     'about.info_edu': 'Education',
     'about.info_focus': 'Focus',
     'about.edu_val': 'Software Engineering',
-    'about.focus_val': 'Web Development & UI/UX Design',
+    'about.focus_val': 'Full-Stack Web Development',
 
     'stat.projects': 'Projects Completed',
     'stat.certs': 'Certificates',
