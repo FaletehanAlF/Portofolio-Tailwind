@@ -144,7 +144,7 @@
         <div class="flex-1 max-w-xl">
 
           <!-- Heading - Split Text -->
-          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-3"
+          <h1 class="font-display hero-name font-bold tracking-tight mb-3"
             style="line-height:1.08; color:var(--color-text);">
             <span data-i18n="hero.greeting" id="split-greeting" class="font-meta block text-[13px] sm:text-sm font-medium mb-2" style="letter-spacing:0.04em; color:var(--color-text-muted);">Hi, my name is</span>
             <span class="block mt-1" style="color:var(--color-accent);">
@@ -154,23 +154,23 @@
 
           <!-- Subheading -->
           <p class="text-lg font-semibold mb-3 fade-up" style="color:var(--color-text-muted);">
-            <span data-i18n="hero.role">Fullstack Web Developer & UI/UX Designer</span>
+            <span data-i18n="hero.role">Software Engineering Student · Full-Stack Web Developer</span>
           </p>
 
           <!-- Description -->
           <p class="text-base leading-relaxed mb-8 fade-up" style="color:var(--color-text-muted); max-width:420px;">
-            <span data-i18n="hero.desc">Software Engineering student building responsive, user-friendly websites with modern web technologies.</span>
+            <span data-i18n="hero.desc">Focused on building useful, user-focused digital experiences.</span>
           </p>
 
           <!-- Buttons -->
           <div class="flex flex-wrap gap-3 mb-8 fade-up">
             <a href="#portfolio" class="btn-primary">
-              <i data-feather="grid" class="w-4 h-4"></i>
-              <span data-i18n="hero.btn_projects">View projects</span>
+              <i data-feather="arrow-right" class="w-4 h-4"></i>
+              <span data-i18n="hero.btn_work">View my work</span>
             </a>
-            <a href="resume/CV Faletehan Al Farabi.pdf" class="btn-secondary" aria-label="Download CV">
-              <i data-feather="download" class="w-4 h-4"></i>
-              <span data-i18n="hero.btn_cv">Download CV</span>
+            <a href="#contact" class="btn-secondary" aria-label="Contact">
+              <i data-feather="arrow-up-right" class="w-4 h-4"></i>
+              <span data-i18n="hero.btn_contact">Contact me</span>
             </a>
           </div>
 
@@ -229,21 +229,27 @@
 
       <div class="about-intro">
         <p class="section-label fade-up" data-i18n="about.label">About</p>
-        <h2 class="about-headline font-display fade-up" data-i18n="about.heading">Software Engineering student focused on building useful digital experiences.</h2>
-        <div class="about-prose">
-          <p class="fade-up" data-i18n="about.p1">I have a strong passion for Software Engineering and Full-Stack Web Development. At SMK Taruna Bhakti, I build my skills through self-learning, projects, and bootcamps.</p>
-          <p class="fade-up" data-i18n="about.p2">Beyond technology, I enjoy continuous learning and actively participate in futsal, which has strengthened my teamwork, discipline, leadership, and communication.</p>
-          <p class="fade-up" data-i18n="about.p3">My goal is to become a Software Engineer and build innovative, impactful, user-focused digital solutions.</p>
+        <h2 class="about-headline font-display fade-up" data-i18n="about.heading">Software Engineering student building useful digital experiences.</h2>
+        <p class="about-intro-text fade-up" data-i18n="about.intro">Software Engineering student at SMK Taruna Bhakti.</p>
+        <div class="about-blocks">
+          <div class="about-block fade-up">
+            <p class="about-block-meta"><span class="about-block-num">01</span><span>Background</span></p>
+            <p class="about-block-text" data-i18n="about.b1">I have a strong passion for Software Engineering and Full-Stack Web Development. I keep developing my skills through self-learning, hands-on projects, and bootcamp programs.</p>
+          </div>
+          <div class="about-block fade-up">
+            <p class="about-block-meta"><span class="about-block-num">02</span><span>Beyond code</span></p>
+            <p class="about-block-text" data-i18n="about.b2">Beyond technology, I actively play futsal. It has helped me develop teamwork, discipline, leadership, and communication.</p>
+          </div>
+          <div class="about-block fade-up">
+            <p class="about-block-meta"><span class="about-block-num">03</span><span>Direction</span></p>
+            <p class="about-block-text" data-i18n="about.b3">I want to grow as a Software Engineer and build innovative, impactful, user-focused digital solutions.</p>
+          </div>
         </div>
       </div>
 
       <aside class="about-side fade-up" data-i18n-aria="about.side_profile" aria-label="Profile">
         <p class="about-side-title" data-i18n="about.side_profile">Profile</p>
         <dl class="about-snapshot">
-          <div class="about-snap-item">
-            <dt data-i18n="about.meta_based">Based in</dt>
-            <dd>Indonesia</dd>
-          </div>
           <div class="about-snap-item">
             <dt data-i18n="about.info_edu">Education</dt>
             <dd>
@@ -258,9 +264,15 @@
               <span class="about-snap-sub">UI/UX Design</span>
             </dd>
           </div>
+          <div class="about-snap-item">
+            <dt data-i18n="about.career">Career direction</dt>
+            <dd>
+              <span data-i18n="about.career_val">Software Engineer</span>
+            </dd>
+          </div>
         </dl>
         <div class="about-side-connect">
-          <p class="about-side-title" data-i18n="about.connect">Let's connect</p>
+          <p class="about-side-title" data-i18n="about.connect">Let's Connect</p>
           <ul class="about-links">
             <li>
               <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener"
