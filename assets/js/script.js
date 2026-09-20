@@ -27,7 +27,7 @@ const translations = {
 
     'about.label': 'About',
     'about.heading': 'Software Engineering student focused on building useful digital experiences.',
-    'about.p1': 'I have a strong passion for Software Engineering and Full-Stack Web Development. As a Software Engineering student at SMK Taruna Bhakti, I develop my skills through self-learning, hands-on projects, and bootcamp programs.',
+    'about.p1': 'I have a strong passion for Software Engineering and Full-Stack Web Development. At SMK Taruna Bhakti, I build my skills through self-learning, hands-on projects, and bootcamp programs.',
     'about.p2': 'Beyond technology, I enjoy continuous learning and actively participate in futsal, which has strengthened my teamwork, discipline, leadership, and communication.',
     'about.p3': 'My goal is to become a Software Engineer and build innovative, impactful, user-focused digital solutions.',
     'about.meta_based': 'Based in',
