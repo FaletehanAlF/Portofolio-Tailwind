@@ -134,23 +134,23 @@
 
   <main id="main">
   <!-- ============================================================
-     HERO — two-column editorial composition (homepage only)
-     Left: intro → role → support → CTA → quiet meta.
-     Right: portrait owns its own column, never overlaps the headline.
+     HERO — stacked editorial composition (homepage only)
+     greeting → constrained stacked title → indented statement/CTA
+     beside an offset portrait anchor. Role, photo, statement, CTA.
   ============================================================ -->
-  <section id="home" class="hero-editorial min-h-screen flex items-center overflow-hidden">
+  <section id="home" class="hero-editorial overflow-hidden">
     <div class="mx-auto w-full px-5 hero-inner">
       <p class="hero-intro fade-up">
         <span data-i18n="hero.intro">Hello, I'm Faletehan Al Farabi</span>
       </p>
 
-      <h1 class="hero-title font-display fade-up">
-        <span class="hero-title-main"><span data-i18n="hero.role_1">Software Engineering Student</span></span>
-        <span class="hero-title-sub"><span data-i18n="hero.role_2">Full-Stack Web Developer</span></span>
-      </h1>
+      <div class="hero-compo">
+        <h1 class="hero-title font-display fade-up">
+          <span class="hero-role-main"><span data-i18n="hero.role_1">Software Engineering Student</span></span>
+          <span class="hero-role-sub"><span data-i18n="hero.role_2">Full-Stack Web Developer</span></span>
+        </h1>
 
-      <div class="hero-grid">
-        <div class="hero-copy">
+        <div class="hero-body">
           <p class="hero-desc fade-up">
             <span data-i18n="hero.desc">Focused on building useful, user-focused digital experiences.</span>
           </p>
@@ -172,23 +172,6 @@
               alt="Faletehan Al Farabi — Software Engineering Student and Full-Stack Web Developer"
               class="hero-img" fetchpriority="high" decoding="async" />
           </figure>
-        </div>
-
-        <div class="hero-foot fade-up">
-          <div class="hero-social">
-            <a href="https://github.com/FaletehanAlF" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
-              <i data-feather="github" class="w-4 h-4"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
-              <i data-feather="linkedin" class="w-4 h-4"></i>
-            </a>
-            <a href="mailto:faletehanalfarabi09@gmail.com" class="social-icon" aria-label="Email">
-              <i data-feather="mail" class="w-4 h-4"></i>
-            </a>
-          </div>
-          <p class="hero-avail font-meta">
-            <span data-i18n="hero.availability">Based in Indonesia — open to junior roles &amp; freelance</span>
-          </p>
         </div>
       </div>
     </div>
