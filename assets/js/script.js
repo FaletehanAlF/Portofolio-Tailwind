@@ -116,7 +116,7 @@ const translations = {
 
     'about.label': 'Tentang',
     'about.heading': 'Siswa Rekayasa Perangkat Lunak yang fokus membangun pengalaman digital yang bermanfaat.',
-    'about.p1': 'Saya memiliki minat besar pada Software Engineering dan Full-Stack Web Development. Sebagai siswa Rekayasa Perangkat Lunak di SMK Taruna Bhakti, saya mengembangkan keterampilan melalui belajar mandiri, proyek langsung, dan program bootcamp.',
+    'about.p1': 'Saya memiliki minat besar pada Software Engineering dan Full-Stack Web Development. Di SMK Taruna Bhakti, saya mengasah keterampilan melalui belajar mandiri, proyek langsung, dan program bootcamp.',
     'about.p2': 'Di luar teknologi, saya senang terus belajar dan aktif bermain futsal, yang mengasah kerja sama tim, kedisiplinan, kepemimpinan, dan komunikasi saya.',
     'about.p3': 'Tujuan saya adalah menjadi Software Engineer dan membangun solusi digital yang inovatif, berdampak, dan berfokus pada pengguna.',
     'about.meta_based': 'Berdomisili di',
@@ -128,7 +128,7 @@ const translations = {
     'about.info_edu': 'Pendidikan',
     'about.info_focus': 'Fokus',
     'about.edu_val': 'Rekayasa Perangkat Lunak',
-    'about.focus_val': 'Pengembangan Web & Desain UI/UX',
+    'about.focus_val': 'Full-Stack Web Development',
 
     'stat.projects': 'Proyek Selesai',
     'stat.certs': 'Sertifikat',
