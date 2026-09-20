@@ -134,87 +134,71 @@
 
   <main id="main">
   <!-- ============================================================
-     HERO SECTION
-============================================================ -->
-  <section id="home" class="min-h-screen flex items-center pt-24 overflow-hidden">
-    <div class="max-w-6xl mx-auto px-5 w-full py-12 sm:py-16">
-      <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8">
+     HERO SECTION — editorial role typography + portrait composition
+     Hierarchy: (1) Role → (2) Portrait → (3) Intro/name → (4) Support → (5) CTA
+  ============================================================ -->
+  <section id="home" class="hero-editorial min-h-screen flex items-center overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 w-full hero-inner">
+      <!-- 1 — Small intro. Name stays understated, never giant. -->
+      <p class="hero-intro fade-up">
+        <span class="hero-intro-dot" aria-hidden="true"></span>
+        <span data-i18n="hero.intro">Hi, I'm Faletehan Al Farabi</span>
+      </p>
 
-        <!-- Left: Text -->
-        <div class="flex-1 max-w-xl">
+      <!-- 2 — Main role typography (focal point). Solid + outline treatment. -->
+      <h1 class="hero-role font-display fade-up">
+        <span class="hero-line hero-line-solid"><span data-i18n="hero.role_1">Software Engineering Student</span></span>
+        <span class="hero-line hero-line-outline"><span data-i18n="hero.role_2">&amp; Full-Stack Web Developer</span></span>
+      </h1>
 
-          <!-- Heading - Split Text -->
-          <h1 class="font-display hero-name font-bold tracking-tight mb-3"
-            style="line-height:1.08; color:var(--color-text);">
-            <span data-i18n="hero.greeting" id="split-greeting" class="font-meta block text-[13px] sm:text-sm font-medium mb-2" style="letter-spacing:0.04em; color:var(--color-text-muted);">Hi, my name is</span>
-            <span class="block mt-1" style="color:var(--color-accent);">
-              <span id="split-name">Faletehan Al Farabi</span>
-            </span>
-          </h1>
-
-          <!-- Subheading -->
-          <p class="text-lg font-semibold mb-3 fade-up" style="color:var(--color-text-muted);">
-            <span data-i18n="hero.role">Software Engineering Student · Full-Stack Web Developer</span>
-          </p>
-
-          <!-- Description -->
-          <p class="text-base leading-relaxed mb-8 fade-up" style="color:var(--color-text-muted); max-width:420px;">
+      <div class="hero-body">
+        <!-- Supporting copy + CTA (left, restrained) -->
+        <div class="hero-copy">
+          <p class="hero-desc fade-up">
             <span data-i18n="hero.desc">Focused on building useful, user-focused digital experiences.</span>
           </p>
 
-          <!-- Buttons -->
-          <div class="flex flex-wrap gap-3 mb-8 fade-up">
+          <div class="hero-ctas fade-up">
             <a href="#portfolio" class="btn-primary">
               <i data-feather="arrow-right" class="w-4 h-4"></i>
-              <span data-i18n="hero.btn_work">View my work</span>
+              <span data-i18n="hero.btn_work">View Projects</span>
             </a>
             <a href="#contact" class="btn-secondary" aria-label="Contact">
               <i data-feather="arrow-up-right" class="w-4 h-4"></i>
-              <span data-i18n="hero.btn_contact">Contact me</span>
+              <span data-i18n="hero.btn_contact">Let's Connect</span>
             </a>
           </div>
 
-          <!-- Social Links -->
-          <div class="flex gap-2 fade-up">
-            <a href="https://github.com/FaletehanAlF" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
-              <i data-feather="github" class="w-4 h-4"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
-              <i data-feather="linkedin" class="w-4 h-4"></i>
-            </a>
-            <a href="https://www.instagram.com/faalen_portofolio/?hl=en" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
-              <i data-feather="instagram" class="w-4 h-4"></i>
-            </a>
-            <a href="mailto:faletehanalfarabi09@gmail.com" class="social-icon" aria-label="Email">
-              <i data-feather="mail" class="w-4 h-4"></i>
-            </a>
-          </div>
-
-          <!-- Availability: mono metadata, recruiter scan -->
-          <p class="font-meta text-[11px] mt-6 flex items-center gap-2 fade-up"
-            style="color:var(--color-text-muted); letter-spacing:0.06em;">
-            <span class="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#16a34a;"
-              aria-hidden="true"></span>
-            <span data-i18n="hero.availability">Based in Indonesia — open to junior roles &amp; freelance</span>
-          </p>
-
-        </div>
-
-        <!-- Right: Photo Card with Tilt (offset for asymmetric composition) -->
-        <div class="flex-shrink-0 relative lg:-mt-6 lg:ml-4" id="tilt-wrapper">
-          <div class="relative" style="perspective: 900px;">
-            <div class="photo-card-inner" id="photo-card">
-              <div class="relative w-64 h-72 sm:w-72 sm:h-80 rounded-2xl overflow-hidden photo-soft"
-                style="border: 1px solid var(--color-border);">
-                <img src="assets/image/Me.jpg" alt="Faletehan - Fullstack Developer"
-                  class="w-full h-full object-cover" />
-              </div>
+          <div class="hero-foot fade-up">
+            <div class="hero-social">
+              <a href="https://github.com/FaletehanAlF" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
+                <i data-feather="github" class="w-4 h-4"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/faletehan-al-farabi-/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+                <i data-feather="linkedin" class="w-4 h-4"></i>
+              </a>
+              <a href="https://www.instagram.com/faalen_portofolio/?hl=en" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                <i data-feather="instagram" class="w-4 h-4"></i>
+              </a>
+              <a href="mailto:faletehanalfarabi09@gmail.com" class="social-icon" aria-label="Email">
+                <i data-feather="mail" class="w-4 h-4"></i>
+              </a>
             </div>
+            <p class="hero-avail font-meta">
+              <span class="hero-avail-dot" aria-hidden="true"></span>
+              <span data-i18n="hero.availability">Based in Indonesia — open to junior roles &amp; freelance</span>
+            </p>
           </div>
-          <p class="font-meta text-[11px] mt-3 text-center" style="color:var(--color-text-muted); letter-spacing:0.06em;">
-            SMK Taruna Bhakti — RPL</p>
         </div>
 
+        <!-- Portrait: existing asset only, overlaps typography on desktop -->
+        <div class="hero-visual fade-up">
+          <figure class="hero-figure">
+            <img src="assets/image/Me.jpg"
+              alt="Faletehan Al Farabi — Software Engineering Student and Full-Stack Web Developer"
+              class="hero-img" fetchpriority="high" decoding="async" />
+          </figure>
+        </div>
       </div>
     </div>
   </section>

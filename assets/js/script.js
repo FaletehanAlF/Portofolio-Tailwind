@@ -19,11 +19,14 @@ const translations = {
     'nav.contact': 'Contact',
 
     'hero.greeting': 'Hi, my name is',
+    'hero.intro': "Hi, I'm Faletehan Al Farabi",
     'hero.role': 'Software Engineering Student · Full-Stack Web Developer',
+    'hero.role_1': 'Software Engineering Student',
+    'hero.role_2': '& Full-Stack Web Developer',
     'hero.desc': 'Focused on building useful, user-focused digital experiences.',
     'hero.availability': 'Based in Indonesia — open to junior roles & freelance',
-    'hero.btn_work': 'View my work',
-    'hero.btn_contact': 'Contact me',
+    'hero.btn_work': 'View Projects',
+    'hero.btn_contact': "Let's Connect",
 
     'about.label': 'About',
     'about.heading': 'Software Engineering student building useful digital experiences.',
@@ -110,11 +113,14 @@ const translations = {
     'nav.contact': 'Kontak',
 
     'hero.greeting': 'Halo, nama saya',
+    'hero.intro': 'Halo, saya Faletehan Al Farabi',
     'hero.role': 'Software Engineering Student · Full-Stack Web Developer',
+    'hero.role_1': 'Software Engineering Student',
+    'hero.role_2': '& Full-Stack Web Developer',
     'hero.desc': 'Berfokus membangun pengalaman digital yang bermanfaat dan berorientasi pada pengguna.',
     'hero.availability': 'Berbasis di Indonesia — terbuka untuk peran junior & freelance',
-    'hero.btn_work': 'Lihat proyek',
-    'hero.btn_contact': 'Hubungi saya',
+    'hero.btn_work': 'Lihat Proyek',
+    'hero.btn_contact': 'Mari Terhubung',
 
     'about.label': 'Tentang',
     'about.heading': 'Siswa Rekayasa Perangkat Lunak yang membangun pengalaman digital yang bermanfaat.',
