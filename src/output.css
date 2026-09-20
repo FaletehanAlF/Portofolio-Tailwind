@@ -4598,7 +4598,7 @@
       margin-bottom: 1.25rem;
     }
     .hero-role {
-      font-size: clamp(3.4rem, 1.6rem + 4.8vw, 5.25rem);
+      font-size: clamp(3.2rem, 1.5rem + 4.2vw, 4.5rem);
       letter-spacing: -0.035em;
     }
     .hero-line-outline {
