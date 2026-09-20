@@ -2400,6 +2400,9 @@
     color: var(--color-text);
     background-color: var(--color-bg-secondary);
   }
+  .hero-name {
+    font-size: clamp(2.25rem, 1.5rem + 3.5vw, 3.5rem);
+  }
   .photo-card-inner {
     transform-style: preserve-3d;
     will-change: transform;
